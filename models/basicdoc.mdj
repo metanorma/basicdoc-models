@@ -1,7 +1,7 @@
 {
 	"_type": "Project",
 	"_id": "AAAAAAFElm5XMFNoGY0=",
-	"name": "Standard Document Model",
+	"name": "BasicDoc Model",
 	"ownedElements": [
 		{
 			"_type": "UMLModel",
@@ -9,7 +9,7 @@
 			"_parent": {
 				"$ref": "AAAAAAFElm5XMFNoGY0="
 			},
-			"name": "Standard Document",
+			"name": "BasicDoc",
 			"ownedElements": [
 				{
 					"_type": "UMLClassDiagram",
@@ -113,7 +113,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -519,7 +519,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -838,7 +838,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1331,7 +1331,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1905,7 +1905,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2253,7 +2253,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2572,7 +2572,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -3425,7 +3425,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -4365,7 +4365,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -4653,7 +4653,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -4941,7 +4941,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -5229,7 +5229,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -6089,7 +6089,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -6437,7 +6437,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -7042,7 +7042,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -7361,7 +7361,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -7680,7 +7680,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -7772,7 +7772,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+listItem: Definition[0..*]",
+											"text": "+listItem[0..*]",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -8143,7 +8143,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -8750,7 +8750,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -10055,7 +10055,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -10517,7 +10517,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -10836,7 +10836,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -11493,7 +11493,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -11781,7 +11781,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -12069,7 +12069,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -12952,7 +12952,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -13272,7 +13272,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -14270,7 +14270,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -14778,7 +14778,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15209,7 +15209,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15640,7 +15640,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -16125,7 +16125,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -16639,7 +16639,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -17102,7 +17102,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -17533,7 +17533,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from Standard Document)",
+											"text": "(from BasicDoc)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -18691,7 +18691,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFElm6BOFNpegQ="
 					},
-					"name": "BasicDocument",
+					"name": "BasicDoc",
 					"visible": true,
 					"defaultDiagram": false,
 					"ownedViews": [
@@ -20266,9 +20266,6 @@
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
-							"type": {
-								"$ref": "AAAAAAFhIhJVs9Ynrdg="
-							},
 							"multiplicity": "0..*",
 							"isReadOnly": false,
 							"isOrdered": false,
