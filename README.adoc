@@ -19,24 +19,28 @@ such as https://github.com/riboseinc/isodoc[IsoDoc]
 
 === BasicDocument
 
-image::images/basic-document.png[]
+image::images/png/BasicDoc__BasicDoc_1.png[]
 
 === BibData
 
-image::images/bibdata.png[]
+image::images/png/BasicDoc__BibData_4.png[]
 
 === Sections
 
-image::images/sections.png[]
+image::images/png/BasicDoc__Section_3.png[]
 
 === Blocks
 
-image::images/blocks.png[]
+image::images/png/BasicDoc__Blocks_2.png[]
 
 === Text
 
-image::images/text.png[]
+image::images/png/BasicDoc__Text_0.png[]
 
 === Data Types
 
-image::images/datatypes.png[]
+image::images/png/BasicDoc__DataTypes_5.png[]
+
+=== Change
+
+image::images/png/BasicDoc__Change_6.png[]
