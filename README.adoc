@@ -33,9 +33,17 @@ image::images/png/BasicDoc__Section_3.png[]
 
 image::images/png/BasicDoc__Blocks_2.png[]
 
-=== Text
+=== IdElements
 
-image::images/png/BasicDoc__Text_0.png[]
+image::images/png/BasicDoc__IdElements_0.png[]
+
+=== TextElements
+
+image::images/png/BasicDoc__TextElements_7.png[]
+
+=== ReferenceElements
+
+image::images/png/BasicDoc__ReferenceElements_8.png[]
 
 === Change
 
