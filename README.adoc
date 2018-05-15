@@ -1,18 +1,18 @@
-= BasicDocument Models
+= BasicDocument / SecureDoc Models
 
-BasicDocument is a family of document models that forms the basis of IsoDoc
-(via StanDoc), which is used to represent ISO Standards and similarly structured
+BasicDocument / SecureDoc is a family of document models that forms the basis of Metanorma IsoDoc
+(via Metanorma StandardDocument), which is used to represent ISO Standards and similarly structured
 standards.
 
 It is also the document model that Selagraph operates on.
 
-Bibliography UML models are located here:
-https://github.com/riboseinc/bib-models[BibModels]
+The Relaton Bibliography UML models used in these models are located here:
+https://github.com/riboseinc/bib-models[Relaton BibModels]
 
 BasicDocument itself is a document model that can serve as a transit data
 structure for document conversion, such as taking input from AsciiDoc or
 Markdown and converting them into an output format,
-such as https://github.com/riboseinc/isodoc[IsoDoc]
+such as https://github.com/riboseinc/isodoc[Metanorma IsoDoc]
 
 
 == Standard Document UML Models
@@ -37,10 +37,10 @@ image::images/png/BasicDoc__Blocks_2.png[]
 
 image::images/png/BasicDoc__Text_0.png[]
 
-=== Data Types
-
-image::images/png/BasicDoc__DataTypes_5.png[]
-
 === Change
 
 image::images/png/BasicDoc__Change_6.png[]
+
+=== Data Types
+
+image::images/png/BasicDoc__DataTypes_5.png[]
