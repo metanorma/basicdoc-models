@@ -13480,7 +13480,7 @@
 											"top": 902,
 											"width": 222.21875,
 											"height": 13,
-											"text": "+id: string",
+											"text": "+id: string[0..1]",
 											"horizontalAlignment": 0
 										},
 										{
@@ -34515,7 +34515,8 @@
 								"$ref": "AAAAAAFlUTJ4GQMrXjw="
 							},
 							"name": "id",
-							"type": "string"
+							"type": "string",
+							"multiplicity": "0..1"
 						},
 						{
 							"_type": "UMLAttribute",
