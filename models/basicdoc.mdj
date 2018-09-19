@@ -1762,8 +1762,10 @@
 							"_parent": {
 								"$ref": "AAAAAAFgkIab5d4qz4E="
 							},
-							"name": "version",
-							"type": "String",
+							"name": "draft",
+							"type": {
+								"$ref": "AAAAAAFhqxKsyE9VzVY="
+							},
 							"multiplicity": "0..*"
 						}
 					]
@@ -2195,7 +2197,7 @@
 											"top": 292,
 											"width": 181.04150390625,
 											"height": 13,
-											"text": "+version: String[0..*]",
+											"text": "+draft: String[0..*]",
 											"horizontalAlignment": 0
 										}
 									],
