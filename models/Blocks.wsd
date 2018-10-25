@@ -1,0 +1,210 @@
+@startuml Blocks
+/'
+Diagram:        Blocks
+DateCreate:     28/07/2018
+Description:    BasicDocument / SecureDoc is a family of document models that forms the basis of Metanorma IsoDoc (via Metanorma StandardDocument), which is used to represent ISO Standards and similarly structured standards.
+                It is also the document model that Selagraph operates on.
+                The Relaton Bibliography UML models used in these models are located here: Relaton BibModels.
+                BasicDocument itself is a document model that can serve as a transit data structure for document conversion, such as taking input from AsciiDoc or Markdown and converting them into an output format, such as Metanorma IsoDoc
+
+Hystory of changes:
+> 22/08/2018
+    - diagram configuration updated
+    - update of the classes "FigureBlock", "SourcecodeBlock", "FormulaBlock", "TableBlock"
+    - new classes are added "Subfigure", "ParagraphsBlock", "List", "ListItem", "UnorderedList", "OrderedList", "DefinitionList", "Definition"
+    - new notes are added for "Subfigure"
+    - new enumeration are added "OrderedListType"
+    - relations between some of the elements in the diagram has been updated
+'/
+
+'******* CONFIGURATION ************************************************
+!include style.uml.inc
+
+
+'******* CLASS DEFINITION *********************************************
+class BasicBlock {
+    +id: String
+    +notes: ParagraphBlock[0..*]
+    +contribMetadata: ContributionElementMetadata[0..*]
+}
+
+class FigureBlock{
+    +source: String[0..1]
+    +name: LocalizedString[0..1]
+    +image: Image[0..1]
+    +figure: Subfigure[0..1]
+    +definitions: DefinitionList[0..1]
+    +footnotes: ReferenceToldWithParagraphElement[0..*]
+}
+
+class Subfigure{
+
+}
+
+class SourcecodeBlock{
+    +name: String[0..1]
+    +content: String
+    +callouts: ReferenceToldElement[0..*]
+    +calloutAnnotations[0..*]: ParagraphBlock[0..*]
+}
+
+class FormulaBlock{
+    +stem: StemElement
+    +definitions: DefinitionList[0..1]
+}
+
+class ExampleBlock{
+    +formula: StemElement[0..*]
+    +lists: UnorderedList[0..*]
+    +quotes: QuoteBlock[0..*]
+    +sourcecode: SourcecodeBlock[0..*]
+}
+
+class ParagraphBlock{
+    +contents: BasicElement[0..*]
+    +alignment: TextAlignment[0..1]
+}
+
+class ParagraphsBlock{
+    +contents: ParagraphWithFootnote[0..*]
+}
+
+class ParagraphWithFootnote{
+    +footnotes: ReferenceToldWithParagraphElement[0..*]
+}
+
+class QuoteBlock{
+    +source: ReferenceToCitationElement[0..1]
+    +author: String | <<Bibliography>> Contributor[0..1]
+}
+
+class TableBlock{
+    +name: String[0..1]
+    +head: TextTableRow[0..1]
+    +body: TextTableRow[1..*]
+    +foot: TextTableRow[0..1]
+    +definitions: DefinitionList[0..1]
+}
+
+class ReviewBlock{
+    +reviewer: String[0..1]
+    +date: DateTime[0..1]
+    +appliesFrom: IdElement
+    +appliesTo: IdElement[0..1]
+}
+
+class AdmonitionBlock{
+    +type: AdmonitionType
+}
+
+class TextTableRow{
+    +td: TableCell[0..*]
+    +th: TableCell[0..*]
+}
+
+class TableCell{
+    +colspan: Integer[0..1]
+    +rowspan: Integer[0..1]
+    +align: TextAlignmnent[0..1]
+}
+
+class TextTableCell{
+    +content: TextElement[0..*]
+}
+
+class ParagraphTableCell{
+    +content: ParagraphWithFootnote[0..*]
+}
+
+class List{
+    +listitem: ListItem[0..*]
+}
+
+class Listitem{
+    +id: string[0..1]
+    +content: ParagraphWithFootnote[0..*]
+}
+
+class UnorderedList{
+
+}
+
+class OrderedList{
+    +type: OrderedListType
+}
+
+class DefinitionList{
+    +listitem: Definition[0..*]
+}
+
+class Definition{
+    +item: TextElement[0..*]
+    +definition: ParagraphWithFootnote[0..*]
+}
+
+enum TextAlignment <<enumeration>>{
+    left
+    center
+    right
+    justified
+}
+
+enum AdmonitionType <<enumeration>>{
+    warning
+    note
+    tip
+    important
+    caution
+}
+
+enum OrderedListType <<enumeration>>{
+    roman
+    alphabet
+    arabic
+    roman_upper
+    alphabet_upper
+}
+
+
+'******* NOTES *******************************************************
+note bottom of QuoteBlock : QuoteBlock: author is properly derived from\nthe Citation, and is redundant here: it is for\ndisplay only
+note left of Subfigure : Subfigures and images\nonly occur\nwithin figures
+
+'******* CLASS RELATIONS *********************************************
+FigureBlock --|> BasicBlock
+SourcecodeBlock --|> BasicBlock
+FormulaBlock --|> BasicBlock
+ExampleBlock --|> BasicBlock
+
+FigureBlock <|-- Subfigure
+
+BasicBlock <|-- List
+BasicBlock <|-- ParagraphBlock
+BasicBlock <|-- TableBlock
+BasicBlock <|-- ParagraphsBlock
+
+List <-left- Listitem
+List <|-- UnorderedList
+List <|-- DefinitionList
+
+DefinitionList <-- Definition
+
+UnorderedList <|-- OrderedList
+
+OrderedList <-- OrderedListType
+
+ParagraphBlock <|-- ParagraphWithFootnote
+ParagraphBlock <-- TextAlignment
+
+ParagraphsBlock <|-- QuoteBlock
+ParagraphsBlock <|-- ReviewBlock
+ParagraphsBlock <|-- AdmonitionBlock
+
+AdmonitionBlock <-- AdmonitionType
+
+TableBlock <-- TextTableRow
+TextTableRow <-- TableCell
+TableCell <|-- TextTableCell
+TableCell <|-- ParagraphTableCell
+
+@enduml

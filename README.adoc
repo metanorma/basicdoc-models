@@ -19,36 +19,36 @@ such as https://github.com/riboseinc/isodoc[Metanorma IsoDoc]
 
 === BasicDocument
 
-image::images/png/BasicDoc__BasicDoc_1.png[]
+image::images/BasicDocument.png[]
 
 === BibData
 
-image::images/png/BasicDoc__BibData_4.png[]
+image::images/BibData.png[]
 
 === Sections
 
-image::images/png/BasicDoc__Section_3.png[]
+image::images/Sections.png[]
 
 === Blocks
 
-image::images/png/BasicDoc__Blocks_2.png[]
+image::images/Blocks.png[]
 
 === IdElements
 
-image::images/png/BasicDoc__IdElements_0.png[]
+image::images/IdElements.png[]
 
 === TextElements
 
-image::images/png/BasicDoc__TextElements_7.png[]
+image::images/TextElements.png[]
 
 === ReferenceElements
 
-image::images/png/BasicDoc__ReferenceElements_8.png[]
+image::images/ReferenceElements.png[]
 
 === Change
 
-image::images/png/BasicDoc__Change_6.png[]
+image::images/Change.png[]
 
 === Data Types
 
-image::images/png/BasicDoc__DataTypes_5.png[]
+image::images/DataTypes.png[]
