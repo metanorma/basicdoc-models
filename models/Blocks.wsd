@@ -7,7 +7,7 @@ Description:    BasicDocument / SecureDoc is a family of document models that fo
                 The Relaton Bibliography UML models used in these models are located here: Relaton BibModels.
                 BasicDocument itself is a document model that can serve as a transit data structure for document conversion, such as taking input from AsciiDoc or Markdown and converting them into an output format, such as Metanorma IsoDoc
 
-Hystory of changes:
+History of changes:
 > 22/08/2018
     - diagram configuration updated
     - update of the classes "FigureBlock", "SourcecodeBlock", "FormulaBlock", "TableBlock"
@@ -15,6 +15,8 @@ Hystory of changes:
     - new notes are added for "Subfigure"
     - new enumeration are added "OrderedListType"
     - relations between some of the elements in the diagram has been updated
+> 08/12/2018
+    - added LiteralBlock
 '/
 
 '******* CONFIGURATION ************************************************
@@ -46,6 +48,11 @@ class SourcecodeBlock{
     +content: String
     +callouts: ReferenceToldElement[0..*]
     +calloutAnnotations[0..*]: ParagraphBlock[0..*]
+}
+
+class LiteralBlock{
+    +name: String[0..1]
+    +content: String
 }
 
 class FormulaBlock{
@@ -172,6 +179,7 @@ note left of Subfigure : Subfigures and images\nonly occur\nwithin figures
 
 '******* CLASS RELATIONS *********************************************
 FigureBlock --|> BasicBlock
+LiteralBlock --|> BasicBlock
 SourcecodeBlock --|> BasicBlock
 FormulaBlock --|> BasicBlock
 ExampleBlock --|> BasicBlock

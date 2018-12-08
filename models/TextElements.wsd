@@ -12,6 +12,8 @@ Hystory of changes:
     - diagram configuration updated
     - new classes are added "MonospaceElement"
     - some relations between elements are updated
+> 08/12/2018
+    - added keyword
 '/
 
 '******* CONFIGURATION ************************************************
@@ -39,6 +41,10 @@ class HorizontalRuleElement{
 }
 
 class MonospaceElement{
+
+}
+
+class KeywordElement{
 
 }
 
@@ -101,6 +107,7 @@ BasicElement <|-left- LineBreakElement
 BasicElement <|-right- HorizontalRuleElement
 BasicElement <|-down- TextElement
 
+TextElement <|-- KeywordElement
 TextElement <|-- MonospaceElement
 TextElement <|-- EmphasisElement
 TextElement <|-- SubscriptElement
