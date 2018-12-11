@@ -11,6 +11,8 @@ Hystory of changes:
 > 22/08/2018
     - diagram configuration updated
     - update of the class "VersionInfo"
+> 11/12/2018
+    - remove VersionInfo, appears in BibData instead
 '/
 
 '******* CONFIGURATION ************************************************
@@ -20,19 +22,10 @@ Hystory of changes:
 class BasicDocument {
    +identifier: UniqueIdentifier
    +bibdata: BibData
-   +version: VersionInfo[0..1]
    +sections: BasicSection[1..*]
    +integrityValue: IntegrityValue[0..*]
    }
 
-class VersionInfo{
-    +edition: Integer[0..1]
-    +revisionDate: DateTime[0..1]
-    +draft: String[0..*]
-}
-
-
 '******* CLASS RELATIONS *********************************************
-BasicDocument "0..1" *-- VersionInfo
 
 @enduml
