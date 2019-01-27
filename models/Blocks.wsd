@@ -17,6 +17,8 @@ History of changes:
     - relations between some of the elements in the diagram has been updated
 > 08/12/2018
     - added LiteralBlock
+> 27/01/2019
+    - added sourcecode/lang
 '/
 
 '******* CONFIGURATION ************************************************
@@ -45,6 +47,7 @@ class Subfigure{
 
 class SourcecodeBlock{
     +name: String[0..1]
+    +lang: String[0..1]
     +content: String
     +callouts: ReferenceToldElement[0..*]
     +calloutAnnotations[0..*]: ParagraphBlock[0..*]
