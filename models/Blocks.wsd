@@ -19,6 +19,8 @@ History of changes:
     - added LiteralBlock
 > 27/01/2019
     - added sourcecode/lang
+> 22/02/2019
+    - added admonition/name
 '/
 
 '******* CONFIGURATION ************************************************
@@ -105,6 +107,7 @@ class ReviewBlock{
 
 class AdmonitionBlock{
     +type: AdmonitionType
+    +name: String[0..1]
 }
 
 class TextTableRow{
