@@ -7,12 +7,12 @@ standards.
 It is also the document model that Selagraph operates on.
 
 The Relaton Bibliography UML models used in these models are located here:
-https://github.com/riboseinc/bib-models[Relaton BibModels]
+https://github.com/metanorma/relaton-models[Relaton BibModels]
 
 BasicDocument itself is a document model that can serve as a transit data
 structure for document conversion, such as taking input from AsciiDoc or
 Markdown and converting them into an output format,
-such as https://github.com/riboseinc/isodoc[Metanorma IsoDoc]
+such as https://github.com/metanorma/isodoc[Metanorma IsoDoc]
 
 
 == Standard Document UML Models
