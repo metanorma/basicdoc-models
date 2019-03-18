@@ -21,6 +21,8 @@ History of changes:
     - added sourcecode/lang
 > 22/02/2019
     - added admonition/name
+> 19/03/2019
+    - added sourcecode/filename
 '/
 
 '******* CONFIGURATION ************************************************
@@ -49,6 +51,7 @@ class Subfigure{
 
 class SourcecodeBlock{
     +name: String[0..1]
+    +filename: String[0..1]
     +lang: String[0..1]
     +content: String
     +callouts: ReferenceToldElement[0..*]

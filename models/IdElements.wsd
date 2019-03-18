@@ -17,6 +17,8 @@ Hystory of changes:
     - some of the relations between the elements are updated
 > 18/01/2019
     - alt attribute on images
+> 19/03/2019
+    - added image/filename
 '/
 
 '******* CONFIGURATION ************************************************
@@ -33,6 +35,7 @@ class IdElement{
 
 class Image{
     +source: Uri
+    +filename[0..1]: String
     +imageType: ImageType
     +height[0..1]: Integer
     +width[0..1]: Integer
@@ -102,6 +105,7 @@ enum OrderedListType <<enumeration>>{
 note right of IdElement : The `IdElement` itself acts as a reference point,\nsuch as in a SourcecodeBlock for\ncallout references (the IdElement is the location),\nand for delimiting ReviewComment start/end places.
 note left of Image : We also allow the\nvalue "auto" for\nheight and width
 'note bottom of Subfigure : Subfigures and images\nonly occur within figures
+'note right of Image: "filename" is where the image file may be extracted to\nin downstream processing,\nas distinct from the image source.
 
 '******* CLASS RELATIONS *********************************************
 BasicElement <|-- IdElement
