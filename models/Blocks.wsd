@@ -23,6 +23,8 @@ History of changes:
     - added admonition/name
 > 19/03/2019
     - added sourcecode/filename
+> 04/05/2019
+    - added table/@alt
 '/
 
 '******* CONFIGURATION ************************************************
@@ -95,6 +97,7 @@ class QuoteBlock{
 
 class TableBlock{
     +name: String[0..1]
+    +alt: String[0..1]
     +head: TextTableRow[0..1]
     +body: TextTableRow[1..*]
     +foot: TextTableRow[0..1]
