@@ -10,6 +10,8 @@ Description:    BasicDocument / SecureDoc is a family of document models that fo
 Hystory of changes:
 > 22/08/2018
     - diagram configuration updated
+> 09/05/2019
+    - BibData/ext
 '/
 
 '******* CONFIGURATION ************************************************
@@ -20,9 +22,16 @@ class BibliographicItem << Bibliography >> {
 
 }
 
-class BibData{
-    +title: FormattedString[1..*]
-    +copyright: CopyrightAssociation[1..*]
+class BibData {
+    +ext: BibDataExtensionType
+}
+
+class BibDataExtensionType {
+    +doctype: DocumentType[0..*]
+}
+
+enum DocumentType <<enmeration>> {
+    document
 }
 
 
@@ -32,5 +41,7 @@ note bottom of BibData : BibData differs from\nBibliographicItem by making `titl
 
 '******* CLASS RELATIONS *********************************************
 BibliographicItem <|-- BibData
+BibData <-- BibDataExtensionType
+BibDataExtensionType <-- DocumentType
 
 @enduml
