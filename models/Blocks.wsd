@@ -27,6 +27,8 @@ History of changes:
     - added table/@alt
 > 20/05/2019
     - added unnumbered attributes
+> 03/06/2019
+    - cardinality of subfigures
 '/
 
 '******* CONFIGURATION ************************************************
@@ -45,7 +47,7 @@ class FigureBlock{
     +unnumbered: Boolean[0..1]
     +name: LocalizedString[0..1]
     +image: Image[0..1]
-    +figure: Subfigure[0..1]
+    +figure: Subfigure[0..*]
     +definitions: DefinitionList[0..1]
     +footnotes: ReferenceToldWithParagraphElement[0..*]
 }
