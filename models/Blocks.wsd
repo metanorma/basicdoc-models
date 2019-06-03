@@ -29,6 +29,7 @@ History of changes:
     - added unnumbered attributes
 > 03/06/2019
     - cardinality of subfigures
+    - paragraphs within examples
 '/
 
 '******* CONFIGURATION ************************************************
@@ -83,6 +84,7 @@ class ExampleBlock{
     +lists: UnorderedList[0..*]
     +quotes: QuoteBlock[0..*]
     +sourcecode: SourcecodeBlock[0..*]
+    +paragraphs: ParagraphWithFootnote[0..*]
 }
 
 class ParagraphBlock{
