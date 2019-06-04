@@ -35,18 +35,6 @@ class TextElementType{
     +elements: TextElement[0..*]
 }
 
-class PageBreakElement{
-
-}
-
-class LineBreakElement{
-
-}
-
-class HorizontalRuleElement{
-
-}
-
 class MonospaceElement{
 
 }
@@ -102,16 +90,10 @@ enum StemType <<enumeration>>{
 }
 
 
-
-
 '******* NOTES *******************************************************
-note "* `LinkBreakElement` is `<br>`\n* `HorizontalRuleElement` is `<hr>`\n* `PageBreakElement` only works in page layout\n(e.g., PDF, Word), not in flow layouts (e.g., HTML)" as N1
 
 
 '******* CLASS RELATIONS *********************************************
-BasicElement <|-up- PageBreakElement
-BasicElement <|-left- LineBreakElement
-BasicElement <|-right- HorizontalRuleElement
 BasicElement <|-down- TextElement
 
 TextElement <|-- KeywordElement

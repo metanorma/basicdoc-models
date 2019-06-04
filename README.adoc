@@ -25,6 +25,10 @@ image::images/BasicDocument.png[]
 
 image::images/BibData.png[]
 
+=== ContribMetadata
+
+image::images/ContribMetadata.png[]
+
 === Sections
 
 image::images/Sections.png[]
@@ -33,6 +37,26 @@ image::images/Sections.png[]
 
 image::images/Blocks.png[]
 
+=== Paragraphs
+
+image::images/Paragraphs.png[]
+
+=== Multi-Paragraphs
+
+image::images/MultiParagraphs.png[]
+
+=== Lists
+
+image::images/Lists.png[]
+
+=== Table
+
+image::images/Tables.png[]
+
+=== Ancillary Blocks
+
+image::images/AncillaryBlocks.png[]
+
 === IdElements
 
 image::images/IdElements.png[]
@@ -40,6 +64,10 @@ image::images/IdElements.png[]
 === TextElements
 
 image::images/TextElements.png[]
+
+=== EmptyElements
+
+image::images/EmptyElements.png[]
 
 === ReferenceElements
 

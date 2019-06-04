@@ -1,0 +1,47 @@
+@startuml MultiParagraphs
+
+'******* CONFIGURATION ************************************************
+!include style.uml.inc
+
+
+'******* CLASS DEFINITION *********************************************
+class ParagraphsBlock{
+}
+
+class QuoteBlock{
+    +source: ReferenceToCitationElement[0..1]
+    +author: String | <<Bibliography>> Contributor[0..1]
+}
+
+class ReviewBlock{
+    +reviewer: String[0..1]
+    +date: DateTime[0..1]
+    +appliesFrom: IdElement
+    +appliesTo: IdElement[0..1]
+}
+
+class AdmonitionBlock{
+    +type: AdmonitionType
+    +name: String[0..1]
+}
+
+enum AdmonitionType <<enumeration>>{
+    warning
+    note
+    tip
+    important
+    caution
+}
+
+
+'******* NOTES *******************************************************
+'note bottom of QuoteBlock : QuoteBlock: author is properly derived from\nthe Citation, and is redundant here: it is for\ndisplay only
+
+'******* CLASS RELATIONS *********************************************
+ParagraphsBlock <|-- QuoteBlock
+ParagraphsBlock <|-- ReviewBlock
+ParagraphsBlock <|-- AdmonitionBlock
+
+AdmonitionBlock <-- AdmonitionType
+
+@enduml

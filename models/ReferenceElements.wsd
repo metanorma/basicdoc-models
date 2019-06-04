@@ -32,7 +32,7 @@ class Citation <<Bibliography>>{
 
 }
 
-class ReferenceToldElement{
+class ReferenceToIdElement{
     +target: IdElement
 }
 
@@ -44,7 +44,6 @@ class ReferenceToLinkElement{
 class ReferenceToCitationElement{
     +normative: Boolean[0..1]
     +citeAs: TextElement[0..*]
-
 }
 
 class ReferenceToldWithParagraphElement{
@@ -72,13 +71,13 @@ enum ReferenceFormat <<enumeration>>{
 note "* `text` is what you want to show the link as.\n(i.e., the `content` of <xx>my link text</xx>)" as N1
 note left of ReferenceToldWithParagraphElement: `ReferenceToldWithParagraphElement`\nis just a Footnote or a CalloutAnnotation\nwith the proper ReferenceFormat
 note bottom of Footnote: `Footnote` is a ReferenceToldWithParagraphElement,\nwith type understood to be footnote,\nand target eliminated since the target text identified\nis the content attribute
-note bottom of Callout: `Callout` is a ReferenceToldElement with\ntype understood to be callout,\nand with text constrained to be a TextElement
+note bottom of Callout: `Callout` is a ReferenceToIdElement with\ntype understood to be callout,\nand with text constrained to be a TextElement
 
 
 '******* CLASS RELATIONS *********************************************
 BasicElement <|-- ReferenceElement
 
-ReferenceElement <|-- ReferenceToldElement
+ReferenceElement <|-- ReferenceToIdElement
 ReferenceElement <|-- ReferenceToLinkElement
 ReferenceElement <|-- ReferenceToCitationElement
 
@@ -86,8 +85,8 @@ ReferenceElement <-- ReferenceFormat
 
 Citation <|-right- ReferenceToCitationElement
 
-ReferenceToldElement <|-- ReferenceToldWithParagraphElement
-ReferenceToldElement <|-- Callout
+ReferenceToIdElement <|-- ReferenceToldWithParagraphElement
+ReferenceToIdElement <|-- Callout
 
 ReferenceToldWithParagraphElement <|-- Footnote
 

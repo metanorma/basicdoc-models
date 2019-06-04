@@ -1,0 +1,61 @@
+@startuml Lists
+
+'******* CONFIGURATION ************************************************
+!include style.uml.inc
+
+
+'******* CLASS DEFINITION *********************************************
+class BasicBlock {
+}
+
+class List{
+    +listitem: ListItem[0..*]
+}
+
+class Listitem{
+    +id: string[0..1]
+    +content: ParagraphWithFootnote[0..*]
+}
+
+class UnorderedList{
+
+}
+
+class OrderedList{
+    +type: OrderedListType
+}
+
+class DefinitionList{
+    +listitem: Definition[0..*]
+}
+
+class Definition{
+    +item: TextElement[0..*]
+    +definition: ParagraphWithFootnote[0..*]
+}
+
+enum OrderedListType <<enumeration>>{
+    roman
+    alphabet
+    arabic
+    roman_upper
+    alphabet_upper
+}
+
+
+'******* NOTES *******************************************************
+
+'******* CLASS RELATIONS *********************************************
+BasicBlock <|-- List
+
+List <-left- Listitem
+List <|-- UnorderedList
+List <|-- DefinitionList
+
+DefinitionList <-- Definition
+
+UnorderedList <|-- OrderedList
+
+OrderedList <-- OrderedListType
+
+@enduml

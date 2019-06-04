@@ -36,7 +36,7 @@ enum DocumentType <<enmeration>> {
 
 
 '******* NOTES *******************************************************
-note bottom of BibData : BibData differs from\nBibliographicItem by making `title`\nand `copyright` mandatory
+'note bottom of BibData : BibData differs from\nBibliographicItem by making `title`\nand `copyright` mandatory
 
 
 '******* CLASS RELATIONS *********************************************

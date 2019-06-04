@@ -1,0 +1,52 @@
+@startuml ContribMetadata
+
+'******* CONFIGURATION ************************************************
+!include style.uml.inc
+
+
+'******* CLASS DEFINITION *********************************************
+class Iso10118Oid <<dataType>> {
+
+}
+
+class Iso14888Oid <<dataType>> {
+
+}
+
+class ContributionElementMetadata {
+    +dateTime: Iso8601DateTime
+    +contributor: <<Bibliography>>Contributor[0..1]
+    +integrityValue: integrityValue[0..*]
+
+}
+
+class IntregityValue {
+
+}
+
+class Hash {
+    +algorithm: Iso10118Oid
+    +value: String
+}
+
+class Signature {
+    +algorithm: Iso14888Oid
+    +publicKey: String
+    +signature: String
+
+}
+
+'******* NOTES *******************************************************
+note bottom of Iso10118Oid: Hash algorithm
+note bottom of Iso14888Oid: Signature algorithm
+
+
+'******* CLASS RELATIONS *********************************************
+ContributionElementMetadata <-- IntregityValue
+IntregityValue <|-- Hash
+IntregityValue <|-- Signature
+
+Hash -[hidden]- Iso10118Oid
+Signature -[hidden]- Iso14888Oid
+
+@enduml

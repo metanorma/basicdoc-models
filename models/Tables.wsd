@@ -1,0 +1,51 @@
+@startuml Tables
+
+'******* CONFIGURATION ************************************************
+!include style.uml.inc
+
+
+'******* CLASS DEFINITION *********************************************
+class BasicBlock {
+}
+
+class TableBlock{
+    +name: String[0..1]
+    +unnumbered: Boolean[0..1]
+    +alt: String[0..1]
+    +head: TextTableRow[0..1]
+    +body: TextTableRow[1..*]
+    +foot: TextTableRow[0..1]
+    +definitions: DefinitionList[0..1]
+}
+
+class TextTableRow{
+    +td: TableCell[0..*]
+    +th: TableCell[0..*]
+}
+
+class TableCell{
+    +colspan: Integer[0..1]
+    +rowspan: Integer[0..1]
+    +align: TextAlignmnent[0..1]
+}
+
+class TextTableCell{
+    +content: TextElement[0..*]
+}
+
+class ParagraphTableCell{
+    +content: ParagraphWithFootnote[0..*]
+}
+
+
+'******* NOTES *******************************************************
+
+'******* CLASS RELATIONS *********************************************
+BasicBlock <|-- TableBlock
+
+TableBlock <-- TextTableRow
+TextTableRow <-- TableCell
+TableCell <|-- TextTableCell
+TableCell <|-- ParagraphTableCell
+
+@enduml
