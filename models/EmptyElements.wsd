@@ -24,8 +24,8 @@ note "* `LinkBreakElement` is `<br>`\n* `HorizontalRuleElement` is `<hr>`\n* `Pa
 
 
 '******* CLASS RELATIONS *********************************************
-BasicElement <|-up- PageBreakElement
-BasicElement <|-left- LineBreakElement
-BasicElement <|-right- HorizontalRuleElement
+BasicElement <|-down- PageBreakElement
+BasicElement <|-down- LineBreakElement
+BasicElement <|-down- HorizontalRuleElement
 
 @enduml

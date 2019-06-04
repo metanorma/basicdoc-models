@@ -20,11 +20,11 @@ Hystory of changes:
 
 '******* CLASS DEFINITION *********************************************
 class BasicDocument {
-   +identifier: UniqueIdentifier
-   +bibdata: BibData
-   +sections: BasicSection[1..*]
-   +integrityValue: IntegrityValue[0..*]
-   }
+  +identifier: UniqueIdentifier
+  +bibdata: BibData
+  +sections: BasicSection[1..*]
+  +integrityValue: IntegrityValue[0..*]
+}
 
 '******* CLASS RELATIONS *********************************************
 

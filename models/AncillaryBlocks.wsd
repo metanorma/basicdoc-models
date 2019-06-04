@@ -50,12 +50,12 @@ class ExampleBlock{
 note left of Subfigure : Subfigures and images\nonly occur\nwithin figures
 
 '******* CLASS RELATIONS *********************************************
-FigureBlock --|> BasicBlock
-LiteralBlock --|> BasicBlock
-SourcecodeBlock --|> BasicBlock
-FormulaBlock --|> BasicBlock
-ExampleBlock --|> BasicBlock
+FigureBlock -up-|> BasicBlock
+LiteralBlock -up-|> BasicBlock
+SourcecodeBlock -up-|> BasicBlock
+FormulaBlock -up-|> BasicBlock
+ExampleBlock -up-|> BasicBlock
 
-FigureBlock <|-- Subfigure
+Subfigure -up-|> FigureBlock
 
 @enduml

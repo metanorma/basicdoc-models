@@ -38,9 +38,9 @@ History of changes:
 
 '******* CLASS DEFINITION *********************************************
 class BasicBlock {
-    +id: String
-    +notes: ParagraphBlock[0..*]
-    +contribMetadata: ContributionElementMetadata[0..*]
+  +id: String
+  +notes: ParagraphBlock[0..*]
+  +contribMetadata: ContributionElementMetadata[0..*]
 }
 
 '******* NOTES *******************************************************

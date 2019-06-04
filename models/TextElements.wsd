@@ -96,12 +96,12 @@ enum StemType <<enumeration>>{
 '******* CLASS RELATIONS *********************************************
 BasicElement <|-down- TextElement
 
-TextElement <|-- KeywordElement
-TextElement <|-- MonospaceElement
-TextElement <|-- EmphasisElement
-TextElement <|-- SubscriptElement
-TextElement <|-- StrongElement
-TextElement <|-- StemElement
+TextElement <|-down- KeywordElement
+TextElement <|-down- MonospaceElement
+TextElement <|-down- EmphasisElement
+TextElement <|--down- SubscriptElement
+TextElement <|--down- StrongElement
+TextElement <|--down- StemElement
 
 StemElement <-- StemType
 StemElement <-- StemValue
@@ -109,8 +109,8 @@ StemElement <-- StemValue
 StemValue <|-- MathML
 StemValue <|-- AsciiML
 
-TextElement <|-- SuperScriptElement
-TextElement <|-- StrikeElement
-TextElement <|-- SmallCapsElement
+TextElement <|--down- SuperScriptElement
+TextElement <|--down- StrikeElement
+TextElement <|--down- SmallCapsElement
 
 @enduml

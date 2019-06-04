@@ -23,15 +23,15 @@ class BibliographicItem << Bibliography >> {
 }
 
 class BibData {
-    +ext: BibDataExtensionType
+  +ext: BibDataExtensionType
 }
 
 class BibDataExtensionType {
-    +doctype: DocumentType[0..*]
+  +doctype: DocumentType[0..*]
 }
 
 enum DocumentType <<enmeration>> {
-    document
+  document
 }
 
 
@@ -40,8 +40,8 @@ enum DocumentType <<enmeration>> {
 
 
 '******* CLASS RELATIONS *********************************************
-BibliographicItem <|-- BibData
-BibData <-- BibDataExtensionType
-BibDataExtensionType <-- DocumentType
+BibData -up-|> BibliographicItem
+BibDataExtensionType -up-> BibData
+DocumentType -up-> BibDataExtensionType
 
 @enduml

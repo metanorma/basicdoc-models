@@ -38,10 +38,10 @@ enum AdmonitionType <<enumeration>>{
 'note bottom of QuoteBlock : QuoteBlock: author is properly derived from\nthe Citation, and is redundant here: it is for\ndisplay only
 
 '******* CLASS RELATIONS *********************************************
-ParagraphsBlock <|-- QuoteBlock
-ParagraphsBlock <|-- ReviewBlock
-ParagraphsBlock <|-- AdmonitionBlock
+ParagraphsBlock <|-down- QuoteBlock
+ParagraphsBlock <|-down- ReviewBlock
+ParagraphsBlock <|-down- AdmonitionBlock
 
-AdmonitionBlock <-- AdmonitionType
+AdmonitionBlock <-down- AdmonitionType
 
 @enduml
