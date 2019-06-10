@@ -33,13 +33,33 @@ class IdElement{
     +id: String
 }
 
-class Image{
-    +source: Uri
+class Media{
     +filename[0..1]: String
-    +imageType: ImageType
+    +source: Uri
+    +type: MediaType
+    +alt[0..1]: String
+    +longdesc[0..1]: Uri
+}
+
+class Image{
     +height[0..1]: Integer
     +width[0..1]: Integer
-    +alt[0..1]: String
+}
+
+class Audio{
+    +altsource[0..*]: AltSource
+}
+
+class Video{
+    +altsource[0..*]: AltSource
+    +height[0..1]: Integer
+    +width[0..1]: Integer
+}
+
+class AltSource{
+    +filename[0..1]: String
+    +source: Uri
+    +type: MediaType
 }
 
 class Bookmark{
@@ -83,13 +103,7 @@ class Definition{
 }
 '/
 
-enum ImageType <<enumeration>>{
-    SVG
-    JPEG
-    GIF
-    PNG
-    PDF
-}
+MediaType  = text
 
 /'
 enum OrderedListType <<enumeration>>{
@@ -106,14 +120,18 @@ note right of IdElement : The `IdElement` itself acts as a reference point,\nsuc
 note left of Image : We also allow the\nvalue "auto" for\nheight and width
 'note bottom of Subfigure : Subfigures and images\nonly occur within figures
 'note right of Image: "filename" is where the image file may be extracted to\nin downstream processing,\nas distinct from the image source.
+note right of MediaType : MIME types recommended
 
 '******* CLASS RELATIONS *********************************************
 BasicElement <|-- IdElement
 
-IdElement <|-- Image
+IdElement <|-- Media
 IdElement <|-- Bookmark
+Media <|-- Image
+Media <|-- Audio
+Media <|-- Video
 
-Image <-- ImageType
+Media <-- MediaType
 
 
 /'

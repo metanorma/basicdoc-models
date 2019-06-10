@@ -26,6 +26,7 @@ class BasicElement {
 class ReferenceElement{
     +type: ReferenceFormat
     +text: BasicElement[0..1]
+    +alt: String[0..1]
 }
 
 class Citation <<Bibliography>>{
@@ -38,7 +39,6 @@ class ReferenceToIdElement{
 
 class ReferenceToLinkElement{
     +target: Uri
-    +alt: String[0..1]
 }
 
 class ReferenceToCitationElement{

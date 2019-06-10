@@ -11,6 +11,7 @@ class FigureBlock{
     +source: String[0..1]
     +unnumbered: Boolean[0..1]
     +name: LocalizedString[0..1]
+    +class: LocalizedString[0..1]
     +image: Image[0..1]
     +figure: Subfigure[0..*]
     +definitions: DefinitionList[0..1]

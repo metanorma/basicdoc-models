@@ -72,8 +72,18 @@ class SmallCapsElement{
 
 }
 
+class UnderlineElement{
+
+}
+
+
 class StemValue{
 
+}
+
+class RubyElement {
+    +rubyParen: LocalizedString[0..*]
+    +rubyText: LocalizedString[0..*]
 }
 
 class MathML{
@@ -101,6 +111,7 @@ TextElement <|-down- MonospaceElement
 TextElement <|-down- EmphasisElement
 TextElement <|--down- SubscriptElement
 TextElement <|--down- StrongElement
+TextElement <|--down- UnderlineElement
 TextElement <|--down- StemElement
 
 StemElement <-- StemType
@@ -112,5 +123,7 @@ StemValue <|-- AsciiML
 TextElement <|--down- SuperScriptElement
 TextElement <|--down- StrikeElement
 TextElement <|--down- SmallCapsElement
+
+TextElement <|--down- RubyElement
 
 @enduml

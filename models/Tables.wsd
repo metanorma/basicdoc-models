@@ -12,6 +12,7 @@ class TableBlock{
     +name: String[0..1]
     +unnumbered: Boolean[0..1]
     +alt: String[0..1]
+    +uri: Uri[0..1]
     +head: TextTableRow[0..1]
     +body: TextTableRow[1..*]
     +foot: TextTableRow[0..1]
