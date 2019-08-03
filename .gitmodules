@@ -1,0 +1,3 @@
+[submodule "grammars/relaton-models"]
+	path = grammars/relaton-models
+	url = https://github.com/metanorma/relaton-models.git
