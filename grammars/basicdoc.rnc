@@ -26,6 +26,8 @@ section =
 
 Basic-Section =
     attribute id { xsd:ID }?,
+    attribute language { text }?,
+    attribute script { text }?,
     section-title?,
     BasicBlock?, note*
 
