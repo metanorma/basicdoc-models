@@ -10,6 +10,7 @@ class BasicBlock {
 class FigureBlock{
     +source: String[0..1]
     +unnumbered: Boolean[0..1]
+    +subsequence: String[0..1]
     +name: LocalizedString[0..1]
     +class: LocalizedString[0..1]
     +image: Image[0..1]
@@ -24,6 +25,7 @@ class Subfigure {
 class SourcecodeBlock{
     +name: String[0..1]
     +unnumbered: Boolean[0..1]
+    +subsequence: String[0..1]
     +filename: String[0..1]
     +lang: String[0..1]
     +content: String
@@ -34,12 +36,14 @@ class SourcecodeBlock{
 class FormulaBlock{
     +stem: StemElement
     +unnumbered: Boolean[0..1]
+    +subsequence: String[0..1]
     +inequality: Boolean[0..1]
     +definitions: DefinitionList[0..1]
 }
 
 class ExampleBlock{
     +unnumbered: Boolean[0..1]
+    +subsequence: String[0..1]
     +formula: StemElement[0..*]
     +lists: UnorderedList[0..*]
     +quotes: QuoteBlock[0..*]
