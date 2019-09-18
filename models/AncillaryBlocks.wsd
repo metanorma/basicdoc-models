@@ -34,6 +34,7 @@ class SourcecodeBlock{
 class FormulaBlock{
     +stem: StemElement
     +unnumbered: Boolean[0..1]
+    +inequality: Boolean[0..1]
     +definitions: DefinitionList[0..1]
 }
 

@@ -81,6 +81,7 @@ formula =
   element formula {
     attribute id { xsd:ID },
     attribute unnumbered { xsd:boolean }?,
+    attribute inequality { xsd:boolean }?,
     stem, dl?, note*
 }
 
