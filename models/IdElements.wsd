@@ -132,6 +132,8 @@ Media <|-- Audio
 Media <|-- Video
 
 Media <-- MediaType
+Video <-- AltSource
+Audio <-- AltSource
 
 
 /'
