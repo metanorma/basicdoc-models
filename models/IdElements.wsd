@@ -103,7 +103,9 @@ class Definition{
 }
 '/
 
-MediaType  = text
+class MediaType{
+    +content: String
+}
 
 /'
 enum OrderedListType <<enumeration>>{

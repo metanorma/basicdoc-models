@@ -189,7 +189,7 @@ figure =
     attribute id { xsd:ID },
     attribute unnumbered { xsd:boolean }?,
     attribute subsequence { text }?,
-     source?, tname?, tclass?, (image | pre | figure*), fn*, dl?, note*
+     source?, tname?, tclass?, (image | video | audio | pre | figure*), fn*, dl?, note*
   }
 TextElement =
   text | em | eref | strong | stem | sub | sup | tt | underline | keyword | ruby |
@@ -286,7 +286,7 @@ image =
 }
 
 video =
-  element image {
+  element video {
     attribute id { xsd:ID },
     attribute src { xsd:anyURI },
     attribute mimetype { text },
@@ -299,7 +299,7 @@ video =
 }
 
 audio =
-  element image {
+  element audio {
     attribute id { xsd:ID },
     attribute src { xsd:anyURI },
     attribute mimetype { text },

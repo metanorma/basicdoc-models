@@ -36,8 +36,8 @@ class Iso639Code <<dataType>> {
 }
 
 enum StringFormat <<enumeration>> {
-    plain
-    html
+    text/plain
+    text/html
     docbook
     tei
     asciidoc
@@ -49,7 +49,7 @@ enum StringFormat <<enumeration>> {
 
 '******* NOTES *******************************************************
 note bottom of FormattedString: FormattedString\ndefaults to "plain"
-note bottom of StringFormat: The coresponsind MIME types,\ndefaults to "text/plain"\n(docbook / asciidoc / isdoc\nare not registered types yet)
+note bottom of StringFormat: The coresponding MIME types,\ndefaults to "text/plain"\n(docbook / asciidoc / isdoc\nare not registered types yet)
 
 
 '******* CLASS RELATIONS *********************************************
