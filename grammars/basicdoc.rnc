@@ -123,7 +123,7 @@ table =
     attribute unnumbered { xsd:boolean }?,
     attribute subsequence { text }?,
     attribute alt { text }?,
-    attribute longdesc { text }?,
+    attribute summary { text }?,
     attribute uri { xsd:anyURI }?,
     tname?, thead?, tbody, tfoot?, table-note*, dl?
   }
