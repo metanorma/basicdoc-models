@@ -166,6 +166,7 @@ example =
     attribute id { xsd:ID },
     attribute unnumbered { xsd:boolean }?,
     attribute subsequence { text }?,
+    tname?,
     ( formula | ul | ol | dl | quote | sourcecode | paragraph-with-footnote )+,
     note*
 }

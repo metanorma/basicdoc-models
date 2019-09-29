@@ -44,6 +44,7 @@ class FormulaBlock{
 }
 
 class ExampleBlock{
+    +name: LocalizedString[0..1]
     +unnumbered: Boolean[0..1]
     +subsequence: String[0..1]
     +formula: StemElement[0..*]
