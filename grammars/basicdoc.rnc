@@ -283,6 +283,7 @@ image =
     attribute width { xsd:int | "auto" }?,
     attribute height { xsd:int | "auto" }?,
     attribute alt { text }?,
+    attribute title { text }?,
     attribute longdesc { xsd:anyURI }?
 }
 
@@ -295,6 +296,7 @@ video =
     attribute width { xsd:int | "auto" }?,
     attribute height { xsd:int | "auto" }?,
     attribute alt { text }?,
+    attribute title { text }?,
     attribute longdesc { xsd:anyURI }?,
     altsource*
 }
@@ -306,6 +308,7 @@ audio =
     attribute mimetype { text },
     attribute filename { text }?,
     attribute alt { text }?,
+    attribute title { text }?,
     attribute longdesc { xsd:anyURI }?,
     altsource*
 }

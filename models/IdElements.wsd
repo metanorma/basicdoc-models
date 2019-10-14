@@ -19,6 +19,8 @@ Hystory of changes:
     - alt attribute on images
 > 19/03/2019
     - added image/filename
+> 14/10/2019
+    - added title attribute on media
 '/
 
 '******* CONFIGURATION ************************************************
@@ -38,6 +40,7 @@ class Media{
     +source: Uri
     +type: MediaType
     +alt[0..1]: String
+    +title[0..1]: String
     +longdesc[0..1]: Uri
 }
 
