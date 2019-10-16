@@ -22,7 +22,7 @@ class ReviewBlock{
 
 class AdmonitionBlock{
     +type: AdmonitionType
-    +name: String[0..1]
+    +name: TextElement[0..*]
     +class: String[0..1]
     +uri: Uri[0..1]
 }

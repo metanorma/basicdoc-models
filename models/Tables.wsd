@@ -9,7 +9,7 @@ class BasicBlock {
 }
 
 class TableBlock{
-    +name: String[0..1]
+    +name: TextElement[0..*]
     +unnumbered: Boolean[0..1]
     +subsequence: String[0..1]
     +alt: String[0..1]

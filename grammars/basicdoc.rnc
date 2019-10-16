@@ -128,7 +128,7 @@ table =
     tname?, thead?, tbody, tfoot?, table-note*, dl?
   }
 
-tname = element name { text }
+tname = element name { PureTextElement+ }
 tclass = element name { text }
 thead = element thead { tr }
 tfoot = element tfoot { tr }
