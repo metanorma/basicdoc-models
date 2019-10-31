@@ -129,7 +129,6 @@ table =
   }
 
 tname = element name { PureTextElement+ }
-tclass = element name { text }
 thead = element thead { tr }
 tfoot = element tfoot { tr }
 tbody = element tbody { tr+ }
@@ -190,7 +189,8 @@ figure =
     attribute id { xsd:ID },
     attribute unnumbered { xsd:boolean }?,
     attribute subsequence { text }?,
-     source?, tname?, tclass?, (image | video | audio | pre | figure*), fn*, dl?, note*
+    attribute class { text }?,
+     source?, tname?, (image | video | audio | pre | paragraph-with-footnote+ | figure*), fn*, dl?, note*
   }
 TextElement =
   text | em | eref | strong | stem | sub | sup | tt | underline | keyword | ruby |
