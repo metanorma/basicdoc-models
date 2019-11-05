@@ -105,6 +105,7 @@ enum StemType <<enumeration>>{
 
 '******* CLASS RELATIONS *********************************************
 BasicElement <|-down- TextElement
+TextElementType --> TextElement
 
 TextElement <|-down- KeywordElement
 TextElement <|-down- MonospaceElement
@@ -123,7 +124,7 @@ StemValue <|-- AsciiML
 TextElement <|--down- SuperScriptElement
 TextElement <|--down- StrikeElement
 TextElement <|--down- SmallCapsElement
-
 TextElement <|--down- RubyElement
+
 
 @enduml
