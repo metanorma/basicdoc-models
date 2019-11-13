@@ -1,8 +1,10 @@
 grammar {
 
-include "biblio.rnc" { }
+include "biblio.rnc" { 
 
 start = document
+
+}
 
 document = 
 element document {
