@@ -116,6 +116,7 @@ sourcecode =
 pre =
   element pre {
     attribute id { xsd:ID },
+    attribute alt { text }?,
     tname?, text, note*
   }
 

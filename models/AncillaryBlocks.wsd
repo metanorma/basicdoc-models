@@ -1,4 +1,9 @@
 @startuml AncillaryBlocks
+/'
+> 2019-12-06
+    - added alt attribute to LiteralBlock
+'/
+
 
 '******* CONFIGURATION ************************************************
 !include style.uml.inc
@@ -52,6 +57,10 @@ class ExampleBlock{
     +quotes: QuoteBlock[0..*]
     +sourcecode: SourcecodeBlock[0..*]
     +paragraphs: ParagraphWithFootnote[0..*]
+}
+
+class LiteralBlock{
+    +alt[0..1]: String
 }
 
 
