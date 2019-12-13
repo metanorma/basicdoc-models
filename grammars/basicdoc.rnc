@@ -197,7 +197,7 @@ figure =
   }
 TextElement =
   text | em | eref | strong | stem | sub | sup | tt | underline | keyword | ruby |
-  strike | smallcap | xref | br | hyperlink | hr | pagebreak | bookmark | image
+  strike | smallcap | xref | br | hyperlink | hr | pagebreak | bookmark | image | index
 
 PureTextElement =
   text | em | strong | sub | sup | tt | underline | strike | smallcap | br
@@ -222,6 +222,13 @@ rt =   element rt { PureTextElement* }
 br = element br { empty }
 hr = element hr { empty }
 pagebreak = element pagebreak { empty }
+index = element index {
+  attribute primary { text },
+  attribute secondary { text }?,
+  attribute tertiary { text }?
+}
+
+
 # bare ID element, used for referencing arbitrary spans of text
 bookmark =
   element bookmark {
