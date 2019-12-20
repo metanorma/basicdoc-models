@@ -31,7 +31,7 @@ Basic-Section =
     attribute language { text }?,
     attribute script { text }?,
     section-title?,
-    BasicBlock?, note*
+    BasicBlock*, note*
 
 references =
   element references {
