@@ -37,6 +37,7 @@ enum AdmonitionType <<enumeration>>{
 }
 
 
+
 '******* NOTES *******************************************************
 'note bottom of QuoteBlock : QuoteBlock: author is properly derived from\nthe Citation, and is redundant here: it is for\ndisplay only
 

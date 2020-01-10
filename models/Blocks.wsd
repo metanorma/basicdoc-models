@@ -34,6 +34,8 @@ History of changes:
     - inequalities
 > 19/09/2019
     - subsequences
+> 10/01/2019
+    - NoteBlock as block
 '/
 
 '******* CONFIGURATION ************************************************
@@ -42,13 +44,23 @@ History of changes:
 
 '******* CLASS DEFINITION *********************************************
 class BasicBlock {
+  +notes: NoteBlock[0..*]
+}
+
+class BasicBlockNoNotes {
   +id: String
-  +notes: ParagraphBlock[0..*]
   +contribMetadata: ContributionElementMetadata[0..*]
 }
+
+class NoteBlock {
+  +content: ParagraphBlock[0..*]
+}
+
 
 '******* NOTES *******************************************************
 
 '******* CLASS RELATIONS *********************************************
+BasicBlock --|> BasicBlockNoNotes
+NoteBlock --|> BasicBlockNoNotes
 
 @enduml
