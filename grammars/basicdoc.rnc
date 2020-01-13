@@ -204,8 +204,8 @@ PureTextElement =
 
 source = element source { TypedUri }
 
-em = element em { PureTextElement* }
-strong = element strong { PureTextElement* }
+em = element em { (PureTextElement|stem)* }
+strong = element strong { (PureTextElement|stem)* }
 tt = element tt { PureTextElement* }
 keyword = element keyword { PureTextElement* }
 sub = element sub { PureTextElement* }
