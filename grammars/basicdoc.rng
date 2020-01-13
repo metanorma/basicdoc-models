@@ -97,6 +97,9 @@
       <ref name="review"/>
       <ref name="pre"/>
       <ref name="note"/>
+      <ref name="pagebreak"/>
+      <ref name="hr"/>
+      <ref name="bookmark"/>
     </choice>
   </define>
   <define name="paragraph">

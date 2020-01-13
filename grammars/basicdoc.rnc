@@ -45,7 +45,7 @@ section-title =
   element title { TextElement* }
 
 BasicBlock =  paragraph-with-footnote | table | formula | admonition | ol | ul | dl | figure |
-  quote | sourcecode | example | review | pre | note
+  quote | sourcecode | example | review | pre | note | pagebreak | hr | bookmark
 
 paragraph =
   element p { ParagraphType }
