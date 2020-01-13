@@ -131,7 +131,7 @@ table =
     tname?, thead?, tbody, tfoot?, table-note*, dl?
   }
 
-tname = element name { PureTextElement+ }
+tname = element name { (PureTextElement | eref | stem | keyword | xref | hyperlink)+ }
 thead = element thead { tr }
 tfoot = element tfoot { tr }
 tbody = element tbody { tr+ }

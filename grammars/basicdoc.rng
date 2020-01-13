@@ -339,7 +339,14 @@
   <define name="tname">
     <element name="name">
       <oneOrMore>
-        <ref name="PureTextElement"/>
+        <choice>
+          <ref name="PureTextElement"/>
+          <ref name="eref"/>
+          <ref name="stem"/>
+          <ref name="keyword"/>
+          <ref name="xref"/>
+          <ref name="hyperlink"/>
+        </choice>
       </oneOrMore>
     </element>
   </define>
