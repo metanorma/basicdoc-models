@@ -55,9 +55,6 @@
     <zeroOrMore>
       <ref name="BasicBlock"/>
     </zeroOrMore>
-    <zeroOrMore>
-      <ref name="note"/>
-    </zeroOrMore>
   </define>
   <define name="references">
     <element name="references">
@@ -99,6 +96,7 @@
       <ref name="example"/>
       <ref name="review"/>
       <ref name="pre"/>
+      <ref name="note"/>
     </choice>
   </define>
   <define name="paragraph">
