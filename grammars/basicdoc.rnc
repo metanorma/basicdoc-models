@@ -146,6 +146,7 @@ td =
     attribute colspan { text }?,
     attribute rowspan { text }?,
     attribute align { "left" | "right" | "center" }?,
+    attribute valign { "top" | "middle" | "bottom" | "baseline" }?,
     (
       (TextElement )* |
       paragraph-with-footnote+
@@ -157,6 +158,7 @@ th =
     attribute colspan { text }?,
     attribute rowspan { text }?,
     attribute align { "left" | "right" | "center" }?,
+    attribute valign { "top" | "middle" | "bottom" | "baseline" }?,
     (
       (TextElement )* |
       paragraph-with-footnote+

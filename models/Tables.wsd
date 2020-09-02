@@ -30,6 +30,7 @@ class TableCell{
     +colspan: Integer[0..1]
     +rowspan: Integer[0..1]
     +align: TextAlignmnent[0..1]
+    +valign: VerticalAlignmnent[0..1]
 }
 
 class TextTableCell{
@@ -39,6 +40,20 @@ class TextTableCell{
 class ParagraphTableCell{
     +content: ParagraphWithFootnote[0..*]
 }
+
+enum TextAlignmnent <<enumeration>>{
+left
+center
+right
+}
+
+enum VerticalAlignmnent <<enumeration>>{
+top
+middle
+bottom
+baseline
+}
+
 
 
 '******* NOTES *******************************************************
@@ -50,5 +65,8 @@ TableBlock <-- TextTableRow
 TextTableRow <-- TableCell
 TableCell <|-- TextTableCell
 TableCell <|-- ParagraphTableCell
+
+TableCell <-- TextAlignmnent
+TableCell <-- VerticalAlignmnent
 
 @enduml
