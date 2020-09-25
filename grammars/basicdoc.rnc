@@ -362,6 +362,7 @@ ol =
     attribute id { xsd:ID },
     attribute type { ( "roman" | "alphabet" | "arabic" |
                        "roman_upper" | "alphabet_upper" ) },
+    attribute start { text }?,
     li+, note*
 }
 

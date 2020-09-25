@@ -23,6 +23,7 @@ class UnorderedList{
 
 class OrderedList{
     +type: OrderedListType
+    +start: string[0..1]
 }
 
 class DefinitionList{
