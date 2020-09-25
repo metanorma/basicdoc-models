@@ -67,7 +67,7 @@ paragraph-with-footnote =
 note =
   element note {
     attribute id { xsd:ID },
-    ( formula | ul | ol | dl | quote | sourcecode | paragraph | table | figure )+
+    paragraph+
   }
 review =
   element review {

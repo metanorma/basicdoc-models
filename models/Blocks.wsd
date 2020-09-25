@@ -36,8 +36,6 @@ History of changes:
     - subsequences
 > 10/01/2019
     - NoteBlock as block
-> 07/09/2020
-    - NoteBlock can contain multiple blocks
 '/
 
 '******* CONFIGURATION ************************************************
@@ -56,15 +54,6 @@ class BasicBlockNoNotes {
 
 class NoteBlock {
   +content: ParagraphBlock[0..*]
-    +formula: StemElement[0..*]
-    +uls: UnorderedList[0..*]
-    +ols: OrderedList[0..*]
-    +dls: DefinitionList[0..*]
-    +quotes: QuoteBlock[0..*]
-    +sourcecode: SourcecodeBlock[0..*]
-    +paragraphs: ParagraphBlock[0..*]
-    +tables: TableBlock[0..*]
-    +figures: FigureBlock[0..*]
 }
 
 
