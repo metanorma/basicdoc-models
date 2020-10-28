@@ -1,0 +1,38 @@
+diagram EmptyElements {
+  class BasicElement{}
+
+  class PageBreakElement{}
+
+  class LineBreakElement{}
+
+  class HorizontalRuleElement{}
+
+  class IndexElement {
+    +primary: String
+    +secondary: String[0..1]
+    +tertiary: String[0..1]
+  }
+
+  ** note "* `LinkBreakElement` is `<br>`\n* `HorizontalRuleElement` is `<hr>`\n* `PageBreakElement` only works in page layout\n(e.g., PDF, Word), not in flow layouts (e.g., HTML)" as N1
+
+  association {
+    owner BasicElement
+    member PageBreakElement
+    owner_type inheritance
+  }
+  association {
+    owner BasicElement
+    member LineBreakElement
+    owner_type inheritance
+  }
+  association {
+    owner BasicElement
+    member HorizontalRuleElement
+    owner_type inheritance
+  }
+  association {
+    owner BasicElement
+    member IndexElement
+    owner_type inheritance
+  }
+}

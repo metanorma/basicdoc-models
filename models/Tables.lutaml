@@ -1,0 +1,95 @@
+diagram Tables {
+
+
+
+  class BasicBlock {
+  }
+
+  class TableBlock{
+      +name: TextElement[0..*]
+      +unnumbered: Boolean[0..1]
+      +subsequence: String[0..1]
+      +alt: String[0..1]
+      +summary: String[0..1]
+      +uri: Uri[0..1]
+      +head: TextTableRow[0..1]
+      +body: TextTableRow[1..*]
+      +foot: TextTableRow[0..1]
+      +definitions: DefinitionList[0..1]
+  }
+
+  class TextTableRow{
+      +td: TableCell[0..*]
+      +th: TableCell[0..*]
+  }
+
+  class TableCell{
+      +colspan: Integer[0..1]
+      +rowspan: Integer[0..1]
+      +align: TextAlignmnent[0..1]
+      +valign: VerticalAlignmnent[0..1]
+  }
+
+  class TextTableCell{
+      +content: TextElement[0..*]
+  }
+
+  class ParagraphTableCell{
+      +content: ParagraphWithFootnote[0..*]
+  }
+
+  enum TextAlignmnent {
+    left
+    center
+    right
+  }
+
+  enum VerticalAlignmnent {
+    top
+    middle
+    bottom
+    baseline
+  }
+
+
+
+
+  association {
+    owner BasicBlock
+    member TableBlock
+    owner_type inheritance
+  }
+
+  association {
+    owner TextTableRow
+    member TableBlock
+    member_type direct
+  }
+  association {
+    owner TableCell
+    member TextTableRow
+    member_type direct
+  }
+  association {
+    owner TableCell
+    member TextTableCell
+    owner_type inheritance
+  }
+  association {
+    owner TableCell
+    member ParagraphTableCell
+    owner_type inheritance
+  }
+
+  association {
+    owner TextAlignmnent
+    member TableCell
+    member_type direct
+  }
+  association {
+    owner VerticalAlignmnent
+    member TableCell
+    member_type direct
+  }
+
+}

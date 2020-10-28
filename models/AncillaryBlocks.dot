@@ -1,0 +1,220 @@
+digraph G {
+  graph [splines="ortho" pad=0.5 ranksep="1.2.equally" nodesep="1.2.equally"]
+  edge [color="gray50"]
+  node [shape="box" fontname="Helvetica-bold"]
+
+  BasicBlock [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>BasicBlock</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  FigureBlock [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>FigureBlock</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+source : String&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+unnumbered : Boolean&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+subsequence : String&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+name : TextElement&#91;0..*&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+class : LocalizedString&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+image : Image&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+video : Video&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+audio : Audio&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+figure : Subfigure&#91;0..*&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+definitions : DefinitionList&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+footnotes : ReferenceToldWithParagraphElement&#91;0..*&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  Subfigure [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>Subfigure</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  SourcecodeBlock [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>SourcecodeBlock</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+name : TextElement&#91;0..*&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+unnumbered : Boolean&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+subsequence : String&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+filename : String&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+lang : String&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+content : String</TD></TR>
+            <TR><TD ALIGN="LEFT">+callouts : ReferenceToIdElement&#91;0..*&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+calloutAnnotations : ParagraphBlock&#91;0..*&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  FormulaBlock [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>FormulaBlock</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+stem : StemElement</TD></TR>
+            <TR><TD ALIGN="LEFT">+unnumbered : Boolean&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+subsequence : String&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+inequality : Boolean&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+definitions : DefinitionList&#91;0..1&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  ExampleBlock [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>ExampleBlock</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+name : TextElement&#91;0..*&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+unnumbered : Boolean&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+subsequence : String&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+formula : StemElement&#91;0..*&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+lists : UnorderedList&#91;0..*&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+quotes : QuoteBlock&#91;0..*&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+sourcecode : SourcecodeBlock&#91;0..*&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+paragraphs : ParagraphWithFootnote&#91;0..*&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  LiteralBlock [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>LiteralBlock</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+alt : String&#91;0..1&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+
+  FigureBlock -> BasicBlock [dir="direct" arrowtail="onormal" arrowhead="onormal"]
+  LiteralBlock -> BasicBlock [dir="direct" arrowtail="onormal" arrowhead="onormal"]
+  SourcecodeBlock -> BasicBlock [dir="direct" arrowtail="onormal" arrowhead="onormal"]
+  FormulaBlock -> BasicBlock [dir="direct" arrowtail="onormal" arrowhead="onormal"]
+  ExampleBlock -> BasicBlock [dir="direct" arrowtail="onormal" arrowhead="onormal"]
+  Subfigure -> FigureBlock [dir="direct" arrowtail="onormal" arrowhead="onormal"]
+}
