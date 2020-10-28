@@ -1,0 +1,64 @@
+diagram Blocks {
+  *|
+  Diagram:        Blocks
+  DateCreate:     28/07/2018
+  Description:    BasicDocument / SecureDoc is a family of document models that forms the basis of Metanorma IsoDoc (via Metanorma StandardDocument), which is used to represent ISO Standards and similarly structured standards.
+                  It is also the document model that Selagraph operates on.
+                  The Relaton Bibliography UML models used in these models are located here: Relaton BibModels.
+                  BasicDocument itself is a document model that can serve as a transit data structure for document conversion, such as taking input from AsciiDoc or Markdown and converting them into an output format, such as Metanorma IsoDoc
+
+  History of changes:
+  > 22/08/2018
+      - diagram configuration updated
+      - update of the classes "FigureBlock", "SourcecodeBlock", "FormulaBlock", "TableBlock"
+      - new classes are added "Subfigure", "ParagraphsBlock", "List", "ListItem", "UnorderedList", "OrderedList", "DefinitionList", "Definition"
+      - new notes are added for "Subfigure"
+      - new enumeration are added "OrderedListType"
+      - relations between some of the elements in the diagram has been updated
+  > 08/12/2018
+      - added LiteralBlock
+  > 27/01/2019
+      - added sourcecode/lang
+  > 22/02/2019
+      - added admonition/name
+  > 19/03/2019
+      - added sourcecode/filename
+  > 04/05/2019
+      - added table/@alt
+  > 20/05/2019
+      - added unnumbered attributes
+  > 03/06/2019
+      - cardinality of subfigures
+      - paragraphs within examples
+  > 18/09/2019
+      - inequalities
+  > 19/09/2019
+      - subsequences
+  > 10/01/2019
+      - NoteBlock as block
+  |*
+
+  class BasicBlock {
+    +notes: NoteBlock[0..*]
+  }
+
+  class BasicBlockNoNotes {
+    +id: String
+    +contribMetadata: ContributionElementMetadata[0..*]
+  }
+
+  class NoteBlock {
+    +content: ParagraphBlock[0..*]
+  }
+
+  association {
+    owner BasicBlock
+    member BasicBlockNoNotes
+    member_type inheritance
+  }
+  association {
+    owner NoteBlock
+    member BasicBlockNoNotes
+    member_type inheritance
+  }
+}

@@ -1,0 +1,50 @@
+diagram Paragraphs {
+
+
+
+  class BasicBlock {
+  }
+
+  class ParagraphBlock{
+      +contents: BasicElement[0..*]
+      +alignment: TextAlignment[0..1]
+  }
+
+  class ParagraphsBlock{
+      +contents: ParagraphWithFootnote[0..*]
+  }
+
+  class ParagraphWithFootnote{
+      +footnotes: ReferenceToldWithParagraphElement[0..*]
+  }
+
+  enum TextAlignment {
+      left
+      center
+      right
+      justified
+  }
+
+
+  association {
+    owner BasicBlock
+    member ParagraphBlock
+    owner_type inheritance
+  }
+  association {
+    owner BasicBlock
+    member ParagraphsBlock
+    owner_type inheritance
+  }
+
+  association {
+    owner ParagraphBlock
+    member ParagraphWithFootnote
+    owner_type inheritance
+  }
+  association {
+    owner TextAlignment
+    member ParagraphBlock
+    member_type direct
+  }
+}

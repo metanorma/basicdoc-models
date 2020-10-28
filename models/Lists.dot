@@ -1,0 +1,226 @@
+digraph G {
+  graph [splines="ortho" pad=0.5 ranksep="1.2.equally" nodesep="1.2.equally"]
+  edge [color="gray50"]
+  node [shape="box" fontname="Helvetica-bold"]
+
+  BasicBlock [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>BasicBlock</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  List [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>List</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+listitem : ListItem&#91;0..*&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  Listitem [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>Listitem</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+id : string&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+content : ParagraphWithFootnote&#91;0..*&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  UnorderedList [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>UnorderedList</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  OrderedList [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>OrderedList</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+type : OrderedListType</TD></TR>
+            <TR><TD ALIGN="LEFT">+start : string&#91;0..1&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  DefinitionList [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>DefinitionList</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+listitem : Definition&#91;0..*&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  Definition [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>Definition</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+item : TextElement&#91;0..*&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+definition : ParagraphWithFootnote&#91;0..*&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  OrderedListType [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER">«enumeration»</TD></TR>\n<TR><TD ALIGN="CENTER"><B>OrderedListType</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">roman</TD></TR>
+            <TR><TD ALIGN="LEFT">alphabet</TD></TR>
+            <TR><TD ALIGN="LEFT">arabic</TD></TR>
+            <TR><TD ALIGN="LEFT">roman_upper</TD></TR>
+            <TR><TD ALIGN="LEFT">alphabet_upper</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+
+  BasicBlock -> List [dir="back" arrowtail="onormal" arrowhead="onormal"]
+  Listitem -> List [dir="direct" arrowtail="onormal" arrowhead="vee"]
+  List -> UnorderedList [dir="back" arrowtail="onormal" arrowhead="onormal"]
+  List -> DefinitionList [dir="back" arrowtail="onormal" arrowhead="onormal"]
+  Definition -> DefinitionList [dir="direct" arrowtail="onormal" arrowhead="vee"]
+  UnorderedList -> OrderedList [dir="back" arrowtail="onormal" arrowhead="onormal"]
+  OrderedListType -> OrderedList [dir="direct" arrowtail="onormal" arrowhead="vee"]
+}

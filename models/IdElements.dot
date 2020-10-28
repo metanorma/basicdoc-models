@@ -1,0 +1,258 @@
+digraph G {
+  graph [splines="ortho" pad=0.5 ranksep="1.2.equally" nodesep="1.2.equally"]
+  edge [color="gray50"]
+  node [shape="box" fontname="Helvetica-bold"]
+
+  BasicElement [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>BasicElement</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+contribMetadata : ContributionElementMetadata&#91;0..*&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  IdElement [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>IdElement</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+id : String</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  Media [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>Media</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+filename : String&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+source : Uri</TD></TR>
+            <TR><TD ALIGN="LEFT">+type : MediaType</TD></TR>
+            <TR><TD ALIGN="LEFT">+alt : String&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+title : String&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+longdesc : Uri&#91;0..1&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  Image [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>Image</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+height : Integer&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+width : Integer&#91;0..1&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  Audio [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>Audio</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+altsource : AltSource&#91;0..*&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  Video [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>Video</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+altsource : AltSource&#91;0..*&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+height : Integer&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+width : Integer&#91;0..1&#93;</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  AltSource [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>AltSource</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+filename : String&#91;0..1&#93;</TD></TR>
+            <TR><TD ALIGN="LEFT">+source : Uri</TD></TR>
+            <TR><TD ALIGN="LEFT">+type : MediaType</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  Bookmark [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>Bookmark</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+  
+  MediaType [
+    shape="plain"
+    fontname="Helvetica"
+    label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+    <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="CENTER"><B>MediaType</B></TD></TR>
+  </TABLE>
+  </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+              <TR><TD ALIGN="LEFT">+content : String</TD></TR>
+  </TABLE>
+        </TD>
+  </TR>
+  
+  <TR>
+    <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+    <TR><TD ALIGN="LEFT"></TD></TR>
+  </TABLE></TD>
+  </TR>
+  
+  </TABLE>>]
+
+  BasicElement -> IdElement [dir="back" arrowtail="onormal" arrowhead="onormal"]
+  IdElement -> Media [dir="back" arrowtail="onormal" arrowhead="onormal"]
+  IdElement -> Bookmark [dir="back" arrowtail="onormal" arrowhead="onormal"]
+  Media -> Image [dir="back" arrowtail="onormal" arrowhead="onormal"]
+  Media -> Audio [dir="back" arrowtail="onormal" arrowhead="onormal"]
+  Media -> Video [dir="back" arrowtail="onormal" arrowhead="onormal"]
+  MediaType -> Media [dir="direct" arrowtail="onormal" arrowhead="vee"]
+  AltSource -> Video [dir="direct" arrowtail="onormal" arrowhead="vee"]
+  AltSource -> Audio [dir="direct" arrowtail="onormal" arrowhead="vee"]
+}
