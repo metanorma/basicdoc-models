@@ -1,8 +1,6 @@
 = BasicDocument / SecureDoc Models
 
-image:https://github.com/metanorma/basicdoc-models/workflows/ubuntu/badge.svg["Ubuntu Build Status", link="https://github.com/metanorma/basicdoc-models/actions?query=workflow%3Aubuntu"]
-image:https://github.com/metanorma/basicdoc-models/workflows/macos/badge.svg["OSX Build Status", link="https://github.com/metanorma/basicdoc-models/actions?query=workflow%3Amacos"]
-image:https://github.com/metanorma/basicdoc-models/workflows/windows/badge.svg["Windows Build Status", link="https://github.com/metanorma/basicdoc-models/actions?query=workflow%3Awindows"]
+image:https://github.com/metanorma/basicdoc-models/workflows/make/badge.svg["Build Status", link="https://github.com/metanorma/basicdoc-models/actions?query=workflow%3Amake"]
 
 BasicDocument / SecureDoc is a family of document models that forms the basis of Metanorma IsoDoc
 (via Metanorma StandardDocument), which is used to represent ISO Standards and similarly structured
