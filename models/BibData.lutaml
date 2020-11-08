@@ -13,7 +13,7 @@ diagram BibData {
   > 09/05/2019
       - BibData/ext
   |*
-  class BibliographicItem {}
+  class BibliographicItem <<Bibliography>> {}
 
   class BibData {
     +ext: BibDataExtensionType
