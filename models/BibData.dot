@@ -9,7 +9,7 @@ digraph G {
     label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
     <TR>
     <TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
-    <TR><TD ALIGN="CENTER"><B>BibliographicItem</B></TD></TR>
+    <TR><TD ALIGN="CENTER">«Bibliography»</TD></TR>\n<TR><TD ALIGN="CENTER"><B>BibliographicItem</B></TD></TR>
   </TABLE>
   </TD>
   </TR>
