@@ -13,14 +13,6 @@ diagram EmptyElements {
     +tertiary: String[0..1]
   }
 
-  class IndexXrefElement {
-    +primary: String
-    +secondary: String[0..1]
-    +tertiary: String[0..1]
-    +target: String
-    +also: Boolean
-  }
-
   ** note "* `LinkBreakElement` is `<br>`\n* `HorizontalRuleElement` is `<hr>`\n* `PageBreakElement` only works in page layout\n(e.g., PDF, Word), not in flow layouts (e.g., HTML)" as N1
 
   association {
@@ -41,11 +33,6 @@ diagram EmptyElements {
   association {
     owner BasicElement
     member IndexElement
-    owner_type inheritance
-  }
-  association {
-    owner BasicElement
-    member IndexXrefElement
     owner_type inheritance
   }
 }
