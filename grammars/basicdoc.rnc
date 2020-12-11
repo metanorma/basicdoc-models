@@ -231,12 +231,12 @@ index = element index {
   attribute tertiary { text }?
 }
 
-index = element index {
-  attribute primary { text },
-  attribute secondary { text }?,
-  attribute tertiary { text }?,
-  attribute target { text },
-  attribute also { xsd:boolean }
+index-xref = element index-xref {
+  attribute also { xsd:boolean },
+  element primary { PureTextElement+ },
+  element secondary { PureTextElement+ }?,
+  element tertiary { PureTextElement+ }?,
+  element target { PureTextElement+ }
 }
 
 
