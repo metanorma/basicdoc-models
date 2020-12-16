@@ -226,6 +226,7 @@ hr = element hr { empty }
 pagebreak = element pagebreak { empty }
 
 index = element index {
+  attribute to { xsd:IDREF },
   element primary { PureTextElement+ },
   element secondary { PureTextElement+ }?,
   element tertiary { PureTextElement+ }?
