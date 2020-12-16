@@ -226,9 +226,9 @@ hr = element hr { empty }
 pagebreak = element pagebreak { empty }
 
 index = element index {
-  attribute primary { text },
-  attribute secondary { text }?,
-  attribute tertiary { text }?
+  element primary { PureTextElement+ },
+  element secondary { PureTextElement+ }?,
+  element tertiary { PureTextElement+ }?
 }
 
 index-xref = element index-xref {
