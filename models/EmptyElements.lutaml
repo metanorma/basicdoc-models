@@ -11,6 +11,7 @@ diagram EmptyElements {
     +primary: String
     +secondary: String[0..1]
     +tertiary: String[0..1]
+    +to: IdElement[0..1]
   }
 
   ** note "* `LinkBreakElement` is `<br>`\n* `HorizontalRuleElement` is `<hr>`\n* `PageBreakElement` only works in page layout\n(e.g., PDF, Word), not in flow layouts (e.g., HTML)" as N1
