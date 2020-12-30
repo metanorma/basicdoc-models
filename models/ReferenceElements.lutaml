@@ -7,12 +7,14 @@ diagram ReferenceElements {
                   The Relaton Bibliography UML models used in these models are located here: Relaton BibModels.
                   BasicDocument itself is a document model that can serve as a transit data structure for document conversion, such as taking input from AsciiDoc or Markdown and converting them into an output format, such as Metanorma IsoDoc
 
-  Hystory of changes:
+  History of changes:
   > 22/08/2018
       - diagram configuration updated
       - relations between some elements are updated
   > 04/05/2019
       - alt attribute on ReferenceToLinkElement
+  > 11/12/2020
+      - index-xref
   |*
 
   class BasicElement {
@@ -31,6 +33,13 @@ diagram ReferenceElements {
     +target: IdElement
   }
 
+  class IndexXrefElement {
+    +secondary: String[0..1]
+    +tertiary: String[0..1]
+    +target: String
+    +also: Boolean
+  }
+
   class ReferenceToLinkElement{
     +target: Uri
   }
@@ -40,7 +49,7 @@ diagram ReferenceElements {
     +citeAs: TextElement[0..*]
   }
 
-  class ReferenceToldWithParagraphElement{
+  class ReferenceToIdWithParagraphElement{
     +content: ParagraphBlock[1..*]
   }
 
@@ -61,13 +70,19 @@ diagram ReferenceElements {
   }
 
   ** note "* `text` is what you want to show the link as.\n(i.e., the `content` of <xx>my link text</xx>)" as N1
-  ** note left of ReferenceToldWithParagraphElement: `ReferenceToldWithParagraphElement`\nis just a Footnote or a CalloutAnnotation\nwith the proper ReferenceFormat
+  ** note left of ReferenceToIdWithParagraphElement: `ReferenceToIdWithParagraphElement`\nis just a Footnote or a CalloutAnnotation\nwith the proper ReferenceFormat
   ** note bottom of Footnote: `Footnote` is a ReferenceToldWithParagraphElement,\nwith type understood to be footnote,\nand target eliminated since the target text identified\nis the content attribute
   ** note bottom of Callout: `Callout` is a ReferenceToIdElement with\ntype understood to be callout,\nand with text constrained to be a TextElement
+  ** note bottom of IndexXrefElement: the text is the primary index term
 
   association {
     owner BasicElement
     member ReferenceElement
+    owner_type inheritance
+  }
+association {
+    owner ReferenceElement
+    member IndexXrefElement
     owner_type inheritance
   }
 
@@ -101,7 +116,7 @@ diagram ReferenceElements {
 
   association {
     owner ReferenceToIdElement
-    member ReferenceToldWithParagraphElement
+    member ReferenceToIdWithParagraphElement
     owner_type inheritance
   }
   association {
@@ -111,7 +126,7 @@ diagram ReferenceElements {
   }
 
   association {
-    owner ReferenceToldWithParagraphElement
+    owner ReferenceToIdWithParagraphElement
     member Footnote
     owner_type inheritance
   }

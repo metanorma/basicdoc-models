@@ -199,7 +199,7 @@ figure =
   }
 TextElement =
   text | em | eref | strong | stem | sub | sup | tt | underline | keyword | ruby |
-  strike | smallcap | xref | br | hyperlink | hr | pagebreak | bookmark | image | index
+  strike | smallcap | xref | br | hyperlink | hr | pagebreak | bookmark | image | index | index-xref
 
 PureTextElement =
   text | em | strong | sub | sup | tt | underline | strike | smallcap | br
@@ -224,10 +224,20 @@ rt =   element rt { PureTextElement* }
 br = element br { empty }
 hr = element hr { empty }
 pagebreak = element pagebreak { empty }
+
 index = element index {
-  attribute primary { text },
-  attribute secondary { text }?,
-  attribute tertiary { text }?
+  attribute to { xsd:IDREF },
+  element primary { PureTextElement+ },
+  element secondary { PureTextElement+ }?,
+  element tertiary { PureTextElement+ }?
+}
+
+index-xref = element index-xref {
+  attribute also { xsd:boolean },
+  element primary { PureTextElement+ },
+  element secondary { PureTextElement+ }?,
+  element tertiary { PureTextElement+ }?,
+  element target { PureTextElement+ }
 }
 
 
