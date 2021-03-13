@@ -1,31 +1,106 @@
 diagram DataTypes {
   class LocalizedString {
-    +language: Iso639Code[0..*]
-    +script: Iso15924Code[0..*]
-    +content: String
+    definition {
+      String specifying the language and script of its text.
+    }
+    +language: Iso639Code[0..*] {
+      definition {
+        The language of the string.
+      }
+    }
+    +script: Iso15924Code[0..*] {
+      definition {
+        The script of the string.
+      }
+    }
+    +content: String {
+      definition {
+        The value of the string
+      }
+    }
   }
 
-  data_type Uri {}
+  data_type Uri {
+    unstructured {
+      definition {
+        URI, as defined in RFC 3986.
+      }
+    }
+  }
 
   primitive String
 
   class FormattedString {
-    +format: StringFormat
+    definition {
+      String with presentation markup.
+    }
+    +format: StringFormat {
+      definition {
+        Convention used for markup of presentation.
+      }
+    }
   }
 
-  data_type Iso8601DateTime {}
+  data_type Iso8601DateTime {
+    unstructured {
+      definition {
+        Date and time representation, as defined in ISO 8601-1.
+      }
+    }
+  }
 
-  data_type Iso15924Code {}
+  data_type Iso15924Code {
+    unstructured {
+      definition {
+        Script identifier, as defined in ISO 15924.
+      }
+    }
+  }
 
-  data_type Iso639Code {}
+  data_type Iso639Code {
+    unstructured {
+      definition {
+        Language identifiere, as defined in ISO 639.
+      }
+    }
+  }
 
   enum StringFormat {
-    docbook
-    tei
-    asciidoc
-    markdown
-    standarddoc
-    isodoc
+    unstructured {
+      definition {
+        Markup convention.
+      }
+    }
+    docbook {
+      definition {
+        Markup following DocBook.
+      }
+    }
+    tei {
+      definition {
+        Markup following TEI.
+      }
+    }
+    asciidoc {
+      definition {
+        Markup following AsciiDoc.
+      }
+    }
+    markdown {
+      definition {
+        Markup following Markdown.
+      }
+    }
+    standarddoc {
+      definition {
+        Markup following the StandardDocument schema.
+      }
+    }
+    metanorma {
+      definition {
+        Markup following Metanorma.
+      }
+    }
   }
 
   ** note bottom of FormattedString: FormattedString\ndefaults to "plain"

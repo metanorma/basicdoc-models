@@ -13,18 +13,46 @@ diagram BibData {
   > 09/05/2019
       - BibData/ext
   |*
-  class BibliographicItem <<Bibliography>> {}
+  class BibliographicItem <<Bibliography>> {
+     definition {
+       Bibliographic description of a document.
+     }
+  }
 
   class BibData {
-    +ext: BibDataExtensionType
+     definition {
+       The bibliographic description of a BasicDocument.
+     }
+    +ext: BibDataExtensionType {
+      definition {
+        The extension point of the bibliographic description of a BasicDocument.
+      }
+    }
   }
 
   class BibDataExtensionType {
-    +doctype: DocumentType[0..*]
+     definition {
+        The extension point of the bibliographic description of a BasicDocument.
+     }
+    +doctype: DocumentType[0..*] {
+      definition {
+        Classification of the BasicDocument, indicating that it is to be rendered in a distinct manner.
+      }
+    }
   }
 
   enum DocumentType {
-    document
+    unstructured {
+      definition {
+        Classifications of BasicDocuments.
+      }
+    }
+    document {
+      definition {
+        Basicdoc only admits a single class of documents; more specific models of documents will necessarily
+        refine this classification.
+      }
+    }
   }
 
   ** 'note bottom of BibData : BibData differs from\nBibliographicItem by making `title`\nand `copyright` mandatory

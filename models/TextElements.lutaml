@@ -19,59 +19,190 @@ diagram TextElements {
   |*
 
   class BasicElement {
-    +contribMetadata: ContributionElementMetadata[0..*]
+    definition {
+      Container of inline content in BasicDocument.
+    }
+    +contribMetadata: ContributionElementMetadata[0..*] {
+      definition {
+        Metadata of the contributor responsible for the action.
+      }
+    }
   }
 
   class TextElement{
-    +content: TextElementType
+    definition {
+      Inline element containing text and associated formatting information, 
+      but which does not contain any associated identifiers or references to identifiers.
+    }
+    +content: TextElementType {
+      definition {
+        Content of the Text Element. May recursively contain other Text Elements.
+      }
+    }
   }
 
   class TextElementType{
-    +content: LocalizedString[0..*]
-    +elements: TextElement[0..*]
+    definition {
+      Content of the Text Element.
+    }
+    +content: LocalizedString[0..*] {
+      definition {
+        Textual content of the Text Element.
+      }
+    }
+    +elements: TextElement[0..*] {
+      definition {
+        May recursively contain other Text Elements.
+      }
+    }
   }
 
-  class MonospaceElement {}
+  class MonospaceElement {
+    definition {
+      Monospace text. Corresponds to HTML `tt`, `code`.
+    }
+  }
 
-  class KeywordElement {}
+  class KeywordElement {
+    definition {
+      Keyword text. 
+    }
+  }
 
-  class EmphasisElement {}
+  class EmphasisElement {
+    definition {
+      Emphasised text. Corresponds to HTML `em`, `i`.
+    }
+  }
 
-  class SubscriptElement {}
+  class SubscriptElement {
+    definition {
+      Subscript text. Corresponds to HTML `sub`.
+    }
+  }
 
-  class StrongElement {}
+  class StrongElement {
+    definition {
+      Strong text. Corresponds to HTML `strong`, `b`.
+    }
+  }
 
   class StemElement{
-    +stemType: StemType
-    +stemValue: StemValue
+    definition {
+      Mathematically formatted text.
+    }
+    +stemType: StemType {
+      definition {
+        The notation used to mathematically format the text.
+      }
+    }
+    +stemValue: StemValue {
+      definition {
+        The content of the mathematically formatted text.
+      }
+    }
   }
 
-  class SuperScriptElement {}
+  class SuperscriptElement {
+    definition {
+      Superscript text. Corresponds to HTML `sup`.
+    }
+  }
 
-  class StrikeElement {}
+  class StrikeElement {
+    definition {
+      Strikethrough text. Corresponds to HTML 4 `s`.
+    }
+  }
 
-  class SmallCapsElement {}
+  class SmallCapsElement {
+    definition {
+      Small caps text.
+    }
+  }
 
-  class UnderlineElement {}
+  class UnderlineElement {
+    definition {
+      Underlined text. Corresponds to HTML 4 `u`.
+    }
+  }
 
-  class StemValue {}
+  class StemValue {
+    definition {
+        The content of mathematically formatted text.
+    }
+  }
 
   class RubyElement {
-    +rubyParen: LocalizedString[0..*]
-    +rubyText: LocalizedString[0..*]
+    definition {
+      Text with Ruby annotations in East Asian languages. Corresponds to HTML `ruby`.
+    }
+    +rubyParen: LocalizedString[0..*] {
+      definition {
+        Ruby annotation. Corresponds to HTML `rp`.
+      }
+    }
+    +rubyText: LocalizedString[0..*] {
+      definition {
+        Ruby annotated text. Corresponds to HTML `rt`.
+      }
+    }
   }
 
   class MathML{
-    +value: MathMLValue
+    definition {
+      Mathematical text formatted in MathML.
+    }
+    +value: MathMLValue {
+      definition {
+        MathML content.
+      }
+    }
   }
 
   class AsciiML{
-    +value: String
+    definition {
+      Mathematical text formatted in AsciiMath.
+    }
+    +value: String {
+      definition {
+        AsciiMath content.
+      }
+    }
+  }
+
+  class AsciiML{
+    definition {
+      Mathematical text formatted in LaTeX.
+    }
+    +value: String {
+      definition {
+        LaTeX content.
+      }
+    }
   }
 
   enum StemType {
-    MathML
-    AsciiML
+    unstructured {
+      definition {
+        The notation used to mathematically format text.
+      }
+    }
+    MathML {
+      definition {
+        MathML
+      }
+    }
+    AsciiML {
+      definition {
+        AsciiMath
+      }
+    }
+    LaTeX {
+      definition {
+        LaTeX
+      }
+    }
   }
 
   association {
@@ -140,6 +271,11 @@ diagram TextElements {
   association {
     owner StemValue
     member AsciiML
+    owner_type inheritance
+  }
+  association {
+    owner StemValue
+    member LaTeX
     owner_type inheritance
   }
 

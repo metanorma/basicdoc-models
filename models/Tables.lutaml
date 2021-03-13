@@ -3,52 +3,183 @@ diagram Tables {
 
 
   class BasicBlock {
+    definition {
+      Block of textual content in BasicDocument.
+    }
   }
 
   class TableBlock{
-      +name: TextElement[0..*]
-      +unnumbered: Boolean[0..1]
-      +subsequence: String[0..1]
-      +alt: String[0..1]
-      +summary: String[0..1]
-      +uri: Uri[0..1]
-      +head: TextTableRow[0..1]
-      +body: TextTableRow[1..*]
-      +foot: TextTableRow[0..1]
-      +definitions: DefinitionList[0..1]
+    definition {
+      Tabular arrangement of text
+    }
+    +name: TextElement[0..*] {
+      definition {
+        Caption for the table.
+      }
+    }
+    +unnumbered: Boolean[0..1] {
+      definition {
+        The table should be excluded from any automatic numbering of tables in the document.
+      }
+    }
+    +subsequence: String[0..1] {
+      definition {
+      Define a subsequence for numbering of this table; e.g. if this table would be numbered
+      as 7, but it has a subsequence value of XYZ, this table, and all consecutive table
+      with the same subsequence value, will be numbered consecutively
+      with the same number and in a subsequence: 7a, 7b, 7c etc.
+      }
+    }
+    +alt: String[0..1] {
+      definition {
+        Accessible description of the tabular text, in case the table cannot be rendered accessibly.
+      }
+    }
+    +summary: String[0..1] {
+      definition {
+        Alternative more extensive summary of table to be provided for accessibility purposes, in case the table cannot be rendered accessibly.
+      }
+    }
+    +uri: Uri[0..1] {
+      definition {
+        Online location of content of table (in case the table is available as a separate external document).
+      }
+    }
+    +head: TextTableRow[0..1] {
+      definition {
+        Table rows constituting the table header.
+      }
+    }
+    +body: TextTableRow[1..*] {
+      definition {
+        Table rows constituting the table body.
+      }
+    }
+    +foot: TextTableRow[0..1] {
+      definition {
+        Table rows constituting the table footer.
+      }
+    }
+    +definitions: DefinitionList[0..1] {
+      definition {
+        Definitions list defining any symbols used in the table.
+      }
+    }
   }
 
   class TextTableRow{
-      +td: TableCell[0..*]
-      +th: TableCell[0..*]
+    definition {
+      Sequence of cells to be displayed as a row in a table.
+    }
+    +td: TableCell[0..*] {
+      definition {
+        Data cells in a table row.
+      }
+    }
+    +th: TableCell[0..*] {
+      definition {
+        Header cells in a table row.
+      }
+    }
   }
 
   class TableCell{
-      +colspan: Integer[0..1]
-      +rowspan: Integer[0..1]
-      +align: TextAlignmnent[0..1]
-      +valign: VerticalAlignmnent[0..1]
+    definition {
+      Textual content constituting a basic building block of a table.
+    }
+    +colspan: Integer[0..1] {
+      definition {
+        Number of columns in the underlying table grid which the cell spans.
+      }
+    }
+    +rowspan: Integer[0..1] {
+      definition {
+        Number of rows in the underlying table grid which the cell spans.
+      }
+    }
+    +align: TextAlignmnent[0..1] {
+      definition {
+        Horizontal textual alignment of the cell against the underlying table grid.
+      }
+    }
+    +valign: VerticalAlignmnent[0..1] {
+      definition {
+        Vertical alignment of the cell against the underlying table grid.
+      }
+    }
   }
 
   class TextTableCell{
-      +content: TextElement[0..*]
+    definition {
+      Table cells composed of inline elements, and therefore corresponding to a single block.
+    }
+    +content: TextElement[0..*] {
+      definition {
+        Content of the Text Table Cell.
+      }
+    }
   }
 
   class ParagraphTableCell{
-      +content: ParagraphWithFootnote[0..*]
+    definition {
+      Table cells composed of multiple paragraphs.
+    }
+    +content: ParagraphWithFootnote[0..*] {
+      definition {
+        Content of the Paragraph Table Cell.
+      }
+    }
   }
 
   enum TextAlignmnent {
-    left
-    center
-    right
+    unstructured {
+      definition {
+        Horizontal textual alignment of the cell against the underlying table grid.
+      }
+    }
+    left {
+      definition {
+        Left-aligned.
+      }
+    }
+    center {
+      definition {
+        Center-aligned.
+      }
+    }
+    right {
+      definition {
+        Right-aligned.
+      }
+    }
   }
 
   enum VerticalAlignmnent {
-    top
-    middle
-    bottom
-    baseline
+    unstructured { 
+      definition {
+        Vertical alignment of the cell against the underlying table grid.
+      }
+    }
+    top {
+      definition {
+        Aligned against the top of the table row.
+      }
+    }
+    middle {
+      definition {
+        Aligned against the middle of the table row.
+      }
+    }
+    bottom {
+      definition {
+        Aligned against the bottom of the table row.
+      }
+    }
+    baseline {
+      definition {
+        The first line of text of such cells in a table row is aligned to a common vertical baseline.
+      }
+    }
   }
 
 

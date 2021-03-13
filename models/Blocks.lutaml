@@ -39,16 +39,41 @@ diagram Blocks {
   |*
 
   class BasicBlock {
-    +notes: NoteBlock[0..*]
+    definition {
+      Block of textual content in BasicDocument.
+    }
+    +notes: NoteBlock[0..*] {
+      definition {
+        Notes whose scope is the current block.
+      }
+    }
   }
 
   class BasicBlockNoNotes {
-    +id: String
-    +contribMetadata: ContributionElementMetadata[0..*]
+    definition {
+      Base class of blocks for a BasicDocument, omitting notes.
+    }
+    +id: String {
+      definition {
+        Identifier for the block, to be used for cross-references.
+      }
+    }
+    +contribMetadata: ContributionElementMetadata[0..*] {
+      definition {
+        Attribution of the block to a specific contributor, to be used in change management of documents.
+      }
+    }
   }
 
   class NoteBlock {
-    +content: ParagraphBlock[0..*]
+    definition {
+      Note block, modelled to consist only of paragraphs.
+    }
+    +content: ParagraphBlock[0..*] {
+      definition {
+        Note block content.
+      }
+    }
   }
 
   association {

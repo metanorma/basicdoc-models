@@ -24,47 +24,147 @@ diagram IdElements {
   |*
 
   class BasicElement {
-    +contribMetadata: ContributionElementMetadata[0..*]
+    definition {
+      Container of inline content in BasicDocument.
+    }
+    +contribMetadata: ContributionElementMetadata[0..*] {
+      definition {
+        Metadata of the contributor responsible for the action.
+      }
+    }
   }
 
   class IdElement{
-    +id: String
+    definition {
+      BasicElement with an identifier, to be used in crossreferencing by Reference Elements.
+    }
+    +id: String {
+      definition {
+        Identifier of BasicElement.
+      }
+    }
   }
 
   class Media{
-    +filename: String[0..1]
-    +source: Uri
-    +type: MediaType
-    +alt: String[0..1]
-    +title: String[0..1]
-    +longdesc: Uri[0..1]
+    definition {
+      Container for media content.
+    }
+    +filename: String[0..1] {
+      definition {
+        File name corresponding to the media, to which the media can be extracted if it is represented inline (e.g. in Base64 encoding in the URI).
+      }
+    }
+    +source: Uri {
+      definition {
+        URI of the media file.
+      }
+    }
+    +type: MediaType {
+      definition {
+        Type of the media file.
+      }
+    }
+    +alt: String[0..1] {
+      definition {
+        Alternate text, supplied for accessibility.
+      }
+    }
+    +title: String[0..1] {
+      definition {
+        Title, supplied for accessibility.
+      }
+    }
+    +longdesc: Uri[0..1] {
+      definition {
+        URI pointing to more extensive alternate text description, supplied for accessibility.
+      }
+    }
   }
 
   class Image{
-    +height: Integer[0..1]
-    +width: Integer[0..1]
+    definition {
+      Container for image content.
+    }
+    +height: Integer[0..1] {
+      definition {
+        Height of image. Can have "auto" as value.
+      }
+    }
+    +width: Integer[0..1] {
+      definition {
+        Width of image. Can have "auto" as value.
+      }
+    }
   }
 
   class Audio{
-    +altsource: AltSource[0..*]
+    definition {
+      Container for audio content.
+    }
+    +altsource: AltSource[0..*] {
+      definition {
+        Alternative files to use as media.
+      }
+    }
   }
 
   class Video{
-    +altsource: AltSource[0..*]
-    +height: Integer[0..1]
-    +width: Integer[0..1]
+    definition {
+      Container for video content.
+    }
+    +altsource: AltSource[0..*] {
+      definition {
+        Alternative files to use as media.
+      }
+    }
+    +height: Integer[0..1] {
+      definition {
+        Height of video. Can have "auto" as value.
+      }
+    }
+    +width: Integer[0..1] {
+      definition {
+        Width of video. Can have "auto" as value.
+      }
+    }
   }
 
   class AltSource{
-    +filename: String[0..1]
-    +source: Uri
-    +type: MediaType
+    definition {
+      Alternative file to use as media.
+    }
+    +filename: String[0..1] {
+      definition {
+        File name corresponding to the media, to which the media can be extracted if it is represented inline (e.g. in Base64 encoding in the URI).
+      }
+    }
+    +source: Uri {
+      definition {
+        URI of the media file.
+      }
+    }
+    +type: MediaType {
+      definition {
+        Type of the media file.
+      }
+    }
   }
 
-  class Bookmark {}
+  class Bookmark {
+    definition {
+      Anchor for cross-references which do not have scope over blocks or sections. Anchors within a block under the BasicDocument model cannot span across a number of inline elements; bookmarks are intended as point anchors. For that reason, the Review block has a starting reference and an optional ending reference, which can be bookmarks as well as block or section references.
+    }
+  }
 
   class MediaType{
-    +content: String
+    definition {
+      Type of a media file.
+    }
+    +content: String {
+      definition {
+        Value of the type of a media file. The Basic Document model leaves the text to be used here open, but recommends the use of MIME types.
+      }
+    }
   }
 
   ** note right of IdElement : The `IdElement` itself acts as a reference point,\nsuch as in a SourcecodeBlock for\ncallout references (the IdElement is the location),\nand for delimiting ReviewComment start/end places.

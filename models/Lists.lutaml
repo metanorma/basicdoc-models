@@ -1,37 +1,117 @@
 diagram Lists {
-  class BasicBlock {}
+  class BasicBlock {
+    definition {
+      Block of textual content in BasicDocument.
+    }
+  }
 
   class List{
-    +listitem: ListItem[0..*]
+    definition {
+      List block.
+    }
+    +listitem: ListItem[0..*] {
+      definition {
+        Item in a list block.
+      }
+    }
   }
 
   class Listitem{
-    +id: string[0..1]
-    +content: ParagraphWithFootnote[0..*]
+    definition {
+        Item in a list block.
+    }
+    +id: string[0..1] {
+      definition {
+        Identifier of item.
+      }
+    }
+    +content: ParagraphWithFootnote[0..*] {
+      definition {
+        Content of item.
+      }
+    }
   }
 
-  class UnorderedList {}
+  class UnorderedList {
+    definition {
+      Unordered list block.
+    }
+  }
 
   class OrderedList{
-    +type: OrderedListType
-    +start: string[0..1]
+    definition {
+      Ordered list, with numbering applied to the list items.
+    }
+    +type: OrderedListType {
+      definition {
+        Type of numbering to be applied to the list items.
+      }
+    }
+    +start: string[0..1] {
+      definition {
+        Starting value for numbering of the list items.
+      }
+    }
   }
 
   class DefinitionList{
-    +listitem: Definition[0..*]
+    definition {
+      Definition list, composed of definitions rather than list items.
+    }
+    +listitem: Definition[0..*] {
+      definition {
+        Definitions constituting the definition list.
+      }
+    }
   }
 
   class Definition{
-    +item: TextElement[0..*]
-    +definition: ParagraphWithFootnote[0..*]
+    definition {
+      Definition used to constitute a definition list.
+    }
+    +item: TextElement[0..*] {
+      definition {
+        Entry being defined in the definition.
+      }
+    }
+    +definition: ParagraphWithFootnote[0..*] {
+      definition {
+        Definition of the item.
+      }
+    }
   }
 
   enum OrderedListType {
-    roman
-    alphabet
-    arabic
-    roman_upper
-    alphabet_upper
+    unstructured {
+      definition {
+        Type of numbering applied to the list items in an ordered list.
+      }
+    }
+    roman {
+      definition {
+        Lowercase Roman numbers.
+      }
+    }
+    alphabet {
+      definition {
+        Ordered lowercase Roman letters.
+      }
+    }
+    arabic {
+      definition {
+        Arabic numbers.
+      }
+    }
+    roman_upper {
+      definition {
+        Uppercase Roman numbers.
+      }
+    }
+    alphabet_upper {
+      definition {
+        Ordered uppercase Roman letters.
+      }
+    }
   }
 
   association {

@@ -1,32 +1,119 @@
 diagram MultiParagraphs {
-  class ParagraphsBlock {}
+  class ParagraphsBlock {
+    definition {
+      Block composed of multiple paragraphs.
+    }
+  }
 
   class QuoteBlock{
-    +source: ReferenceToCitationElement[0..1]
-    +author: <<Bibliography>> Contributor[0..1]
+    definition {
+       Block quotation, containing extensive textual content originally authored outside of the current document.
+    }
+    +source: ReferenceToCitationElement[0..1] {
+      definition {
+        Bibliographic citation for the quotation.
+      }
+    }
+    +author: <<Bibliography>> Contributor[0..1] {
+      definition {
+        Author of the quotation. The `author` attribute of the quotation is redundant with the citation, since it restates information about the author that should be recoverable from the citation itself. It is included for convenience, in case processing the citation to extract the author is prohibitive for rendering tools.
+      }
+    }
   }
 
   class ReviewBlock{
-    +reviewer: String[0..1]
-    +date: DateTime[0..1]
-    +appliesFrom: IdElement
-    +appliesTo: IdElement[0..1]
+    definition {
+      Block intended to capture reviewer comments about some text in the document.
+    }
+    +reviewer: String[0..1] {
+      definition {
+        The party who has offered the comment.
+      }
+    }
+    +date: DateTime[0..1] {
+      definition {
+        The date when the comment was made.
+      }
+    }
+    +appliesFrom: IdElement {
+      definition {
+        Identifier for the start of the text or point in the text to which the comment applies.
+      }
+    }
+    +appliesTo: IdElement[0..1] {
+      definition {
+        Identifier for the end of the text to which the comment applies.
+      }
+    }
   }
 
   class AdmonitionBlock{
-    +type: AdmonitionType
-    +name: TextElement[0..*]
-    +class: String[0..1]
-    +uri: Uri[0..1]
+    definition {
+      A sidebar block outside of the main flow of text,
+      conveying particular warnings or supplementary text to the reader.
+    }
+    +type: AdmonitionType {
+      definition {
+        Subclass of admonition determining how it is to be rendered; e.g.
+        Warning, Note, Tip.
+        Distinct admonition types are often associated with distinct icons or rendering.
+      }
+    }
+    +name: TextElement[0..*] {
+      definition {
+        Caption of admonition.
+      }
+    }
+    +class: String[0..1] {
+      definition {
+        Subclass of admonition allowing different runs of admonitions to be labelled 
+        and auto-numbered differently, even if they are of the same type.
+        Typically is a subclass of an admonition type.
+      }
+    }
+    +uri: Uri[0..1] {
+      definition {
+        Location where the content of the admonition is accessible as an external document.
+      }
+    }
   }
 
   enum AdmonitionType {
-    warning
-    note
-    tip
-    important
-    caution
-    statement
+    unstructured {
+      definition {
+        Subclass of admonition determining how it is to be rendered.
+      }
+    }
+    warning {
+      definition {
+        Warning to reader, note of risk to be avoided.
+      }
+    }
+    note {
+      definition {
+        Supplementary, explanatory information.
+      }
+    }
+    tip {
+      definition {
+        Instructive information to assist in the fulfilment of tasks related to content.
+      }
+    }
+    important {
+      definition {
+        Note to reader of something crucial to be borne in mind.
+      }
+    }
+    caution {
+      definition {
+        Caution to reader, note of potential surprise or difficulty.
+      }
+    }
+    statement {
+      definition {
+        Intended for typographically separate statements in mathematics, such as propositions, proofs, or theorems. Statement conflates all of these for rendering, while Proposition, Proof, Theorem etc. can be treated as distinct classes.
+      }
+    }
   }
 
   ** note bottom of QuoteBlock : QuoteBlock: author is properly derived from\nthe Citation, and is redundant here: it is for\ndisplay only

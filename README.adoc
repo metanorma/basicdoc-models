@@ -75,9 +75,9 @@ image::images/EmptyElements.png[]
 
 image::images/ReferenceElements.png[]
 
-=== Change
+=== Changes
 
-image::images/Change.png[]
+image::images/Changes.png[]
 
 === Data Types
 

@@ -18,55 +18,167 @@ diagram ReferenceElements {
   |*
 
   class BasicElement {
-    +contribMetadata: ContributionElementMetadata[0..*]
+    definition {
+      Container of inline content in BasicDocument.
+    }
+    +contribMetadata: ContributionElementMetadata[0..*] {
+      definition {
+        Attribution of the element to a specific contributor, to be used in change management of documents.
+      }
+    }
   }
 
   class ReferenceElement{
-    +type: ReferenceFormat
-    +text: BasicElement[0..1]
-    +alt: String[0..1]
+    definition {
+      Inline element, which references an identifier of a document, a block in a document, or an element in a document.
+    }
+    +type: ReferenceFormat {
+      definition {
+        The type of Reference Element, prescribing how it is to be rendered.
+      }
+    }
+    +text: BasicElement[0..1] {
+      definition {
+        The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
+      }
+    }
+    +alt: String[0..1] {
+      definition {
+        Alternate text, used for accessibility.
+      }
+    }
   }
 
-  class Citation <<Bibliography>> {}
+  class Citation <<Bibliography>> {
+    definition {
+      A reference to a bibliographic entity, as modelled in Relaton.
+    }
+  }
 
   class ReferenceToIdElement{
-    +target: IdElement
+    definition {
+      An internal reference to an element of the current document.
+    }
+    +target: IdElement {
+      definition {
+        The identifier of a section, block or inline element referenced.
+      }
+    }
   }
 
   class IndexXrefElement {
-    +secondary: String[0..1]
-    +tertiary: String[0..1]
-    +target: String
-    +also: Boolean
+    definition {
+      A reference to an index term, cross-referenced within an index as an
+      alternative index entry, either as a "see" or a "see also" cross-reference.
+      The text in the inline element is the primary index term to be be cross-referenced.
+    }
+    +secondary: String[0..1] {
+      definition {
+        The secondary index term to be be cross-referenced.
+      }
+    }
+    +tertiary: String[0..1] {
+      definition {
+        The tertiary index term to be be cross-referenced.
+      }
+    }
+    +target: String {
+      definition {
+        The index term to be cross-referenced to.
+      }
+    }
+    +also: Boolean {
+      definition {
+        The cross-reference is to be treated as "see also" rather than as "see".
+      }
+    }
   }
 
   class ReferenceToLinkElement{
-    +target: Uri
+    definition {
+      A reference to an external document or resource.
+    }
+    +target: Uri {
+      definition {
+        The location or online identifier of the external document or resource.
+      }
+    }
   }
 
   class ReferenceToCitationElement{
-    +normative: Boolean[0..1]
-    +citeAs: TextElement[0..*]
+    definition {
+      An external reference to a bibliographic entity.
+    }
+    +normative: Boolean[0..1] {
+      definition {
+        Whether the reference is to be treated as normative or informative, particularly in the context of normative documents such as standards.
+      }
+    }
+    +citeAs: TextElement[0..*] {
+      definition {
+        Form that the bibliographic citation should take when it is rendered.
+      }
+    }
   }
 
   class ReferenceToIdWithParagraphElement{
-    +content: ParagraphBlock[1..*]
+    definition {
+      Inline reference to a paragraph or paragraphs: element combining the reference and the referenced
+      content in the one element.
+    }
+    +content: ParagraphBlock[1..*] {
+      definition {
+        The paragraph or paragraphs referenced in this element.
+      }
+    }
   }
 
   class Callout{
-    +type: "callout"
-    +text: TextElement
+    definition {
+      Inline reference to a paragraph or paragraphs, appearing as annotation of source code.
+      The target of the callout is understood to be the location of the callout within the source code; the extent of the target is not expressed overtly.
+    }
+    +type: "callout" 
+    +text: TextElement {
+      definition { 
+        The label of the callout, used to identify its target within the source code.
+      }
+    }
   }
 
   class Footnote{
-    +type: "footnote"
+    definition {
+      Inline reference to a paragraph or paragraphs, appearing as a footnote.
+    }
+    +type: "footnote" 
   }
 
   enum ReferenceFormat {
-    external
-    inline
-    footnote
-    callout
+    unstructured {
+      definition {
+        The type of Reference Element, prescribing how it is to be rendered
+      }
+    }
+    external {
+      definition {
+        Reference to an external document.
+      }
+    }
+    inline {
+      definition {
+        Reference to another element in the same document.
+      }
+    }
+    footnote {
+      definition {
+        Inline reference to a block to be rendered as a footnote.
+      }
+    }
+    callout {
+      definition {
+        Inline reference to a block to be referenced as a sourcecode callout.
+      }
+    }
   }
 
   ** note "* `text` is what you want to show the link as.\n(i.e., the `content` of <xx>my link text</xx>)" as N1

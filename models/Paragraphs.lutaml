@@ -1,28 +1,79 @@
 diagram Paragraphs {
 
-
-
   class BasicBlock {
+    definition {
+      Block of textual content in BasicDocument.
+    }
   }
 
   class ParagraphBlock{
-      +contents: BasicElement[0..*]
-      +alignment: TextAlignment[0..1]
+    definition {
+      Default block of textual content. 
+      Unlike the case for other document models, paragraphs _cannot_
+contain other blocks, such as lists, tables, or figures: they are modelled as a basic building block of text.
+    }
+    +contents: BasicElement[0..*] {
+      definition {
+        Inline elements constituting the content of the paragraph.
+      }
+    }
+    +alignment: TextAlignment[0..1] {
+      definition {
+        The alignment of the paragraph against the margins of the document.
+        Text alignment is the only concession the modelling of paragraphs makes to rendering, and is there because the application of alignment to paragraphs, while rare, can be unpredictable from paragraph semantics. Other rendering attributes of paragraphs, such as spacing before and after, are considered to be semantically predictable and are relegated to document stylesheets.
+      }
+    }
   }
 
   class ParagraphsBlock{
-      +contents: ParagraphWithFootnote[0..*]
+    definition {
+      Block composed of multiple paragraphs.
+    }
+    +contents: ParagraphWithFootnote[0..*] {
+      definition {
+        The paragraphs constituting the ParagraphsBlock.
+      }
+    }
   }
 
   class ParagraphWithFootnote{
-      +footnotes: ReferenceToldWithParagraphElement[0..*]
+    definition {
+      A paragraph which may also contain footnotes.
+      While most paragraphs in a document can contain footnotes, the distinction is necessary, as footnotes are not appropriate for all instances of paragraph content in a document (e.g. sourcecode annotations).
+    }
+    +footnotes: ReferenceToldWithParagraphElement[0..*] {
+      definition {
+        Footnotes contained in the paragraph.
+      }
+    }
   }
 
   enum TextAlignment {
-      left
-      center
-      right
-      justified
+    unstructured {
+      definition {
+        The alignment of the paragraph against the margins of the document.
+      }
+    }
+    left {
+      definition {
+        Left alignment.
+      }
+    }
+    center {
+      definition {
+        Center alignment.
+      }
+    }
+    right {
+      definition {
+        Right alignment.
+      }
+    }
+    justified {
+      definition {
+        Justified alignment.
+      }
+    }
   }
 
 
