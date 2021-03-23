@@ -1,3 +1,4 @@
+
 ifeq ($(OS),Windows_NT)
 SHELL := pwsh -NoProfile
 RM    := Remove-Item -Force
@@ -29,4 +30,3 @@ clean:
 	$(RM) images/*.png
 
 .PHONY: clean
-
