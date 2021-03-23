@@ -1,15 +1,32 @@
-SRC := $(wildcard models/*.lutaml)
-PNG := $(patsubst models/%.lutaml,images/%.png,$(SRC))
-
+ifeq ($(OS),Windows_NT)
+SHELL := pwsh -NoProfile
+RM    := Remove-Item -Force
+else
 SHELL := /bin/bash
+RM    := rm -f
+endif
+
+SRC := $(wildcard views/*.lutaml)
+
+ifeq ($(SRC),)
+SRC := $(patsubst models/%.wsd,views/%.lutaml,$(wildcard models/*.wsd))
+endif
+
+PNG := $(patsubst views/%.lutaml,images/%.png,$(SRC))
 
 all: $(PNG)
 
-images/%.png: models/%.lutaml
+images/%.png: views/%.lutaml
 	lutaml -t png -o $@ $<
 
+views/%.lutaml: models/%.wsd | views
+	lutaml-wsd2uml $< > $@
+
+views:
+	mkdir views
+
 clean:
-	rm -f $(PNG)
+	$(RM) images/*.png
 
 .PHONY: clean
 
