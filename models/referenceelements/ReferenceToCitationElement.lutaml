@@ -1,0 +1,17 @@
+class ReferenceToCitationElement{
+  definition {
+    An external reference to a bibliographic entity.
+  }
+  +normative: Boolean[0..1] {
+    definition {
+      Whether the reference is to be treated as normative or informative, particularly in the context of normative documents such as standards.
+    }
+  }
+  +citeAs: TextElement[0..*] {
+    definition {
+      Form that the bibliographic citation should take when it is rendered.
+    }
+  }
+}
+
+

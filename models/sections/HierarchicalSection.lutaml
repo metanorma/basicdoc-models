@@ -1,0 +1,13 @@
+class HierarchicalSection{
+  definition {
+    Sections: groups of blocks within text, which can also contain other sections. 
+  }
+  +subsections: HierarchicalSection[0..*] {
+    definition {
+      Sections contained within the current section. The relation is recursive, 
+      so the hierarchical arrangement of sections can be arbitrarily deep.
+    }
+  }
+}
+
+

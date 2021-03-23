@@ -1,0 +1,7 @@
+class StrongElement {
+  definition {
+    Strong text. Corresponds to HTML `strong`, `b`.
+  }
+}
+
+

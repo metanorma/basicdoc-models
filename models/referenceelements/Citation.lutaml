@@ -1,0 +1,7 @@
+class Citation <<Bibliography>> {
+  definition {
+    A reference to a bibliographic entity, as modelled in Relaton.
+  }
+}
+
+

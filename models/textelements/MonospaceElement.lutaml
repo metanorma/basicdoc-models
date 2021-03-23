@@ -1,0 +1,7 @@
+class MonospaceElement {
+  definition {
+    Monospace text. Corresponds to HTML `tt`, `code`.
+  }
+}
+
+

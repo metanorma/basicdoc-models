@@ -1,0 +1,11 @@
+class ContentModify {
+  definition {
+Container for a multiple _ContentChangeAction_ data
+  }
+  +actions: ContentChangeAction[1..*] {
+    definition {
+One or more `ContentChangeAction` data.
+    }
+  }
+}
+

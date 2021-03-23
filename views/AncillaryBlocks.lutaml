@@ -1,0 +1,46 @@
+diagram AncillaryBlocks {
+  *|
+  > 2019-12-06
+      - added alt attribute to LiteralBlock
+  |*
+  
+  include ../models/blocks/BasicBlock.lutaml
+  include ../models/ancillaryblocks/FigureBlock.lutaml
+  include ../models/ancillaryblocks/Subfigure.lutaml
+  include ../models/ancillaryblocks/SourcecodeBlock.lutaml
+  include ../models/ancillaryblocks/FormulaBlock.lutaml
+  include ../models/ancillaryblocks/ExampleBlock.lutaml
+  include ../models/ancillaryblocks/LiteralBlock.lutaml
+
+  association {
+    owner FigureBlock
+    member BasicBlock
+    member_type inheritance
+  }
+  association {
+    owner LiteralBlock
+    member BasicBlock
+    member_type inheritance
+  }
+  association {
+    owner SourcecodeBlock
+    member BasicBlock
+    member_type inheritance
+  }
+  association {
+    owner FormulaBlock
+    member BasicBlock
+    member_type inheritance
+  }
+  association {
+    owner ExampleBlock
+    member BasicBlock
+    member_type inheritance
+  }
+
+  association {
+    owner Subfigure
+    member FigureBlock
+    member_type inheritance
+  }
+}

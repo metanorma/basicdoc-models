@@ -1,0 +1,9 @@
+data_type Uri {
+  unstructured {
+    definition {
+      URI, as defined in RFC 3986.
+    }
+  }
+}
+
+

@@ -1,0 +1,24 @@
+diagram ContribMetadata {
+  include ../models/contribmetadata/Iso10118Oid.lutaml
+  include ../models/contribmetadata/Iso14888Oid.lutaml
+  include ../models/contribmetadata/ContributionElementMetadata.lutaml
+  include ../models/contribmetadata/IntegrityValue.lutaml
+  include ../models/contribmetadata/Hash.lutaml
+  include ../models/contribmetadata/Signature.lutaml
+
+  association {
+    owner IntegrityValue
+    member ContributionElementMetadata
+    member_type direct
+  }
+  association {
+    owner IntegrityValue
+    member Hash
+    owner_type inheritance
+  }
+  association {
+    owner IntegrityValue
+    member Signature
+    owner_type inheritance
+  }
+}

@@ -1,0 +1,22 @@
+class ReferenceElement{
+  definition {
+    Inline element, which references an identifier of a document, a block in a document, or an element in a document.
+  }
+  +type: ReferenceFormat {
+    definition {
+      The type of Reference Element, prescribing how it is to be rendered.
+    }
+  }
+  +text: BasicElement[0..1] {
+    definition {
+      The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
+    }
+  }
+  +alt: String[0..1] {
+    definition {
+      Alternate text, used for accessibility.
+    }
+  }
+}
+
+

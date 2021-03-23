@@ -1,0 +1,7 @@
+class StrikeElement {
+  definition {
+    Strikethrough text. Corresponds to HTML 4 `s`.
+  }
+}
+
+

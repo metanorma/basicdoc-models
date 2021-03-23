@@ -1,0 +1,29 @@
+class IndexXrefElement {
+  definition {
+    A reference to an index term, cross-referenced within an index as an
+    alternative index entry, either as a "see" or a "see also" cross-reference.
+    The text in the inline element is the primary index term to be be cross-referenced.
+  }
+  +secondary: String[0..1] {
+    definition {
+      The secondary index term to be be cross-referenced.
+    }
+  }
+  +tertiary: String[0..1] {
+    definition {
+      The tertiary index term to be be cross-referenced.
+    }
+  }
+  +target: String {
+    definition {
+      The index term to be cross-referenced to.
+    }
+  }
+  +also: Boolean {
+    definition {
+      The cross-reference is to be treated as "see also" rather than as "see".
+    }
+  }
+}
+
+

@@ -1,0 +1,13 @@
+class ParagraphWithFootnote{
+  definition {
+    A paragraph which may also contain footnotes.
+    While most paragraphs in a document can contain footnotes, the distinction is necessary, as footnotes are not appropriate for all instances of paragraph content in a document (e.g. sourcecode annotations).
+  }
+  +footnotes: ReferenceToldWithParagraphElement[0..*] {
+    definition {
+      Footnotes contained in the paragraph.
+    }
+  }
+}
+
+

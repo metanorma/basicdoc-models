@@ -1,0 +1,12 @@
+class MathML{
+  definition {
+    Mathematical text formatted in MathML.
+  }
+  +value: MathMLValue {
+    definition {
+      MathML content.
+    }
+  }
+}
+
+

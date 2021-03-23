@@ -1,0 +1,12 @@
+class LaTeX{
+  definition {
+    Mathematical text formatted in LaTeX.
+  }
+  +value: String {
+    definition {
+      LaTeX content.
+    }
+  }
+}
+
+

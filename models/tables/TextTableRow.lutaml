@@ -1,0 +1,17 @@
+class TextTableRow{
+  definition {
+    Sequence of cells to be displayed as a row in a table.
+  }
+  +td: TableCell[0..*] {
+    definition {
+      Data cells in a table row.
+    }
+  }
+  +th: TableCell[0..*] {
+    definition {
+      Header cells in a table row.
+    }
+  }
+}
+
+

@@ -1,0 +1,12 @@
+class DefinitionList{
+  definition {
+    Definition list, composed of definitions rather than list items.
+  }
+  +listitem: Definition[0..*] {
+    definition {
+      Definitions constituting the definition list.
+    }
+  }
+}
+
+

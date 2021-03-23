@@ -1,0 +1,135 @@
+diagram TextElements {
+  *|
+  Diagram:        TextElements
+  DateCreate:     28/07/2018
+  Description:    BasicDocument / SecureDoc is a family of document models that forms the basis of Metanorma IsoDoc (via Metanorma StandardDocument), which is used to represent ISO Standards and similarly structured standards.
+                  It is also the document model that Selagraph operates on.
+                  The Relaton Bibliography UML models used in these models are located here: Relaton BibModels.
+                  BasicDocument itself is a document model that can serve as a transit data structure for document conversion, such as taking input from AsciiDoc or Markdown and converting them into an output format, such as Metanorma IsoDoc
+
+  Hystory of changes:
+  > 22/08/2018
+      - diagram configuration updated
+      - new classes are added "MonospaceElement"
+      - some relations between elements are updated
+  > 08/12/2018
+      - added keyword
+  > 03/06/2019
+      - allow recursion of text elements
+  |*
+  include ../models/emptyelements/BasicElement.lutaml
+  include ../models/textelements/TextElement.lutaml
+  include ../models/textelements/TextElementType.lutaml
+  include ../models/textelements/MonospaceElement.lutaml
+  include ../models/textelements/KeywordElement.lutaml
+  include ../models/textelements/EmphasisElement.lutaml
+  include ../models/textelements/SubscriptElement.lutaml
+  include ../models/textelements/StrongElement.lutaml
+  include ../models/textelements/StemElement.lutaml
+  include ../models/textelements/SuperscriptElement.lutaml
+  include ../models/textelements/StrikeElement.lutaml
+  include ../models/textelements/SmallCapsElement.lutaml
+  include ../models/textelements/UnderlineElement.lutaml
+  include ../models/textelements/StemValue.lutaml
+  include ../models/textelements/RubyElement.lutaml
+  include ../models/textelements/MathML.lutaml
+  include ../models/textelements/AsciiML.lutaml
+  include ../models/textelements/LaTeX.lutaml
+  include ../models/textelements/StemType.lutaml
+
+
+  association {
+    owner BasicElement
+    member TextElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElementType
+    member TextElement
+    member_type direct
+  }
+
+  association {
+    owner TextElement
+    member KeywordElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member MonospaceElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member EmphasisElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member SubscriptElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member StrongElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member UnderlineElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member StemElement
+    owner_type inheritance
+  }
+
+  association {
+    owner StemType
+    member StemElement
+    member_type direct
+  }
+  association {
+    owner StemValue
+    member StemElement
+    member_type direct
+  }
+
+  association {
+    owner StemValue
+    member MathML
+    owner_type inheritance
+  }
+  association {
+    owner StemValue
+    member AsciiML
+    owner_type inheritance
+  }
+  association {
+    owner StemValue
+    member LaTeX
+    owner_type inheritance
+  }
+
+  association {
+    owner TextElement
+    member SuperScriptElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member StrikeElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member SmallCapsElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member RubyElement
+    owner_type inheritance
+  }
+}

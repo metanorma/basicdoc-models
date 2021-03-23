@@ -1,0 +1,50 @@
+class ExampleBlock{
+  definition {
+    Block containing an example illustrating a claim made in the main flow of text.
+  }
+  +name: TextElement[0..*] {
+    definition {
+      The caption of the block.
+    }
+  }
+  +unnumbered: Boolean[0..1] {
+    definition {
+      The block should be excluded from any automatic numbering of blocks of this class in the document.
+    }
+  }
+  +subsequence: String[0..1] {
+    definition {
+    Define a subsequence for numbering of this block; e.g. if this block would be numbered
+    as 7, but it has a subsequence value of XYZ, this block, and all consecutive blocks
+    of the same class and with the same subsequence value, will be numbered consecutively
+    with the same number and in a subsequence: 7a, 7b, 7c etc.
+    }
+  }
+  +formula: StemElement[0..*] {
+    definition {
+      Formula blocks contributing to example content.
+    }
+  }
+  +list: UnorderedList[0..*] {
+    definition {
+      Unordered list blocks contributing to example content.
+    }
+  }
+  +quote: QuoteBlock[0..*] {
+    definition {
+      Quotation blocks contributing to example content.
+    }
+  }
+  +sourcecode: SourcecodeBlock[0..*] {
+    definition {
+      Sourcecode blocks contributing to example content.
+    }
+  }
+  +paragraphs: ParagraphWithFootnote[0..*] {
+    definition {
+      Paragraph blocks contributing to example content.
+    }
+  }
+}
+
+

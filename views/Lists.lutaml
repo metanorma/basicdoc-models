@@ -1,0 +1,50 @@
+diagram Lists {
+  include ../models/blocks/BasicBlock.lutaml
+  include ../models/lists/List.lutaml
+  include ../models/lists/ListItem.lutaml
+  include ../models/lists/UnorderedList.lutaml
+  include ../models/lists/OrderedList.lutaml
+  include ../models/lists/DefinitionList.lutaml
+  include ../models/lists/Definition.lutaml
+  include ../models/lists/OrderedListType.lutaml
+
+  association {
+    owner BasicBlock
+    member List
+    owner_type inheritance
+  }
+
+  association {
+    owner Listitem
+    member List
+    member_type direct
+  }
+  association {
+    owner List
+    member UnorderedList
+    owner_type inheritance
+  }
+  association {
+    owner List
+    member DefinitionList
+    owner_type inheritance
+  }
+
+  association {
+    owner Definition
+    member DefinitionList
+    member_type direct
+  }
+
+  association {
+    owner UnorderedList
+    member OrderedList
+    owner_type inheritance
+  }
+
+  association {
+    owner OrderedListType
+    member OrderedList
+    member_type direct
+  }
+}

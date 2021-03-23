@@ -1,0 +1,9 @@
+data_type Iso15924Code {
+  unstructured {
+    definition {
+      Script identifier, as defined in ISO 15924.
+    }
+  }
+}
+
+

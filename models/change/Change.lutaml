@@ -1,0 +1,26 @@
+class Change {
+  definition {
+    Specification of an update action to be performed incrementally on an element within a BasicDocument.
+  }
+  +target: ReferenceToIdElement {
+    definition {
+      The element that this action should be applied to.
+    }
+  }
+  +identifier: UniqueIdentifier {
+    definition {
+      A unique identifier of this change.
+    }
+  }
+  +parentIdentifier: UniqueIdentifier[0..1] {
+    definition { 
+      One or more unique identifiers of _Change_ objects, that this change is supposed to follow after.
+    }
+  }
+  +contribMetadata: ContributionElementMetadata[0..*] {
+    definition {
+      Metadata of the contributor responsible for the action.
+    }
+  }
+}
+

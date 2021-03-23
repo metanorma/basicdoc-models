@@ -1,0 +1,35 @@
+diagram MultiParagraphs {
+  include ../models/paragraphs/ParagraphWithFootnote.lutaml
+  include ../models/multiparagraphs/ParagraphsBlock.lutaml
+  include ../models/multiparagraphs/QuoteBlock.lutaml
+  include ../models/multiparagraphs/ReviewBlock.lutaml
+  include ../models/multiparagraphs/AdmonitionBlock.lutaml
+  include ../models/multiparagraphs/AdmonitionType.lutaml
+
+  association {
+    owner ParagraphWithFootnote
+    member ParagraphsBlock
+    owner_type inheritance
+  }
+  association {
+    owner ParagraphsBlock
+    member QuoteBlock
+    owner_type inheritance
+  }
+  association {
+    owner ParagraphsBlock
+    member ReviewBlock
+    owner_type inheritance
+  }
+  association {
+    owner ParagraphsBlock
+    member AdmonitionBlock
+    owner_type inheritance
+  }
+
+  association {
+    owner AdmonitionType
+    member AdmonitionBlock
+    member_type direct
+  }
+}

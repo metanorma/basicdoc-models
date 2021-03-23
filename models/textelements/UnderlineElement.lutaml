@@ -1,0 +1,7 @@
+class UnderlineElement {
+  definition {
+    Underlined text. Corresponds to HTML 4 `u`.
+  }
+}
+
+

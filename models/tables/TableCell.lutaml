@@ -1,0 +1,26 @@
+class TableCell{
+  definition {
+    Textual content constituting a basic building block of a table.
+  }
+  +colspan: Integer[0..1] {
+    definition {
+      Number of columns in the underlying table grid which the cell spans.
+    }
+  }
+  +rowspan: Integer[0..1] {
+    definition {
+      Number of rows in the underlying table grid which the cell spans.
+    }
+  }
+  +align: TextAlignmnent[0..1] {
+    definition {
+      Horizontal textual alignment of the cell against the underlying table grid.
+    }
+  }
+  +valign: VerticalAlignmnent[0..1] {
+    definition {
+      Vertical alignment of the cell against the underlying table grid.
+    }
+  }
+}
+

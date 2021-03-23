@@ -1,0 +1,13 @@
+
+class ReferencesSection{
+  definition {
+    Sections containing zero or more bibliographical items (as described in Relaton),
+    along with any prefatory text.
+  }
+  +references: <<Bibliography>> BibliographicItem[0..*] {
+    definition {
+      Bibliographical items included in the References Section.
+    }
+  }
+}
+

@@ -1,0 +1,17 @@
+class OrderedList{
+  definition {
+    Ordered list, with numbering applied to the list items.
+  }
+  +type: OrderedListType {
+    definition {
+      Type of numbering to be applied to the list items.
+    }
+  }
+  +start: string[0..1] {
+    definition {
+      Starting value for numbering of the list items.
+    }
+  }
+}
+
+

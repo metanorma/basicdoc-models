@@ -1,0 +1,21 @@
+diagram DataTypes {
+  include ../models/datatypes/LocalizedString.lutaml
+  include ../models/datatypes/Uri.lutaml
+  include ../models/datatypes/String.lutaml
+  include ../models/datatypes/FormattedString.lutaml
+  include ../models/datatypes/Iso8601DateTime.lutaml
+  include ../models/datatypes/Iso15924Code.lutaml
+  include ../models/datatypes/Iso639Code.lutaml
+  include ../models/datatypes/StringFormat.lutaml
+
+  association {
+    owner LocalizedString
+    member FormattedString
+    owner_type inheritance
+  }
+  association {
+    owner StringFormat
+    member FormattedString
+    member_type direct
+  }
+}

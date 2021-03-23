@@ -1,0 +1,13 @@
+class AttributeModify {
+  definition {
+A container for a multiple _AttributeChangeAction_ data.
+Add attribute; Remove attribute; Modify attribute.
+  }
+  +actions: AttributeChangeAction[1..*] {
+    definition {
+One or more `AttributeChangeAction` data.
+    }
+  }
+}
+
+

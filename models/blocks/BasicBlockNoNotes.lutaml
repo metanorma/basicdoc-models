@@ -1,0 +1,17 @@
+class BasicBlockNoNotes {
+  definition {
+    Base class of blocks for a BasicDocument, omitting notes.
+  }
+  +id: String {
+    definition {
+      Identifier for the block, to be used for cross-references.
+    }
+  }
+  +contribMetadata: ContributionElementMetadata[0..*] {
+    definition {
+      Attribution of the block to a specific contributor, to be used in change management of documents.
+    }
+  }
+}
+
+

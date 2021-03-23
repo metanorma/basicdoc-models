@@ -1,0 +1,12 @@
+class ReferenceToIdWithParagraphElement{
+  definition {
+    Inline reference to a paragraph or paragraphs: element combining the reference and the referenced
+    content in the one element.
+  }
+  +content: ParagraphBlock[1..*] {
+    definition {
+      The paragraph or paragraphs referenced in this element.
+    }
+  }
+}
+

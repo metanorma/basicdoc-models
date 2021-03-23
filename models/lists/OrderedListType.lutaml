@@ -1,0 +1,33 @@
+enum OrderedListType {
+  unstructured {
+    definition {
+      Type of numbering applied to the list items in an ordered list.
+    }
+  }
+  roman {
+    definition {
+      Lowercase Roman numbers.
+    }
+  }
+  alphabet {
+    definition {
+      Ordered lowercase Roman letters.
+    }
+  }
+  arabic {
+    definition {
+      Arabic numbers.
+    }
+  }
+  roman_upper {
+    definition {
+      Uppercase Roman numbers.
+    }
+  }
+  alphabet_upper {
+    definition {
+      Ordered uppercase Roman letters.
+    }
+  }
+}
+

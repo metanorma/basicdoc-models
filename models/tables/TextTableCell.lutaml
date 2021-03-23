@@ -1,0 +1,12 @@
+class TextTableCell{
+  definition {
+    Table cells composed of inline elements, and therefore corresponding to a single block.
+  }
+  +content: TextElement[0..*] {
+    definition {
+      Content of the Text Table Cell.
+    }
+  }
+}
+
+

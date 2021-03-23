@@ -1,0 +1,32 @@
+class AdmonitionBlock{
+  definition {
+    A sidebar block outside of the main flow of text,
+    conveying particular warnings or supplementary text to the reader.
+  }
+  +type: AdmonitionType {
+    definition {
+      Subclass of admonition determining how it is to be rendered; e.g.
+      Warning, Note, Tip.
+      Distinct admonition types are often associated with distinct icons or rendering.
+    }
+  }
+  +name: TextElement[0..*] {
+    definition {
+      Caption of admonition.
+    }
+  }
+  +class: String[0..1] {
+    definition {
+      Subclass of admonition allowing different runs of admonitions to be labelled 
+      and auto-numbered differently, even if they are of the same type.
+      Typically is a subclass of an admonition type.
+    }
+  }
+  +uri: Uri[0..1] {
+    definition {
+      Location where the content of the admonition is accessible as an external document.
+    }
+  }
+}
+
+

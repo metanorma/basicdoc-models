@@ -1,0 +1,87 @@
+diagram ReferenceElements {
+  *|
+  Diagram:        ReferenceElements
+  DateCreate:     28/07/2018
+  Description:    BasicDocument / SecureDoc is a family of document models that forms the basis of Metanorma IsoDoc (via Metanorma StandardDocument), which is used to represent ISO Standards and similarly structured standards.
+                  It is also the document model that Selagraph operates on.
+                  The Relaton Bibliography UML models used in these models are located here: Relaton BibModels.
+                  BasicDocument itself is a document model that can serve as a transit data structure for document conversion, such as taking input from AsciiDoc or Markdown and converting them into an output format, such as Metanorma IsoDoc
+
+  History of changes:
+  > 22/08/2018
+      - diagram configuration updated
+      - relations between some elements are updated
+  > 04/05/2019
+      - alt attribute on ReferenceToLinkElement
+  > 11/12/2020
+      - index-xref
+  |*
+  include ../models/emptyelements/BasicElement.lutaml
+  include ../models/referenceelements/ReferenceElement.lutaml
+  include ../models/referenceelements/Citation.lutaml
+  include ../models/referenceelements/ReferenceToIdElement.lutaml
+  include ../models/referenceelements/IndexXrefElement.lutaml
+  include ../models/referenceelements/ReferenceToLinkElement.lutaml
+  include ../models/referenceelements/ReferenceToCitationElement.lutaml
+  include ../models/referenceelements/ReferenceToIdWithParagraphElement.lutaml
+  include ../models/referenceelements/Callout.lutaml
+  include ../models/referenceelements/Footnote.lutaml
+  include ../models/referenceelements/ReferenceFormat.lutaml
+
+
+  association {
+    owner BasicElement
+    member ReferenceElement
+    owner_type inheritance
+  }
+  association {
+    owner ReferenceElement
+    member IndexXrefElement
+    owner_type inheritance
+  }
+
+  association {
+    owner ReferenceElement
+    member ReferenceToIdElement
+    owner_type inheritance
+  }
+  association {
+    owner ReferenceElement
+    member ReferenceToLinkElement
+    owner_type inheritance
+  }
+  association {
+    owner ReferenceElement
+    member ReferenceToCitationElement
+    owner_type inheritance
+  }
+
+  association {
+    owner ReferenceFormat
+    member ReferenceElement
+    member_type direct
+  }
+
+  association {
+    owner Citation
+    member ReferenceToCitationElement
+    owner_type inheritance
+  }
+
+  association {
+    owner ReferenceToIdElement
+    member ReferenceToIdWithParagraphElement
+    owner_type inheritance
+  }
+  association {
+    owner ReferenceToIdElement
+    member Callout
+    owner_type inheritance
+  }
+
+  association {
+    owner ReferenceToIdWithParagraphElement
+    member Footnote
+    owner_type inheritance
+  }
+}

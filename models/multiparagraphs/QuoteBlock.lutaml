@@ -1,0 +1,17 @@
+class QuoteBlock{
+  definition {
+     Block quotation, containing extensive textual content originally authored outside of the current document.
+  }
+  +source: ReferenceToCitationElement[0..1] {
+    definition {
+      Bibliographic citation for the quotation.
+    }
+  }
+  +author: <<Bibliography>> Contributor[0..1] {
+    definition {
+      Author of the quotation. The `author` attribute of the quotation is redundant with the citation, since it restates information about the author that should be recoverable from the citation itself. It is included for convenience, in case processing the citation to extract the author is prohibitive for rendering tools.
+    }
+  }
+}
+
+

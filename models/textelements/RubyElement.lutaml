@@ -1,0 +1,17 @@
+class RubyElement {
+  definition {
+    Text with Ruby annotations in East Asian languages. Corresponds to HTML `ruby`.
+  }
+  +rubyParen: LocalizedString[0..*] {
+    definition {
+      Ruby annotation. Corresponds to HTML `rp`.
+    }
+  }
+  +rubyText: LocalizedString[0..*] {
+    definition {
+      Ruby annotated text. Corresponds to HTML `rt`.
+    }
+  }
+}
+
+

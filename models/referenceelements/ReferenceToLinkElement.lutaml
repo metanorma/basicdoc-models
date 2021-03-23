@@ -1,0 +1,12 @@
+class ReferenceToLinkElement{
+  definition {
+    A reference to an external document or resource.
+  }
+  +target: Uri {
+    definition {
+      The location or online identifier of the external document or resource.
+    }
+  }
+}
+
+
