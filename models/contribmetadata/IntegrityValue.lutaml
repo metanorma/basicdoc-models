@@ -1,0 +1,7 @@
+class IntegrityValue {
+  definition {
+    A digital signature of the contribution, consisting of a `hash` value and a `signature`, with an associated `publicKey`.
+  }
+}
+
+

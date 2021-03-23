@@ -1,0 +1,24 @@
+enum TextAlignmnent {
+  unstructured {
+    definition {
+      Horizontal textual alignment of the cell against the underlying table grid.
+    }
+  }
+  left {
+    definition {
+      Left-aligned.
+    }
+  }
+  center {
+    definition {
+      Center-aligned.
+    }
+  }
+  right {
+    definition {
+      Right-aligned.
+    }
+  }
+}
+
+

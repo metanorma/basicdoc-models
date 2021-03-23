@@ -1,0 +1,22 @@
+class LocalizedString {
+  definition {
+    String specifying the language and script of its text.
+  }
+  +language: Iso639Code[0..*] {
+    definition {
+      The language of the string.
+    }
+  }
+  +script: Iso15924Code[0..*] {
+    definition {
+      The script of the string.
+    }
+  }
+  +content: String {
+    definition {
+      The value of the string
+    }
+  }
+}
+
+

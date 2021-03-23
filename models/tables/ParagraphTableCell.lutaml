@@ -1,0 +1,12 @@
+class ParagraphTableCell{
+  definition {
+    Table cells composed of multiple paragraphs.
+  }
+  +content: ParagraphWithFootnote[0..*] {
+    definition {
+      Content of the Paragraph Table Cell.
+    }
+  }
+}
+
+

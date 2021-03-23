@@ -1,0 +1,22 @@
+class Video{
+  definition {
+    Container for video content.
+  }
+  +altsource: AltSource[0..*] {
+    definition {
+      Alternative files to use as media.
+    }
+  }
+  +height: Integer[0..1] {
+    definition {
+      Height of video. Can have "auto" as value.
+    }
+  }
+  +width: Integer[0..1] {
+    definition {
+      Width of video. Can have "auto" as value.
+    }
+  }
+}
+
+

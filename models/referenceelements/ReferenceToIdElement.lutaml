@@ -1,0 +1,12 @@
+class ReferenceToIdElement{
+  definition {
+    An internal reference to an element of the current document.
+  }
+  +target: IdElement {
+    definition {
+      The identifier of a section, block or inline element referenced.
+    }
+  }
+}
+
+

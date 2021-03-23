@@ -1,0 +1,13 @@
+
+class MediaType{
+  definition {
+    Type of a media file.
+  }
+  +content: String {
+    definition {
+      Value of the type of a media file. The BasicDocument model leaves the text to be used here open, but recommends the use of MIME types.
+    }
+  }
+}
+
+

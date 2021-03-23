@@ -1,0 +1,9 @@
+data_type Iso639Code {
+  unstructured {
+    definition {
+      Language identifiere, as defined in ISO 639.
+    }
+  }
+}
+
+

@@ -1,0 +1,12 @@
+class NodeDelete {
+  definition {
+    Specification of the deletion of a data node in a BasicDocument.
+  }
+  +hashValue: String {
+    definition {
+A string that contains the hash value of the node to be deleted for verification purposes.
+    }
+  }
+}
+
+

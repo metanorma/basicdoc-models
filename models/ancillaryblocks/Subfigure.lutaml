@@ -1,0 +1,8 @@
+class Subfigure {
+  definition {
+    A figure embedded within another figure.
+    Subfigures only occur within figures.
+  }
+}
+
+

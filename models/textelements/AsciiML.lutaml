@@ -1,0 +1,11 @@
+class AsciiML{
+  definition {
+    Mathematical text formatted in AsciiMath.
+  }
+  +value: String {
+    definition {
+      AsciiMath content.
+    }
+  }
+}
+

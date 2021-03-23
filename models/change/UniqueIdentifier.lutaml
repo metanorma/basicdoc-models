@@ -1,0 +1,12 @@
+class UniqueIdentifier {
+  definition {
+    Identifier used to uniquely identify a BasicDocument.
+  }
+  +value: String {
+    definition {
+       A string that uniquely identifies a BasicDocument.
+    }
+  }
+}
+
+

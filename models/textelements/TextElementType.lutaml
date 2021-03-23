@@ -1,0 +1,17 @@
+class TextElementType{
+  definition {
+    Content of the Text Element.
+  }
+  +content: LocalizedString[0..*] {
+    definition {
+      Textual content of the Text Element.
+    }
+  }
+  +elements: TextElement[0..*] {
+    definition {
+      May recursively contain other Text Elements.
+    }
+  }
+}
+
+

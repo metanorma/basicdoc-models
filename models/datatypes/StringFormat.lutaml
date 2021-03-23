@@ -1,0 +1,44 @@
+enum StringFormat {
+  unstructured {
+    definition {
+      Markup convention. Defaults to plain.
+      Encoded as MIME type.
+    }
+  }
+  plain {
+    definition {
+      Plain text.
+    }
+  }
+  docbook {
+    definition {
+      Markup following DocBook.
+    }
+  }
+  tei {
+    definition {
+      Markup following TEI.
+    }
+  }
+  asciidoc {
+    definition {
+      Markup following AsciiDoc.
+    }
+  }
+  markdown {
+    definition {
+      Markup following Markdown.
+    }
+  }
+  standarddoc {
+    definition {
+      Markup following the StandardDocument schema.
+    }
+  }
+  metanorma {
+    definition {
+      Markup following Metanorma.
+    }
+  }
+}
+

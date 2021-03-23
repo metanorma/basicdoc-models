@@ -1,0 +1,13 @@
+class BibData {
+   definition {
+     The bibliographic description of a BasicDocument.
+     BibData differs from BibliographicItem by making `title` and `copyright` mandatory.
+   }
+  +ext: BibDataExtensionType {
+    definition {
+      The extension point of the bibliographic description of a BasicDocument.
+    }
+  }
+}
+
+

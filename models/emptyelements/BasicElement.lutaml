@@ -1,0 +1,12 @@
+class BasicElement {
+  definition {
+    Container of inline content in BasicDocument.
+  }
+  +contribMetadata: ContributionElementMetadata[0..*] {
+    definition {
+      Metadata of the contributor responsible for the action.
+    }
+  }
+}
+
+

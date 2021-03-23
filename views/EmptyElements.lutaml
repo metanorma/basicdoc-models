@@ -1,0 +1,28 @@
+diagram EmptyElements {
+  include ../models/emptyelements/BasicElement.lutaml
+  include ../models/emptyelements/PageBreakElement.lutaml
+  include ../models/emptyelements/LineBreakElement.lutaml
+  include ../models/emptyelements/HorizontalRuleElement.lutaml
+  include ../models/emptyelements/IndexElement.lutaml
+
+  association {
+    owner BasicElement
+    member PageBreakElement
+    owner_type inheritance
+  }
+  association {
+    owner BasicElement
+    member LineBreakElement
+    owner_type inheritance
+  }
+  association {
+    owner BasicElement
+    member HorizontalRuleElement
+    owner_type inheritance
+  }
+  association {
+    owner BasicElement
+    member IndexElement
+    owner_type inheritance
+  }
+}

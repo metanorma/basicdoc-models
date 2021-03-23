@@ -1,0 +1,36 @@
+class ContentChangeAction {
+  definition {
+The actual content
+changes that applies to the specified portion of textual content.
+This is used both by the _ContentModify_ and _AttributeModify_ models
+as their content are treated as pure text.
+  }
+  +action: ContentAction {
+    definition {
+Indication that text is to be inserted or deleted from the content.
+    }
+  }
+  +from: Integer {
+    definition {
+An `Integer` that specifies the beginning cursor position of a textual change.
+    }
+  }
+  +to: Integer {
+    definition {
+An `Integer` that specifies the ending cursor position of a textual change.
+    }
+  }
+  +text: String[0..1] {
+    definition {
+In the case of an `insert`, a `String` to be inserted or replace the substring referred to by `from` to `to`.
+    }
+  }
+  +length: Integer[0..1] {
+    definition {
+In the case of a `delete`, an `Integer` to indicate how many characters to be removed from the `from` position.
+In the case of an `insert`, an `Integer` to indicate the length of the `text` attribute.
+    }
+  }
+}
+
+

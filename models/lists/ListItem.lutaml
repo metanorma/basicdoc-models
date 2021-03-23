@@ -1,0 +1,17 @@
+class Listitem{
+  definition {
+      Item in a list block.
+  }
+  +id: string[0..1] {
+    definition {
+      Identifier of item.
+    }
+  }
+  +content: ParagraphWithFootnote[0..*] {
+    definition {
+      Content of item.
+    }
+  }
+}
+
+

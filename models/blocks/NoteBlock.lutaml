@@ -1,0 +1,11 @@
+class NoteBlock {
+  definition {
+    Note block, modelled to consist only of paragraphs.
+  }
+  +content: ParagraphBlock[0..*] {
+    definition {
+      Note block content.
+    }
+  }
+}
+

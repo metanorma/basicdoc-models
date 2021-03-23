@@ -1,0 +1,17 @@
+class StemElement{
+  definition {
+    Mathematically formatted text.
+  }
+  +stemType: StemType {
+    definition {
+      The notation used to mathematically format the text.
+    }
+  }
+  +stemValue: StemValue {
+    definition {
+      The content of the mathematically formatted text.
+    }
+  }
+}
+
+

@@ -1,0 +1,29 @@
+enum ReferenceFormat {
+  unstructured {
+    definition {
+      The type of Reference Element, prescribing how it is to be rendered
+    }
+  }
+  external {
+    definition {
+      Reference to an external document.
+    }
+  }
+  inline {
+    definition {
+      Reference to another element in the same document.
+    }
+  }
+  footnote {
+    definition {
+      Inline reference to a block to be rendered as a footnote.
+    }
+  }
+  callout {
+    definition {
+      Inline reference to a block to be referenced as a sourcecode callout.
+    }
+  }
+}
+
+

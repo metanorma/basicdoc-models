@@ -1,0 +1,28 @@
+enum TextAlignment {
+  unstructured {
+    definition {
+      The alignment of the paragraph against the margins of the document.
+    }
+  }
+  left {
+    definition {
+      Left alignment.
+    }
+  }
+  center {
+    definition {
+      Center alignment.
+    }
+  }
+  right {
+    definition {
+      Right alignment.
+    }
+  }
+  justified {
+    definition {
+      Justified alignment.
+    }
+  }
+}
+

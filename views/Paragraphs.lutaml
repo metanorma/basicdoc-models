@@ -1,0 +1,28 @@
+diagram Paragraphs {
+  include ../models/blocks/BasicBlock.lutaml
+  include ../models/paragraphs/ParagraphBlock.lutaml
+  include ../models/paragraphs/ParagraphWithFootnote.lutaml
+  include ../models/paragraphs/TextAlignment.lutaml
+
+  association {
+    owner BasicBlock
+    member ParagraphBlock
+    owner_type inheritance
+  }
+  association {
+    owner BasicBlock
+    member ParagraphsBlock
+    owner_type inheritance
+  }
+
+  association {
+    owner ParagraphBlock
+    member ParagraphWithFootnote
+    owner_type inheritance
+  }
+  association {
+    owner TextAlignment
+    member ParagraphBlock
+    member_type direct
+  }
+}

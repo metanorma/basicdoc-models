@@ -1,0 +1,7 @@
+class LineBreakElement{
+  definition {
+    Line break.
+  }
+}
+
+

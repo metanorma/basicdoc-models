@@ -1,0 +1,3 @@
+diagram BasicDocument {
+  include ../models/BasicDocument.lutaml
+}

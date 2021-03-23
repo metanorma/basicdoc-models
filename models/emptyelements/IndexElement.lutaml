@@ -1,0 +1,28 @@
+class IndexElement {
+  definition {
+    Index term, defined as applying to the location in the text where the index element appears, as a milestone.
+  }
+  +primary: String {
+     definition {
+       Primary index term to be recorded at the current location.
+     }
+  }
+  +secondary: String[0..1] {
+     definition {
+       Secondary index term to be recorded at the current location.
+     }
+  }
+  +tertiary: String[0..1] {
+     definition {
+       Tertiary index term to be recorded at the current location.
+     }
+  }
+  +to: IdElement[0..1] {
+     definition {
+        A reference to an ID element (typically a bookmark), 
+        to indicate that the index range covers a range of locations.
+     }
+  }
+}
+
+

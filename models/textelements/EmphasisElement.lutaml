@@ -1,0 +1,7 @@
+class EmphasisElement {
+  definition {
+    Emphasised text. Corresponds to HTML `em`, `i`.
+  }
+}
+
+

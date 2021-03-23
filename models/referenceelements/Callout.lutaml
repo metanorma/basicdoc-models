@@ -1,0 +1,14 @@
+class Callout{
+  definition {
+    Inline reference to a paragraph or paragraphs, appearing as annotation of source code.
+    The target of the callout is understood to be the location of the callout within the source code; the extent of the target is not expressed overtly.
+  }
+  +type: "callout" 
+  +text: TextElement {
+    definition { 
+      The label of the callout, used to identify its target within the source code.
+    }
+  }
+}
+
+

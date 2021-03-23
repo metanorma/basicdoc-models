@@ -1,0 +1,11 @@
+class BibDataExtensionType {
+   definition {
+      The extension point of the bibliographic description of a BasicDocument.
+   }
+  +doctype: DocumentType[0..*] {
+    definition {
+      Classification of the BasicDocument, indicating that it is to be rendered in a distinct manner.
+    }
+  }
+}
+

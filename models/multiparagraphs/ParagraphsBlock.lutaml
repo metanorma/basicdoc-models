@@ -1,0 +1,12 @@
+class ParagraphsBlock {
+  definition {
+    Block composed of multiple paragraphs.
+  }
+  +contents: ParagraphWithFootnote[0..*] {
+    definition {
+      The paragraphs constituting the ParagraphsBlock.
+    }
+  }
+}
+
+

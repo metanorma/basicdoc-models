@@ -1,0 +1,17 @@
+class Hash {
+  definition {
+    Hash value for a digital signature.
+  }
+  +algorithm: Iso10118Oid {
+     definition {
+       Algorithm used to derive hash value, as defined in ISO 10118.
+     }
+  }
+  +value: String {
+     definition {
+       Hash value.
+     }
+  }
+}
+
+

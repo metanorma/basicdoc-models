@@ -1,0 +1,13 @@
+class NodeInsert {
+  definition {
+    Specification of the insertion
+of a data node in a BasicDocument.
+  }
+  +content: BasicElement {
+    definition {
+A data element conforming to _BasicElement_ to be inserted into the specified BasicDocument.
+    }
+  }
+}
+
+

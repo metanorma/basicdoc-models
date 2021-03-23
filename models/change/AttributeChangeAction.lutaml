@@ -1,0 +1,15 @@
+class AttributeChangeAction {
+  definition {
+Possible actions
+that involve modification of an attribute within a BasicDocument
+data element.
+  }
+  +attributeId: String {
+    definition {
+A `String` that identifies the attribute where the attribute change
+should apply to.
+    }
+  }
+}
+
+

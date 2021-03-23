@@ -1,0 +1,6 @@
+class HorizontalRuleElement{
+  definition {
+    Horizontal rule.
+  }
+}
+

@@ -1,0 +1,7 @@
+class StemValue {
+  definition {
+      The content of mathematically formatted text.
+  }
+}
+
+

@@ -1,0 +1,26 @@
+
+
+enum StemType {
+  unstructured {
+    definition {
+      The notation used to mathematically format text.
+    }
+  }
+  MathML {
+    definition {
+      MathML
+    }
+  }
+  AsciiML {
+    definition {
+      AsciiMath
+    }
+  }
+  LaTeX {
+    definition {
+      LaTeX
+    }
+  }
+}
+
+

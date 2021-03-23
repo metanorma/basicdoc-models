@@ -1,0 +1,17 @@
+class ChangeSet {
+  definition {
+    A collection of _Change_ data, specifying the document they should be applied to.
+  }
+  +changes: Change[0..*] {
+    definition {
+      The set of _Change_ data.
+    }
+  }
+  +documentIdentifier: UniqueIdentifier {
+    definition {
+      The unique identifier that identifies the BasicDocument.
+    }
+  }
+}
+
+

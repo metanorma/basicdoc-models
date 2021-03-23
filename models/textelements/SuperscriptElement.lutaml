@@ -1,0 +1,7 @@
+class SuperscriptElement {
+  definition {
+    Superscript text. Corresponds to HTML `sup`.
+  }
+}
+
+

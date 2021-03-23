@@ -1,0 +1,22 @@
+class ContributionElementMetadata {
+  definition {
+    Container encoding the contribution made by a party towards a particular element in the document
+  }
+  +dateTime: Iso8601DateTime {
+     definition {
+       The date and time when the contribution was made
+     }
+  }
+  +contributor: <<Bibliography>>Contributor[0..1] {
+     definition {
+       The party who made the contribution, as described through the `contributor` element in Relaton.
+     }
+  }
+  +integrityValue: integrityValue[0..*] {
+     definition {
+        A digital signature of the contribution.
+     }
+  }
+}
+
+

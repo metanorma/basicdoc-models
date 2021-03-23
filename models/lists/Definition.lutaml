@@ -1,0 +1,16 @@
+class Definition{
+  definition {
+    Definition used to constitute a definition list.
+  }
+  +item: TextElement[0..*] {
+    definition {
+      Entry being defined in the definition.
+    }
+  }
+  +definition: ParagraphWithFootnote[0..*] {
+    definition {
+      Definition of the item.
+    }
+  }
+}
+

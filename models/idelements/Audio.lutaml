@@ -1,0 +1,11 @@
+class Audio{
+  definition {
+    Container for audio content.
+  }
+  +altsource: AltSource[0..*] {
+    definition {
+      Alternative files to use as media.
+    }
+  }
+}
+

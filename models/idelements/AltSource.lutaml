@@ -1,0 +1,22 @@
+class AltSource{
+  definition {
+    Alternative file to use as media.
+  }
+  +filename: String[0..1] {
+    definition {
+      File name corresponding to the media, to which the media can be extracted if it is represented inline (e.g. in Base64 encoding in the URI).
+    }
+  }
+  +source: Uri {
+    definition {
+      URI of the media file.
+    }
+  }
+  +type: MediaType {
+    definition {
+      Type of the media file.
+    }
+  }
+}
+
+
