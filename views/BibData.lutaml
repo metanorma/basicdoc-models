@@ -14,8 +14,8 @@ diagram BibData {
       - BibData/ext
   |*
   include ../models/bibdata/BibliographicItem.lutaml
-  include ../models/bibdata/Bibdata.lutaml
-  include ../models/bibdata/BibdataExtensionType.lutaml
+  include ../models/bibdata/BibData.lutaml
+  include ../models/bibdata/BibDataExtensionType.lutaml
   include ../models/bibdata/DocumentType.lutaml
 
   association {
