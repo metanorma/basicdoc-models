@@ -1,9 +1,8 @@
 enum TextAlignment {
-  unstructured {
-    definition {
-      The alignment of the paragraph against the margins of the document.
-    }
+  definition {
+    The alignment of the paragraph against the margins of the document.
   }
+
   left {
     definition {
       Left alignment.

@@ -1,9 +1,8 @@
 enum OrderedListType {
-  unstructured {
-    definition {
-      Type of numbering applied to the list items in an ordered list.
-    }
+  definition {
+    Type of numbering applied to the list items in an ordered list.
   }
+
   roman {
     definition {
       Lowercase Roman numbers.
@@ -19,12 +18,12 @@ enum OrderedListType {
       Arabic numbers.
     }
   }
-  roman_upper {
+  romanUpper {
     definition {
       Uppercase Roman numbers.
     }
   }
-  alphabet_upper {
+  alphabetUpper {
     definition {
       Ordered uppercase Roman letters.
     }

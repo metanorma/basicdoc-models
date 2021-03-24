@@ -26,24 +26,6 @@ diagram Change {
   include ../models/change/AttributeChangeAction.lutaml
   include ../models/change/ContentAction.lutaml
 
-  enum ContentAction {
-    unstructured {
-      definition {
-        Specifies the kind of textual change to be undertaken.
-      }
-    }
-    insert {
-      definition {
-        Text is to be added.
-      }
-    }
-    delete {
-      definition {
-        Text is to be removed.
-      }
-    }
-  }
-
   association {
     owner Change
     member ChangeSet

@@ -1,8 +1,6 @@
 data_type Iso10118Oid {
-  unstructured {
-    definition {
-      Identifier of hash algorithm defined in ISO 10118.
-    }
+  definition {
+    Identifier of hash algorithm defined in ISO 10118.
   }
 }
 

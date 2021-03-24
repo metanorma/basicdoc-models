@@ -1,9 +1,8 @@
 enum ContentAction {
-  unstructured {
-    definition {
-      Specifies the kind of textual change to be undertaken.
-    }
+  definition {
+    Specifies the kind of textual change to be undertaken.
   }
+
   insert {
     definition {
       Text is to be added.

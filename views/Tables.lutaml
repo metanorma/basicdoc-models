@@ -8,39 +8,6 @@ diagram Tables {
   include ../models/tables/TextAlignmnent.lutaml
   include ../models/tables/VerticalAlignmnent.lutaml
 
-
-
-  enum VerticalAlignmnent {
-    unstructured { 
-      definition {
-        Vertical alignment of the cell against the underlying table grid.
-      }
-    }
-    top {
-      definition {
-        Aligned against the top of the table row.
-      }
-    }
-    middle {
-      definition {
-        Aligned against the middle of the table row.
-      }
-    }
-    bottom {
-      definition {
-        Aligned against the bottom of the table row.
-      }
-    }
-    baseline {
-      definition {
-        The first line of text of such cells in a table row is aligned to a common vertical baseline.
-      }
-    }
-  }
-
-
-
-
   association {
     owner BasicBlock
     member TableBlock

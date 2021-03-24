@@ -1,11 +1,9 @@
-
-
 enum StemType {
-  unstructured {
-    definition {
-      The notation used to mathematically format text.
-    }
+
+  definition {
+    The notation used to mathematically format text.
   }
+
   MathML {
     definition {
       MathML

@@ -1,9 +1,8 @@
 enum TextAlignmnent {
-  unstructured {
-    definition {
-      Horizontal textual alignment of the cell against the underlying table grid.
-    }
+  definition {
+    Horizontal textual alignment of the cell against the underlying table grid.
   }
+
   left {
     definition {
       Left-aligned.

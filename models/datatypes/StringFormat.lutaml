@@ -1,10 +1,9 @@
 enum StringFormat {
-  unstructured {
-    definition {
-      Markup convention. Defaults to plain.
-      Encoded as MIME type.
-    }
+  definition {
+    Markup convention. Defaults to plain.
+    Encoded as MIME type.
   }
+
   plain {
     definition {
       Plain text.

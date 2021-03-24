@@ -1,9 +1,8 @@
 enum DocumentType {
-  unstructured {
-    definition {
-      Classifications of BasicDocuments.
-    }
+  definition {
+    Classifications of BasicDocuments.
   }
+
   document {
     definition {
       Basicdoc only admits a single class of documents; more specific models of documents will necessarily

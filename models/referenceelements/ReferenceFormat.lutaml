@@ -1,9 +1,8 @@
 enum ReferenceFormat {
-  unstructured {
-    definition {
-      The type of Reference Element, prescribing how it is to be rendered
-    }
+  definition {
+    The type of Reference Element, prescribing how it is to be rendered.
   }
+
   external {
     definition {
       Reference to an external document.

@@ -1,9 +1,8 @@
 enum AdmonitionType {
-  unstructured {
-    definition {
-      Subclass of admonition determining how it is to be rendered.
-    }
+  definition {
+    Subclass of admonition determining how it is to be rendered.
   }
+
   warning {
     definition {
       Warning to reader, note of risk to be avoided.

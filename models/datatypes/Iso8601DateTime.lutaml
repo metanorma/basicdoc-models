@@ -1,8 +1,6 @@
 data_type Iso8601DateTime {
-  unstructured {
-    definition {
-      Date and time representation, as defined in ISO 8601-1.
-    }
+  definition {
+    Date and time representation, as defined in ISO 8601-1.
   }
 }
 

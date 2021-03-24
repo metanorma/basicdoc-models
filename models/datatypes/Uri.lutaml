@@ -1,8 +1,6 @@
 data_type Uri {
-  unstructured {
-    definition {
-      URI, as defined in RFC 3986.
-    }
+  definition {
+    URI, as defined in IETF RFC 3986.
   }
 }
 
