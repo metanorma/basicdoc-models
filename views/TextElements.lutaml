@@ -114,7 +114,7 @@ diagram TextElements {
 
   association {
     owner TextElement
-    member SuperScriptElement
+    member SuperscriptElement
     owner_type inheritance
   }
   association {
