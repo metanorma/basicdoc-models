@@ -259,21 +259,21 @@ erefType =
     attribute type { ReferenceFormat },
     attribute alt { text }?,
     CitationType,
-    text
+    PureTextElement+
 
 hyperlink =
   element link {
     attribute target { xsd:anyURI },
     attribute type { ReferenceFormat },
     attribute alt { text }?,
-    text
+    PureTextElement+
 }
 xref =
   element xref {
      attribute target { xsd:IDREF },
      attribute type { ReferenceFormat },
      attribute alt { text }?,
-     text
+     PureTextElement+
 }
 
 fn =

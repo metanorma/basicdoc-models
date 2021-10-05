@@ -833,7 +833,9 @@
       <attribute name="alt"/>
     </optional>
     <ref name="CitationType"/>
-    <text/>
+    <oneOrMore>
+      <ref name="PureTextElement"/>
+    </oneOrMore>
   </define>
   <define name="hyperlink">
     <element name="link">
@@ -846,7 +848,9 @@
       <optional>
         <attribute name="alt"/>
       </optional>
-      <text/>
+      <oneOrMore>
+        <ref name="PureTextElement"/>
+      </oneOrMore>
     </element>
   </define>
   <define name="xref">
@@ -860,7 +864,9 @@
       <optional>
         <attribute name="alt"/>
       </optional>
-      <text/>
+      <oneOrMore>
+        <ref name="PureTextElement"/>
+      </oneOrMore>
     </element>
   </define>
   <define name="fn">
