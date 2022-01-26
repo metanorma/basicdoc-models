@@ -12,9 +12,10 @@ class ReviewBlock{
       The date when the comment was made.
     }
   }
-  +appliesFrom: IdElement {
+  +appliesFrom: IdElement[0..1] {
     definition {
       Identifier for the start of the text or point in the text to which the comment applies.
+      If not provided, the comment applies in the vicinity of the place it has been inserted into the text.
     }
   }
   +appliesTo: IdElement[0..1] {
