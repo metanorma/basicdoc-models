@@ -6,6 +6,7 @@ diagram DataTypes {
   include ../models/datatypes/Iso8601DateTime.lutaml
   include ../models/datatypes/Iso15924Code.lutaml
   include ../models/datatypes/Iso639Code.lutaml
+  include ../models/datatypes/Iso3166Code.lutaml
   include ../models/datatypes/StringFormat.lutaml
 
   association {
