@@ -1,10 +1,6 @@
 grammar {
 
-include "biblio.rnc" { 
-
-start = document
-
-}
+include "biblio.rnc" { }
 
 document = 
 element document {
@@ -387,20 +383,5 @@ dt =
 
 dd =
   element dd { paragraph-with-footnote* }
-
-ext =
-  element ext { BibDataExtensionType }
-
-BibDataExtensionType =
-  doctype
-
-doctype = element doctype { DocumentType }
-
-DocumentType = ( "document" )
-
-BibData =
-  BibliographicItem,
-  ext?
-
 
 }

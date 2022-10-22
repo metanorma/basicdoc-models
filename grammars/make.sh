@@ -9,7 +9,7 @@ rm -f relaton-models/grammars/biblio.rng
 git submodule update
 
 cd relaton-models/grammars
-git checkout master && git pull
+git checkout main && git pull
 sh make.sh
 cd ../..
 cp relaton-models/grammars/biblio.rnc .
