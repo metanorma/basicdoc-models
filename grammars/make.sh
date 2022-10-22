@@ -16,3 +16,4 @@ cp relaton-models/grammars/biblio.rnc .
 cp relaton-models/grammars/biblio.rng .
 
 java -jar jing-trang/build/trang.jar -I rnc -O rng basicdoc.rnc basicdoc.rng
+java -jar jing-trang/build/trang.jar -I rnc -O rng basicdoc-compile.rnc basicdoc-compile.rng

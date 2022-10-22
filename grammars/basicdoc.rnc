@@ -1,7 +1,5 @@
 grammar {
 
-include "biblio.rnc" { }
-
 document = 
 element document {
   attribute identifier { text }?,
