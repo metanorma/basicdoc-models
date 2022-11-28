@@ -2,6 +2,11 @@ class UnderlineElement {
   definition {
     Underlined text. Corresponds to HTML 4 `u`.
   }
+  +style: String[0..1] {
+    definition {
+      CSS style to apply to underline (intended for text-decoration-style attribute keyword values: solid double dotted dashed wavy)
+    }
+  } 
 }
 
 

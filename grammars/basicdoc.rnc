@@ -207,7 +207,10 @@ keyword = element keyword { PureTextElement* }
 sub = element sub { PureTextElement* }
 sup = element sup { PureTextElement* }
 strike = element strike { PureTextElement* }
-underline = element underline { PureTextElement* }
+underline = element underline { 
+  attribute style { text }?,
+  PureTextElement*
+}
 smallcap = element smallcap { PureTextElement* }
 
 ruby = element ruby { ( PureTextElement | rp | rt )* }
