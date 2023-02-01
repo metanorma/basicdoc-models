@@ -28,10 +28,5 @@ enum AdmonitionType {
       Caution to reader, note of potential surprise or difficulty.
     }
   }
-  statement {
-    definition {
-      Intended for typographically separate statements in mathematics, such as propositions, proofs, or theorems. Statement conflates all of these for rendering, while Proposition, Proof, Theorem etc. can be treated as distinct classes.
-    }
-  }
 }
 

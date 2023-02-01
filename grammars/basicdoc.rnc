@@ -181,7 +181,7 @@ admonition =
   }
 
 AdmonitionType =
-  "warning" | "note" | "tip" | "important" | "caution" | "statement"
+  "warning" | "note" | "tip" | "important" | "caution" 
 
 figure =
   element figure {
