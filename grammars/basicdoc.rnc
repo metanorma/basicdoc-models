@@ -125,7 +125,7 @@ table =
     tname?, thead?, tbody, tfoot?, table-note*, dl?
   }
 
-tname = element name { (PureTextElement | eref | stem | keyword | xref | hyperlink)+ }
+tname = element name { (PureTextElement | eref | stem | keyword | xref | hyperlink | index | index-xref)+ }
 thead = element thead { tr }
 tfoot = element tfoot { tr }
 tbody = element tbody { tr+ }
@@ -200,13 +200,13 @@ PureTextElement =
 
 source = element source { TypedUri }
 
-em = element em { (PureTextElement|stem|eref|xref|hyperlink)* }
-strong = element strong { (PureTextElement|stem|eref|xref|hyperlink)* }
-tt = element tt { (PureTextElement|eref|xref|hyperlink)* }
-keyword = element keyword { PureTextElement* }
+em = element em { (PureTextElement|stem|eref|xref|hyperlink|index|index-xref)* }
+strong = element strong { (PureTextElement|stem|eref|xref|hyperlink|index|index-xref)* }
+tt = element tt { (PureTextElement|eref|xref|hyperlink|index|index-xref)* }
+keyword = element keyword { (PureTextElement|index|index-xref)* }
 sub = element sub { PureTextElement* }
 sup = element sup { PureTextElement* }
-strike = element strike { PureTextElement* }
+strike = element strike { (PureTextElement|index|index-xref)* }
 underline = element underline { 
   attribute style { text }?,
   PureTextElement*
