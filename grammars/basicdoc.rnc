@@ -293,8 +293,9 @@ callout =
 # This is xref with fixed @type="callout"; the target by convention is in an annotation in the same source code snippet
 # so <callout target="xyz">1</callout>
 # corresponds to <xref type="callout" target="xyz">1</xref>
-image =
-  element image {
+image = element image { Image }
+
+Image =
     attribute id { xsd:ID },
     attribute src { xsd:anyURI },
     attribute mimetype { text },
@@ -304,7 +305,6 @@ image =
     attribute alt { text }?,
     attribute title { text }?,
     attribute longdesc { xsd:anyURI }?
-}
 
 video =
   element video {
