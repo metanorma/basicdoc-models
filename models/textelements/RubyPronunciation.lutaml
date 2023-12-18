@@ -1,0 +1,22 @@
+class RubyPronunciation {
+  definition {
+    Ruby annotation giving pronunciation of text.
+  }
+  +value: String {
+    definition {
+      Ruby annotation value.
+    }
+  }
+  +script: String[0..1] {
+    definition {
+      Indication of script of annotation.
+    }
+  }
+  +lang: String[0..1] {
+    definition {
+      Indication of language of annotation.
+    }
+  }
+}
+
+

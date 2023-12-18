@@ -32,6 +32,8 @@ diagram TextElements {
   include ../models/textelements/UnderlineElement.lutaml
   include ../models/textelements/StemValue.lutaml
   include ../models/textelements/RubyElement.lutaml
+  include ../models/textelements/RubyPronunciation.lutaml
+  include ../models/textelements/RubyAnnotation.lutaml
   include ../models/textelements/MathML.lutaml
   include ../models/textelements/AsciiML.lutaml
   include ../models/textelements/LaTeX.lutaml
@@ -131,5 +133,15 @@ diagram TextElements {
     owner TextElement
     member RubyElement
     owner_type inheritance
+  }
+  association {
+    owner RubyElement
+    member RubyPronunciation
+    member_type direct
+  }
+  association {
+    owner RubyElement
+    member RubyAnnotation
+    member_type direct
   }
 }
