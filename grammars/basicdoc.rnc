@@ -213,10 +213,19 @@ underline = element underline {
 }
 smallcap = element smallcap { PureTextElement* }
 
-ruby = element ruby { ( PureTextElement | rp | rt )* }
-rp =   element rp { PureTextElement* }
-rt =   element rt { PureTextElement* }
+ruby = element ruby { (ruby_pronunciation | ruby_annotation), ( text | ruby ) }
 
+ruby_pronunciation = element pronunciation {
+  attribute value { text },
+  attribute script { text }?,
+  attribute lang { text }? 
+}
+
+ruby_annotation = element annotation {
+  attribute value { text },
+  attribute script { text }?,
+  attribute lang { text }?
+}
 
 br = element br { empty }
 hr = element hr { empty }
