@@ -309,11 +309,13 @@ Image =
     attribute src { xsd:anyURI },
     attribute mimetype { text },
     attribute filename { text }?,
-    attribute width { xsd:int | "auto" }?,
-    attribute height { xsd:int | "auto" }?,
+    attribute width { ImageSize }?,
+    attribute height { ImageSize }?,
     attribute alt { text }?,
     attribute title { text }?,
     attribute longdesc { xsd:anyURI }?
+
+ImageSize = xsd:string { pattern = "\d+([.]\d+)?(%?)" } | "auto"
 
 video =
   element video {

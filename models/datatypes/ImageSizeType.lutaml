@@ -1,0 +1,25 @@
+class ImageSizeType {
+  definition {
+    Legal values for image height and width.
+    Attributes are realised as a real number, with optional percent sign,
+    or as the string "auto".
+  }
+  +IsAuto: Boolean {
+    definition {
+      Size is calculated automatically given paired attribute (width from height,
+      or height from width.)
+    }
+  }
+  +IsPercentage: Boolean {
+    definition {
+      Size is given as percentage of original value.
+    }
+  }
+  +Value: Float[0..1] {
+    definition {
+      Size value.
+    }
+  }
+}
+
+

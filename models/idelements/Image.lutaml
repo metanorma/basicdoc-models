@@ -2,12 +2,12 @@ class Image{
   definition {
     Container for image content.
   }
-  +height: Integer[0..1] {
+  +height: ImageSizeType[0..1] {
     definition {
       Height of image. Can have "auto" as value.
     }
   }
-  +width: Integer[0..1] {
+  +width: ImageSizeType[0..1] {
     definition {
       Width of image. Can have "auto" as value.
     }

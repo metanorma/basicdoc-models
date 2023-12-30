@@ -31,6 +31,7 @@ diagram IdElements {
   include ../models/idelements/AltSource.lutaml
   include ../models/idelements/Bookmark.lutaml
   include ../models/idelements/MediaType.lutaml
+  include ../models/datatypes/ImageSizeType.lutaml
 
   association {
     owner BasicElement
@@ -64,6 +65,11 @@ diagram IdElements {
     owner_type inheritance
   }
 
+  association {
+    owner Image
+    member ImageSizeType
+    member_type direct
+  }
   association {
     owner MediaType
     member Media
