@@ -39,7 +39,31 @@ section-title =
   element title { TextElement* }
 
 BasicBlock =  paragraph-with-footnote | table | formula | admonition | ol | ul | dl | figure |
-  quote | sourcecode | example | review | pre | note | pagebreak | hr | bookmark
+  quote | sourcecode | example | review | pre | note | pagebreak | hr | bookmark | amend
+
+amend = 
+  element amend { AmendType }
+
+AmendType =
+    attribute id { xsd:ID }?,
+    attribute change { "add" | "modify" | "delete" | "replace" },
+    attribute path { text }?,
+    attribute path_end { text }?,
+    attribute title { text }?,
+    element location { (locality | localityStack)* }?,
+    element description { BasicBlock* }?,
+    element newcontent {
+        attribute id { xsd:ID }?,
+        BasicBlock* }?,
+    classification*,
+    contributor*
+
+classification = element classification {
+  classification_tag, classification_value
+}
+
+classification_tag = element tag { text }
+classification_value = element value { text }
 
 paragraph =
   element p { ParagraphType }
