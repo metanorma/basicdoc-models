@@ -8,13 +8,13 @@ class AmendBlock {
       The type of change described in this block.
     }
   }
-  +bibLocality: BibItemLocality[0..*] {
+  +bibLocality: <<Bibliography>> BibItemLocality[0..*] {
     definition {
       The location in the original document which has undergone the change described in this block.
       Typically this is given as a clause.
     }
   }
-  +localityStack: LocalityStack[0..*] {
+  +localityStack: <<Bibliography>> LocalityStack[0..*] {
     definition {
       The location in the original document which has undergone the change described in this block,
       expressed as multiple levels of citation..

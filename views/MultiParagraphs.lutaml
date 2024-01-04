@@ -7,7 +7,10 @@ diagram MultiParagraphs {
   include ../models/multiparagraphs/AdmonitionType.lutaml
   include ../models/multiparagraphs/AmendBlock.lutaml
   include ../models/multiparagraphs/Classification.lutaml
+  include ../models/multiparagraphs/ChangeType.lutaml
   include ../models/bibdata/Contributor.lutaml
+  include ../models/bibdata/LocalityStack.lutaml
+  include ../models/bibdata/BibItemLocality.lutaml
 
   association {
     owner ParagraphWithFootnote
@@ -42,6 +45,11 @@ diagram MultiParagraphs {
   }
   association {
     owner AmendBlock
+    member ChangeType
+    member_type direct
+  }
+  association {
+    owner AmendBlock
     member Classification
     member_type direct
   }
@@ -49,5 +57,15 @@ diagram MultiParagraphs {
     owner AmendBlock
     member Contributor
     member_type direct
+  }
+  association {
+    owner AmendBlock
+    member BibItemLocality
+    owner_type direct
+  }
+  association {
+    owner AmendBlock
+    member LocalityStack
+    owner_type direct
   }
 }
