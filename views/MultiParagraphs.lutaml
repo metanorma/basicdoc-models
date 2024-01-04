@@ -5,6 +5,9 @@ diagram MultiParagraphs {
   include ../models/multiparagraphs/ReviewBlock.lutaml
   include ../models/multiparagraphs/AdmonitionBlock.lutaml
   include ../models/multiparagraphs/AdmonitionType.lutaml
+  include ../models/multiparagraphs/AmendBlock.lutaml
+  include ../models/multiparagraphs/Classification.lutaml
+  include ../models/bibdata/Contributor.lutaml
 
   association {
     owner ParagraphWithFootnote
@@ -30,6 +33,21 @@ diagram MultiParagraphs {
   association {
     owner AdmonitionType
     member AdmonitionBlock
+    member_type direct
+  }
+  association {
+    owner ParagraphsBlock
+    member AmendBlock
+    member_type inheritance
+  }
+  association {
+    owner AmendBlock
+    member Classification
+    member_type direct
+  }
+  association {
+    owner AmendBlock
+    member Contributor
     member_type direct
   }
 }

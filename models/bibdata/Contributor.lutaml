@@ -1,0 +1,6 @@
+class Contributor <<Bibliography>> {
+   definition {
+     Contributor to a bibliographic resource.
+   }
+}
+
