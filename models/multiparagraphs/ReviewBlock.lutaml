@@ -12,6 +12,11 @@ class ReviewBlock{
       The date when the comment was made.
     }
   }
+  +type: String[0..1] {
+    definition {
+      The type of reviewer comment.
+    }
+  }
   +appliesFrom: IdElement[0..1] {
     definition {
       Identifier for the start of the text or point in the text to which the comment applies.
