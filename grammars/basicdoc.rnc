@@ -345,6 +345,8 @@ ThAttr = TdAttr
 
 ThBody = TdBody
 
+ThNoIdBody = TdNoIdBody
+
 example =
   element example {
     RequiredId,
