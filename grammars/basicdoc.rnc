@@ -267,10 +267,10 @@ TableAttr =
     attribute uri { xsd:anyURI }?
 
 TableBody =
-    tname?, thead?, tbody, tfoot?, table-note*, dl?
+    tname?, thead?, tbody, tfoot?, dl?, table-note*
 
 TableNoIdBody =
-    tname?, thead-no-id?, tbody-no-id, tfoot-no-id?, table-note-no-id*, dl-no-id?
+    tname?, thead-no-id?, tbody-no-id, tfoot-no-id?, dl-no-id?, table-note-no-id*
 
 tname = element name { (PureTextElement | eref | stem | keyword | xref | hyperlink | index | index-xref)+ }
 thead = element thead { tr }
