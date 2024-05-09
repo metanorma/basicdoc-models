@@ -42,7 +42,7 @@ BasicBlock =  paragraph-with-footnote | table | formula | admonition | ol | ul |
   quote | sourcecode | example | review | pre | note | pagebreak | hr | bookmark | amend
 
 BasicBlockNoId =  paragraph-with-footnote-no-id | table-no-id | formula-no-id | admonition-no-id | ol-no-id | ul-no-id | dl-no-id | figure-no-id |
-  quote-no-id | sourcecode-no-id | example-no-id | review-no-id | pre-no-id | note-no-id | pagebreak | hr | bookmark | amend
+  quote-no-id | sourcecode-no-id | example-no-id | review | pre-no-id | note-no-id | pagebreak | hr | bookmark | amend
 
 amend = 
   element amend { AmendType }
@@ -252,6 +252,13 @@ table =
     TableBody
   }
 
+table-no-id =
+  element table {
+    OptionalId,
+    TableAttr,
+    TableNoIdBody
+  }
+
 TableAttr =
     attribute unnumbered { xsd:boolean }?,
     attribute subsequence { text }?,
@@ -306,7 +313,7 @@ TdBody =
       paragraph-with-footnote+
     )
 
-TdBodyNoId =
+TdNoIdBody =
     (
       (TextElement )* |
       paragraph-with-footnote-no-id+
@@ -347,7 +354,7 @@ ExampleBody =
     ( formula | ul | ol | dl | quote | sourcecode | paragraph-with-footnote )+,
     note*
 
-ExampleBodyNoId =
+ExampleNoIdBody =
     tname?,
     ( formula-no-id | ul-no-id | ol-no-id | dl-no-id | quote-no-id | sourcecode-no-id | paragraph-with-footnote-no-id )+,
     note-no-id*
@@ -409,7 +416,7 @@ FigureBody =
      fn*, dl?, note*
 
 FigureNoIdBody =
-     source-no-id?, tname?, 
+     source?, tname?, 
      (image-no-id | video-no-id | audio-no-id | pre-no-id | paragraph-with-footnote-no-id+ | figure-no-id*), 
      fn*, dl-no-id?, note-no-id*
 

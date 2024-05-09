@@ -111,7 +111,7 @@
       <ref name="quote-no-id"/>
       <ref name="sourcecode-no-id"/>
       <ref name="example-no-id"/>
-      <ref name="review-no-id"/>
+      <ref name="review"/>
       <ref name="pre-no-id"/>
       <ref name="note-no-id"/>
       <ref name="pagebreak"/>
@@ -531,6 +531,13 @@
       <ref name="TableBody"/>
     </element>
   </define>
+  <define name="table-no-id">
+    <element name="table">
+      <ref name="OptionalId"/>
+      <ref name="TableAttr"/>
+      <ref name="TableNoIdBody"/>
+    </element>
+  </define>
   <define name="TableAttr">
     <optional>
       <attribute name="unnumbered">
@@ -717,7 +724,7 @@
       </oneOrMore>
     </choice>
   </define>
-  <define name="TdBodyNoId">
+  <define name="TdNoIdBody">
     <choice>
       <zeroOrMore>
         <ref name="TextElement"/>
@@ -782,7 +789,7 @@
       <ref name="note"/>
     </zeroOrMore>
   </define>
-  <define name="ExampleBodyNoId">
+  <define name="ExampleNoIdBody">
     <optional>
       <ref name="tname"/>
     </optional>
@@ -917,7 +924,7 @@
   </define>
   <define name="FigureNoIdBody">
     <optional>
-      <ref name="source-no-id"/>
+      <ref name="source"/>
     </optional>
     <optional>
       <ref name="tname"/>
