@@ -747,15 +747,21 @@
   </define>
   <define name="th">
     <element name="th">
-      <ref name="TdAttr"/>
-      <ref name="TdBody"/>
+      <ref name="ThAttr"/>
+      <ref name="ThBody"/>
     </element>
   </define>
   <define name="th-no-id">
     <element name="th">
-      <ref name="TdAttr"/>
-      <ref name="TdNoIdBody"/>
+      <ref name="ThAttr"/>
+      <ref name="ThNoIdBody"/>
     </element>
+  </define>
+  <define name="ThAttr">
+    <ref name="TdAttr"/>
+  </define>
+  <define name="ThBody">
+    <ref name="TdBody"/>
   </define>
   <define name="example">
     <element name="example">
