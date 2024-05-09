@@ -191,10 +191,13 @@
       <value>justified</value>
     </choice>
   </define>
-  <define name="ParagraphType">
+  <define name="RequiredId">
     <attribute name="id">
       <data type="ID"/>
     </attribute>
+  </define>
+  <define name="ParagraphType">
+    <ref name="RequiredId"/>
     <optional>
       <attribute name="align">
         <ref name="Alignments"/>
@@ -209,9 +212,7 @@
   </define>
   <define name="paragraph-with-footnote">
     <element name="p">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <optional>
         <attribute name="align">
           <ref name="Alignments"/>
@@ -230,9 +231,7 @@
   </define>
   <define name="note">
     <element name="note">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <oneOrMore>
         <ref name="paragraph"/>
       </oneOrMore>
@@ -240,9 +239,7 @@
   </define>
   <define name="review">
     <element name="review">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <attribute name="reviewer"/>
       <optional>
         <attribute name="type"/>
@@ -269,9 +266,7 @@
   </define>
   <define name="formula">
     <element name="formula">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <optional>
         <attribute name="unnumbered">
           <data type="boolean"/>
@@ -296,9 +291,7 @@
   </define>
   <define name="quote">
     <element name="quote">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <optional>
         <attribute name="alignment">
           <ref name="Alignments"/>
@@ -330,9 +323,7 @@
   </define>
   <define name="sourcecode">
     <element name="sourcecode">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <optional>
         <attribute name="unnumbered">
           <data type="boolean"/>
@@ -363,9 +354,7 @@
   </define>
   <define name="pre">
     <element name="pre">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <optional>
         <attribute name="alt"/>
       </optional>
@@ -380,9 +369,7 @@
   </define>
   <define name="table">
     <element name="table">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <optional>
         <attribute name="unnumbered">
           <data type="boolean"/>
@@ -544,9 +531,7 @@
   </define>
   <define name="example">
     <element name="example">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <optional>
         <attribute name="unnumbered">
           <data type="boolean"/>
@@ -576,15 +561,13 @@
   </define>
   <define name="admonition">
     <element name="admonition">
+      <ref name="RequiredId"/>
       <attribute name="type">
         <ref name="AdmonitionType"/>
       </attribute>
       <optional>
         <attribute name="class"/>
       </optional>
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
       <optional>
         <attribute name="uri">
           <data type="anyURI"/>
@@ -612,9 +595,7 @@
   </define>
   <define name="figure">
     <element name="figure">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <optional>
         <attribute name="unnumbered">
           <data type="boolean"/>
@@ -1011,9 +992,7 @@
     </element>
   </define>
   <define name="Image">
-    <attribute name="id">
-      <data type="ID"/>
-    </attribute>
+    <ref name="RequiredId"/>
     <attribute name="src">
       <data type="anyURI"/>
     </attribute>
@@ -1053,9 +1032,7 @@
   </define>
   <define name="video">
     <element name="video">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <attribute name="src">
         <data type="anyURI"/>
       </attribute>
@@ -1097,9 +1074,7 @@
   </define>
   <define name="audio">
     <element name="audio">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <attribute name="src">
         <data type="anyURI"/>
       </attribute>
@@ -1152,17 +1127,13 @@
   </define>
   <define name="annotation">
     <element name="annotation">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <ref name="paragraph"/>
     </element>
   </define>
   <define name="ul">
     <element name="ul">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <oneOrMore>
         <ref name="li"/>
       </oneOrMore>
@@ -1173,11 +1144,7 @@
   </define>
   <define name="li">
     <element name="li">
-      <optional>
-        <attribute name="id">
-          <data type="ID"/>
-        </attribute>
-      </optional>
+      <ref name="RequiredId"/>
       <oneOrMore>
         <ref name="paragraph-with-footnote"/>
       </oneOrMore>
@@ -1185,9 +1152,7 @@
   </define>
   <define name="ol">
     <element name="ol">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <attribute name="type">
         <choice>
           <value>roman</value>
@@ -1210,9 +1175,7 @@
   </define>
   <define name="dl">
     <element name="dl">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <oneOrMore>
         <ref name="dt"/>
         <ref name="dd"/>
