@@ -661,14 +661,18 @@ UlNoIdBody =
 li =
   element li {
     RequiredId,
+    LiAttr,
     LiBody
 }
 
 li-no-id =
   element li {
     OptionalId,
+    LiAttr,
     LiNoIdBody
 }
+
+LiAttr = empty
 
 LiBody =
     paragraph-with-footnote+
