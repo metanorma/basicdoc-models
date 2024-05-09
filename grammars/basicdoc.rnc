@@ -242,7 +242,7 @@ PreAttr =
 PreBody =
     tname?, text, note*
 
-PreBody =
+PreNoIdBody =
     tname?, text, note-no-id*
 
 table =

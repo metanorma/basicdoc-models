@@ -515,7 +515,7 @@
       <ref name="note"/>
     </zeroOrMore>
   </define>
-  <define name="PreBody">
+  <define name="PreNoIdBody">
     <optional>
       <ref name="tname"/>
     </optional>
