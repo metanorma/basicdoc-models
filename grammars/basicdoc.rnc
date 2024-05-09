@@ -118,17 +118,23 @@ note =
   element note {
     RequiredId,
     NoteAttr,
-    paragraph+
+    NoteBody
   }
 
 note-no-id =
   element note {
     OptionalId,
     NoteAttr,
-    paragraph-no-id+
+    NoteNoIdBody
   }
 
 NoteAttr = empty
+
+NoteBody =
+    paragraph+
+
+NoteNoIdBody =
+    paragraph-no-id+
 
 review =
   element review {

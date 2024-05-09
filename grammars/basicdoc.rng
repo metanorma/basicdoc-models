@@ -281,22 +281,28 @@
     <element name="note">
       <ref name="RequiredId"/>
       <ref name="NoteAttr"/>
-      <oneOrMore>
-        <ref name="paragraph"/>
-      </oneOrMore>
+      <ref name="NoteBody"/>
     </element>
   </define>
   <define name="note-no-id">
     <element name="note">
       <ref name="OptionalId"/>
       <ref name="NoteAttr"/>
-      <oneOrMore>
-        <ref name="paragraph-no-id"/>
-      </oneOrMore>
+      <ref name="NoteNoIdBody"/>
     </element>
   </define>
   <define name="NoteAttr">
     <empty/>
+  </define>
+  <define name="NoteBody">
+    <oneOrMore>
+      <ref name="paragraph"/>
+    </oneOrMore>
+  </define>
+  <define name="NoteNoIdBody">
+    <oneOrMore>
+      <ref name="paragraph-no-id"/>
+    </oneOrMore>
   </define>
   <define name="review">
     <element name="review">
