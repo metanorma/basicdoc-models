@@ -280,6 +280,7 @@
   <define name="note">
     <element name="note">
       <ref name="RequiredId"/>
+      <ref name="NoteAttr"/>
       <oneOrMore>
         <ref name="paragraph"/>
       </oneOrMore>
@@ -288,10 +289,14 @@
   <define name="note-no-id">
     <element name="note">
       <ref name="OptionalId"/>
+      <ref name="NoteAttr"/>
       <oneOrMore>
         <ref name="paragraph-no-id"/>
       </oneOrMore>
     </element>
+  </define>
+  <define name="NoteAttr">
+    <empty/>
   </define>
   <define name="review">
     <element name="review">
@@ -570,12 +575,12 @@
     <optional>
       <ref name="tfoot"/>
     </optional>
-    <zeroOrMore>
-      <ref name="table-note"/>
-    </zeroOrMore>
     <optional>
       <ref name="dl"/>
     </optional>
+    <zeroOrMore>
+      <ref name="table-note"/>
+    </zeroOrMore>
   </define>
   <define name="TableNoIdBody">
     <optional>
@@ -588,12 +593,12 @@
     <optional>
       <ref name="tfoot-no-id"/>
     </optional>
-    <zeroOrMore>
-      <ref name="table-note-no-id"/>
-    </zeroOrMore>
     <optional>
       <ref name="dl-no-id"/>
     </optional>
+    <zeroOrMore>
+      <ref name="table-note-no-id"/>
+    </zeroOrMore>
   </define>
   <define name="tname">
     <element name="name">

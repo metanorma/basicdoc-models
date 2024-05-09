@@ -117,14 +117,18 @@ paragraph-with-footnote-no-id =
 note =
   element note {
     RequiredId,
+    NoteAttr,
     paragraph+
   }
 
 note-no-id =
   element note {
     OptionalId,
+    NoteAttr,
     paragraph-no-id+
   }
+
+NoteAttr = empty
 
 review =
   element review {
