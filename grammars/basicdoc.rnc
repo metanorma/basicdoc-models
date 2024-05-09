@@ -41,6 +41,9 @@ section-title =
 BasicBlock =  paragraph-with-footnote | table | formula | admonition | ol | ul | dl | figure |
   quote | sourcecode | example | review | pre | note | pagebreak | hr | bookmark | amend
 
+BasicBlockNoId =  paragraph-with-footnote-no-id | table-no-id | formula-no-id | admonition-no-id | ol-no-id | ul-no-id | dl-no-id | figure-no-id |
+  quote-no-id | sourcecode-no-id | example-no-id | review | pre-no-id | note-no-id | pagebreak | hr | bookmark | amend
+
 amend = 
   element amend { AmendType }
 
@@ -70,26 +73,62 @@ paragraph =
 
 Alignments = ( "left" | "right" | "center" | "justified" )
 
+RequiredId = 
+    attribute id { xsd:ID }
+
+OptionalId = 
+    attribute id { xsd:ID }?
+
+ParagraphAttrs =
+    attribute align { Alignments }?
+
 ParagraphType =
-    attribute id { xsd:ID },
-    attribute align { Alignments }?,
+    RequiredId,
+    ParagraphAttrs,
+    ParagraphBody
+
+ParagraphBody =
    ( TextElement )*, note*
+
+ParagraphFnBody =
+   ( TextElement | fn )*, note*
+
+paragraph-no-id =
+  element p {
+    OptionalId,
+    ParagraphAttrs,
+    ParagraphBody
+  }
 
 paragraph-with-footnote =
   element p {
-    attribute id { xsd:ID },
-    attribute align { Alignments }?,
-   ( TextElement | fn  )*, note*
+    RequiredId,
+    ParagraphAttrs,
+    ParagraphFnBody
+}
+
+paragraph-with-footnote-no-id =
+  element p {
+    OptionalId,
+    ParagraphAttrs,
+    ParagraphFnBody
 }
 
 note =
   element note {
-    attribute id { xsd:ID },
+    RequiredId,
     paragraph+
   }
+
+note-no-id =
+  element note {
+    OptionalId,
+    paragraph-no-id+
+  }
+
 review =
   element review {
-  attribute id { xsd:ID },
+  RequiredId,
   attribute reviewer { text },
   attribute type { text }?,
   attribute date { xsd:dateTime }?,
@@ -100,22 +139,57 @@ review =
 
 formula =
   element formula {
-    attribute id { xsd:ID },
+    RequiredId,
+    FormulaAttr,
+    FormulaBody
+}
+
+formula-no-id =
+  element formula {
+    OptionalId,
+    FormulaAttr,
+    FormulaNoIdBody
+}
+
+FormulaAttr =
     attribute unnumbered { xsd:boolean }?,
     attribute subsequence { text }?,
-    attribute inequality { xsd:boolean }?,
+    attribute inequality { xsd:boolean }?
+
+FormulaBody =
     stem, dl?, note*
-}
+
+FormulaNoIdBody =
+    stem, dl-no-id?, note-no-id*
 
 quote =
   element quote {
-    attribute id { xsd:ID },
-    attribute alignment { Alignments }?,
+    RequiredId,
+    QuoteAttr,
+    QuoteBody
+}
+
+quote-no-id =
+  element quote {
+    OptionalId,
+    QuoteAttr,
+    QuoteNoIdBody
+}
+
+QuoteAttr =
+    attribute alignment { Alignments }?
+
+QuoteBody =
     quote-source?,
     quote-author?,
     paragraph-with-footnote+,
     note*
-}
+
+QuoteNoIdBody =
+    quote-source?,
+    quote-author?,
+    paragraph-with-footnote-no-id+,
+    note-no-id*
 
 quote-source =
   element source { erefType }
@@ -125,97 +199,228 @@ quote-author =
 
 sourcecode =
   element sourcecode {
-    attribute id { xsd:ID },
+    RequiredId,
+    SourceAttr,
+    SourceBody
+  }
+
+sourcecode-no-id =
+  element sourcecode {
+    OptionalId,
+    SourceAttr,
+    SourceNoIdBody
+  }
+
+SourceAttr =
     attribute unnumbered { xsd:boolean }?,
     attribute subsequence { text }?,
-    attribute lang { text }?,
+    attribute lang { text }?
+
+SourceBody =
     tname?, ( text | callout )+, annotation*, note*
-  }
+
+SourceNoIdBody =
+    tname?, ( text | callout )+, annotation*, note-no-id*
 
 pre =
   element pre {
-    attribute id { xsd:ID },
-    attribute alt { text }?,
-    tname?, text, note*
+    RequiredId,
+    PreAttr,
+    PreBody
   }
+
+pre-no-id =
+  element pre {
+    OptionalId,
+    PreAttr,
+    PreNoIdBody
+  }
+
+PreAttr =
+    attribute alt { text }?
+
+PreBody =
+    tname?, text, note*
+
+PreNoIdBody =
+    tname?, text, note-no-id*
 
 table =
   element table {
-    attribute id { xsd:ID },
+    RequiredId,
+    TableAttr,
+    TableBody
+  }
+
+table-no-id =
+  element table {
+    OptionalId,
+    TableAttr,
+    TableNoIdBody
+  }
+
+TableAttr =
     attribute unnumbered { xsd:boolean }?,
     attribute subsequence { text }?,
     attribute alt { text }?,
     attribute summary { text }?,
-    attribute uri { xsd:anyURI }?,
-    tname?, thead?, tbody, tfoot?, table-note*, dl?
-  }
+    attribute uri { xsd:anyURI }?
+
+TableBody =
+    tname?, thead?, tbody, tfoot?, dl?, table-note*
+
+TableNoIdBody =
+    tname?, thead-no-id?, tbody-no-id, tfoot-no-id?, dl-no-id?, table-note-no-id*
 
 tname = element name { (PureTextElement | eref | stem | keyword | xref | hyperlink | index | index-xref)+ }
 thead = element thead { tr }
+thead-no-id = element thead { tr-no-id }
 tfoot = element tfoot { tr }
+tfoot-no-id = element tfoot { tr-no-id }
 tbody = element tbody { tr+ }
+tbody-no-id = element tbody { tr-no-id+ }
 
 table-note = element note { paragraph }
+table-note-no-id = element note { paragraph-no-id }
 
 tr =
   element tr { ( td | th )+ }
 
+tr-no-id =
+  element tr { ( td-no-id | th-no-id )+ }
+
 td =
   element td {
+    TdAttr,
+    TdBody
+}
+
+td-no-id =
+  element td {
+    TdAttr,
+    TdNoIdBody
+}
+
+TdAttr =
     attribute colspan { text }?,
     attribute rowspan { text }?,
     attribute align { "left" | "right" | "center" }?,
-    attribute valign { "top" | "middle" | "bottom" | "baseline" }?,
+    attribute valign { "top" | "middle" | "bottom" | "baseline" }?
+
+TdBody =
     (
       (TextElement )* |
       paragraph-with-footnote+
     )
-}
+
+TdNoIdBody =
+    (
+      (TextElement )* |
+      paragraph-with-footnote-no-id+
+    )
 
 th =
   element th {
-    attribute colspan { text }?,
-    attribute rowspan { text }?,
-    attribute align { "left" | "right" | "center" }?,
-    attribute valign { "top" | "middle" | "bottom" | "baseline" }?,
-    (
-      (TextElement )* |
-      paragraph-with-footnote+
-    )
+    TdAttr,
+    TdBody
+}
+
+th-no-id =
+  element th {
+    TdAttr,
+    TdNoIdBody
 }
 
 example =
   element example {
-    attribute id { xsd:ID },
+    RequiredId,
+    ExampleAttr,
+    ExampleBody
+}
+
+example-no-id =
+  element example {
+    OptionalId,
+    ExampleAttr,
+    ExampleNoIdBody
+}
+
+ExampleAttr =
     attribute unnumbered { xsd:boolean }?,
-    attribute subsequence { text }?,
+    attribute subsequence { text }?
+
+ExampleBody =
     tname?,
     ( formula | ul | ol | dl | quote | sourcecode | paragraph-with-footnote )+,
     note*
-}
+
+ExampleNoIdBody =
+    tname?,
+    ( formula-no-id | ul-no-id | ol-no-id | dl-no-id | quote-no-id | sourcecode-no-id | paragraph-with-footnote-no-id )+,
+    note-no-id*
 
 admonition =
   element admonition {
+    RequiredId,
+    AdmonitionAttr,
+    AdmonitionBody
+}
+
+admonition-no-id =
+  element admonition {
+    OptionalId,
+    AdmonitionAttr,
+    AdmonitionNoIdBody
+}
+
+AdmonitionAttr =
     attribute type { AdmonitionType },
     attribute class { text }?,
-    attribute id { xsd:ID },
-    attribute uri { xsd:anyURI }?,
+    attribute uri { xsd:anyURI }?
+
+AdmonitionBody =
     tname?,
     paragraph-with-footnote*,
     note*
-  }
+
+AdmonitionNoIdBody =
+    tname?,
+    paragraph-with-footnote-no-id*,
+    note-no-id*
 
 AdmonitionType =
   "warning" | "note" | "tip" | "important" | "caution" 
 
 figure =
   element figure {
-    attribute id { xsd:ID },
+    RequiredId,
+    FigureAttr,
+    FigureBody
+  }
+
+figure-no-id =
+  element figure {
+    OptionalId,
+    FigureAttr,
+    FigureNoIdBody
+  }
+
+FigureAttr =
     attribute unnumbered { xsd:boolean }?,
     attribute subsequence { text }?,
-    attribute class { text }?,
-     source?, tname?, (image | video | audio | pre | paragraph-with-footnote+ | figure*), fn*, dl?, note*
-  }
+    attribute class { text }?
+
+FigureBody =
+     source?, tname?, 
+     (image | video | audio | pre | paragraph-with-footnote+ | figure*), 
+     fn*, dl?, note*
+
+FigureNoIdBody =
+     source?, tname?, 
+     (image-no-id | video-no-id | audio-no-id | pre-no-id | paragraph-with-footnote-no-id+ | figure-no-id*), 
+     fn*, dl-no-id?, note-no-id*
+
+
 TextElement =
   text | em | eref | strong | stem | sub | sup | tt | underline | keyword | ruby |
   strike | smallcap | xref | br | hyperlink | hr | pagebreak | bookmark | image | index | index-xref
@@ -327,10 +532,17 @@ callout =
 # This is xref with fixed @type="callout"; the target by convention is in an annotation in the same source code snippet
 # so <callout target="xyz">1</callout>
 # corresponds to <xref type="callout" target="xyz">1</xref>
-image = element image { Image }
+image = element image { 
+    RequiredId,
+    ImageAttr
+}
 
-Image =
-    attribute id { xsd:ID },
+image-no-id = element image { 
+    OptionalId,
+    ImageAttr
+}
+
+ImageAttr =
     attribute src { xsd:anyURI },
     attribute mimetype { text },
     attribute filename { text }?,
@@ -344,7 +556,19 @@ ImageSize = xsd:string { pattern = "\d+([.]\d+)?(%?)" } | "auto"
 
 video =
   element video {
-    attribute id { xsd:ID },
+    RequiredId,
+    VideoAttr,
+    VideoBody
+}
+
+video-no-id = 
+  element video {
+    OptionalId,
+    VideoAttr,
+    VideoBody
+}
+
+VideoAttr =
     attribute src { xsd:anyURI },
     attribute mimetype { text },
     attribute filename { text }?,
@@ -352,21 +576,35 @@ video =
     attribute height { xsd:int | "auto" }?,
     attribute alt { text }?,
     attribute title { text }?,
-    attribute longdesc { xsd:anyURI }?,
+    attribute longdesc { xsd:anyURI }?
+
+VideoBody =
     altsource*
-}
 
 audio =
   element audio {
-    attribute id { xsd:ID },
+    RequiredId,
+    AudioAttr,
+    AudioBody
+}
+
+audio-no-id =
+  element audio {
+    OptionalId,
+    AudioAttr,
+    AudioBody
+}
+
+AudioAttr =
     attribute src { xsd:anyURI },
     attribute mimetype { text },
     attribute filename { text }?,
     attribute alt { text }?,
     attribute title { text }?,
-    attribute longdesc { xsd:anyURI }?,
+    attribute longdesc { xsd:anyURI }?
+
+AudioBody =
     altsource*
-}
 
 altsource =
   element altsource {
@@ -384,41 +622,103 @@ stem =
 
 annotation =
   element annotation {
-    attribute id { xsd:ID },
+    RequiredId,
     paragraph
 }
 
 ul =
   element ul {
-    attribute id { xsd:ID },
-    li+, note*
+    RequiredId,
+    UlAttr,
+    UlBody
 }
+
+ul-no-id =
+  element ul {
+    OptionalId,
+    UlAttr,
+    UlNoIdBody
+}
+
+UlAttr = empty
+
+UlBody =
+    li+, note*
+
+UlNoIdBody =
+    li-no-id+, note-no-id*
 
 li =
   element li {
-    attribute id { xsd:ID }?,
-    paragraph-with-footnote+
+    RequiredId,
+    LiBody
 }
+
+li-no-id =
+  element li {
+    OptionalId,
+    LiNoIdBody
+}
+
+LiBody =
+    paragraph-with-footnote+
+
+LiNoIdBody =
+    paragraph-with-footnote-no-id+
 
 ol =
   element ol {
-    attribute id { xsd:ID },
+    RequiredId,
+    OlAttr,
+    OlBody
+}
+
+ol-no-id =
+  element ol {
+    OptionalId,
+    OlAttr,
+    OlNoIdBody
+}
+
+OlAttr =
     attribute type { ( "roman" | "alphabet" | "arabic" |
                        "roman_upper" | "alphabet_upper" ) },
-    attribute start { text }?,
+    attribute start { text }?
+
+OlBody =
     li+, note*
-}
+
+OlNoIdBody =
+    li-no-id+, note-no-id*
 
 dl =
   element dl {
-    attribute id { xsd:ID },
-    (dt, dd)+, note*
+    RequiredId,
+    DlAttr,
+    DlBody
 }
+
+dl-no-id =
+  element dl {
+    OptionalId,
+    DlNoIdBody
+}
+
+DlAttr = empty
+
+DlBody =
+    (dt, dd)+, note*
+
+DlNoIdBody =
+    (dt, dd-no-id)+, note-no-id*
 
 dt =
   element dt { TextElement* }
 
 dd =
   element dd { paragraph-with-footnote* }
+
+dd-no-id =
+  element dd { paragraph-with-footnote-no-id* }
 
 }
