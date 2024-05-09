@@ -660,7 +660,7 @@ UlNoIdBody =
 
 li =
   element li {
-    RequiredId,
+    OptionalId,
     LiAttr,
     LiBody
 }
