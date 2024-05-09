@@ -1525,14 +1525,19 @@
   <define name="li">
     <element name="li">
       <ref name="RequiredId"/>
+      <ref name="LiAttr"/>
       <ref name="LiBody"/>
     </element>
   </define>
   <define name="li-no-id">
     <element name="li">
       <ref name="OptionalId"/>
+      <ref name="LiAttr"/>
       <ref name="LiNoIdBody"/>
     </element>
+  </define>
+  <define name="LiAttr">
+    <empty/>
   </define>
   <define name="LiBody">
     <oneOrMore>
