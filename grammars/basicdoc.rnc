@@ -331,15 +331,19 @@ TdNoIdBody =
 
 th =
   element th {
-    TdAttr,
-    TdBody
+    ThAttr,
+    ThBody
 }
 
 th-no-id =
   element th {
-    TdAttr,
-    TdNoIdBody
+    ThAttr,
+    ThNoIdBody
 }
+
+ThAttr = TdAttr
+
+ThBody = TdBody
 
 example =
   element example {
