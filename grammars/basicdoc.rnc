@@ -442,22 +442,31 @@ TextElement =
   strike | smallcap | xref | br | hyperlink | hr | pagebreak | bookmark | image | index | index-xref
 
 PureTextElement =
-  text | em | strong | sub | sup | tt | underline | strike | smallcap | br
+  text | pure_em | pure_strong | sub | sup | pure_tt | pure_underline | pure_strike | pure_smallcap | br
 
 source = element source { TypedUri }
 
 em = element em { (PureTextElement|stem|eref|xref|hyperlink|index|index-xref)* }
+pure_em = element em { PureTextElement* }
 strong = element strong { (PureTextElement|stem|eref|xref|hyperlink|index|index-xref)* }
+pure_strong = element strong { PureTextElement* }
 tt = element tt { (PureTextElement|eref|xref|hyperlink|index|index-xref)* }
+pure_tt = element tt { PureTextElement* }
 keyword = element keyword { (PureTextElement|index|index-xref)* }
 sub = element sub { PureTextElement* }
 sup = element sup { PureTextElement* }
-strike = element strike { (PureTextElement|index|index-xref)* }
+strike = element strike { (PureTextElement|stem|eref|xeref|hyperlink|index|index-xref)* }
+pure_strike = element strike { PureTextElement* }
 underline = element underline { 
+  attribute style { text }?,
+  (PureTextElement|stem|eref|xref|hyperlink|index|index-xref)*
+}
+pure_underline = element underline { 
   attribute style { text }?,
   PureTextElement*
 }
-smallcap = element smallcap { PureTextElement* }
+smallcap = element smallcap { (PureTextElement|stem|eref|xref|hyperlink|index|index-xref)* }
+pure_smallcap = element smallcap { PureTextElement* }
 
 ruby = element ruby { (ruby_pronunciation | ruby_annotation), ( text | ruby ) }
 

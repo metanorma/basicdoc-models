@@ -1,0 +1,17 @@
+class PureTextElementType{
+  definition {
+    Content of the Pure Text Element.
+  }
+  +content: LocalizedString[0..*] {
+    definition {
+      Textual content of the Pure Text Element.
+    }
+  }
+  +elements: PureTextElement[0..*] {
+    definition {
+      May recursively contain other Pure Text Elements.
+    }
+  }
+}
+
+
