@@ -1113,7 +1113,7 @@
           <ref name="PureTextElement"/>
           <ref name="stem"/>
           <ref name="eref"/>
-          <ref name="xeref"/>
+          <ref name="xref"/>
           <ref name="hyperlink"/>
           <ref name="index"/>
           <ref name="index-xref"/>
