@@ -24,11 +24,14 @@ section =
     section*
   }
 
-## Two-letter language code taken from ISO-639, indicating the language in which the content is written
+## Two-letter language code taken from ISO 639, indicating the language in which the content is written
 LanguageType = text
 
-## Four-letter script code taken from ISO-15924, indicating the script in which the content is written
+## Four-letter script code taken from ISO 15924, indicating the script in which the content is written
 ScriptType = text
+
+## Country and country subdivisions identifier taken from ISO 3166, indicating the locale in which the content is written
+LocaleType = text
 
 ## Group of blocks within text, which is a leaf node in the hierarchical organisation of text (does not contain any sections of its own)
 Basic-Section =
@@ -57,31 +60,49 @@ references =
 section-title =
   element title { TextElement* }
 
+## Block of textual content
 BasicBlock =  paragraph-with-footnote | table | formula | admonition | ol | ul | dl | figure |
   quote | sourcecode | example | review | pre | note | pagebreak | hr | bookmark | amend
 
 BasicBlockNoId =  paragraph-with-footnote-no-id | table-no-id | formula-no-id | admonition-no-id | ol-no-id | ul-no-id | dl-no-id | figure-no-id |
   quote-no-id | sourcecode-no-id | example-no-id | review | pre-no-id | note-no-id | pagebreak | hr | bookmark | amend
 
+## Block describing a change in a document, intended for human readers
 amend = 
   element amend { AmendType }
 
 AmendType =
     OptionalId,
+    ## The type of change described in this block
     attribute change { "add" | "modify" | "delete" | "replace" },
+    ## The span within location where the change applies to,
+    ## if location defines a container larger than the scope of the change
     attribute path { text }?,
+    ## The end of the span within location where the change applies to,
+    ## if location defines a container larger than the scope of the change.
+    ## Applicable to modify and delete
     attribute path_end { text }?,
+    ## Optional caption of this block
     attribute title { text }?,
+    ## The location(s) in the original document which have undergone the change described in this block
     element location { (locality | localityStack)* }?,
+    ## Description of the change described in this block
     element description { BasicBlock* }?,
+    ## New content to be added to the document; applicable to add and modify
     element newcontent {
         OptionalId,
         BasicBlock* }?,
+    ## Classification of the change
     classification*,
+    ## Contributor responsible for the change
     contributor*
 
+## Key-value classification of an entity
 classification = element classification {
-  classification_tag, classification_value
+  ## Key for the classification
+  classification_tag,
+  ## Value for the classification
+  classification_value
 }
 
 classification_tag = element tag { text }
@@ -120,6 +141,7 @@ ParagraphType =
 ParagraphBody =
    ## Inline elements constituting the content of the paragraph
    TextElement*,
+   ## Notes whose scope is the current block
    note*
 
 ## Inline elements constituting the content of the paragraph, including footnotes
@@ -130,6 +152,7 @@ ParagraphFnBody =
      ## Footnotes interspersed with paragraph content
      fn
    )*,
+   ## Notes whose scope is the current block
    note*
 
 ## Paragraph containing no footnotes: optional ID attributes (for use in Relaton, metadata) 
@@ -156,6 +179,7 @@ paragraph-with-footnote-no-id =
     ParagraphFnBody
 }
 
+## Note block
 note =
   element note {
     RequiredId,
@@ -178,14 +202,22 @@ NoteBody =
 NoteNoIdBody =
     paragraph-no-id+
 
+## Block intended to capture reviewer comments about some text in the document
 review =
   element review {
   RequiredId,
+  ## The party who has offered the comment
   attribute reviewer { text },
+  ## The type of reviewer comment
   attribute type { text }?,
+  ## The date when the comment was made
   attribute date { xsd:dateTime }?,
+  ## Identifier for the start of the text or point in the text to which the comment applies.
+  ## If not provided, the comment applies in the vicinity of the place it has been inserted into the text
   attribute from { xsd:IDREF }?,
+  ## Identifier for the end of the text to which the comment applies
   attribute to { xsd:IDREF }?,
+  ## Reviewer comments content
   paragraph+
 }
 
@@ -198,6 +230,7 @@ NumberingAttributes =
     ## with the same number and in a subsequence: 7a, 7b, 7c etc
     attribute subsequence { text }?
 
+## Block containing a mathematical expression or other formulas
 formula =
   element formula {
     RequiredId,
@@ -214,14 +247,23 @@ formula-no-id =
 
 FormulaAttr =
     NumberingAttributes,
+    ## Indication that the formula is to be labelled as an Inequality, if inequalities are differentiated from equations
     attribute inequality { xsd:boolean }?
 
 FormulaBody =
-    stem, dl?, note*
+    ## The content of the formula, as a mathematical expression
+    stem,
+    ## A definitions list defining any symbols used in the formula
+    dl?,
+    ## Notes whose scope is the current block
+    note*
 
 FormulaNoIdBody =
-    stem, dl-no-id?, note-no-id*
+    stem, dl-no-id?,
+    ## Notes whose scope is the current block
+    note-no-id*
 
+## Block quotation, containing extensive textual content originally authored outside of the current document
 quote =
   element quote {
     RequiredId,
@@ -237,18 +279,31 @@ quote-no-id =
 }
 
 QuoteAttr =
+    ## The alignment of the quote against the margins of the document
     attribute alignment { Alignments }?
 
 QuoteBody =
+    ## Bibliographic citation for the quotation
     quote-source?,
+    ## Author of the quotation. The `author` attribute of the quotation is redundant with `source`,
+    ## since it restates information about the author that should be recoverable from the `source` citation.
+    ## It is included for convenience, in case processing the citation to extract the author is prohibitive for rendering tools
     quote-author?,
+    ## Content of quote
     paragraph-with-footnote+,
+    ## Notes whose scope is the current block
     note*
 
 QuoteNoIdBody =
+    ## Bibliographic citation for the quotation
     quote-source?,
+    ## Author of the quotation. The `author` attribute of the quotation is redundant with `source`,
+    ## since it restates information about the author that should be recoverable from the `source` citation.
+    ## It is included for convenience, in case processing the citation to extract the author is prohibitive for rendering tools
     quote-author?,
+    ## Content of quote
     paragraph-with-footnote-no-id+,
+    ## Notes whose scope is the current block
     note-no-id*
 
 quote-source =
@@ -257,6 +312,7 @@ quote-source =
 quote-author =
   element author { text }
 
+## Block containing computer code or comparable text
 sourcecode =
   element sourcecode {
     RequiredId,
@@ -273,14 +329,33 @@ sourcecode-no-id =
 
 SourceAttr =
     NumberingAttributes,
-    attribute lang { LanguageType }?
+    ## The computer language or other notational convention that the source code is expressed in
+    attribute lang { text }?
 
 SourceBody =
-    tname?, ( text | callout )+, annotation*, note*
+    tname?,
+    ( 
+       ## The computer code or other such text presented in the block, as a single unformatted string. 
+       ## (The string should be treated as pre-formatted text, with whitespace treated as significant)
+       text |
+       ## Zero or more cross-references; these are intended to be embedded within the content string, and link to annotations
+       callout
+    )+,
+    ## Annotations to the source code; each annotation consists of zero or more paragraphs,
+    ## and is intended to be referenced by a callout within the source code
+    annotation*,
+    ## Notes whose scope is the current block
+    note*
 
 SourceNoIdBody =
-    tname?, ( text | callout )+, annotation*, note-no-id*
+    tname?, ( text | callout )+, annotation*,
+    ## Notes whose scope is the current block
+    note-no-id*
 
+## Pre-formatted block. Wrapper for text to be rendered with fixed-width typeface, and preserving spaces including line breaks. 
+## They are intended for a restricted number of functions, most typically ASCII Art (which is still in prominent use in some 
+## standards documents), and computer output. In most cases, sourcecode blocks are more appropriate in markup, 
+## as it is more clearly motivated semantically
 pre =
   element pre {
     RequiredId,
@@ -296,13 +371,21 @@ pre-no-id =
   }
 
 PreAttr =
+    ## Accessible description of the preformatted text
     attribute alt { text }?
 
 PreBody =
-    tname?, text, note*
+    ## The caption of the block
+    tname?,
+    ## The pre-formatted text presented in the block, as a single unformatted string. (Whitespace is treated as significant)
+    text,
+    ## Notes whose scope is the current block
+    note*
 
 PreNoIdBody =
-    tname?, text, note-no-id*
+    tname?, text,
+    ## Notes whose scope is the current block
+    note-no-id*
 
 ## Tabular arrangement of text
 table =
@@ -440,6 +523,7 @@ ThBody = TdBody
 
 ThNoIdBody = TdNoIdBody
 
+## Block containing an example illustrating a claim made in the main flow of text
 example =
   element example {
     RequiredId,
@@ -458,13 +542,17 @@ ExampleAttr =
     NumberingAttributes
 
 ExampleBody =
+    ## The caption of the example
     tname?,
+    ## Content of the example
     ( formula | ul | ol | dl | quote | sourcecode | paragraph-with-footnote )+,
+    ## Notes whose scope is the current block
     note*
 
 ExampleNoIdBody =
     tname?,
     ( formula-no-id | ul-no-id | ol-no-id | dl-no-id | quote-no-id | sourcecode-no-id | paragraph-with-footnote-no-id )+,
+    ## Notes whose scope is the current block
     note-no-id*
 
 ## A sidebar block outside of the main flow of text, conveying particular warnings or supplementary text to the reader
@@ -497,11 +585,13 @@ AdmonitionBody =
     ## Caption of admonition
     tname?,
     paragraph-with-footnote*,
+    ## Notes whose scope is the current block
     note*
 
 AdmonitionNoIdBody =
     tname?,
     paragraph-with-footnote-no-id*,
+    ## Notes whose scope is the current block
     note-no-id*
 
 ## Subclass of admonition determining how it is to be rendered
@@ -517,6 +607,7 @@ AdmonitionType =
   ## Caution to reader, note of potential surprise or difficulty
   "caution" 
 
+## Block containing a figure: a visual rather than textual asset, possibly with accompanying text
 figure =
   element figure {
     RequiredId,
@@ -533,17 +624,30 @@ figure-no-id =
 
 FigureAttr =
     NumberingAttributes,
+    ## The semantic category of the figure. This is to allow different classes of figure (e.g. _Plate_, _Chart_, _Diagram_) 
+    ## to be auto-numbered and captioned differently
     attribute class { text }?
 
 FigureBody =
-     source?, tname?, 
+     ## A URI or other reference intended to link to an externally hosted image (or equivalent)
+     source?,
+     ## The caption of the block
+     tname?, 
+     ## Content of the figure
      (image | video | audio | pre | paragraph-with-footnote+ | figure*), 
-     fn*, dl?, note*
+     ## Footnotes specific to the figure
+     fn*,
+     ## An optional definitions list defining any symbols used in the figure
+     dl?,
+     ## Notes whose scope is the current block
+     note*
 
 FigureNoIdBody =
      source?, tname?, 
      (image-no-id | video-no-id | audio-no-id | pre-no-id | paragraph-with-footnote-no-id+ | figure-no-id*), 
-     fn*, dl-no-id?, note-no-id*
+     fn*, dl-no-id?,
+     ## Notes whose scope is the current block
+     note-no-id*
 
 ## Any inline element containing text and associated formatting information.
 ## Includes inline elements that are identifiers or references to identifiers
@@ -631,14 +735,23 @@ ruby_annotation = element annotation {
   attribute lang { LanguageType }?
 }
 
+## Line break
 br = element br { empty }
+## Horizontal rule
 hr = element hr { empty }
+## Page break. Only applicable in paged layouts (e.g. PDF, Word), and not flow layouts (e.g. HTML)
 pagebreak = element pagebreak { empty }
 
+## Index term, defined as applying to the location in the text where the index element appears, as a milestone
 index = element index {
+  ## A reference to an anchor element (typically a bookmark), 
+  ## to indicate that the index range covers a range of locations between the current index element and the `to` anchor
   attribute to { xsd:IDREF }?,
+  ## Primary index term to be recorded at the current location
   element primary { PureTextElement+ },
+  ## Secondary index term to be recorded at the current location
   element secondary { PureTextElement+ }?,
+  ## Tertiary index term to be recorded at the current 
   element tertiary { PureTextElement+ }?
 }
 
@@ -659,7 +772,10 @@ index-xref = element index-xref {
 }
 
 
-# bare ID element, used for referencing arbitrary spans of text
+## Anchor for cross-references which do not have scope over blocks or sections. 
+## Anchors within a block under the BasicDocument model cannot span across a number of inline elements; 
+## bookmarks are intended as point anchors. For that reason, the Review block has a starting reference and an optional ending reference, 
+## which can be bookmarks as well as block or section references
 bookmark =
   element bookmark {
   RequiredId,
@@ -741,9 +857,7 @@ callout =
     text
   }
 
-# This is xref with fixed @type="callout"; the target by convention is in an annotation in the same source code snippet
-# so <callout target="xyz">1</callout>
-# corresponds to <xref type="callout" target="xyz">1</xref>
+## Container for image content
 image = element image { 
     RequiredId,
     ImageAttr
@@ -755,15 +869,19 @@ image-no-id = element image {
 }
 
 ImageAttr =
-    attribute src { xsd:anyURI },
-    attribute mimetype { text },
-    attribute filename { text }?,
+    MediaAttr,
+    MediaAccessibilityAttr,
+    ## Height of image
     attribute width { ImageSize }?,
-    attribute height { ImageSize }?,
-    attribute alt { text }?,
-    attribute title { text }?,
-    attribute longdesc { xsd:anyURI }?
+    ## Width of image
+    attribute height { ImageSize }?
 
+## MIME encoding of media type
+MIMEType = text
+
+## Legal values for image height and width.
+## Attributes are realised as a real number, with optional percent sign,
+## or as the string "auto"
 ImageSize = xsd:string { pattern = "\d+([.]\d+)?(%?)" } | "auto"
 
 video =
@@ -781,18 +899,18 @@ video-no-id =
 }
 
 VideoAttr =
-    attribute src { xsd:anyURI },
-    attribute mimetype { text },
-    attribute filename { text }?,
-    attribute width { xsd:int | "auto" }?,
-    attribute height { xsd:int | "auto" }?,
-    attribute alt { text }?,
-    attribute title { text }?,
-    attribute longdesc { xsd:anyURI }?
+    MediaAttr,
+    MediaAccessibilityAttr,
+    ## Width of video
+    attribute width { ImageSize }?,
+    ## Height of video
+    attribute height { ImageSize }?
 
 VideoBody =
+    ## Alternative files to use as media
     altsource*
 
+## Container for audio content
 audio =
   element audio {
     RequiredId,
@@ -808,22 +926,33 @@ audio-no-id =
 }
 
 AudioAttr =
-    attribute src { xsd:anyURI },
-    attribute mimetype { text },
-    attribute filename { text }?,
-    attribute alt { text }?,
-    attribute title { text }?,
-    attribute longdesc { xsd:anyURI }?
+    MediaAttr,
+    MediaAccessibilityAttr
 
 AudioBody =
+    ## Alternative files to use as media
     altsource*
 
+## Alternative file to use as media
 altsource =
-  element altsource {
+  element altsource { MediaAttr }
+
+MediaAttr =
+    ## URI of the media file
     attribute src { xsd:anyURI },
-    attribute mimetype { text },
+    ## Type of the media file, in MIME
+    attribute mimetype { MIMEType },
+    ## File name corresponding to the media, to which the media can be extracted if it is represented inline
+    ## (e.g. in Base64 encoding in the URI)
     attribute filename { text }?
-}
+
+MediaAccessibilityAttr =
+    ## Alternate text, supplied for accessibility
+    attribute alt { text }?,
+    ## Title, supplied for accessibility
+    attribute title { text }?,
+    ## URI pointing to more extensive alternate text description, supplied for accessibility
+    attribute longdesc { xsd:anyURI }?
 
 
 ## Mathematically formatted text
@@ -841,6 +970,7 @@ annotation =
     paragraph
 }
 
+## Unordered list block
 ul =
   element ul {
     RequiredId,
@@ -858,15 +988,21 @@ ul-no-id =
 UlAttr = empty
 
 UlBody =
-    li+, note*
+    li+,
+    ## Notes whose scope is the current block
+    note*
 
 UlNoIdBody =
-    li-no-id+, note-no-id*
+    li-no-id+,
+    ## Notes whose scope is the current block
+    note-no-id*
 
+## Item in a list block
 li =
   element li {
     OptionalId,
     LiAttr,
+    ## Content of list item
     LiBody
 }
 
@@ -885,6 +1021,7 @@ LiBody =
 LiNoIdBody =
     paragraph-with-footnote-no-id+
 
+## Ordered list, with numbering applied to the list items
 ol =
   element ol {
     RequiredId,
@@ -900,16 +1037,24 @@ ol-no-id =
 }
 
 OlAttr =
+    ## Type of numbering to be applied to the list items
     attribute type { ( "roman" | "alphabet" | "arabic" |
                        "roman_upper" | "alphabet_upper" ) },
+    ## Starting value for numbering of the list items; is a number, regardless of the type,
+    ## and is mapped to the ordinal represented in the type
     attribute start { text }?
 
 OlBody =
-    li+, note*
+    li+,
+    ## Notes whose scope is the current block
+    note*
 
 OlNoIdBody =
-    li-no-id+, note-no-id*
+    li-no-id+,
+    ## Notes whose scope is the current block
+    note-no-id*
 
+## Definition list, composed of definitions rather than list items
 dl =
   element dl {
     RequiredId,
@@ -926,14 +1071,26 @@ dl-no-id =
 DlAttr = empty
 
 DlBody =
-    (dt, dd)+, note*
+    ## Entry-Definition pair used to constitute a definition list
+    (
+      ## Entry being defined in the definition
+      dt,
+      ## Definition of the entry
+      dd
+    )+,
+    ## Notes whose scope is the current block
+    note*
 
 DlNoIdBody =
-    (dt, dd-no-id)+, note-no-id*
+    (dt, dd-no-id)+,
+    ## Notes whose scope is the current block
+    note-no-id*
 
+## Entry in a definition list
 dt =
   element dt { TextElement* }
 
+## Definition in a definition list
 dd =
   element dd { paragraph-with-footnote* }
 

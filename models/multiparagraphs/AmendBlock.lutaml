@@ -32,7 +32,7 @@ class AmendBlock {
       applicable to modify or delete.
     }
   }
-  +name: String[0..1] {
+  +title: String[0..1] {
     definition {
       Optional caption of this block.
     }
@@ -49,12 +49,12 @@ class AmendBlock {
   }
   +classification: Classification[0..*] {
     definition {
-      Classification of the machine-readable change.
+      Classification of the change.
     }
   }
   +contributor: <<Bibliography>> Contributor[0..*] {
     definition {
-      Contributor responsible for the machine-readable change.
+      Contributor responsible for the change.
     }
   }
 }

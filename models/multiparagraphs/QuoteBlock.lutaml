@@ -9,7 +9,7 @@ class QuoteBlock{
   }
   +author: <<Bibliography>> Contributor[0..1] {
     definition {
-      Author of the quotation. The `author` attribute of the quotation is redundant with the citation, since it restates information about the author that should be recoverable from the citation itself. It is included for convenience, in case processing the citation to extract the author is prohibitive for rendering tools.
+      Author of the quotation. The `author` attribute of the quotation is redundant with `source`, since it restates information about the author that should be recoverable from the `source` citation. It is included for convenience, in case processing the citation to extract the author is prohibitive for rendering tools.
     }
   }
 }

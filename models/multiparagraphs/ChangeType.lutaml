@@ -19,4 +19,9 @@ enum ChangeType {
       Indicates a change that deletes content.
     }
   }
+  replace {
+    definition {
+      Indicates a change that replaces content.
+    }
+  }
 }

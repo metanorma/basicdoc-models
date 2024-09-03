@@ -38,11 +38,15 @@ so the hierarchical arrangement of sections can be arbitrarily deep</a:documenta
     </element>
   </define>
   <define name="LanguageType">
-    <a:documentation>Two-letter language code taken from ISO-639, indicating the language in which the content is written</a:documentation>
+    <a:documentation>Two-letter language code taken from ISO 639, indicating the language in which the content is written</a:documentation>
     <text/>
   </define>
   <define name="ScriptType">
-    <a:documentation>Four-letter script code taken from ISO-15924, indicating the script in which the content is written</a:documentation>
+    <a:documentation>Four-letter script code taken from ISO 15924, indicating the script in which the content is written</a:documentation>
+    <text/>
+  </define>
+  <define name="LocaleType">
+    <a:documentation>Country and country subdivisions identifier taken from ISO 3166, indicating the locale in which the content is written</a:documentation>
     <text/>
   </define>
   <define name="Basic-Section">
@@ -100,6 +104,7 @@ so the hierarchical arrangement of sections can be arbitrarily deep</a:documenta
     </element>
   </define>
   <define name="BasicBlock">
+    <a:documentation>Block of textual content</a:documentation>
     <choice>
       <ref name="paragraph-with-footnote"/>
       <ref name="table"/>
@@ -144,6 +149,7 @@ so the hierarchical arrangement of sections can be arbitrarily deep</a:documenta
     </choice>
   </define>
   <define name="amend">
+    <a:documentation>Block describing a change in a document, intended for human readers</a:documentation>
     <element name="amend">
       <ref name="AmendType"/>
     </element>
@@ -151,6 +157,7 @@ so the hierarchical arrangement of sections can be arbitrarily deep</a:documenta
   <define name="AmendType">
     <ref name="OptionalId"/>
     <attribute name="change">
+      <a:documentation>The type of change described in this block</a:documentation>
       <choice>
         <value>add</value>
         <value>modify</value>
@@ -159,16 +166,26 @@ so the hierarchical arrangement of sections can be arbitrarily deep</a:documenta
       </choice>
     </attribute>
     <optional>
-      <attribute name="path"/>
+      <attribute name="path">
+        <a:documentation>The span within location where the change applies to,
+if location defines a container larger than the scope of the change</a:documentation>
+      </attribute>
     </optional>
     <optional>
-      <attribute name="path_end"/>
+      <attribute name="path_end">
+        <a:documentation>The end of the span within location where the change applies to,
+if location defines a container larger than the scope of the change.
+Applicable to modify and delete</a:documentation>
+      </attribute>
     </optional>
     <optional>
-      <attribute name="title"/>
+      <attribute name="title">
+        <a:documentation>Optional caption of this block</a:documentation>
+      </attribute>
     </optional>
     <optional>
       <element name="location">
+        <a:documentation>The location(s) in the original document which have undergone the change described in this block</a:documentation>
         <zeroOrMore>
           <choice>
             <ref name="locality"/>
@@ -179,6 +196,7 @@ so the hierarchical arrangement of sections can be arbitrarily deep</a:documenta
     </optional>
     <optional>
       <element name="description">
+        <a:documentation>Description of the change described in this block</a:documentation>
         <zeroOrMore>
           <ref name="BasicBlock"/>
         </zeroOrMore>
@@ -186,6 +204,7 @@ so the hierarchical arrangement of sections can be arbitrarily deep</a:documenta
     </optional>
     <optional>
       <element name="newcontent">
+        <a:documentation>New content to be added to the document; applicable to add and modify</a:documentation>
         <ref name="OptionalId"/>
         <zeroOrMore>
           <ref name="BasicBlock"/>
@@ -193,16 +212,25 @@ so the hierarchical arrangement of sections can be arbitrarily deep</a:documenta
       </element>
     </optional>
     <zeroOrMore>
-      <ref name="classification"/>
+      <ref name="classification">
+        <a:documentation>Classification of the change</a:documentation>
+      </ref>
     </zeroOrMore>
     <zeroOrMore>
-      <ref name="contributor"/>
+      <ref name="contributor">
+        <a:documentation>Contributor responsible for the change</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="classification">
+    <a:documentation>Key-value classification of an entity</a:documentation>
     <element name="classification">
-      <ref name="classification_tag"/>
-      <ref name="classification_value"/>
+      <ref name="classification_tag">
+        <a:documentation>Key for the classification</a:documentation>
+      </ref>
+      <ref name="classification_value">
+        <a:documentation>Value for the classification</a:documentation>
+      </ref>
     </element>
   </define>
   <define name="classification_tag">
@@ -270,7 +298,9 @@ in a document (e.g. sourcecode annotations)</a:documentation>
       </ref>
     </zeroOrMore>
     <zeroOrMore>
-      <ref name="note"/>
+      <ref name="note">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="ParagraphFnBody">
@@ -286,7 +316,9 @@ in a document (e.g. sourcecode annotations)</a:documentation>
       </choice>
     </zeroOrMore>
     <zeroOrMore>
-      <ref name="note"/>
+      <ref name="note">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="paragraph-no-id">
@@ -314,6 +346,7 @@ in a document (e.g. sourcecode annotations)</a:documentation>
     </element>
   </define>
   <define name="note">
+    <a:documentation>Note block</a:documentation>
     <element name="note">
       <ref name="RequiredId"/>
       <ref name="NoteAttr"/>
@@ -341,29 +374,40 @@ in a document (e.g. sourcecode annotations)</a:documentation>
     </oneOrMore>
   </define>
   <define name="review">
+    <a:documentation>Block intended to capture reviewer comments about some text in the document</a:documentation>
     <element name="review">
       <ref name="RequiredId"/>
-      <attribute name="reviewer"/>
+      <attribute name="reviewer">
+        <a:documentation>The party who has offered the comment</a:documentation>
+      </attribute>
       <optional>
-        <attribute name="type"/>
+        <attribute name="type">
+          <a:documentation>The type of reviewer comment</a:documentation>
+        </attribute>
       </optional>
       <optional>
         <attribute name="date">
+          <a:documentation>The date when the comment was made</a:documentation>
           <data type="dateTime"/>
         </attribute>
       </optional>
       <optional>
         <attribute name="from">
+          <a:documentation>Identifier for the start of the text or point in the text to which the comment applies.
+If not provided, the comment applies in the vicinity of the place it has been inserted into the text</a:documentation>
           <data type="IDREF"/>
         </attribute>
       </optional>
       <optional>
         <attribute name="to">
+          <a:documentation>Identifier for the end of the text to which the comment applies</a:documentation>
           <data type="IDREF"/>
         </attribute>
       </optional>
       <oneOrMore>
-        <ref name="paragraph"/>
+        <ref name="paragraph">
+          <a:documentation>Reviewer comments content</a:documentation>
+        </ref>
       </oneOrMore>
     </element>
   </define>
@@ -384,6 +428,7 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
     </optional>
   </define>
   <define name="formula">
+    <a:documentation>Block containing a mathematical expression or other formulas</a:documentation>
     <element name="formula">
       <ref name="RequiredId"/>
       <ref name="FormulaAttr"/>
@@ -401,17 +446,24 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
     <ref name="NumberingAttributes"/>
     <optional>
       <attribute name="inequality">
+        <a:documentation>Indication that the formula is to be labelled as an Inequality, if inequalities are differentiated from equations</a:documentation>
         <data type="boolean"/>
       </attribute>
     </optional>
   </define>
   <define name="FormulaBody">
-    <ref name="stem"/>
+    <ref name="stem">
+      <a:documentation>The content of the formula, as a mathematical expression</a:documentation>
+    </ref>
     <optional>
-      <ref name="dl"/>
+      <ref name="dl">
+        <a:documentation>A definitions list defining any symbols used in the formula</a:documentation>
+      </ref>
     </optional>
     <zeroOrMore>
-      <ref name="note"/>
+      <ref name="note">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="FormulaNoIdBody">
@@ -420,10 +472,13 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
       <ref name="dl-no-id"/>
     </optional>
     <zeroOrMore>
-      <ref name="note-no-id"/>
+      <ref name="note-no-id">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="quote">
+    <a:documentation>Block quotation, containing extensive textual content originally authored outside of the current document</a:documentation>
     <element name="quote">
       <ref name="RequiredId"/>
       <ref name="QuoteAttr"/>
@@ -440,36 +495,57 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
   <define name="QuoteAttr">
     <optional>
       <attribute name="alignment">
+        <a:documentation>The alignment of the quote against the margins of the document</a:documentation>
         <ref name="Alignments"/>
       </attribute>
     </optional>
   </define>
   <define name="QuoteBody">
     <optional>
-      <ref name="quote-source"/>
+      <ref name="quote-source">
+        <a:documentation>Bibliographic citation for the quotation</a:documentation>
+      </ref>
     </optional>
     <optional>
-      <ref name="quote-author"/>
+      <ref name="quote-author">
+        <a:documentation>Author of the quotation. The `author` attribute of the quotation is redundant with `source`,
+since it restates information about the author that should be recoverable from the `source` citation.
+It is included for convenience, in case processing the citation to extract the author is prohibitive for rendering tools</a:documentation>
+      </ref>
     </optional>
     <oneOrMore>
-      <ref name="paragraph-with-footnote"/>
+      <ref name="paragraph-with-footnote">
+        <a:documentation>Content of quote</a:documentation>
+      </ref>
     </oneOrMore>
     <zeroOrMore>
-      <ref name="note"/>
+      <ref name="note">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="QuoteNoIdBody">
     <optional>
-      <ref name="quote-source"/>
+      <ref name="quote-source">
+        <a:documentation>Bibliographic citation for the quotation</a:documentation>
+      </ref>
     </optional>
     <optional>
-      <ref name="quote-author"/>
+      <ref name="quote-author">
+        <a:documentation>Author of the quotation. The `author` attribute of the quotation is redundant with `source`,
+since it restates information about the author that should be recoverable from the `source` citation.
+It is included for convenience, in case processing the citation to extract the author is prohibitive for rendering tools</a:documentation>
+      </ref>
     </optional>
     <oneOrMore>
-      <ref name="paragraph-with-footnote-no-id"/>
+      <ref name="paragraph-with-footnote-no-id">
+        <a:documentation>Content of quote</a:documentation>
+      </ref>
     </oneOrMore>
     <zeroOrMore>
-      <ref name="note-no-id"/>
+      <ref name="note-no-id">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="quote-source">
@@ -483,6 +559,7 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
     </element>
   </define>
   <define name="sourcecode">
+    <a:documentation>Block containing computer code or comparable text</a:documentation>
     <element name="sourcecode">
       <ref name="RequiredId"/>
       <ref name="SourceAttr"/>
@@ -500,7 +577,7 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
     <ref name="NumberingAttributes"/>
     <optional>
       <attribute name="lang">
-        <ref name="LanguageType"/>
+        <a:documentation>The computer language or other notational convention that the source code is expressed in</a:documentation>
       </attribute>
     </optional>
   </define>
@@ -510,15 +587,25 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
     </optional>
     <oneOrMore>
       <choice>
-        <text/>
-        <ref name="callout"/>
+        <text>
+          <a:documentation>The computer code or other such text presented in the block, as a single unformatted string. 
+(The string should be treated as pre-formatted text, with whitespace treated as significant)</a:documentation>
+        </text>
+        <ref name="callout">
+          <a:documentation>Zero or more cross-references; these are intended to be embedded within the content string, and link to annotations</a:documentation>
+        </ref>
       </choice>
     </oneOrMore>
     <zeroOrMore>
-      <ref name="annotation"/>
+      <ref name="annotation">
+        <a:documentation>Annotations to the source code; each annotation consists of zero or more paragraphs,
+and is intended to be referenced by a callout within the source code</a:documentation>
+      </ref>
     </zeroOrMore>
     <zeroOrMore>
-      <ref name="note"/>
+      <ref name="note">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="SourceNoIdBody">
@@ -535,10 +622,16 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
       <ref name="annotation"/>
     </zeroOrMore>
     <zeroOrMore>
-      <ref name="note-no-id"/>
+      <ref name="note-no-id">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="pre">
+    <a:documentation>Pre-formatted block. Wrapper for text to be rendered with fixed-width typeface, and preserving spaces including line breaks. 
+They are intended for a restricted number of functions, most typically ASCII Art (which is still in prominent use in some 
+standards documents), and computer output. In most cases, sourcecode blocks are more appropriate in markup, 
+as it is more clearly motivated semantically</a:documentation>
     <element name="pre">
       <ref name="RequiredId"/>
       <ref name="PreAttr"/>
@@ -554,16 +647,24 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
   </define>
   <define name="PreAttr">
     <optional>
-      <attribute name="alt"/>
+      <attribute name="alt">
+        <a:documentation>Accessible description of the preformatted text</a:documentation>
+      </attribute>
     </optional>
   </define>
   <define name="PreBody">
     <optional>
-      <ref name="tname"/>
+      <ref name="tname">
+        <a:documentation>The caption of the block</a:documentation>
+      </ref>
     </optional>
-    <text/>
+    <text>
+      <a:documentation>The pre-formatted text presented in the block, as a single unformatted string. (Whitespace is treated as significant)</a:documentation>
+    </text>
     <zeroOrMore>
-      <ref name="note"/>
+      <ref name="note">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="PreNoIdBody">
@@ -572,7 +673,9 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
     </optional>
     <text/>
     <zeroOrMore>
-      <ref name="note-no-id"/>
+      <ref name="note-no-id">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="table">
@@ -843,6 +946,7 @@ in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
     <ref name="TdNoIdBody"/>
   </define>
   <define name="example">
+    <a:documentation>Block containing an example illustrating a claim made in the main flow of text</a:documentation>
     <element name="example">
       <ref name="RequiredId"/>
       <ref name="ExampleAttr"/>
@@ -861,10 +965,13 @@ in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
   </define>
   <define name="ExampleBody">
     <optional>
-      <ref name="tname"/>
+      <ref name="tname">
+        <a:documentation>The caption of the example</a:documentation>
+      </ref>
     </optional>
     <oneOrMore>
       <choice>
+        <a:documentation>Content of the example</a:documentation>
         <ref name="formula"/>
         <ref name="ul"/>
         <ref name="ol"/>
@@ -875,7 +982,9 @@ in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
       </choice>
     </oneOrMore>
     <zeroOrMore>
-      <ref name="note"/>
+      <ref name="note">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="ExampleNoIdBody">
@@ -894,7 +1003,9 @@ in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
       </choice>
     </oneOrMore>
     <zeroOrMore>
-      <ref name="note-no-id"/>
+      <ref name="note-no-id">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="admonition">
@@ -942,7 +1053,9 @@ Typically is a subclass of an admonition type</a:documentation>
       <ref name="paragraph-with-footnote"/>
     </zeroOrMore>
     <zeroOrMore>
-      <ref name="note"/>
+      <ref name="note">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="AdmonitionNoIdBody">
@@ -953,7 +1066,9 @@ Typically is a subclass of an admonition type</a:documentation>
       <ref name="paragraph-with-footnote-no-id"/>
     </zeroOrMore>
     <zeroOrMore>
-      <ref name="note-no-id"/>
+      <ref name="note-no-id">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="AdmonitionType">
@@ -972,6 +1087,7 @@ Typically is a subclass of an admonition type</a:documentation>
     </choice>
   </define>
   <define name="figure">
+    <a:documentation>Block containing a figure: a visual rather than textual asset, possibly with accompanying text</a:documentation>
     <element name="figure">
       <ref name="RequiredId"/>
       <ref name="FigureAttr"/>
@@ -988,17 +1104,25 @@ Typically is a subclass of an admonition type</a:documentation>
   <define name="FigureAttr">
     <ref name="NumberingAttributes"/>
     <optional>
-      <attribute name="class"/>
+      <attribute name="class">
+        <a:documentation>The semantic category of the figure. This is to allow different classes of figure (e.g. _Plate_, _Chart_, _Diagram_) 
+to be auto-numbered and captioned differently</a:documentation>
+      </attribute>
     </optional>
   </define>
   <define name="FigureBody">
     <optional>
-      <ref name="source"/>
+      <ref name="source">
+        <a:documentation>A URI or other reference intended to link to an externally hosted image (or equivalent)</a:documentation>
+      </ref>
     </optional>
     <optional>
-      <ref name="tname"/>
+      <ref name="tname">
+        <a:documentation>The caption of the block</a:documentation>
+      </ref>
     </optional>
     <choice>
+      <a:documentation>Content of the figure</a:documentation>
       <ref name="image"/>
       <ref name="video"/>
       <ref name="audio"/>
@@ -1011,13 +1135,19 @@ Typically is a subclass of an admonition type</a:documentation>
       </zeroOrMore>
     </choice>
     <zeroOrMore>
-      <ref name="fn"/>
+      <ref name="fn">
+        <a:documentation>Footnotes specific to the figure</a:documentation>
+      </ref>
     </zeroOrMore>
     <optional>
-      <ref name="dl"/>
+      <ref name="dl">
+        <a:documentation>An optional definitions list defining any symbols used in the figure</a:documentation>
+      </ref>
     </optional>
     <zeroOrMore>
-      <ref name="note"/>
+      <ref name="note">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="FigureNoIdBody">
@@ -1046,7 +1176,9 @@ Typically is a subclass of an admonition type</a:documentation>
       <ref name="dl-no-id"/>
     </optional>
     <zeroOrMore>
-      <ref name="note-no-id"/>
+      <ref name="note-no-id">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="TextElement">
@@ -1303,34 +1435,42 @@ Restricted recursively to contain only other such inline elements with no identi
     </element>
   </define>
   <define name="br">
+    <a:documentation>Line break</a:documentation>
     <element name="br">
       <empty/>
     </element>
   </define>
   <define name="hr">
+    <a:documentation>Horizontal rule</a:documentation>
     <element name="hr">
       <empty/>
     </element>
   </define>
   <define name="pagebreak">
+    <a:documentation>Page break. Only applicable in paged layouts (e.g. PDF, Word), and not flow layouts (e.g. HTML)</a:documentation>
     <element name="pagebreak">
       <empty/>
     </element>
   </define>
   <define name="index">
+    <a:documentation>Index term, defined as applying to the location in the text where the index element appears, as a milestone</a:documentation>
     <element name="index">
       <optional>
         <attribute name="to">
+          <a:documentation>A reference to an anchor element (typically a bookmark), 
+to indicate that the index range covers a range of locations between the current index element and the `to` anchor</a:documentation>
           <data type="IDREF"/>
         </attribute>
       </optional>
       <element name="primary">
+        <a:documentation>Primary index term to be recorded at the current location</a:documentation>
         <oneOrMore>
           <ref name="PureTextElement"/>
         </oneOrMore>
       </element>
       <optional>
         <element name="secondary">
+          <a:documentation>Secondary index term to be recorded at the current location</a:documentation>
           <oneOrMore>
             <ref name="PureTextElement"/>
           </oneOrMore>
@@ -1338,6 +1478,7 @@ Restricted recursively to contain only other such inline elements with no identi
       </optional>
       <optional>
         <element name="tertiary">
+          <a:documentation>Tertiary index term to be recorded at the current </a:documentation>
           <oneOrMore>
             <ref name="PureTextElement"/>
           </oneOrMore>
@@ -1384,8 +1525,11 @@ The text in the inline element is the primary index term to be be cross-referenc
       </element>
     </element>
   </define>
-  <!-- bare ID element, used for referencing arbitrary spans of text -->
   <define name="bookmark">
+    <a:documentation>Anchor for cross-references which do not have scope over blocks or sections. 
+Anchors within a block under the BasicDocument model cannot span across a number of inline elements; 
+bookmarks are intended as point anchors. For that reason, the Review block has a starting reference and an optional ending reference, 
+which can be bookmarks as well as block or section references</a:documentation>
     <element name="bookmark">
       <ref name="RequiredId"/>
       <empty/>
@@ -1511,12 +1655,8 @@ the extent of the target is not expressed overtly</a:documentation>
       </text>
     </element>
   </define>
-  <!--
-    This is xref with fixed @type="callout"; the target by convention is in an annotation in the same source code snippet
-    so <callout target="xyz">1</callout>
-    corresponds to <xref type="callout" target="xyz">1</xref>
-  -->
   <define name="image">
+    <a:documentation>Container for image content</a:documentation>
     <element name="image">
       <ref name="RequiredId"/>
       <ref name="ImageAttr"/>
@@ -1529,36 +1669,29 @@ the extent of the target is not expressed overtly</a:documentation>
     </element>
   </define>
   <define name="ImageAttr">
-    <attribute name="src">
-      <data type="anyURI"/>
-    </attribute>
-    <attribute name="mimetype"/>
-    <optional>
-      <attribute name="filename"/>
-    </optional>
+    <ref name="MediaAttr"/>
+    <ref name="MediaAccessibilityAttr"/>
     <optional>
       <attribute name="width">
+        <a:documentation>Height of image</a:documentation>
         <ref name="ImageSize"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="height">
+        <a:documentation>Width of image</a:documentation>
         <ref name="ImageSize"/>
       </attribute>
     </optional>
-    <optional>
-      <attribute name="alt"/>
-    </optional>
-    <optional>
-      <attribute name="title"/>
-    </optional>
-    <optional>
-      <attribute name="longdesc">
-        <data type="anyURI"/>
-      </attribute>
-    </optional>
+  </define>
+  <define name="MIMEType">
+    <a:documentation>MIME encoding of media type</a:documentation>
+    <text/>
   </define>
   <define name="ImageSize">
+    <a:documentation>Legal values for image height and width.
+Attributes are realised as a real number, with optional percent sign,
+or as the string "auto"</a:documentation>
     <choice>
       <data type="string">
         <param name="pattern">\d+([.]\d+)?(%?)</param>
@@ -1581,47 +1714,30 @@ the extent of the target is not expressed overtly</a:documentation>
     </element>
   </define>
   <define name="VideoAttr">
-    <attribute name="src">
-      <data type="anyURI"/>
-    </attribute>
-    <attribute name="mimetype"/>
-    <optional>
-      <attribute name="filename"/>
-    </optional>
+    <ref name="MediaAttr"/>
+    <ref name="MediaAccessibilityAttr"/>
     <optional>
       <attribute name="width">
-        <choice>
-          <data type="int"/>
-          <value>auto</value>
-        </choice>
+        <a:documentation>Width of video</a:documentation>
+        <ref name="ImageSize"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="height">
-        <choice>
-          <data type="int"/>
-          <value>auto</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="alt"/>
-    </optional>
-    <optional>
-      <attribute name="title"/>
-    </optional>
-    <optional>
-      <attribute name="longdesc">
-        <data type="anyURI"/>
+        <a:documentation>Height of video</a:documentation>
+        <ref name="ImageSize"/>
       </attribute>
     </optional>
   </define>
   <define name="VideoBody">
     <zeroOrMore>
-      <ref name="altsource"/>
+      <ref name="altsource">
+        <a:documentation>Alternative files to use as media</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="audio">
+    <a:documentation>Container for audio content</a:documentation>
     <element name="audio">
       <ref name="RequiredId"/>
       <ref name="AudioAttr"/>
@@ -1636,40 +1752,55 @@ the extent of the target is not expressed overtly</a:documentation>
     </element>
   </define>
   <define name="AudioAttr">
-    <attribute name="src">
-      <data type="anyURI"/>
-    </attribute>
-    <attribute name="mimetype"/>
-    <optional>
-      <attribute name="filename"/>
-    </optional>
-    <optional>
-      <attribute name="alt"/>
-    </optional>
-    <optional>
-      <attribute name="title"/>
-    </optional>
-    <optional>
-      <attribute name="longdesc">
-        <data type="anyURI"/>
-      </attribute>
-    </optional>
+    <ref name="MediaAttr"/>
+    <ref name="MediaAccessibilityAttr"/>
   </define>
   <define name="AudioBody">
     <zeroOrMore>
-      <ref name="altsource"/>
+      <ref name="altsource">
+        <a:documentation>Alternative files to use as media</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="altsource">
+    <a:documentation>Alternative file to use as media</a:documentation>
     <element name="altsource">
-      <attribute name="src">
+      <ref name="MediaAttr"/>
+    </element>
+  </define>
+  <define name="MediaAttr">
+    <attribute name="src">
+      <a:documentation>URI of the media file</a:documentation>
+      <data type="anyURI"/>
+    </attribute>
+    <attribute name="mimetype">
+      <a:documentation>Type of the media file, in MIME</a:documentation>
+      <ref name="MIMEType"/>
+    </attribute>
+    <optional>
+      <attribute name="filename">
+        <a:documentation>File name corresponding to the media, to which the media can be extracted if it is represented inline
+(e.g. in Base64 encoding in the URI)</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+  <define name="MediaAccessibilityAttr">
+    <optional>
+      <attribute name="alt">
+        <a:documentation>Alternate text, supplied for accessibility</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="title">
+        <a:documentation>Title, supplied for accessibility</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="longdesc">
+        <a:documentation>URI pointing to more extensive alternate text description, supplied for accessibility</a:documentation>
         <data type="anyURI"/>
       </attribute>
-      <attribute name="mimetype"/>
-      <optional>
-        <attribute name="filename"/>
-      </optional>
-    </element>
+    </optional>
   </define>
   <define name="stem">
     <a:documentation>Mathematically formatted text</a:documentation>
@@ -1698,6 +1829,7 @@ the extent of the target is not expressed overtly</a:documentation>
     </element>
   </define>
   <define name="ul">
+    <a:documentation>Unordered list block</a:documentation>
     <element name="ul">
       <ref name="RequiredId"/>
       <ref name="UlAttr"/>
@@ -1719,7 +1851,9 @@ the extent of the target is not expressed overtly</a:documentation>
       <ref name="li"/>
     </oneOrMore>
     <zeroOrMore>
-      <ref name="note"/>
+      <ref name="note">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="UlNoIdBody">
@@ -1727,14 +1861,19 @@ the extent of the target is not expressed overtly</a:documentation>
       <ref name="li-no-id"/>
     </oneOrMore>
     <zeroOrMore>
-      <ref name="note-no-id"/>
+      <ref name="note-no-id">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="li">
+    <a:documentation>Item in a list block</a:documentation>
     <element name="li">
       <ref name="OptionalId"/>
       <ref name="LiAttr"/>
-      <ref name="LiBody"/>
+      <ref name="LiBody">
+        <a:documentation>Content of list item</a:documentation>
+      </ref>
     </element>
   </define>
   <define name="li-no-id">
@@ -1758,6 +1897,7 @@ the extent of the target is not expressed overtly</a:documentation>
     </oneOrMore>
   </define>
   <define name="ol">
+    <a:documentation>Ordered list, with numbering applied to the list items</a:documentation>
     <element name="ol">
       <ref name="RequiredId"/>
       <ref name="OlAttr"/>
@@ -1773,6 +1913,7 @@ the extent of the target is not expressed overtly</a:documentation>
   </define>
   <define name="OlAttr">
     <attribute name="type">
+      <a:documentation>Type of numbering to be applied to the list items</a:documentation>
       <choice>
         <value>roman</value>
         <value>alphabet</value>
@@ -1782,7 +1923,10 @@ the extent of the target is not expressed overtly</a:documentation>
       </choice>
     </attribute>
     <optional>
-      <attribute name="start"/>
+      <attribute name="start">
+        <a:documentation>Starting value for numbering of the list items; is a number, regardless of the type,
+and is mapped to the ordinal represented in the type</a:documentation>
+      </attribute>
     </optional>
   </define>
   <define name="OlBody">
@@ -1790,7 +1934,9 @@ the extent of the target is not expressed overtly</a:documentation>
       <ref name="li"/>
     </oneOrMore>
     <zeroOrMore>
-      <ref name="note"/>
+      <ref name="note">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="OlNoIdBody">
@@ -1798,10 +1944,13 @@ the extent of the target is not expressed overtly</a:documentation>
       <ref name="li-no-id"/>
     </oneOrMore>
     <zeroOrMore>
-      <ref name="note-no-id"/>
+      <ref name="note-no-id">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="dl">
+    <a:documentation>Definition list, composed of definitions rather than list items</a:documentation>
     <element name="dl">
       <ref name="RequiredId"/>
       <ref name="DlAttr"/>
@@ -1819,11 +1968,20 @@ the extent of the target is not expressed overtly</a:documentation>
   </define>
   <define name="DlBody">
     <oneOrMore>
-      <ref name="dt"/>
-      <ref name="dd"/>
+      <group>
+        <a:documentation>Entry-Definition pair used to constitute a definition list</a:documentation>
+        <ref name="dt">
+          <a:documentation>Entry being defined in the definition</a:documentation>
+        </ref>
+        <ref name="dd">
+          <a:documentation>Definition of the entry</a:documentation>
+        </ref>
+      </group>
     </oneOrMore>
     <zeroOrMore>
-      <ref name="note"/>
+      <ref name="note">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="DlNoIdBody">
@@ -1832,10 +1990,13 @@ the extent of the target is not expressed overtly</a:documentation>
       <ref name="dd-no-id"/>
     </oneOrMore>
     <zeroOrMore>
-      <ref name="note-no-id"/>
+      <ref name="note-no-id">
+        <a:documentation>Notes whose scope is the current block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="dt">
+    <a:documentation>Entry in a definition list</a:documentation>
     <element name="dt">
       <zeroOrMore>
         <ref name="TextElement"/>
@@ -1843,6 +2004,7 @@ the extent of the target is not expressed overtly</a:documentation>
     </element>
   </define>
   <define name="dd">
+    <a:documentation>Definition in a definition list</a:documentation>
     <element name="dd">
       <zeroOrMore>
         <ref name="paragraph-with-footnote"/>

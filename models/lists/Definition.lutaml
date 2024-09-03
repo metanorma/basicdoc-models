@@ -1,6 +1,6 @@
 class Definition{
   definition {
-    Definition used to constitute a definition list.
+    Entry-Definition pair used to constitute a definition list.
   }
   +item: TextElement[0..*] {
     definition {
