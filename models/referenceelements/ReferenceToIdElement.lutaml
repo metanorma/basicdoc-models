@@ -4,7 +4,7 @@ class ReferenceToIdElement{
   }
   +target: IdElement {
     definition {
-      The identifier of a section, block or inline element referenced.
+      The identifier of a section, block or inline element being referenced.
     }
   }
 }

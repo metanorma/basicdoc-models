@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <define name="document">
     <element name="document">
       <optional>
@@ -13,6 +13,7 @@
     </element>
   </define>
   <define name="bibdata">
+    <a:documentation>Bibliographic description of a document, used as metadata, expressed in the Relaton model</a:documentation>
     <element name="bibdata">
       <ref name="BibData"/>
     </element>
@@ -25,51 +26,73 @@
     </element>
   </define>
   <define name="section">
+    <a:documentation>Section: groups of blocks within text, which can also contain other sections</a:documentation>
     <element name="section">
       <ref name="Basic-Section"/>
       <zeroOrMore>
-        <ref name="section"/>
+        <ref name="section">
+          <a:documentation>Sections contained within the current section. The relation is recursive,
+so the hierarchical arrangement of sections can be arbitrarily deep</a:documentation>
+        </ref>
       </zeroOrMore>
     </element>
   </define>
+  <define name="LanguageType">
+    <a:documentation>Two-letter language code taken from ISO-639, indicating the language in which the content is written</a:documentation>
+    <text/>
+  </define>
+  <define name="ScriptType">
+    <a:documentation>Four-letter script code taken from ISO-15924, indicating the script in which the content is written</a:documentation>
+    <text/>
+  </define>
   <define name="Basic-Section">
+    <a:documentation>Group of blocks within text, which is a leaf node in the hierarchical organisation of text (does not contain any sections of its own)</a:documentation>
+    <ref name="OptionalId"/>
     <optional>
-      <attribute name="id">
-        <data type="ID"/>
+      <attribute name="language">
+        <ref name="LanguageType"/>
       </attribute>
     </optional>
     <optional>
-      <attribute name="language"/>
+      <attribute name="script">
+        <ref name="ScriptType"/>
+      </attribute>
     </optional>
     <optional>
-      <attribute name="script"/>
-    </optional>
-    <optional>
-      <ref name="section-title"/>
+      <ref name="section-title">
+        <a:documentation>Title of the section</a:documentation>
+      </ref>
     </optional>
     <zeroOrMore>
-      <ref name="BasicBlock"/>
+      <ref name="BasicBlock">
+        <a:documentation>Blocks, containing the textual content of the section
+(but excluding subsections, which are only present in Hierarchical Sections)</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="references">
+    <a:documentation>Sections containing zero or more bibliographical items (as described in Relaton), along with any prefatory text</a:documentation>
     <element name="references">
+      <ref name="OptionalId"/>
       <optional>
-        <attribute name="id">
-          <data type="ID"/>
-        </attribute>
-      </optional>
-      <optional>
-        <ref name="section-title"/>
+        <ref name="section-title">
+          <a:documentation>Title of section</a:documentation>
+        </ref>
       </optional>
       <zeroOrMore>
-        <ref name="BasicBlock"/>
+        <ref name="BasicBlock">
+          <a:documentation>Prefatory text</a:documentation>
+        </ref>
       </zeroOrMore>
       <zeroOrMore>
-        <ref name="bibitem"/>
+        <ref name="bibitem">
+          <a:documentation>Bibliographical items included in the References section</a:documentation>
+        </ref>
       </zeroOrMore>
     </element>
   </define>
   <define name="section-title">
+    <a:documentation>Title of a section</a:documentation>
     <element name="title">
       <zeroOrMore>
         <ref name="TextElement"/>
@@ -126,11 +149,7 @@
     </element>
   </define>
   <define name="AmendType">
-    <optional>
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
-    </optional>
+    <ref name="OptionalId"/>
     <attribute name="change">
       <choice>
         <value>add</value>
@@ -167,11 +186,7 @@
     </optional>
     <optional>
       <element name="newcontent">
-        <optional>
-          <attribute name="id">
-            <data type="ID"/>
-          </attribute>
-        </optional>
+        <ref name="OptionalId"/>
         <zeroOrMore>
           <ref name="BasicBlock"/>
         </zeroOrMore>
@@ -201,11 +216,18 @@
     </element>
   </define>
   <define name="paragraph">
+    <a:documentation>Default block of textual content. 
+Unlike the case for other document models, paragraphs _cannot_
+contain other blocks, such as lists, tables, or figures: they are modelled as a basic building block of text
+Does not contain foonotes. While most paragraphs in a document can contain footnotes (paragraph-with-footnote),
+the distinction is necessary, as footnotes are not appropriate for all instances of paragraph content 
+in a document (e.g. sourcecode annotations)</a:documentation>
     <element name="p">
       <ref name="ParagraphType"/>
     </element>
   </define>
   <define name="Alignments">
+    <a:documentation>The alignment of the paragraph against the margins of the document</a:documentation>
     <choice>
       <value>left</value>
       <value>right</value>
@@ -214,11 +236,13 @@
     </choice>
   </define>
   <define name="RequiredId">
+    <a:documentation>Mandatory anchor of element, to be used for cross-references within the document</a:documentation>
     <attribute name="id">
       <data type="ID"/>
     </attribute>
   </define>
   <define name="OptionalId">
+    <a:documentation>Optional anchor of element</a:documentation>
     <optional>
       <attribute name="id">
         <data type="ID"/>
@@ -228,6 +252,7 @@
   <define name="ParagraphAttrs">
     <optional>
       <attribute name="align">
+        <a:documentation>The alignment of the paragraph against the margins of the document</a:documentation>
         <ref name="Alignments"/>
       </attribute>
     </optional>
@@ -238,18 +263,26 @@
     <ref name="ParagraphBody"/>
   </define>
   <define name="ParagraphBody">
+    <a:documentation>Inline elements constituting the content of the paragraph, excluding footnotes</a:documentation>
     <zeroOrMore>
-      <ref name="TextElement"/>
+      <ref name="TextElement">
+        <a:documentation>Inline elements constituting the content of the paragraph</a:documentation>
+      </ref>
     </zeroOrMore>
     <zeroOrMore>
       <ref name="note"/>
     </zeroOrMore>
   </define>
   <define name="ParagraphFnBody">
+    <a:documentation>Inline elements constituting the content of the paragraph, including footnotes</a:documentation>
     <zeroOrMore>
       <choice>
-        <ref name="TextElement"/>
-        <ref name="fn"/>
+        <ref name="TextElement">
+          <a:documentation>Inline elements constituting the content of the paragraph</a:documentation>
+        </ref>
+        <ref name="fn">
+          <a:documentation>Footnotes interspersed with paragraph content</a:documentation>
+        </ref>
       </choice>
     </zeroOrMore>
     <zeroOrMore>
@@ -257,6 +290,7 @@
     </zeroOrMore>
   </define>
   <define name="paragraph-no-id">
+    <a:documentation>Paragraph containing no footnotes: optional ID attributes (for use in Relaton, metadata) </a:documentation>
     <element name="p">
       <ref name="OptionalId"/>
       <ref name="ParagraphAttrs"/>
@@ -264,6 +298,7 @@
     </element>
   </define>
   <define name="paragraph-with-footnote">
+    <a:documentation>A paragraph which may contain footnotes.</a:documentation>
     <element name="p">
       <ref name="RequiredId"/>
       <ref name="ParagraphAttrs"/>
@@ -271,6 +306,7 @@
     </element>
   </define>
   <define name="paragraph-with-footnote-no-id">
+    <a:documentation>A paragraph which may contain footnotes optional ID attributes (for use in Relaton, metadata)</a:documentation>
     <element name="p">
       <ref name="OptionalId"/>
       <ref name="ParagraphAttrs"/>
@@ -331,6 +367,22 @@
       </oneOrMore>
     </element>
   </define>
+  <define name="NumberingAttributes">
+    <optional>
+      <attribute name="unnumbered">
+        <a:documentation>Do not number this block in rendering</a:documentation>
+        <data type="boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="subsequence">
+        <a:documentation>Define a subsequence for numbering of this block; e.g. if this block would be numbered
+as 7, but it has a subsequence value of XYZ, this block, and all consecutive blocks
+of the same class and with the same subsequence value, will be numbered consecutively
+with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
+      </attribute>
+    </optional>
+  </define>
   <define name="formula">
     <element name="formula">
       <ref name="RequiredId"/>
@@ -346,14 +398,7 @@
     </element>
   </define>
   <define name="FormulaAttr">
-    <optional>
-      <attribute name="unnumbered">
-        <data type="boolean"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="subsequence"/>
-    </optional>
+    <ref name="NumberingAttributes"/>
     <optional>
       <attribute name="inequality">
         <data type="boolean"/>
@@ -452,16 +497,11 @@
     </element>
   </define>
   <define name="SourceAttr">
+    <ref name="NumberingAttributes"/>
     <optional>
-      <attribute name="unnumbered">
-        <data type="boolean"/>
+      <attribute name="lang">
+        <ref name="LanguageType"/>
       </attribute>
-    </optional>
-    <optional>
-      <attribute name="subsequence"/>
-    </optional>
-    <optional>
-      <attribute name="lang"/>
     </optional>
   </define>
   <define name="SourceBody">
@@ -536,6 +576,7 @@
     </zeroOrMore>
   </define>
   <define name="table">
+    <a:documentation>Tabular arrangement of text</a:documentation>
     <element name="table">
       <ref name="RequiredId"/>
       <ref name="TableAttr"/>
@@ -543,6 +584,7 @@
     </element>
   </define>
   <define name="table-no-id">
+    <a:documentation>Tabular arrangement of text: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="table">
       <ref name="OptionalId"/>
       <ref name="TableAttr"/>
@@ -550,75 +592,91 @@
     </element>
   </define>
   <define name="TableAttr">
+    <ref name="NumberingAttributes"/>
     <optional>
-      <attribute name="unnumbered">
-        <data type="boolean"/>
+      <attribute name="alt">
+        <a:documentation>Accessible description of the tabular text, in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
       </attribute>
     </optional>
     <optional>
-      <attribute name="subsequence"/>
-    </optional>
-    <optional>
-      <attribute name="alt"/>
-    </optional>
-    <optional>
-      <attribute name="summary"/>
+      <attribute name="summary">
+        <a:documentation>Alternative more extensive summary of table to be provided for accessibility purposes, 
+in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
+      </attribute>
     </optional>
     <optional>
       <attribute name="uri">
+        <a:documentation>Online location of content of table (in case the table is available as a separate external document) (HTML 5)</a:documentation>
         <data type="anyURI"/>
       </attribute>
     </optional>
   </define>
   <define name="TableBody">
+    <a:documentation>Elements of table</a:documentation>
     <optional>
-      <ref name="tname"/>
+      <ref name="tname">
+        <a:documentation>Caption for the table</a:documentation>
+      </ref>
     </optional>
     <optional>
-      <ref name="thead"/>
+      <ref name="thead">
+        <a:documentation>Table rows constituting the table header</a:documentation>
+      </ref>
     </optional>
-    <ref name="tbody"/>
+    <ref name="tbody">
+      <a:documentation>Table rows constituting the table body</a:documentation>
+    </ref>
     <optional>
-      <ref name="tfoot"/>
+      <ref name="tfoot">
+        <a:documentation>Table rows constituting the table footer</a:documentation>
+      </ref>
     </optional>
     <optional>
-      <ref name="dl"/>
+      <ref name="dl">
+        <a:documentation>Definitions list defining any symbols used in the table</a:documentation>
+      </ref>
     </optional>
     <zeroOrMore>
-      <ref name="table-note"/>
+      <ref name="table-note">
+        <a:documentation>Notes specific to this block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="TableNoIdBody">
+    <a:documentation>Elements of table: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <optional>
-      <ref name="tname"/>
+      <ref name="tname">
+        <a:documentation>Caption for the table</a:documentation>
+      </ref>
     </optional>
     <optional>
-      <ref name="thead-no-id"/>
+      <ref name="thead-no-id">
+        <a:documentation>Table rows constituting the table header</a:documentation>
+      </ref>
     </optional>
-    <ref name="tbody-no-id"/>
+    <ref name="tbody-no-id">
+      <a:documentation>Table rows constituting the table body</a:documentation>
+    </ref>
     <optional>
-      <ref name="tfoot-no-id"/>
+      <ref name="tfoot-no-id">
+        <a:documentation>Table rows constituting the table footer</a:documentation>
+      </ref>
     </optional>
     <optional>
-      <ref name="dl-no-id"/>
+      <ref name="dl-no-id">
+        <a:documentation>Definitions list defining any symbols used in the table</a:documentation>
+      </ref>
     </optional>
     <zeroOrMore>
-      <ref name="table-note-no-id"/>
+      <ref name="table-note-no-id">
+        <a:documentation>Notes specific to this block</a:documentation>
+      </ref>
     </zeroOrMore>
   </define>
   <define name="tname">
     <element name="name">
       <oneOrMore>
-        <choice>
-          <ref name="PureTextElement"/>
-          <ref name="eref"/>
-          <ref name="stem"/>
-          <ref name="keyword"/>
-          <ref name="xref"/>
-          <ref name="hyperlink"/>
-          <ref name="index"/>
-          <ref name="index-xref"/>
-        </choice>
+        <ref name="NestedTextElement"/>
       </oneOrMore>
     </element>
   </define>
@@ -667,11 +725,16 @@
     </element>
   </define>
   <define name="tr">
+    <a:documentation>Sequence of cells to be displayed as a row in a table</a:documentation>
     <element name="tr">
       <oneOrMore>
         <choice>
-          <ref name="td"/>
-          <ref name="th"/>
+          <ref name="td">
+            <a:documentation>Data cells in a table row</a:documentation>
+          </ref>
+          <ref name="th">
+            <a:documentation>Header cells in a table row</a:documentation>
+          </ref>
         </choice>
       </oneOrMore>
     </element>
@@ -687,12 +750,14 @@
     </element>
   </define>
   <define name="td">
+    <a:documentation>Textual content constituting a basic building block of a table</a:documentation>
     <element name="td">
       <ref name="TdAttr"/>
       <ref name="TdBody"/>
     </element>
   </define>
   <define name="td-no-id">
+    <a:documentation>Textual content constituting a basic building block of a table: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="td">
       <ref name="TdAttr"/>
       <ref name="TdNoIdBody"/>
@@ -700,13 +765,18 @@
   </define>
   <define name="TdAttr">
     <optional>
-      <attribute name="colspan"/>
+      <attribute name="colspan">
+        <a:documentation>Number of columns in the underlying table grid which the cell spans</a:documentation>
+      </attribute>
     </optional>
     <optional>
-      <attribute name="rowspan"/>
+      <attribute name="rowspan">
+        <a:documentation>Number of rows in the underlying table grid which the cell spans</a:documentation>
+      </attribute>
     </optional>
     <optional>
       <attribute name="align">
+        <a:documentation>Horizontal textual alignment of the cell against the underlying table grid</a:documentation>
         <choice>
           <value>left</value>
           <value>right</value>
@@ -716,6 +786,7 @@
     </optional>
     <optional>
       <attribute name="valign">
+        <a:documentation>Vertical alignment of the cell against the underlying table grid</a:documentation>
         <choice>
           <value>top</value>
           <value>middle</value>
@@ -728,10 +799,15 @@
   <define name="TdBody">
     <choice>
       <zeroOrMore>
-        <ref name="TextElement"/>
+        <group>
+          <a:documentation>Table cell is a block</a:documentation>
+          <ref name="TextElement"/>
+        </group>
       </zeroOrMore>
       <oneOrMore>
-        <ref name="paragraph-with-footnote"/>
+        <ref name="paragraph-with-footnote">
+          <a:documentation>Table cell contains a block</a:documentation>
+        </ref>
       </oneOrMore>
     </choice>
   </define>
@@ -781,14 +857,7 @@
     </element>
   </define>
   <define name="ExampleAttr">
-    <optional>
-      <attribute name="unnumbered">
-        <data type="boolean"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="subsequence"/>
-    </optional>
+    <ref name="NumberingAttributes"/>
   </define>
   <define name="ExampleBody">
     <optional>
@@ -829,6 +898,7 @@
     </zeroOrMore>
   </define>
   <define name="admonition">
+    <a:documentation>A sidebar block outside of the main flow of text, conveying particular warnings or supplementary text to the reader</a:documentation>
     <element name="admonition">
       <ref name="RequiredId"/>
       <ref name="AdmonitionAttr"/>
@@ -844,20 +914,29 @@
   </define>
   <define name="AdmonitionAttr">
     <attribute name="type">
+      <a:documentation>Subclass of admonition determining how it is to be rendered. 
+Distinct admonition types are often associated with distinct icons or rendering</a:documentation>
       <ref name="AdmonitionType"/>
     </attribute>
     <optional>
-      <attribute name="class"/>
+      <attribute name="class">
+        <a:documentation>Subclass of admonition, allowing different runs of admonitions to be labelled
+and auto-numbered differently, even if they are of the same type.
+Typically is a subclass of an admonition type</a:documentation>
+      </attribute>
     </optional>
     <optional>
       <attribute name="uri">
+        <a:documentation>Location where the content of the admonition is accessible as an external document</a:documentation>
         <data type="anyURI"/>
       </attribute>
     </optional>
   </define>
   <define name="AdmonitionBody">
     <optional>
-      <ref name="tname"/>
+      <ref name="tname">
+        <a:documentation>Caption of admonition</a:documentation>
+      </ref>
     </optional>
     <zeroOrMore>
       <ref name="paragraph-with-footnote"/>
@@ -878,12 +957,18 @@
     </zeroOrMore>
   </define>
   <define name="AdmonitionType">
+    <a:documentation>Subclass of admonition determining how it is to be rendered</a:documentation>
     <choice>
       <value>warning</value>
+      <a:documentation>Warning to reader, note of risk to be avoided</a:documentation>
       <value>note</value>
+      <a:documentation>Supplementary, explanatory information</a:documentation>
       <value>tip</value>
+      <a:documentation>Instructive information to assist in the fulfilment of tasks related to content</a:documentation>
       <value>important</value>
+      <a:documentation>Note to reader of something crucial to be borne in mind</a:documentation>
       <value>caution</value>
+      <a:documentation>Caution to reader, note of potential surprise or difficulty</a:documentation>
     </choice>
   </define>
   <define name="figure">
@@ -901,14 +986,7 @@
     </element>
   </define>
   <define name="FigureAttr">
-    <optional>
-      <attribute name="unnumbered">
-        <data type="boolean"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="subsequence"/>
-    </optional>
+    <ref name="NumberingAttributes"/>
     <optional>
       <attribute name="class"/>
     </optional>
@@ -972,6 +1050,8 @@
     </zeroOrMore>
   </define>
   <define name="TextElement">
+    <a:documentation>Any inline element containing text and associated formatting information.
+Includes inline elements that are identifiers or references to identifiers</a:documentation>
     <choice>
       <text/>
       <ref name="em"/>
@@ -998,6 +1078,9 @@
     </choice>
   </define>
   <define name="PureTextElement">
+    <a:documentation>Inline element containing text and associated formatting information,
+but which does not contain any associated identifiers or references to identifiers.
+Restricted recursively to contain only other such inline elements with no identifiers or references to identifiers</a:documentation>
     <choice>
       <text/>
       <ref name="pure_em"/>
@@ -1011,27 +1094,35 @@
       <ref name="br"/>
     </choice>
   </define>
+  <define name="NestedTextElement">
+    <a:documentation>Contents of TextElement tags: leaves out tags that should occur only at top level of block: bookmark image hr pagebreak</a:documentation>
+    <choice>
+      <ref name="PureTextElement"/>
+      <ref name="stem"/>
+      <ref name="eref"/>
+      <ref name="xref"/>
+      <ref name="hyperlink"/>
+      <ref name="index"/>
+      <ref name="index-xref"/>
+      <ref name="ruby"/>
+      <ref name="keyword"/>
+    </choice>
+  </define>
   <define name="source">
     <element name="source">
       <ref name="TypedUri"/>
     </element>
   </define>
   <define name="em">
+    <a:documentation>Emphasised text. Corresponds to HTML `em`, `i`</a:documentation>
     <element name="em">
       <zeroOrMore>
-        <choice>
-          <ref name="PureTextElement"/>
-          <ref name="stem"/>
-          <ref name="eref"/>
-          <ref name="xref"/>
-          <ref name="hyperlink"/>
-          <ref name="index"/>
-          <ref name="index-xref"/>
-        </choice>
+        <ref name="NestedTextElement"/>
       </zeroOrMore>
     </element>
   </define>
   <define name="pure_em">
+    <a:documentation>Emphasised text for PureTextElement</a:documentation>
     <element name="em">
       <zeroOrMore>
         <ref name="PureTextElement"/>
@@ -1039,21 +1130,15 @@
     </element>
   </define>
   <define name="strong">
+    <a:documentation>Strong text. Corresponds to HTML `strong`, `b`</a:documentation>
     <element name="strong">
       <zeroOrMore>
-        <choice>
-          <ref name="PureTextElement"/>
-          <ref name="stem"/>
-          <ref name="eref"/>
-          <ref name="xref"/>
-          <ref name="hyperlink"/>
-          <ref name="index"/>
-          <ref name="index-xref"/>
-        </choice>
+        <ref name="NestedTextElement"/>
       </zeroOrMore>
     </element>
   </define>
   <define name="pure_strong">
+    <a:documentation>Strong text for PureTextElement</a:documentation>
     <element name="strong">
       <zeroOrMore>
         <ref name="PureTextElement"/>
@@ -1061,20 +1146,15 @@
     </element>
   </define>
   <define name="tt">
+    <a:documentation>Monospace text. Corresponds to HTML `tt`, `code`</a:documentation>
     <element name="tt">
       <zeroOrMore>
-        <choice>
-          <ref name="PureTextElement"/>
-          <ref name="eref"/>
-          <ref name="xref"/>
-          <ref name="hyperlink"/>
-          <ref name="index"/>
-          <ref name="index-xref"/>
-        </choice>
+        <ref name="NestedTextElement"/>
       </zeroOrMore>
     </element>
   </define>
   <define name="pure_tt">
+    <a:documentation>Monospace text for PureTextElement</a:documentation>
     <element name="tt">
       <zeroOrMore>
         <ref name="PureTextElement"/>
@@ -1082,6 +1162,7 @@
     </element>
   </define>
   <define name="keyword">
+    <a:documentation>Keyword text</a:documentation>
     <element name="keyword">
       <zeroOrMore>
         <choice>
@@ -1093,6 +1174,7 @@
     </element>
   </define>
   <define name="sub">
+    <a:documentation>Subscript text. Corresponds to HTML `sub`</a:documentation>
     <element name="sub">
       <zeroOrMore>
         <ref name="PureTextElement"/>
@@ -1100,6 +1182,7 @@
     </element>
   </define>
   <define name="sup">
+    <a:documentation>Superscript text. Corresponds to HTML `sup`</a:documentation>
     <element name="sup">
       <zeroOrMore>
         <ref name="PureTextElement"/>
@@ -1107,21 +1190,15 @@
     </element>
   </define>
   <define name="strike">
+    <a:documentation>Strikethrough text. Corresponds to HTML 4 `s`</a:documentation>
     <element name="strike">
       <zeroOrMore>
-        <choice>
-          <ref name="PureTextElement"/>
-          <ref name="stem"/>
-          <ref name="eref"/>
-          <ref name="xref"/>
-          <ref name="hyperlink"/>
-          <ref name="index"/>
-          <ref name="index-xref"/>
-        </choice>
+        <ref name="NestedTextElement"/>
       </zeroOrMore>
     </element>
   </define>
   <define name="pure_strike">
+    <a:documentation>Strikethrough for PureTextElement</a:documentation>
     <element name="strike">
       <zeroOrMore>
         <ref name="PureTextElement"/>
@@ -1129,24 +1206,20 @@
     </element>
   </define>
   <define name="underline">
+    <a:documentation>Underlined text. Corresponds to HTML 4 `u`</a:documentation>
     <element name="underline">
       <optional>
-        <attribute name="style"/>
+        <attribute name="style">
+          <a:documentation>CSS style to apply to underline (intended for text-decoration-style attribute keyword values: solid double dotted dashed wavy)</a:documentation>
+        </attribute>
       </optional>
       <zeroOrMore>
-        <choice>
-          <ref name="PureTextElement"/>
-          <ref name="stem"/>
-          <ref name="eref"/>
-          <ref name="xref"/>
-          <ref name="hyperlink"/>
-          <ref name="index"/>
-          <ref name="index-xref"/>
-        </choice>
+        <ref name="NestedTextElement"/>
       </zeroOrMore>
     </element>
   </define>
   <define name="pure_underline">
+    <a:documentation>Underlined text for PureTextElement</a:documentation>
     <element name="underline">
       <optional>
         <attribute name="style"/>
@@ -1157,21 +1230,15 @@
     </element>
   </define>
   <define name="smallcap">
+    <a:documentation>Small caps text</a:documentation>
     <element name="smallcap">
       <zeroOrMore>
-        <choice>
-          <ref name="PureTextElement"/>
-          <ref name="stem"/>
-          <ref name="eref"/>
-          <ref name="xref"/>
-          <ref name="hyperlink"/>
-          <ref name="index"/>
-          <ref name="index-xref"/>
-        </choice>
+        <ref name="NestedTextElement"/>
       </zeroOrMore>
     </element>
   </define>
   <define name="pure_smallcap">
+    <a:documentation>Small caps text for PureTextElement</a:documentation>
     <element name="smallcap">
       <zeroOrMore>
         <ref name="PureTextElement"/>
@@ -1179,36 +1246,59 @@
     </element>
   </define>
   <define name="ruby">
+    <a:documentation>Text with Ruby annotations in East Asian languages. Corresponds to HTML `ruby`</a:documentation>
     <element name="ruby">
       <choice>
-        <ref name="ruby_pronunciation"/>
-        <ref name="ruby_annotation"/>
+        <ref name="ruby_pronunciation">
+          <a:documentation>Ruby annotation giving pronunciation</a:documentation>
+        </ref>
+        <ref name="ruby_annotation">
+          <a:documentation>Ruby annotation giving other (semantic) information</a:documentation>
+        </ref>
       </choice>
       <choice>
-        <text/>
-        <ref name="ruby"/>
+        <text>
+          <a:documentation>Ruby annotated text which contains no further annotations</a:documentation>
+        </text>
+        <ref name="ruby">
+          <a:documentation>Ruby annotated text which itself contains other Ruby annotations</a:documentation>
+        </ref>
       </choice>
     </element>
   </define>
   <define name="ruby_pronunciation">
+    <a:documentation>Ruby annotation giving pronunciation of text</a:documentation>
     <element name="pronunciation">
-      <attribute name="value"/>
+      <attribute name="value">
+        <a:documentation>Ruby annotation value</a:documentation>
+      </attribute>
       <optional>
-        <attribute name="script"/>
+        <attribute name="script">
+          <ref name="ScriptType"/>
+        </attribute>
       </optional>
       <optional>
-        <attribute name="lang"/>
+        <attribute name="lang">
+          <ref name="LanguageType"/>
+        </attribute>
       </optional>
     </element>
   </define>
   <define name="ruby_annotation">
+    <a:documentation>Ruby annotation giving information other than pronunciation of text</a:documentation>
     <element name="annotation">
-      <attribute name="value"/>
+      <attribute name="value">
+        <a:documentation>Ruby annotation value</a:documentation>
+      </attribute>
       <optional>
-        <attribute name="script"/>
+        <attribute name="script">
+          <ref name="ScriptType"/>
+        </attribute>
       </optional>
       <optional>
-        <attribute name="lang"/>
+        <attribute name="lang">
+          <ref name="LanguageType"/>
+        </attribute>
       </optional>
     </element>
   </define>
@@ -1256,17 +1346,23 @@
     </element>
   </define>
   <define name="index-xref">
+    <a:documentation>A reference to an index term, cross-referenced within an index as an
+alternative index entry, either as a "see" or a "see also" cross-reference.
+The text in the inline element is the primary index term to be be cross-referenced</a:documentation>
     <element name="index-xref">
       <attribute name="also">
+        <a:documentation>The cross-reference is to be treated as "see also" rather than as "see"</a:documentation>
         <data type="boolean"/>
       </attribute>
       <element name="primary">
+        <a:documentation>The primary index term to be cross-referenced</a:documentation>
         <oneOrMore>
           <ref name="PureTextElement"/>
         </oneOrMore>
       </element>
       <optional>
         <element name="secondary">
+          <a:documentation>The secondary index term to be cross-referenced</a:documentation>
           <oneOrMore>
             <ref name="PureTextElement"/>
           </oneOrMore>
@@ -1274,12 +1370,14 @@
       </optional>
       <optional>
         <element name="tertiary">
+          <a:documentation>The tertiary index term to be cross-referenced</a:documentation>
           <oneOrMore>
             <ref name="PureTextElement"/>
           </oneOrMore>
         </element>
       </optional>
       <element name="target">
+        <a:documentation>The index term to be cross-referenced to</a:documentation>
         <oneOrMore>
           <ref name="PureTextElement"/>
         </oneOrMore>
@@ -1289,21 +1387,25 @@
   <!-- bare ID element, used for referencing arbitrary spans of text -->
   <define name="bookmark">
     <element name="bookmark">
-      <attribute name="id">
-        <data type="ID"/>
-      </attribute>
+      <ref name="RequiredId"/>
       <empty/>
     </element>
   </define>
   <define name="ReferenceFormat">
+    <a:documentation>The type of Reference Element, prescribing how it is to be rendered</a:documentation>
     <choice>
       <value>external</value>
+      <a:documentation>Reference to an external document</a:documentation>
       <value>inline</value>
+      <a:documentation>Reference to another element in the same document</a:documentation>
       <value>footnote</value>
+      <a:documentation>Inline reference to a block to be rendered as a footnote</a:documentation>
       <value>callout</value>
+      <a:documentation>Inline reference to a block to be referenced as a sourcecode callout</a:documentation>
     </choice>
   </define>
   <define name="eref">
+    <a:documentation>An external reference to a bibliographic entity</a:documentation>
     <element name="eref">
       <ref name="erefType"/>
     </element>
@@ -1311,74 +1413,102 @@
   <define name="erefType">
     <optional>
       <attribute name="normative">
+        <a:documentation>Whether the reference is to be treated as normative or informative, particularly in the context of normative documents such as standards</a:documentation>
         <data type="boolean"/>
       </attribute>
     </optional>
-    <attribute name="citeas"/>
+    <attribute name="citeas">
+      <a:documentation>Form that the bibliographic citation should take when it is rendered</a:documentation>
+    </attribute>
     <attribute name="type">
+      <a:documentation>The type of Reference Element, prescribing how it is to be rendered</a:documentation>
       <ref name="ReferenceFormat"/>
     </attribute>
     <optional>
-      <attribute name="alt"/>
+      <attribute name="alt">
+        <a:documentation>Alternate text, used for accessibility</a:documentation>
+      </attribute>
     </optional>
-    <ref name="CitationType"/>
+    <ref name="CitationType">
+      <a:documentation>Reference cross-reference: modelled as cross-reference to the corresponding bibliographical item in a References section</a:documentation>
+    </ref>
     <oneOrMore>
-      <ref name="PureTextElement"/>
+      <ref name="PureTextElement">
+        <a:documentation>The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `&lt;xx&gt;my link text&lt;/xx&gt;`)</a:documentation>
+      </ref>
     </oneOrMore>
   </define>
   <define name="hyperlink">
+    <a:documentation>A reference to an external document or resource</a:documentation>
     <element name="link">
       <attribute name="target">
+        <a:documentation>The location or online identifier of the external document or resource</a:documentation>
         <data type="anyURI"/>
       </attribute>
       <attribute name="type">
+        <a:documentation>The type of Reference Element, prescribing how it is to be rendered</a:documentation>
         <ref name="ReferenceFormat"/>
       </attribute>
       <optional>
-        <attribute name="alt"/>
+        <attribute name="alt">
+          <a:documentation>Alternate text, used for accessibility</a:documentation>
+        </attribute>
       </optional>
       <oneOrMore>
-        <ref name="PureTextElement"/>
+        <ref name="PureTextElement">
+          <a:documentation>The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `&lt;xx&gt;my link text&lt;/xx&gt;`)</a:documentation>
+        </ref>
       </oneOrMore>
     </element>
   </define>
   <define name="xref">
+    <a:documentation>Inline element, which references an identifier of a document, a block in a document, or an element in a document</a:documentation>
     <element name="xref">
       <attribute name="target">
+        <a:documentation>The identifier of a section, block or inlined element being referenced</a:documentation>
         <data type="IDREF"/>
       </attribute>
       <attribute name="type">
+        <a:documentation>The type of Reference Element, prescribing how it is to be rendered</a:documentation>
         <ref name="ReferenceFormat"/>
       </attribute>
       <optional>
-        <attribute name="alt"/>
+        <attribute name="alt">
+          <a:documentation>Alternate text, used for accessibility</a:documentation>
+        </attribute>
       </optional>
       <oneOrMore>
-        <ref name="PureTextElement"/>
+        <ref name="PureTextElement">
+          <a:documentation>The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `&lt;xx&gt;my link text&lt;/xx&gt;`)</a:documentation>
+        </ref>
       </oneOrMore>
     </element>
   </define>
   <define name="fn">
+    <a:documentation>Inline reference to a paragraph or paragraphs, appearing as a footnote.
+The target of a footnote is the location it is embedded in within the text</a:documentation>
     <element name="fn">
-      <attribute name="reference"/>
+      <attribute name="reference">
+        <a:documentation>The number of the footnote, used to identify it visually</a:documentation>
+      </attribute>
       <oneOrMore>
-        <ref name="paragraph"/>
+        <ref name="paragraph">
+          <a:documentation>The content of the footnote</a:documentation>
+        </ref>
       </oneOrMore>
     </element>
   </define>
-  <!--
-    This is xref with fixed @type="footnote", and @target built in as paragraph+
-    @reference replaces ReferenceElement/text
-    so <fn reference="2"><p>This is a footnote</p></fn>
-    corresponds to 
-    <eref type="footnote" target="fn2">2</xref> <p id="fn2">This is a footnote</p>
-  -->
   <define name="callout">
+    <a:documentation>Inline reference to a paragraph or paragraphs, appearing as annotation of source code</a:documentation>
     <element name="callout">
       <attribute name="target">
+        <a:documentation>The target of the callout is understood to be the location of the callout within the source code; 
+the extent of the target is not expressed overtly</a:documentation>
         <data type="IDREF"/>
       </attribute>
-      <text/>
+      <text>
+        <a:documentation>The label of the callout, used to identify its target within the source code</a:documentation>
+      </text>
     </element>
   </define>
   <!--
@@ -1542,15 +1672,19 @@
     </element>
   </define>
   <define name="stem">
+    <a:documentation>Mathematically formatted text</a:documentation>
     <element name="stem">
       <attribute name="type">
+        <a:documentation>The notation used to mathematically format the text</a:documentation>
         <choice>
           <value>MathML</value>
           <value>AsciiMath</value>
+          <value>LaTeX</value>
         </choice>
       </attribute>
       <oneOrMore>
         <choice>
+          <a:documentation>The content of the mathematically formatted text</a:documentation>
           <text/>
           <ref name="AnyElement"/>
         </choice>

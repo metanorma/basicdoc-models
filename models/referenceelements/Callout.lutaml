@@ -4,7 +4,7 @@ class Callout{
     The target of the callout is understood to be the location of the callout within the source code; the extent of the target is not expressed overtly.
   }
   +type: "callout" 
-  +text: TextElement {
+  +text: String {
     definition { 
       The label of the callout, used to identify its target within the source code.
     }

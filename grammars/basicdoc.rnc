@@ -15,9 +15,12 @@ sections =
     section+
 }
 
+## Section: groups of blocks within text, which can also contain other sections
 section =
   element section { 
     Basic-Section,
+    ## Sections contained within the current section. The relation is recursive,
+    ## so the hierarchical arrangement of sections can be arbitrarily deep
     section*
   }
 
@@ -27,21 +30,30 @@ LanguageType = text
 ## Four-letter script code taken from ISO-15924, indicating the script in which the content is written
 ScriptType = text
 
+## Group of blocks within text, which is a leaf node in the hierarchical organisation of text (does not contain any sections of its own)
 Basic-Section =
-    attribute id { xsd:ID }?,
+    OptionalId,
     attribute language { LanguageType }?,
     attribute script { ScriptType }?,
+    ## Title of the section
     section-title?,
+    ## Blocks, containing the textual content of the section
+    ## (but excluding subsections, which are only present in Hierarchical Sections)
     BasicBlock*
 
+## Sections containing zero or more bibliographical items (as described in Relaton), along with any prefatory text
 references =
   element references {
-    attribute id { xsd:ID }?,
+    OptionalId,
+    ## Title of section
     section-title?,
+    ## Prefatory text
     BasicBlock*,
+    ## Bibliographical items included in the References section
     bibitem*
   }
 
+## Title of a section
 section-title =
   element title { TextElement* }
 
@@ -55,7 +67,7 @@ amend =
   element amend { AmendType }
 
 AmendType =
-    attribute id { xsd:ID }?,
+    OptionalId,
     attribute change { "add" | "modify" | "delete" | "replace" },
     attribute path { text }?,
     attribute path_end { text }?,
@@ -63,7 +75,7 @@ AmendType =
     element location { (locality | localityStack)* }?,
     element description { BasicBlock* }?,
     element newcontent {
-        attribute id { xsd:ID }?,
+        OptionalId,
         BasicBlock* }?,
     classification*,
     contributor*
@@ -75,12 +87,19 @@ classification = element classification {
 classification_tag = element tag { text }
 classification_value = element value { text }
 
+## Default block of textual content. 
+## Unlike the case for other document models, paragraphs _cannot_
+## contain other blocks, such as lists, tables, or figures: they are modelled as a basic building block of text
+## Does not contain foonotes. While most paragraphs in a document can contain footnotes (paragraph-with-footnote),
+## the distinction is necessary, as footnotes are not appropriate for all instances of paragraph content 
+## in a document (e.g. sourcecode annotations)
 paragraph =
   element p { ParagraphType }
 
+## The alignment of the paragraph against the margins of the document
 Alignments = ( "left" | "right" | "center" | "justified" )
 
-## Mandatory anchor of element
+## Mandatory anchor of element, to be used for cross-references within the document
 RequiredId = 
     attribute id { xsd:ID }
 
@@ -89,6 +108,7 @@ OptionalId =
     attribute id { xsd:ID }?
 
 ParagraphAttrs =
+    ## The alignment of the paragraph against the margins of the document
     attribute align { Alignments }?
 
 ParagraphType =
@@ -96,12 +116,23 @@ ParagraphType =
     ParagraphAttrs,
     ParagraphBody
 
+## Inline elements constituting the content of the paragraph, excluding footnotes
 ParagraphBody =
-   ( TextElement )*, note*
+   ## Inline elements constituting the content of the paragraph
+   TextElement*,
+   note*
 
+## Inline elements constituting the content of the paragraph, including footnotes
 ParagraphFnBody =
-   ( TextElement | fn )*, note*
+   (
+     ## Inline elements constituting the content of the paragraph
+     TextElement |
+     ## Footnotes interspersed with paragraph content
+     fn
+   )*,
+   note*
 
+## Paragraph containing no footnotes: optional ID attributes (for use in Relaton, metadata) 
 paragraph-no-id =
   element p {
     OptionalId,
@@ -109,6 +140,7 @@ paragraph-no-id =
     ParagraphBody
   }
 
+## A paragraph which may contain footnotes.
 paragraph-with-footnote =
   element p {
     RequiredId,
@@ -116,6 +148,7 @@ paragraph-with-footnote =
     ParagraphFnBody
 }
 
+## A paragraph which may contain footnotes optional ID attributes (for use in Relaton, metadata)
 paragraph-with-footnote-no-id =
   element p {
     OptionalId,
@@ -434,6 +467,7 @@ ExampleNoIdBody =
     ( formula-no-id | ul-no-id | ol-no-id | dl-no-id | quote-no-id | sourcecode-no-id | paragraph-with-footnote-no-id )+,
     note-no-id*
 
+## A sidebar block outside of the main flow of text, conveying particular warnings or supplementary text to the reader
 admonition =
   element admonition {
     RequiredId,
@@ -449,11 +483,18 @@ admonition-no-id =
 }
 
 AdmonitionAttr =
+    ## Subclass of admonition determining how it is to be rendered. 
+    ## Distinct admonition types are often associated with distinct icons or rendering
     attribute type { AdmonitionType },
+    ## Subclass of admonition, allowing different runs of admonitions to be labelled
+    ## and auto-numbered differently, even if they are of the same type.
+    ## Typically is a subclass of an admonition type
     attribute class { text }?,
+    ## Location where the content of the admonition is accessible as an external document
     attribute uri { xsd:anyURI }?
 
 AdmonitionBody =
+    ## Caption of admonition
     tname?,
     paragraph-with-footnote*,
     note*
@@ -463,8 +504,18 @@ AdmonitionNoIdBody =
     paragraph-with-footnote-no-id*,
     note-no-id*
 
+## Subclass of admonition determining how it is to be rendered
 AdmonitionType =
-  "warning" | "note" | "tip" | "important" | "caution" 
+  ## Warning to reader, note of risk to be avoided
+  "warning" |
+  ## Supplementary, explanatory information
+  "note" |
+  ## Instructive information to assist in the fulfilment of tasks related to content
+  "tip" |
+  ## Note to reader of something crucial to be borne in mind
+  "important" |
+  ## Caution to reader, note of potential surprise or difficulty
+  "caution" 
 
 figure =
   element figure {
@@ -539,12 +590,14 @@ underline = element underline {
   attribute style { text }?,
   NestedTextElement*
 }
+## Underlined text for PureTextElement
 pure_underline = element underline { 
   attribute style { text }?,
   PureTextElement*
 }
 ## Small caps text
 smallcap = element smallcap { NestedTextElement* }
+## Small caps text for PureTextElement
 pure_smallcap = element smallcap { PureTextElement* }
 
 ## Text with Ruby annotations in East Asian languages. Corresponds to HTML `ruby`
@@ -589,11 +642,19 @@ index = element index {
   element tertiary { PureTextElement+ }?
 }
 
+## A reference to an index term, cross-referenced within an index as an
+## alternative index entry, either as a "see" or a "see also" cross-reference.
+## The text in the inline element is the primary index term to be be cross-referenced
 index-xref = element index-xref {
+  ## The cross-reference is to be treated as "see also" rather than as "see"
   attribute also { xsd:boolean },
+  ## The primary index term to be cross-referenced
   element primary { PureTextElement+ },
+  ## The secondary index term to be cross-referenced
   element secondary { PureTextElement+ }?,
+  ## The tertiary index term to be cross-referenced
   element tertiary { PureTextElement+ }?,
+  ## The index term to be cross-referenced to
   element target { PureTextElement+ }
 }
 
@@ -601,52 +662,82 @@ index-xref = element index-xref {
 # bare ID element, used for referencing arbitrary spans of text
 bookmark =
   element bookmark {
-  attribute id { xsd:ID },
+  RequiredId,
   empty
 }
 
-ReferenceFormat = ( "external" | "inline" | "footnote" | "callout" )
+## The type of Reference Element, prescribing how it is to be rendered
+ReferenceFormat =
+  ## Reference to an external document
+  "external" |
+  ## Reference to another element in the same document
+  "inline" |
+  ## Inline reference to a block to be rendered as a footnote
+  "footnote" |
+  ## Inline reference to a block to be referenced as a sourcecode callout
+  "callout"
 
+## An external reference to a bibliographic entity
 eref =
   element eref { erefType }
 
 erefType =
+    ## Whether the reference is to be treated as normative or informative, particularly in the context of normative documents such as standards
     attribute normative { xsd:boolean }?,
+    ## Form that the bibliographic citation should take when it is rendered
     attribute citeas { text },
+    ## The type of Reference Element, prescribing how it is to be rendered
     attribute type { ReferenceFormat },
+    ## Alternate text, used for accessibility
     attribute alt { text }?,
+    ## Reference cross-reference: modelled as cross-reference to the corresponding bibliographical item in a References section
     CitationType,
+    ## The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
     PureTextElement+
 
+## A reference to an external document or resource
 hyperlink =
   element link {
+    ## The location or online identifier of the external document or resource
     attribute target { xsd:anyURI },
+    ## The type of Reference Element, prescribing how it is to be rendered
     attribute type { ReferenceFormat },
+    ## Alternate text, used for accessibility
     attribute alt { text }?,
+    ## The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
     PureTextElement+
 }
+
+## Inline element, which references an identifier of a document, a block in a document, or an element in a document
 xref =
   element xref {
+     ## The identifier of a section, block or inlined element being referenced
      attribute target { xsd:IDREF },
+     ## The type of Reference Element, prescribing how it is to be rendered
      attribute type { ReferenceFormat },
+     ## Alternate text, used for accessibility
      attribute alt { text }?,
+     ## The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
      PureTextElement+
 }
 
+## Inline reference to a paragraph or paragraphs, appearing as a footnote.
+## The target of a footnote is the location it is embedded in within the text
 fn =
   element fn {
+    ## The number of the footnote, used to identify it visually
     attribute reference { text },
+    ## The content of the footnote
     paragraph+
 }
-# This is xref with fixed @type="footnote", and @target built in as paragraph+
-# @reference replaces ReferenceElement/text
-# so <fn reference="2"><p>This is a footnote</p></fn>
-# corresponds to 
-# <eref type="footnote" target="fn2">2</xref> <p id="fn2">This is a footnote</p>
 
+## Inline reference to a paragraph or paragraphs, appearing as annotation of source code
 callout =
   element callout {
+    ## The target of the callout is understood to be the location of the callout within the source code; 
+    ## the extent of the target is not expressed overtly
     attribute target { xsd:IDREF },
+    ## The label of the callout, used to identify its target within the source code
     text
   }
 

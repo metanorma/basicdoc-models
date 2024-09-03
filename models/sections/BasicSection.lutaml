@@ -28,11 +28,6 @@ class BasicSection {
       (but excluding subsections, which are only present in Hierarchical Sections).
     }
   }
-  +notes: NoteBlock[0..*] {
-    definition {
-      Any notes whose scope is the entire section, rather than a specific block.
-    }
-  }
 }
 
 
