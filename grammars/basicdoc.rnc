@@ -6,6 +6,7 @@ element document {
   bibdata, sections, references*
 }
 
+## Bibliographic description of a document, used as metadata, expressed in the Relaton model
 bibdata =
   element bibdata { BibData }
 
@@ -20,10 +21,16 @@ section =
     section*
   }
 
+## Two-letter language code taken from ISO-639, indicating the language in which the content is written
+LanguageType = text
+
+## Four-letter script code taken from ISO-15924, indicating the script in which the content is written
+ScriptType = text
+
 Basic-Section =
     attribute id { xsd:ID }?,
-    attribute language { text }?,
-    attribute script { text }?,
+    attribute language { LanguageType }?,
+    attribute script { ScriptType }?,
     section-title?,
     BasicBlock*
 
@@ -73,9 +80,11 @@ paragraph =
 
 Alignments = ( "left" | "right" | "center" | "justified" )
 
+## Mandatory anchor of element
 RequiredId = 
     attribute id { xsd:ID }
 
+## Optional anchor of element
 OptionalId = 
     attribute id { xsd:ID }?
 
@@ -147,6 +156,15 @@ review =
   paragraph+
 }
 
+NumberingAttributes =
+    ## Do not number this block in rendering
+    attribute unnumbered { xsd:boolean }?,
+    ## Define a subsequence for numbering of this block; e.g. if this block would be numbered
+    ## as 7, but it has a subsequence value of XYZ, this block, and all consecutive blocks
+    ## of the same class and with the same subsequence value, will be numbered consecutively
+    ## with the same number and in a subsequence: 7a, 7b, 7c etc
+    attribute subsequence { text }?
+
 formula =
   element formula {
     RequiredId,
@@ -162,8 +180,7 @@ formula-no-id =
 }
 
 FormulaAttr =
-    attribute unnumbered { xsd:boolean }?,
-    attribute subsequence { text }?,
+    NumberingAttributes,
     attribute inequality { xsd:boolean }?
 
 FormulaBody =
@@ -222,9 +239,8 @@ sourcecode-no-id =
   }
 
 SourceAttr =
-    attribute unnumbered { xsd:boolean }?,
-    attribute subsequence { text }?,
-    attribute lang { text }?
+    NumberingAttributes,
+    attribute lang { LanguageType }?
 
 SourceBody =
     tname?, ( text | callout )+, annotation*, note*
@@ -255,6 +271,7 @@ PreBody =
 PreNoIdBody =
     tname?, text, note-no-id*
 
+## Tabular arrangement of text
 table =
   element table {
     RequiredId,
@@ -262,6 +279,7 @@ table =
     TableBody
   }
 
+## Tabular arrangement of text: optional ID attributes recursively (for use in Relaton, metadata)
 table-no-id =
   element table {
     OptionalId,
@@ -270,19 +288,46 @@ table-no-id =
   }
 
 TableAttr =
-    attribute unnumbered { xsd:boolean }?,
-    attribute subsequence { text }?,
+    NumberingAttributes,
+    ## Accessible description of the tabular text, in case the table cannot be rendered accessibly (HTML 5)
     attribute alt { text }?,
+    ## Alternative more extensive summary of table to be provided for accessibility purposes, 
+    ## in case the table cannot be rendered accessibly (HTML 5)
     attribute summary { text }?,
+    ## Online location of content of table (in case the table is available as a separate external document) (HTML 5)
     attribute uri { xsd:anyURI }?
 
+## Elements of table
 TableBody =
-    tname?, thead?, tbody, tfoot?, dl?, table-note*
+    ## Caption for the table
+    tname?,
+    ## Table rows constituting the table header
+    thead?,
+    ## Table rows constituting the table body
+    tbody,
+    ## Table rows constituting the table footer
+    tfoot?,
+    ## Definitions list defining any symbols used in the table
+    dl?,
+    ## Notes specific to this block
+    table-note*
 
+## Elements of table: optional ID attributes recursively (for use in Relaton, metadata)
 TableNoIdBody =
-    tname?, thead-no-id?, tbody-no-id, tfoot-no-id?, dl-no-id?, table-note-no-id*
+    ## Caption for the table
+    tname?,
+    ## Table rows constituting the table header
+    thead-no-id?,
+    ## Table rows constituting the table body
+    tbody-no-id,
+    ## Table rows constituting the table footer
+    tfoot-no-id?,
+    ## Definitions list defining any symbols used in the table
+    dl-no-id?,
+    ## Notes specific to this block
+    table-note-no-id*
 
-tname = element name { (PureTextElement | eref | stem | keyword | xref | hyperlink | index | index-xref)+ }
+tname = element name { NestedTextElement+ }
 thead = element thead { tr }
 thead-no-id = element thead { tr-no-id }
 tfoot = element tfoot { tr }
@@ -293,18 +338,27 @@ tbody-no-id = element tbody { tr-no-id+ }
 table-note = element note { paragraph }
 table-note-no-id = element note { paragraph-no-id }
 
+## Sequence of cells to be displayed as a row in a table
 tr =
-  element tr { ( td | th )+ }
+  element tr { ( 
+    ## Data cells in a table row
+    td | 
+    ## Header cells in a table row
+    th 
+  )+
+}
 
 tr-no-id =
   element tr { ( td-no-id | th-no-id )+ }
 
+## Textual content constituting a basic building block of a table
 td =
   element td {
     TdAttr,
     TdBody
 }
 
+## Textual content constituting a basic building block of a table: optional ID attributes recursively (for use in Relaton, metadata)
 td-no-id =
   element td {
     TdAttr,
@@ -312,14 +366,20 @@ td-no-id =
 }
 
 TdAttr =
+    ## Number of columns in the underlying table grid which the cell spans
     attribute colspan { text }?,
+    ## Number of rows in the underlying table grid which the cell spans
     attribute rowspan { text }?,
+    ## Horizontal textual alignment of the cell against the underlying table grid
     attribute align { "left" | "right" | "center" }?,
+    ## Vertical alignment of the cell against the underlying table grid
     attribute valign { "top" | "middle" | "bottom" | "baseline" }?
 
 TdBody =
     (
+      ## Table cell is a block
       (TextElement )* |
+      ## Table cell contains a block
       paragraph-with-footnote+
     )
 
@@ -362,8 +422,7 @@ example-no-id =
 }
 
 ExampleAttr =
-    attribute unnumbered { xsd:boolean }?,
-    attribute subsequence { text }?
+    NumberingAttributes
 
 ExampleBody =
     tname?,
@@ -422,8 +481,7 @@ figure-no-id =
   }
 
 FigureAttr =
-    attribute unnumbered { xsd:boolean }?,
-    attribute subsequence { text }?,
+    NumberingAttributes,
     attribute class { text }?
 
 FigureBody =
@@ -436,50 +494,88 @@ FigureNoIdBody =
      (image-no-id | video-no-id | audio-no-id | pre-no-id | paragraph-with-footnote-no-id+ | figure-no-id*), 
      fn*, dl-no-id?, note-no-id*
 
-
+## Any inline element containing text and associated formatting information.
+## Includes inline elements that are identifiers or references to identifiers
 TextElement =
   text | em | eref | strong | stem | sub | sup | tt | underline | keyword | ruby |
   strike | smallcap | xref | br | hyperlink | hr | pagebreak | bookmark | image | index | index-xref
 
+## Inline element containing text and associated formatting information,
+## but which does not contain any associated identifiers or references to identifiers.
+## Restricted recursively to contain only other such inline elements with no identifiers or references to identifiers
 PureTextElement =
   text | pure_em | pure_strong | sub | sup | pure_tt | pure_underline | pure_strike | pure_smallcap | br
 
+## Contents of TextElement tags: leaves out tags that should occur only at top level of block: bookmark image hr pagebreak
+NestedTextElement = PureTextElement|stem|eref|xref|hyperlink|index|index-xref|ruby|keyword
+
 source = element source { TypedUri }
 
-em = element em { (PureTextElement|stem|eref|xref|hyperlink|index|index-xref)* }
+## Emphasised text. Corresponds to HTML `em`, `i`
+em = element em { NestedTextElement* }
+## Emphasised text for PureTextElement
 pure_em = element em { PureTextElement* }
-strong = element strong { (PureTextElement|stem|eref|xref|hyperlink|index|index-xref)* }
+## Strong text. Corresponds to HTML `strong`, `b`
+strong = element strong { NestedTextElement* }
+## Strong text for PureTextElement
 pure_strong = element strong { PureTextElement* }
-tt = element tt { (PureTextElement|eref|xref|hyperlink|index|index-xref)* }
+## Monospace text. Corresponds to HTML `tt`, `code`
+tt = element tt { NestedTextElement* }
+## Monospace text for PureTextElement
 pure_tt = element tt { PureTextElement* }
+## Keyword text
 keyword = element keyword { (PureTextElement|index|index-xref)* }
+## Subscript text. Corresponds to HTML `sub`
 sub = element sub { PureTextElement* }
+## Superscript text. Corresponds to HTML `sup`
 sup = element sup { PureTextElement* }
-strike = element strike { (PureTextElement|stem|eref|xref|hyperlink|index|index-xref)* }
+## Strikethrough text. Corresponds to HTML 4 `s`
+strike = element strike { NestedTextElement* }
+## Strikethrough for PureTextElement
 pure_strike = element strike { PureTextElement* }
+## Underlined text. Corresponds to HTML 4 `u`
 underline = element underline { 
+  ## CSS style to apply to underline (intended for text-decoration-style attribute keyword values: solid double dotted dashed wavy)
   attribute style { text }?,
-  (PureTextElement|stem|eref|xref|hyperlink|index|index-xref)*
+  NestedTextElement*
 }
 pure_underline = element underline { 
   attribute style { text }?,
   PureTextElement*
 }
-smallcap = element smallcap { (PureTextElement|stem|eref|xref|hyperlink|index|index-xref)* }
+## Small caps text
+smallcap = element smallcap { NestedTextElement* }
 pure_smallcap = element smallcap { PureTextElement* }
 
-ruby = element ruby { (ruby_pronunciation | ruby_annotation), ( text | ruby ) }
-
-ruby_pronunciation = element pronunciation {
-  attribute value { text },
-  attribute script { text }?,
-  attribute lang { text }? 
+## Text with Ruby annotations in East Asian languages. Corresponds to HTML `ruby`
+ruby = element ruby { 
+  (
+    ## Ruby annotation giving pronunciation
+    ruby_pronunciation | 
+    ## Ruby annotation giving other (semantic) information
+    ruby_annotation
+  ), ( 
+     ## Ruby annotated text which contains no further annotations
+     text | 
+     ## Ruby annotated text which itself contains other Ruby annotations
+     ruby 
+  ) 
 }
 
-ruby_annotation = element annotation {
+## Ruby annotation giving pronunciation of text
+ruby_pronunciation = element pronunciation {
+  ## Ruby annotation value
   attribute value { text },
-  attribute script { text }?,
-  attribute lang { text }?
+  attribute script { ScriptType }?,
+  attribute lang { LanguageType }? 
+}
+
+## Ruby annotation giving information other than pronunciation of text
+ruby_annotation = element annotation {
+  ## Ruby annotation value
+  attribute value { text },
+  attribute script { ScriptType }?,
+  attribute lang { LanguageType }?
 }
 
 br = element br { empty }
@@ -639,10 +735,13 @@ altsource =
 }
 
 
+## Mathematically formatted text
 stem =
   element stem {
-    attribute type { "MathML" | "AsciiMath" },
-     ( text | AnyElement )+
+    ## The notation used to mathematically format the text
+    attribute type { "MathML" | "AsciiMath" | "LaTeX" },
+    ## The content of the mathematically formatted text
+    ( text | AnyElement )+
 }
 
 annotation =
