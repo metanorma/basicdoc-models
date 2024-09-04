@@ -46,22 +46,13 @@ so the hierarchical arrangement of sections can be arbitrarily deep</a:documenta
     <text/>
   </define>
   <define name="LocaleType">
-    <a:documentation>Country and country subdivisions identifier taken from ISO 3166, indicating the locale in which the content is written</a:documentation>
+    <a:documentation>(Two-letter) Country and country subdivisions identifier taken from ISO 3166, indicating the locale in which the content is written</a:documentation>
     <text/>
   </define>
   <define name="Basic-Section">
     <a:documentation>Group of blocks within text, which is a leaf node in the hierarchical organisation of text (does not contain any sections of its own)</a:documentation>
     <ref name="OptionalId"/>
-    <optional>
-      <attribute name="language">
-        <ref name="LanguageType"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="script">
-        <ref name="ScriptType"/>
-      </attribute>
-    </optional>
+    <ref name="LocalizedStringAttrs"/>
     <optional>
       <ref name="section-title">
         <a:documentation>Title of the section</a:documentation>
@@ -1404,16 +1395,7 @@ Restricted recursively to contain only other such inline elements with no identi
       <attribute name="value">
         <a:documentation>Ruby annotation value</a:documentation>
       </attribute>
-      <optional>
-        <attribute name="script">
-          <ref name="ScriptType"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="lang">
-          <ref name="LanguageType"/>
-        </attribute>
-      </optional>
+      <ref name="LocalizedStringAttrs"/>
     </element>
   </define>
   <define name="ruby_annotation">
@@ -1422,16 +1404,7 @@ Restricted recursively to contain only other such inline elements with no identi
       <attribute name="value">
         <a:documentation>Ruby annotation value</a:documentation>
       </attribute>
-      <optional>
-        <attribute name="script">
-          <ref name="ScriptType"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="lang">
-          <ref name="LanguageType"/>
-        </attribute>
-      </optional>
+      <ref name="LocalizedStringAttrs"/>
     </element>
   </define>
   <define name="br">

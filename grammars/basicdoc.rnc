@@ -1,9 +1,16 @@
 grammar {
 
+## Document
 document = 
 element document {
+  ## A globally unique identifier for the document in an agreed identifier schema. The identifier is to be used for tracking interactions with the document without depending on formal document registries; it would be exemplified by a GUID, rather than a document registry identifier such as "`ISO 639`", which belongs to `bibdata`
   attribute identifier { text }?,
-  bibdata, sections, references*
+  ## A bibliographic description, capturing bibliographic metadata about the document itself, including authors, title, and date of production
+  bibdata,
+  ## Hierarchically arranged units of textual content within the document
+  sections,
+  ## Bibliographic content
+  references*
 }
 
 ## Bibliographic description of a document, used as metadata, expressed in the Relaton model
@@ -30,14 +37,13 @@ LanguageType = text
 ## Four-letter script code taken from ISO 15924, indicating the script in which the content is written
 ScriptType = text
 
-## Country and country subdivisions identifier taken from ISO 3166, indicating the locale in which the content is written
+## (Two-letter) Country and country subdivisions identifier taken from ISO 3166, indicating the locale in which the content is written
 LocaleType = text
 
 ## Group of blocks within text, which is a leaf node in the hierarchical organisation of text (does not contain any sections of its own)
 Basic-Section =
     OptionalId,
-    attribute language { LanguageType }?,
-    attribute script { ScriptType }?,
+    LocalizedStringAttrs,
     ## Title of the section
     section-title?,
     ## Blocks, containing the textual content of the section
@@ -64,7 +70,9 @@ section-title =
 BasicBlock =  paragraph-with-footnote | table | formula | admonition | ol | ul | dl | figure |
   quote | sourcecode | example | review | pre | note | pagebreak | hr | bookmark | amend
 
-BasicBlockNoId =  paragraph-with-footnote-no-id | table-no-id | formula-no-id | admonition-no-id | ol-no-id | ul-no-id | dl-no-id | figure-no-id |
+## Block of textual content: optional ID attributes (for use in Relaton, metadata)
+BasicBlockNoId =  paragraph-with-footnote-no-id | table-no-id | formula-no-id | admonition-no-id | ol-no-id | ul-no-id | 
+  dl-no-id | figure-no-id |
   quote-no-id | sourcecode-no-id | example-no-id | review | pre-no-id | note-no-id | pagebreak | hr | bookmark | amend
 
 ## Block describing a change in a document, intended for human readers
@@ -91,7 +99,8 @@ AmendType =
     ## New content to be added to the document; applicable to add and modify
     element newcontent {
         OptionalId,
-        BasicBlock* }?,
+        BasicBlock*
+    }?,
     ## Classification of the change
     classification*,
     ## Contributor responsible for the change
@@ -171,7 +180,7 @@ paragraph-with-footnote =
     ParagraphFnBody
 }
 
-## A paragraph which may contain footnotes optional ID attributes (for use in Relaton, metadata)
+## A paragraph which may contain footnotes: optional ID attributes (for use in Relaton, metadata)
 paragraph-with-footnote-no-id =
   element p {
     OptionalId,
@@ -187,6 +196,7 @@ note =
     NoteBody
   }
 
+## Note block: optional ID attributes (for use in Relaton, metadata)
 note-no-id =
   element note {
     OptionalId,
@@ -238,6 +248,7 @@ formula =
     FormulaBody
 }
 
+## Block containing a mathematical expression or other formulas: optional ID attributes (for use in Relaton, metadata)
 formula-no-id =
   element formula {
     OptionalId,
@@ -259,7 +270,10 @@ FormulaBody =
     note*
 
 FormulaNoIdBody =
-    stem, dl-no-id?,
+    ## The content of the formula, as a mathematical expression
+    stem,
+    ## A definitions list defining any symbols used in the formula
+    dl-no-id?,
     ## Notes whose scope is the current block
     note-no-id*
 
@@ -271,6 +285,7 @@ quote =
     QuoteBody
 }
 
+## Block quotation: optional ID attributes (for use in Relaton, metadata)
 quote-no-id =
   element quote {
     OptionalId,
@@ -320,6 +335,7 @@ sourcecode =
     SourceBody
   }
 
+## Block containing computer code or comparable text: optional ID attributes (for use in Relaton, metadata)
 sourcecode-no-id =
   element sourcecode {
     OptionalId,
@@ -333,6 +349,7 @@ SourceAttr =
     attribute lang { text }?
 
 SourceBody =
+    ## The caption of the block
     tname?,
     ( 
        ## The computer code or other such text presented in the block, as a single unformatted string. 
@@ -348,7 +365,18 @@ SourceBody =
     note*
 
 SourceNoIdBody =
-    tname?, ( text | callout )+, annotation*,
+    ## The caption of the block
+    tname?,
+    (
+       ## The computer code or other such text presented in the block, as a single unformatted string. 
+       ## (The string should be treated as pre-formatted text, with whitespace treated as significant)
+       text |
+       ## Zero or more cross-references; these are intended to be embedded within the content string, and link to annotations
+       callout
+    )+,
+    ## Annotations to the source code; each annotation consists of zero or more paragraphs,
+    ## and is intended to be referenced by a callout within the source code
+    annotation*,
     ## Notes whose scope is the current block
     note-no-id*
 
@@ -363,6 +391,7 @@ pre =
     PreBody
   }
 
+## Pre-formatted block: optional ID attributes (for use in Relaton, metadata)
 pre-no-id =
   element pre {
     OptionalId,
@@ -383,7 +412,10 @@ PreBody =
     note*
 
 PreNoIdBody =
-    tname?, text,
+    ## The caption of the block
+    tname?,
+    ## The pre-formatted text presented in the block, as a single unformatted string. (Whitespace is treated as significant)
+    text,
     ## Notes whose scope is the current block
     note-no-id*
 
@@ -464,17 +496,18 @@ tr =
   )+
 }
 
+## Sequence of cells to be displayed as a row in a table: optional ID attributes recursively (for use in Relaton, metadata)
 tr-no-id =
   element tr { ( td-no-id | th-no-id )+ }
 
-## Textual content constituting a basic building block of a table
+## Textual content constituting a basic building block of a table: data cell
 td =
   element td {
     TdAttr,
     TdBody
 }
 
-## Textual content constituting a basic building block of a table: optional ID attributes recursively (for use in Relaton, metadata)
+## Data cell: optional ID attributes recursively (for use in Relaton, metadata)
 td-no-id =
   element td {
     TdAttr,
@@ -501,16 +534,20 @@ TdBody =
 
 TdNoIdBody =
     (
+      ## Table cell is a block
       (TextElement )* |
+      ## Table cell contains a block
       paragraph-with-footnote-no-id+
     )
 
+## Textual content constituting a basic building block of a table, treated as a header: header cell
 th =
   element th {
     ThAttr,
     ThBody
 }
 
+## Header cell: optional ID attributes recursively (for use in Relaton, metadata)
 th-no-id =
   element th {
     ThAttr,
@@ -531,6 +568,7 @@ example =
     ExampleBody
 }
 
+## Example block: optional ID attributes recursively (for use in Relaton, metadata)
 example-no-id =
   element example {
     OptionalId,
@@ -550,7 +588,9 @@ ExampleBody =
     note*
 
 ExampleNoIdBody =
+    ## The caption of the example
     tname?,
+    ## Content of the example
     ( formula-no-id | ul-no-id | ol-no-id | dl-no-id | quote-no-id | sourcecode-no-id | paragraph-with-footnote-no-id )+,
     ## Notes whose scope is the current block
     note-no-id*
@@ -563,6 +603,7 @@ admonition =
     AdmonitionBody
 }
 
+## A sidebar block outside of the main flow of text: optional ID attributes recursively (for use in Relaton, metadata)
 admonition-no-id =
   element admonition {
     OptionalId,
@@ -584,12 +625,15 @@ AdmonitionAttr =
 AdmonitionBody =
     ## Caption of admonition
     tname?,
+    ## Admonition content
     paragraph-with-footnote*,
     ## Notes whose scope is the current block
     note*
 
 AdmonitionNoIdBody =
+    ## Caption of admonition
     tname?,
+    ## Admonition content
     paragraph-with-footnote-no-id*,
     ## Notes whose scope is the current block
     note-no-id*
@@ -615,6 +659,7 @@ figure =
     FigureBody
   }
 
+## Block containing a figure: optional ID attributes recursively (for use in Relaton, metadata)
 figure-no-id =
   element figure {
     OptionalId,
@@ -643,9 +688,16 @@ FigureBody =
      note*
 
 FigureNoIdBody =
-     source?, tname?, 
+     ## A URI or other reference intended to link to an externally hosted image (or equivalent)
+     source?,
+     ## The caption of the block
+     tname?, 
+     ## Content of the figure
      (image-no-id | video-no-id | audio-no-id | pre-no-id | paragraph-with-footnote-no-id+ | figure-no-id*), 
-     fn*, dl-no-id?,
+     ## Footnotes specific to the figure
+     fn*,
+     ## An optional definitions list defining any symbols used in the figure
+     dl-no-id?,
      ## Notes whose scope is the current block
      note-no-id*
 
@@ -723,16 +775,14 @@ ruby = element ruby {
 ruby_pronunciation = element pronunciation {
   ## Ruby annotation value
   attribute value { text },
-  attribute script { ScriptType }?,
-  attribute lang { LanguageType }? 
+  LocalizedStringAttrs
 }
 
 ## Ruby annotation giving information other than pronunciation of text
 ruby_annotation = element annotation {
   ## Ruby annotation value
   attribute value { text },
-  attribute script { ScriptType }?,
-  attribute lang { LanguageType }?
+  LocalizedStringAttrs
 }
 
 ## Line break
@@ -863,6 +913,7 @@ image = element image {
     ImageAttr
 }
 
+## Container for image content: optional ID attributes recursively (for use in Relaton, metadata)
 image-no-id = element image { 
     OptionalId,
     ImageAttr
@@ -884,6 +935,7 @@ MIMEType = text
 ## or as the string "auto"
 ImageSize = xsd:string { pattern = "\d+([.]\d+)?(%?)" } | "auto"
 
+## Container for video content
 video =
   element video {
     RequiredId,
@@ -891,6 +943,7 @@ video =
     VideoBody
 }
 
+## Container for video content: optional ID attributes recursively (for use in Relaton, metadata)
 video-no-id = 
   element video {
     OptionalId,
@@ -918,6 +971,7 @@ audio =
     AudioBody
 }
 
+## Container for audio content: optional ID attributes recursively (for use in Relaton, metadata)
 audio-no-id =
   element audio {
     OptionalId,
@@ -954,7 +1008,6 @@ MediaAccessibilityAttr =
     ## URI pointing to more extensive alternate text description, supplied for accessibility
     attribute longdesc { xsd:anyURI }?
 
-
 ## Mathematically formatted text
 stem =
   element stem {
@@ -967,7 +1020,7 @@ stem =
 annotation =
   element annotation {
     RequiredId,
-    paragraph
+    paragraph+
 }
 
 ## Unordered list block
@@ -978,6 +1031,7 @@ ul =
     UlBody
 }
 
+## Unordered list block: optional ID attributes recursively (for use in Relaton, metadata)
 ul-no-id =
   element ul {
     OptionalId,
@@ -988,11 +1042,13 @@ ul-no-id =
 UlAttr = empty
 
 UlBody =
+    ## List items
     li+,
     ## Notes whose scope is the current block
     note*
 
 UlNoIdBody =
+    ## List items
     li-no-id+,
     ## Notes whose scope is the current block
     note-no-id*
@@ -1002,10 +1058,10 @@ li =
   element li {
     OptionalId,
     LiAttr,
-    ## Content of list item
     LiBody
 }
 
+## Item in a list block: optional ID attributes recursively (for use in Relaton, metadata)
 li-no-id =
   element li {
     OptionalId,
@@ -1029,6 +1085,7 @@ ol =
     OlBody
 }
 
+## Ordered list: optional ID attributes recursively (for use in Relaton, metadata)
 ol-no-id =
   element ol {
     OptionalId,
@@ -1038,18 +1095,19 @@ ol-no-id =
 
 OlAttr =
     ## Type of numbering to be applied to the list items
-    attribute type { ( "roman" | "alphabet" | "arabic" |
-                       "roman_upper" | "alphabet_upper" ) },
+    attribute type { ( "roman" | "alphabet" | "arabic" | "roman_upper" | "alphabet_upper" ) },
     ## Starting value for numbering of the list items; is a number, regardless of the type,
     ## and is mapped to the ordinal represented in the type
     attribute start { text }?
 
 OlBody =
+    ## List item
     li+,
     ## Notes whose scope is the current block
     note*
 
 OlNoIdBody =
+    ## List item
     li-no-id+,
     ## Notes whose scope is the current block
     note-no-id*
@@ -1062,6 +1120,7 @@ dl =
     DlBody
 }
 
+## Definition list: optional ID attributes recursively (for use in Relaton, metadata)
 dl-no-id =
   element dl {
     OptionalId,
@@ -1082,7 +1141,13 @@ DlBody =
     note*
 
 DlNoIdBody =
-    (dt, dd-no-id)+,
+    ## Entry-Definition pair used to constitute a definition list
+    (
+      ## Entry being defined in the definition
+      dt,
+      ## Definition of the entry
+      dd-no-id
+    )+,
     ## Notes whose scope is the current block
     note-no-id*
 
@@ -1094,6 +1159,7 @@ dt =
 dd =
   element dd { paragraph-with-footnote* }
 
+## Definition in a definition list: optional ID attributes recursively (for use in Relaton, metadata)
 dd-no-id =
   element dd { paragraph-with-footnote-no-id* }
 

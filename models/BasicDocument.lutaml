@@ -33,6 +33,11 @@ History of changes:
       Hierarchically arranged units of textual content within the document.
     }
   }
+  +references: ReferencesSection[0..*] {
+    definition {
+      Bibliographic content.
+    }
+  }
   +integrityValue: IntegrityValue[0..*] {
     definition {
       A digital signature of the contribution.
