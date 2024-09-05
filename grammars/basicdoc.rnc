@@ -871,6 +871,7 @@ hyperlink =
   element link {
     HyperlinkAttributes,
     PureTextElement+
+}
 
 HyperlinkAttributes =
     ## The location or online identifier of the external document or resource
