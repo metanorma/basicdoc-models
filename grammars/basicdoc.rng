@@ -60,8 +60,7 @@ so the hierarchical arrangement of sections can be arbitrarily deep</a:documenta
   </define>
   <define name="Basic-Section">
     <a:documentation>Group of blocks within text, which is a leaf node in the hierarchical organisation of text (does not contain any sections of its own)</a:documentation>
-    <ref name="OptionalId"/>
-    <ref name="LocalizedStringAttributes"/>
+    <ref name="Basic-Section-Attributes"/>
     <optional>
       <ref name="section-title">
         <a:documentation>Title of the section</a:documentation>
@@ -73,6 +72,10 @@ so the hierarchical arrangement of sections can be arbitrarily deep</a:documenta
 (but excluding subsections, which are only present in Hierarchical Sections)</a:documentation>
       </ref>
     </zeroOrMore>
+  </define>
+  <define name="Basic-Section-Attributes">
+    <ref name="OptionalId"/>
+    <ref name="LocalizedStringAttributes"/>
   </define>
   <define name="references">
     <a:documentation>Sections containing zero or more bibliographical items (as described in Relaton), along with any prefatory text</a:documentation>
@@ -363,7 +366,7 @@ in a document (e.g. sourcecode annotations)</a:documentation>
     </element>
   </define>
   <define name="NoteAttributes">
-    <empty/>
+    <ref name="NumberingAttrs"/>
   </define>
   <define name="NoteBody">
     <oneOrMore>
@@ -1158,11 +1161,6 @@ to be auto-numbered and captioned differently</a:documentation>
   </define>
   <define name="FigureBody">
     <optional>
-      <ref name="source">
-        <a:documentation>A URI or other reference intended to link to an externally hosted image (or equivalent)</a:documentation>
-      </ref>
-    </optional>
-    <optional>
       <ref name="tname">
         <a:documentation>The caption of the block</a:documentation>
       </ref>
@@ -1195,6 +1193,11 @@ to be auto-numbered and captioned differently</a:documentation>
         <a:documentation>Notes whose scope is the current block</a:documentation>
       </ref>
     </zeroOrMore>
+    <optional>
+      <ref name="source">
+        <a:documentation>A URI or other reference intended to link to an externally hosted image (or equivalent)</a:documentation>
+      </ref>
+    </optional>
   </define>
   <define name="FigureNoIdBody">
     <optional>
@@ -1621,7 +1624,9 @@ which can be bookmarks as well as block or section references</a:documentation>
     <element name="link">
       <ref name="HyperlinkAttributes"/>
       <oneOrMore>
-        <ref name="PureTextElement"/>
+        <ref name="PureTextElement">
+          <a:documentation>The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `&lt;xx&gt;my link text&lt;/xx&gt;`)</a:documentation>
+        </ref>
       </oneOrMore>
     </element>
   </define>
@@ -1641,7 +1646,6 @@ which can be bookmarks as well as block or section references</a:documentation>
     </optional>
   </define>
   <define name="xref">
-    <a:documentation>The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `&lt;xx&gt;my link text&lt;/xx&gt;`)</a:documentation>
     <a:documentation>Inline element, which references an identifier of a document, a block in a document, or an element in a document</a:documentation>
     <element name="xref">
       <ref name="XrefAttributes"/>
@@ -1851,14 +1855,7 @@ or as the string "auto"</a:documentation>
   <define name="stem">
     <a:documentation>Mathematically formatted text</a:documentation>
     <element name="stem">
-      <attribute name="type">
-        <a:documentation>The notation used to mathematically format the text</a:documentation>
-        <choice>
-          <value>MathML</value>
-          <value>AsciiMath</value>
-          <value>LaTeX</value>
-        </choice>
-      </attribute>
+      <ref name="StemAttributes"/>
       <oneOrMore>
         <choice>
           <a:documentation>The content of the mathematically formatted text</a:documentation>
@@ -1867,6 +1864,16 @@ or as the string "auto"</a:documentation>
         </choice>
       </oneOrMore>
     </element>
+  </define>
+  <define name="StemAttributes">
+    <attribute name="type">
+      <a:documentation>The notation used to mathematically format the text</a:documentation>
+      <choice>
+        <value>MathML</value>
+        <value>AsciiMath</value>
+        <value>LaTeX</value>
+      </choice>
+    </attribute>
   </define>
   <define name="annotation">
     <element name="annotation">

@@ -686,9 +686,9 @@ FigureBody =
      ## An optional definitions list defining any symbols used in the figure
      dl?,
      ## Notes whose scope is the current block
-     note*
+     note*,
      ## A URI or other reference intended to link to an externally hosted image (or equivalent)
-     source?,
+     source?
 
 FigureNoIdBody =
      ## A URI or other reference intended to link to an externally hosted image (or equivalent)
@@ -1036,7 +1036,7 @@ stem =
 
 StemAttributes =
     ## The notation used to mathematically format the text
-    attribute type { "MathML" | "AsciiMath" | "LaTeX" },
+    attribute type { "MathML" | "AsciiMath" | "LaTeX" }
 
 annotation =
   element annotation {
