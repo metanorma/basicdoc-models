@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <define name="document">
+    <a:documentation>Document</a:documentation>
     <element name="document">
       <optional>
-        <attribute name="identifier"/>
+        <attribute name="identifier">
+          <a:documentation>A globally unique identifier for the document in an agreed identifier schema. The identifier is to be used for tracking interactions with the document without depending on formal document registries; it would be exemplified by a GUID, rather than a document registry identifier such as "`ISO 639`", which belongs to `bibdata`</a:documentation>
+        </attribute>
       </optional>
-      <ref name="bibdata"/>
-      <ref name="sections"/>
+      <ref name="bibdata">
+        <a:documentation>A bibliographic description, capturing bibliographic metadata about the document itself, including authors, title, and date of production</a:documentation>
+      </ref>
+      <ref name="sections">
+        <a:documentation>Hierarchically arranged units of textual content within the document</a:documentation>
+      </ref>
       <zeroOrMore>
-        <ref name="references"/>
+        <ref name="references">
+          <a:documentation>Bibliographic content</a:documentation>
+        </ref>
       </zeroOrMore>
     </element>
   </define>
@@ -118,6 +127,7 @@ so the hierarchical arrangement of sections can be arbitrarily deep</a:documenta
     </choice>
   </define>
   <define name="BasicBlockNoId">
+    <a:documentation>Block of textual content: optional ID attributes (for use in Relaton, metadata)</a:documentation>
     <choice>
       <ref name="paragraph-with-footnote-no-id"/>
       <ref name="table-no-id"/>
@@ -329,7 +339,7 @@ in a document (e.g. sourcecode annotations)</a:documentation>
     </element>
   </define>
   <define name="paragraph-with-footnote-no-id">
-    <a:documentation>A paragraph which may contain footnotes optional ID attributes (for use in Relaton, metadata)</a:documentation>
+    <a:documentation>A paragraph which may contain footnotes: optional ID attributes (for use in Relaton, metadata)</a:documentation>
     <element name="p">
       <ref name="OptionalId"/>
       <ref name="ParagraphAttrs"/>
@@ -345,6 +355,7 @@ in a document (e.g. sourcecode annotations)</a:documentation>
     </element>
   </define>
   <define name="note-no-id">
+    <a:documentation>Note block: optional ID attributes (for use in Relaton, metadata)</a:documentation>
     <element name="note">
       <ref name="OptionalId"/>
       <ref name="NoteAttr"/>
@@ -427,6 +438,7 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
     </element>
   </define>
   <define name="formula-no-id">
+    <a:documentation>Block containing a mathematical expression or other formulas: optional ID attributes (for use in Relaton, metadata)</a:documentation>
     <element name="formula">
       <ref name="OptionalId"/>
       <ref name="FormulaAttr"/>
@@ -458,9 +470,13 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
     </zeroOrMore>
   </define>
   <define name="FormulaNoIdBody">
-    <ref name="stem"/>
+    <ref name="stem">
+      <a:documentation>The content of the formula, as a mathematical expression</a:documentation>
+    </ref>
     <optional>
-      <ref name="dl-no-id"/>
+      <ref name="dl-no-id">
+        <a:documentation>A definitions list defining any symbols used in the formula</a:documentation>
+      </ref>
     </optional>
     <zeroOrMore>
       <ref name="note-no-id">
@@ -477,6 +493,7 @@ with the same number and in a subsequence: 7a, 7b, 7c etc</a:documentation>
     </element>
   </define>
   <define name="quote-no-id">
+    <a:documentation>Block quotation: optional ID attributes (for use in Relaton, metadata)</a:documentation>
     <element name="quote">
       <ref name="OptionalId"/>
       <ref name="QuoteAttr"/>
@@ -558,6 +575,7 @@ It is included for convenience, in case processing the citation to extract the a
     </element>
   </define>
   <define name="sourcecode-no-id">
+    <a:documentation>Block containing computer code or comparable text: optional ID attributes (for use in Relaton, metadata)</a:documentation>
     <element name="sourcecode">
       <ref name="OptionalId"/>
       <ref name="SourceAttr"/>
@@ -574,7 +592,9 @@ It is included for convenience, in case processing the citation to extract the a
   </define>
   <define name="SourceBody">
     <optional>
-      <ref name="tname"/>
+      <ref name="tname">
+        <a:documentation>The caption of the block</a:documentation>
+      </ref>
     </optional>
     <oneOrMore>
       <choice>
@@ -601,16 +621,26 @@ and is intended to be referenced by a callout within the source code</a:document
   </define>
   <define name="SourceNoIdBody">
     <optional>
-      <ref name="tname"/>
+      <ref name="tname">
+        <a:documentation>The caption of the block</a:documentation>
+      </ref>
     </optional>
     <oneOrMore>
       <choice>
-        <text/>
-        <ref name="callout"/>
+        <text>
+          <a:documentation>The computer code or other such text presented in the block, as a single unformatted string. 
+(The string should be treated as pre-formatted text, with whitespace treated as significant)</a:documentation>
+        </text>
+        <ref name="callout">
+          <a:documentation>Zero or more cross-references; these are intended to be embedded within the content string, and link to annotations</a:documentation>
+        </ref>
       </choice>
     </oneOrMore>
     <zeroOrMore>
-      <ref name="annotation"/>
+      <ref name="annotation">
+        <a:documentation>Annotations to the source code; each annotation consists of zero or more paragraphs,
+and is intended to be referenced by a callout within the source code</a:documentation>
+      </ref>
     </zeroOrMore>
     <zeroOrMore>
       <ref name="note-no-id">
@@ -630,6 +660,7 @@ as it is more clearly motivated semantically</a:documentation>
     </element>
   </define>
   <define name="pre-no-id">
+    <a:documentation>Pre-formatted block: optional ID attributes (for use in Relaton, metadata)</a:documentation>
     <element name="pre">
       <ref name="OptionalId"/>
       <ref name="PreAttr"/>
@@ -660,9 +691,13 @@ as it is more clearly motivated semantically</a:documentation>
   </define>
   <define name="PreNoIdBody">
     <optional>
-      <ref name="tname"/>
+      <ref name="tname">
+        <a:documentation>The caption of the block</a:documentation>
+      </ref>
     </optional>
-    <text/>
+    <text>
+      <a:documentation>The pre-formatted text presented in the block, as a single unformatted string. (Whitespace is treated as significant)</a:documentation>
+    </text>
     <zeroOrMore>
       <ref name="note-no-id">
         <a:documentation>Notes whose scope is the current block</a:documentation>
@@ -834,6 +869,7 @@ in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
     </element>
   </define>
   <define name="tr-no-id">
+    <a:documentation>Sequence of cells to be displayed as a row in a table: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="tr">
       <oneOrMore>
         <choice>
@@ -844,14 +880,14 @@ in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
     </element>
   </define>
   <define name="td">
-    <a:documentation>Textual content constituting a basic building block of a table</a:documentation>
+    <a:documentation>Textual content constituting a basic building block of a table: data cell</a:documentation>
     <element name="td">
       <ref name="TdAttr"/>
       <ref name="TdBody"/>
     </element>
   </define>
   <define name="td-no-id">
-    <a:documentation>Textual content constituting a basic building block of a table: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
+    <a:documentation>Data cell: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="td">
       <ref name="TdAttr"/>
       <ref name="TdNoIdBody"/>
@@ -908,20 +944,27 @@ in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
   <define name="TdNoIdBody">
     <choice>
       <zeroOrMore>
-        <ref name="TextElement"/>
+        <group>
+          <a:documentation>Table cell is a block</a:documentation>
+          <ref name="TextElement"/>
+        </group>
       </zeroOrMore>
       <oneOrMore>
-        <ref name="paragraph-with-footnote-no-id"/>
+        <ref name="paragraph-with-footnote-no-id">
+          <a:documentation>Table cell contains a block</a:documentation>
+        </ref>
       </oneOrMore>
     </choice>
   </define>
   <define name="th">
+    <a:documentation>Textual content constituting a basic building block of a table, treated as a header: header cell</a:documentation>
     <element name="th">
       <ref name="ThAttr"/>
       <ref name="ThBody"/>
     </element>
   </define>
   <define name="th-no-id">
+    <a:documentation>Header cell: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="th">
       <ref name="ThAttr"/>
       <ref name="ThNoIdBody"/>
@@ -945,6 +988,7 @@ in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
     </element>
   </define>
   <define name="example-no-id">
+    <a:documentation>Example block: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="example">
       <ref name="OptionalId"/>
       <ref name="ExampleAttr"/>
@@ -980,10 +1024,13 @@ in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
   </define>
   <define name="ExampleNoIdBody">
     <optional>
-      <ref name="tname"/>
+      <ref name="tname">
+        <a:documentation>The caption of the example</a:documentation>
+      </ref>
     </optional>
     <oneOrMore>
       <choice>
+        <a:documentation>Content of the example</a:documentation>
         <ref name="formula-no-id"/>
         <ref name="ul-no-id"/>
         <ref name="ol-no-id"/>
@@ -1008,6 +1055,7 @@ in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
     </element>
   </define>
   <define name="admonition-no-id">
+    <a:documentation>A sidebar block outside of the main flow of text: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="admonition">
       <ref name="OptionalId"/>
       <ref name="AdmonitionAttr"/>
@@ -1041,7 +1089,9 @@ Typically is a subclass of an admonition type</a:documentation>
       </ref>
     </optional>
     <zeroOrMore>
-      <ref name="paragraph-with-footnote"/>
+      <ref name="paragraph-with-footnote">
+        <a:documentation>Admonition content</a:documentation>
+      </ref>
     </zeroOrMore>
     <zeroOrMore>
       <ref name="note">
@@ -1051,10 +1101,14 @@ Typically is a subclass of an admonition type</a:documentation>
   </define>
   <define name="AdmonitionNoIdBody">
     <optional>
-      <ref name="tname"/>
+      <ref name="tname">
+        <a:documentation>Caption of admonition</a:documentation>
+      </ref>
     </optional>
     <zeroOrMore>
-      <ref name="paragraph-with-footnote-no-id"/>
+      <ref name="paragraph-with-footnote-no-id">
+        <a:documentation>Admonition content</a:documentation>
+      </ref>
     </zeroOrMore>
     <zeroOrMore>
       <ref name="note-no-id">
@@ -1086,6 +1140,7 @@ Typically is a subclass of an admonition type</a:documentation>
     </element>
   </define>
   <define name="figure-no-id">
+    <a:documentation>Block containing a figure: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="figure">
       <ref name="OptionalId"/>
       <ref name="FigureAttr"/>
@@ -1143,12 +1198,17 @@ to be auto-numbered and captioned differently</a:documentation>
   </define>
   <define name="FigureNoIdBody">
     <optional>
-      <ref name="source"/>
+      <ref name="source">
+        <a:documentation>A URI or other reference intended to link to an externally hosted image (or equivalent)</a:documentation>
+      </ref>
     </optional>
     <optional>
-      <ref name="tname"/>
+      <ref name="tname">
+        <a:documentation>The caption of the block</a:documentation>
+      </ref>
     </optional>
     <choice>
+      <a:documentation>Content of the figure</a:documentation>
       <ref name="image-no-id"/>
       <ref name="video-no-id"/>
       <ref name="audio-no-id"/>
@@ -1161,10 +1221,14 @@ to be auto-numbered and captioned differently</a:documentation>
       </zeroOrMore>
     </choice>
     <zeroOrMore>
-      <ref name="fn"/>
+      <ref name="fn">
+        <a:documentation>Footnotes specific to the figure</a:documentation>
+      </ref>
     </zeroOrMore>
     <optional>
-      <ref name="dl-no-id"/>
+      <ref name="dl-no-id">
+        <a:documentation>An optional definitions list defining any symbols used in the figure</a:documentation>
+      </ref>
     </optional>
     <zeroOrMore>
       <ref name="note-no-id">
@@ -1636,6 +1700,7 @@ the extent of the target is not expressed overtly</a:documentation>
     </element>
   </define>
   <define name="image-no-id">
+    <a:documentation>Container for image content: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="image">
       <ref name="OptionalId"/>
       <ref name="ImageAttr"/>
@@ -1673,6 +1738,7 @@ or as the string "auto"</a:documentation>
     </choice>
   </define>
   <define name="video">
+    <a:documentation>Container for video content</a:documentation>
     <element name="video">
       <ref name="RequiredId"/>
       <ref name="VideoAttr"/>
@@ -1680,6 +1746,7 @@ or as the string "auto"</a:documentation>
     </element>
   </define>
   <define name="video-no-id">
+    <a:documentation>Container for video content: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="video">
       <ref name="OptionalId"/>
       <ref name="VideoAttr"/>
@@ -1718,6 +1785,7 @@ or as the string "auto"</a:documentation>
     </element>
   </define>
   <define name="audio-no-id">
+    <a:documentation>Container for audio content: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="audio">
       <ref name="OptionalId"/>
       <ref name="AudioAttr"/>
@@ -1798,7 +1866,9 @@ or as the string "auto"</a:documentation>
   <define name="annotation">
     <element name="annotation">
       <ref name="RequiredId"/>
-      <ref name="paragraph"/>
+      <oneOrMore>
+        <ref name="paragraph"/>
+      </oneOrMore>
     </element>
   </define>
   <define name="ul">
@@ -1810,6 +1880,7 @@ or as the string "auto"</a:documentation>
     </element>
   </define>
   <define name="ul-no-id">
+    <a:documentation>Unordered list block: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="ul">
       <ref name="OptionalId"/>
       <ref name="UlAttr"/>
@@ -1821,7 +1892,9 @@ or as the string "auto"</a:documentation>
   </define>
   <define name="UlBody">
     <oneOrMore>
-      <ref name="li"/>
+      <ref name="li">
+        <a:documentation>List items</a:documentation>
+      </ref>
     </oneOrMore>
     <zeroOrMore>
       <ref name="note">
@@ -1831,7 +1904,9 @@ or as the string "auto"</a:documentation>
   </define>
   <define name="UlNoIdBody">
     <oneOrMore>
-      <ref name="li-no-id"/>
+      <ref name="li-no-id">
+        <a:documentation>List items</a:documentation>
+      </ref>
     </oneOrMore>
     <zeroOrMore>
       <ref name="note-no-id">
@@ -1844,12 +1919,11 @@ or as the string "auto"</a:documentation>
     <element name="li">
       <ref name="OptionalId"/>
       <ref name="LiAttr"/>
-      <ref name="LiBody">
-        <a:documentation>Content of list item</a:documentation>
-      </ref>
+      <ref name="LiBody"/>
     </element>
   </define>
   <define name="li-no-id">
+    <a:documentation>Item in a list block: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="li">
       <ref name="OptionalId"/>
       <ref name="LiAttr"/>
@@ -1878,6 +1952,7 @@ or as the string "auto"</a:documentation>
     </element>
   </define>
   <define name="ol-no-id">
+    <a:documentation>Ordered list: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="ol">
       <ref name="OptionalId"/>
       <ref name="OlAttr"/>
@@ -1904,7 +1979,9 @@ and is mapped to the ordinal represented in the type</a:documentation>
   </define>
   <define name="OlBody">
     <oneOrMore>
-      <ref name="li"/>
+      <ref name="li">
+        <a:documentation>List item</a:documentation>
+      </ref>
     </oneOrMore>
     <zeroOrMore>
       <ref name="note">
@@ -1914,7 +1991,9 @@ and is mapped to the ordinal represented in the type</a:documentation>
   </define>
   <define name="OlNoIdBody">
     <oneOrMore>
-      <ref name="li-no-id"/>
+      <ref name="li-no-id">
+        <a:documentation>List item</a:documentation>
+      </ref>
     </oneOrMore>
     <zeroOrMore>
       <ref name="note-no-id">
@@ -1931,6 +2010,7 @@ and is mapped to the ordinal represented in the type</a:documentation>
     </element>
   </define>
   <define name="dl-no-id">
+    <a:documentation>Definition list: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="dl">
       <ref name="OptionalId"/>
       <ref name="DlNoIdBody"/>
@@ -1959,8 +2039,15 @@ and is mapped to the ordinal represented in the type</a:documentation>
   </define>
   <define name="DlNoIdBody">
     <oneOrMore>
-      <ref name="dt"/>
-      <ref name="dd-no-id"/>
+      <group>
+        <a:documentation>Entry-Definition pair used to constitute a definition list</a:documentation>
+        <ref name="dt">
+          <a:documentation>Entry being defined in the definition</a:documentation>
+        </ref>
+        <ref name="dd-no-id">
+          <a:documentation>Definition of the entry</a:documentation>
+        </ref>
+      </group>
     </oneOrMore>
     <zeroOrMore>
       <ref name="note-no-id">
@@ -1985,6 +2072,7 @@ and is mapped to the ordinal represented in the type</a:documentation>
     </element>
   </define>
   <define name="dd-no-id">
+    <a:documentation>Definition in a definition list: optional ID attributes recursively (for use in Relaton, metadata)</a:documentation>
     <element name="dd">
       <zeroOrMore>
         <ref name="paragraph-with-footnote-no-id"/>

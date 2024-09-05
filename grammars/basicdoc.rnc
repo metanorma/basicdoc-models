@@ -43,7 +43,7 @@ LocaleType = text
 ## Group of blocks within text, which is a leaf node in the hierarchical organisation of text (does not contain any sections of its own)
 Basic-Section =
     OptionalId,
-    LocalizedStringAttrs,
+    LocalizedStringAttributes,
     ## Title of the section
     section-title?,
     ## Blocks, containing the textual content of the section
@@ -137,13 +137,13 @@ RequiredId =
 OptionalId = 
     attribute id { xsd:ID }?
 
-ParagraphAttrs =
+ParagraphAttributes =
     ## The alignment of the paragraph against the margins of the document
     attribute align { Alignments }?
 
 ParagraphType =
     RequiredId,
-    ParagraphAttrs,
+    ParagraphAttributes,
     ParagraphBody
 
 ## Inline elements constituting the content of the paragraph, excluding footnotes
@@ -168,7 +168,7 @@ ParagraphFnBody =
 paragraph-no-id =
   element p {
     OptionalId,
-    ParagraphAttrs,
+    ParagraphAttributes,
     ParagraphBody
   }
 
@@ -176,7 +176,7 @@ paragraph-no-id =
 paragraph-with-footnote =
   element p {
     RequiredId,
-    ParagraphAttrs,
+    ParagraphAttributes,
     ParagraphFnBody
 }
 
@@ -184,7 +184,7 @@ paragraph-with-footnote =
 paragraph-with-footnote-no-id =
   element p {
     OptionalId,
-    ParagraphAttrs,
+    ParagraphAttributes,
     ParagraphFnBody
 }
 
@@ -192,7 +192,7 @@ paragraph-with-footnote-no-id =
 note =
   element note {
     RequiredId,
-    NoteAttr,
+    NoteAttributes,
     NoteBody
   }
 
@@ -200,11 +200,11 @@ note =
 note-no-id =
   element note {
     OptionalId,
-    NoteAttr,
+    NoteAttributes,
     NoteNoIdBody
   }
 
-NoteAttr = empty
+NoteAttributes = empty
 
 NoteBody =
     paragraph+
@@ -244,7 +244,7 @@ NumberingAttributes =
 formula =
   element formula {
     RequiredId,
-    FormulaAttr,
+    FormulaAttributes,
     FormulaBody
 }
 
@@ -252,11 +252,11 @@ formula =
 formula-no-id =
   element formula {
     OptionalId,
-    FormulaAttr,
+    FormulaAttributes,
     FormulaNoIdBody
 }
 
-FormulaAttr =
+FormulaAttributes =
     NumberingAttributes,
     ## Indication that the formula is to be labelled as an Inequality, if inequalities are differentiated from equations
     attribute inequality { xsd:boolean }?
@@ -281,7 +281,7 @@ FormulaNoIdBody =
 quote =
   element quote {
     RequiredId,
-    QuoteAttr,
+    QuoteAttributes,
     QuoteBody
 }
 
@@ -289,11 +289,11 @@ quote =
 quote-no-id =
   element quote {
     OptionalId,
-    QuoteAttr,
+    QuoteAttributes,
     QuoteNoIdBody
 }
 
-QuoteAttr =
+QuoteAttributes =
     ## The alignment of the quote against the margins of the document
     attribute alignment { Alignments }?
 
@@ -331,7 +331,7 @@ quote-author =
 sourcecode =
   element sourcecode {
     RequiredId,
-    SourceAttr,
+    SourceAttributes,
     SourceBody
   }
 
@@ -339,11 +339,11 @@ sourcecode =
 sourcecode-no-id =
   element sourcecode {
     OptionalId,
-    SourceAttr,
+    SourceAttributes,
     SourceNoIdBody
   }
 
-SourceAttr =
+SourceAttributes =
     NumberingAttributes,
     ## The computer language or other notational convention that the source code is expressed in
     attribute lang { text }?
@@ -387,7 +387,7 @@ SourceNoIdBody =
 pre =
   element pre {
     RequiredId,
-    PreAttr,
+    PreAttributes,
     PreBody
   }
 
@@ -395,11 +395,11 @@ pre =
 pre-no-id =
   element pre {
     OptionalId,
-    PreAttr,
+    PreAttributes,
     PreNoIdBody
   }
 
-PreAttr =
+PreAttributes =
     ## Accessible description of the preformatted text
     attribute alt { text }?
 
@@ -423,7 +423,7 @@ PreNoIdBody =
 table =
   element table {
     RequiredId,
-    TableAttr,
+    TableAttributes,
     TableBody
   }
 
@@ -431,11 +431,11 @@ table =
 table-no-id =
   element table {
     OptionalId,
-    TableAttr,
+    TableAttributes,
     TableNoIdBody
   }
 
-TableAttr =
+TableAttributes =
     NumberingAttributes,
     ## Accessible description of the tabular text, in case the table cannot be rendered accessibly (HTML 5)
     attribute alt { text }?,
@@ -503,18 +503,18 @@ tr-no-id =
 ## Textual content constituting a basic building block of a table: data cell
 td =
   element td {
-    TdAttr,
+    TdAttributes,
     TdBody
 }
 
 ## Data cell: optional ID attributes recursively (for use in Relaton, metadata)
 td-no-id =
   element td {
-    TdAttr,
+    TdAttributes,
     TdNoIdBody
 }
 
-TdAttr =
+TdAttributes =
     ## Number of columns in the underlying table grid which the cell spans
     attribute colspan { text }?,
     ## Number of rows in the underlying table grid which the cell spans
@@ -543,18 +543,18 @@ TdNoIdBody =
 ## Textual content constituting a basic building block of a table, treated as a header: header cell
 th =
   element th {
-    ThAttr,
+    ThAttributes,
     ThBody
 }
 
 ## Header cell: optional ID attributes recursively (for use in Relaton, metadata)
 th-no-id =
   element th {
-    ThAttr,
+    ThAttributes,
     ThNoIdBody
 }
 
-ThAttr = TdAttr
+ThAttributes = TdAttributes
 
 ThBody = TdBody
 
@@ -564,7 +564,7 @@ ThNoIdBody = TdNoIdBody
 example =
   element example {
     RequiredId,
-    ExampleAttr,
+    ExampleAttributes,
     ExampleBody
 }
 
@@ -572,11 +572,11 @@ example =
 example-no-id =
   element example {
     OptionalId,
-    ExampleAttr,
+    ExampleAttributes,
     ExampleNoIdBody
 }
 
-ExampleAttr =
+ExampleAttributes =
     NumberingAttributes
 
 ExampleBody =
@@ -599,7 +599,7 @@ ExampleNoIdBody =
 admonition =
   element admonition {
     RequiredId,
-    AdmonitionAttr,
+    AdmonitionAttributes,
     AdmonitionBody
 }
 
@@ -607,11 +607,11 @@ admonition =
 admonition-no-id =
   element admonition {
     OptionalId,
-    AdmonitionAttr,
+    AdmonitionAttributes,
     AdmonitionNoIdBody
 }
 
-AdmonitionAttr =
+AdmonitionAttributes =
     ## Subclass of admonition determining how it is to be rendered. 
     ## Distinct admonition types are often associated with distinct icons or rendering
     attribute type { AdmonitionType },
@@ -655,7 +655,7 @@ AdmonitionType =
 figure =
   element figure {
     RequiredId,
-    FigureAttr,
+    FigureAttributes,
     FigureBody
   }
 
@@ -663,11 +663,11 @@ figure =
 figure-no-id =
   element figure {
     OptionalId,
-    FigureAttr,
+    FigureAttributes,
     FigureNoIdBody
   }
 
-FigureAttr =
+FigureAttributes =
     NumberingAttributes,
     ## The semantic category of the figure. This is to allow different classes of figure (e.g. _Plate_, _Chart_, _Diagram_) 
     ## to be auto-numbered and captioned differently
@@ -798,11 +798,11 @@ index = element index {
   ## to indicate that the index range covers a range of locations between the current index element and the `to` anchor
   attribute to { xsd:IDREF }?,
   ## Primary index term to be recorded at the current location
-  element primary { PureTextElement+ },
+  index-primary,
   ## Secondary index term to be recorded at the current location
-  element secondary { PureTextElement+ }?,
+  index-secondary,
   ## Tertiary index term to be recorded at the current 
-  element tertiary { PureTextElement+ }?
+  index-tertiary
 }
 
 ## A reference to an index term, cross-referenced within an index as an
@@ -812,17 +812,19 @@ index-xref = element index-xref {
   ## The cross-reference is to be treated as "see also" rather than as "see"
   attribute also { xsd:boolean },
   ## The primary index term to be cross-referenced
-  element primary { PureTextElement+ },
+  index-primary,
   ## The secondary index term to be cross-referenced
-  element secondary { PureTextElement+ }?,
+  index-secondary,
   ## The tertiary index term to be cross-referenced
-  element tertiary { PureTextElement+ }?,
+  index-tertiary,
   ## The index term to be cross-referenced to
   element target { PureTextElement+ }
 }
 
+index-primary = element primary { PureTextElement+ }
+index-secondary = element secondary { PureTextElement+ }
+index-tertiary = element tertiary { PureTextElement+ }
 
-## Anchor for cross-references which do not have scope over blocks or sections. 
 ## Anchors within a block under the BasicDocument model cannot span across a number of inline elements; 
 ## bookmarks are intended as point anchors. For that reason, the Review block has a starting reference and an optional ending reference, 
 ## which can be bookmarks as well as block or section references
@@ -848,22 +850,29 @@ eref =
   element eref { erefType }
 
 erefType =
+    erefAttributes,
+    ## Reference cross-reference: modelled as cross-reference to the corresponding bibliographical item in a References section
+    CitationType,
+    ## The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
+    erefBody
+
+erefAttributes =
     ## Whether the reference is to be treated as normative or informative, particularly in the context of normative documents such as standards
     attribute normative { xsd:boolean }?,
     ## Form that the bibliographic citation should take when it is rendered
     attribute citeas { text },
     ## The type of Reference Element, prescribing how it is to be rendered
-    attribute type { ReferenceFormat },
+    attribute type { ReferenceFormat }?,
     ## Alternate text, used for accessibility
-    attribute alt { text }?,
-    ## Reference cross-reference: modelled as cross-reference to the corresponding bibliographical item in a References section
-    CitationType,
-    ## The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
-    PureTextElement+
+    attribute alt { text }?
 
 ## A reference to an external document or resource
 hyperlink =
   element link {
+    HyperlinkAttributes,
+    PureTextElement+
+
+HyperlinkAttributes =
     ## The location or online identifier of the external document or resource
     attribute target { xsd:anyURI },
     ## The type of Reference Element, prescribing how it is to be rendered
@@ -871,21 +880,26 @@ hyperlink =
     ## Alternate text, used for accessibility
     attribute alt { text }?,
     ## The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
-    PureTextElement+
-}
 
 ## Inline element, which references an identifier of a document, a block in a document, or an element in a document
 xref =
   element xref {
+     XrefAttributes,
+     XrefBody
+}
+
+XrefAttributes =
      ## The identifier of a section, block or inlined element being referenced
      attribute target { xsd:IDREF },
      ## The type of Reference Element, prescribing how it is to be rendered
      attribute type { ReferenceFormat },
      ## Alternate text, used for accessibility
-     attribute alt { text }?,
+     attribute alt { text }?
+
+XrefBody =
      ## The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
      PureTextElement+
-}
+
 
 ## Inline reference to a paragraph or paragraphs, appearing as a footnote.
 ## The target of a footnote is the location it is embedded in within the text
@@ -910,18 +924,18 @@ callout =
 ## Container for image content
 image = element image { 
     RequiredId,
-    ImageAttr
+    ImageAttributes
 }
 
 ## Container for image content: optional ID attributes recursively (for use in Relaton, metadata)
 image-no-id = element image { 
     OptionalId,
-    ImageAttr
+    ImageAttributes
 }
 
-ImageAttr =
-    MediaAttr,
-    MediaAccessibilityAttr,
+ImageAttributes =
+    MediaAttributes,
+    MediaAccessibilityAttributes,
     ## Height of image
     attribute width { ImageSize }?,
     ## Width of image
@@ -939,7 +953,7 @@ ImageSize = xsd:string { pattern = "\d+([.]\d+)?(%?)" } | "auto"
 video =
   element video {
     RequiredId,
-    VideoAttr,
+    VideoAttributes,
     VideoBody
 }
 
@@ -947,13 +961,13 @@ video =
 video-no-id = 
   element video {
     OptionalId,
-    VideoAttr,
+    VideoAttributes,
     VideoBody
 }
 
-VideoAttr =
-    MediaAttr,
-    MediaAccessibilityAttr,
+VideoAttributes =
+    MediaAttributes,
+    MediaAccessibilityAttributes,
     ## Width of video
     attribute width { ImageSize }?,
     ## Height of video
@@ -967,7 +981,7 @@ VideoBody =
 audio =
   element audio {
     RequiredId,
-    AudioAttr,
+    AudioAttributes,
     AudioBody
 }
 
@@ -975,13 +989,13 @@ audio =
 audio-no-id =
   element audio {
     OptionalId,
-    AudioAttr,
+    AudioAttributes,
     AudioBody
 }
 
-AudioAttr =
-    MediaAttr,
-    MediaAccessibilityAttr
+AudioAttributes =
+    MediaAttributes,
+    MediaAccessibilityAttributes
 
 AudioBody =
     ## Alternative files to use as media
@@ -989,9 +1003,9 @@ AudioBody =
 
 ## Alternative file to use as media
 altsource =
-  element altsource { MediaAttr }
+  element altsource { MediaAttributes }
 
-MediaAttr =
+MediaAttributes =
     ## URI of the media file
     attribute src { xsd:anyURI },
     ## Type of the media file, in MIME
@@ -1000,7 +1014,7 @@ MediaAttr =
     ## (e.g. in Base64 encoding in the URI)
     attribute filename { text }?
 
-MediaAccessibilityAttr =
+MediaAccessibilityAttributes =
     ## Alternate text, supplied for accessibility
     attribute alt { text }?,
     ## Title, supplied for accessibility
@@ -1027,7 +1041,7 @@ annotation =
 ul =
   element ul {
     RequiredId,
-    UlAttr,
+    UlAttributes,
     UlBody
 }
 
@@ -1035,11 +1049,11 @@ ul =
 ul-no-id =
   element ul {
     OptionalId,
-    UlAttr,
+    UlAttributes,
     UlNoIdBody
 }
 
-UlAttr = empty
+UlAttributes = empty
 
 UlBody =
     ## List items
@@ -1057,7 +1071,7 @@ UlNoIdBody =
 li =
   element li {
     OptionalId,
-    LiAttr,
+    LiAttributes,
     LiBody
 }
 
@@ -1065,11 +1079,11 @@ li =
 li-no-id =
   element li {
     OptionalId,
-    LiAttr,
+    LiAttributes,
     LiNoIdBody
 }
 
-LiAttr = empty
+LiAttributes = empty
 
 LiBody =
     paragraph-with-footnote+
@@ -1081,7 +1095,7 @@ LiNoIdBody =
 ol =
   element ol {
     RequiredId,
-    OlAttr,
+    OlAttributes,
     OlBody
 }
 
@@ -1089,11 +1103,11 @@ ol =
 ol-no-id =
   element ol {
     OptionalId,
-    OlAttr,
+    OlAttributes,
     OlNoIdBody
 }
 
-OlAttr =
+OlAttributes =
     ## Type of numbering to be applied to the list items
     attribute type { ( "roman" | "alphabet" | "arabic" | "roman_upper" | "alphabet_upper" ) },
     ## Starting value for numbering of the list items; is a number, regardless of the type,
@@ -1116,7 +1130,7 @@ OlNoIdBody =
 dl =
   element dl {
     RequiredId,
-    DlAttr,
+    DlAttributes,
     DlBody
 }
 
@@ -1127,7 +1141,7 @@ dl-no-id =
     DlNoIdBody
 }
 
-DlAttr = empty
+DlAttributes = empty
 
 DlBody =
     ## Entry-Definition pair used to constitute a definition list
