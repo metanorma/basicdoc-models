@@ -366,7 +366,7 @@ in a document (e.g. sourcecode annotations)</a:documentation>
     </element>
   </define>
   <define name="NoteAttributes">
-    <ref name="NumberingAttrs"/>
+    <ref name="NumberingAttributes"/>
   </define>
   <define name="NoteBody">
     <oneOrMore>
@@ -1462,7 +1462,7 @@ Restricted recursively to contain only other such inline elements with no identi
       <attribute name="value">
         <a:documentation>Ruby annotation value</a:documentation>
       </attribute>
-      <ref name="LocalizedStringAttrs"/>
+      <ref name="LocalizedStringAttributes"/>
     </element>
   </define>
   <define name="ruby_annotation">
@@ -1471,7 +1471,7 @@ Restricted recursively to contain only other such inline elements with no identi
       <attribute name="value">
         <a:documentation>Ruby annotation value</a:documentation>
       </attribute>
-      <ref name="LocalizedStringAttrs"/>
+      <ref name="LocalizedStringAttributes"/>
     </element>
   </define>
   <define name="br">
@@ -1657,10 +1657,12 @@ which can be bookmarks as well as block or section references</a:documentation>
       <a:documentation>The identifier of a section, block or inlined element being referenced</a:documentation>
       <data type="IDREF"/>
     </attribute>
-    <attribute name="type">
-      <a:documentation>The type of Reference Element, prescribing how it is to be rendered</a:documentation>
-      <ref name="ReferenceFormat"/>
-    </attribute>
+    <optional>
+      <attribute name="type">
+        <a:documentation>The type of Reference Element, prescribing how it is to be rendered</a:documentation>
+        <ref name="ReferenceFormat"/>
+      </attribute>
+    </optional>
     <optional>
       <attribute name="alt">
         <a:documentation>Alternate text, used for accessibility</a:documentation>

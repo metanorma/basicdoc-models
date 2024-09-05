@@ -207,7 +207,7 @@ note-no-id =
     NoteNoIdBody
   }
 
-NoteAttributes = NumberingAttrs
+NoteAttributes = NumberingAttributes
 
 NoteBody =
     paragraph+
@@ -778,14 +778,14 @@ ruby = element ruby {
 ruby_pronunciation = element pronunciation {
   ## Ruby annotation value
   attribute value { text },
-  LocalizedStringAttrs
+  LocalizedStringAttributes
 }
 
 ## Ruby annotation giving information other than pronunciation of text
 ruby_annotation = element annotation {
   ## Ruby annotation value
   attribute value { text },
-  LocalizedStringAttrs
+  LocalizedStringAttributes
 }
 
 ## Line break
@@ -896,7 +896,7 @@ XrefAttributes =
      ## The identifier of a section, block or inlined element being referenced
      attribute target { xsd:IDREF },
      ## The type of Reference Element, prescribing how it is to be rendered
-     attribute type { ReferenceFormat },
+     attribute type { ReferenceFormat }?,
      ## Alternate text, used for accessibility
      attribute alt { text }?
 
