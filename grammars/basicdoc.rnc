@@ -42,13 +42,16 @@ LocaleType = text
 
 ## Group of blocks within text, which is a leaf node in the hierarchical organisation of text (does not contain any sections of its own)
 Basic-Section =
-    OptionalId,
-    LocalizedStringAttributes,
+    Basic-Section-Attributes,
     ## Title of the section
     section-title?,
     ## Blocks, containing the textual content of the section
     ## (but excluding subsections, which are only present in Hierarchical Sections)
     BasicBlock*
+
+Basic-Section-Attributes =
+    OptionalId,
+    LocalizedStringAttributes
 
 ## Sections containing zero or more bibliographical items (as described in Relaton), along with any prefatory text
 references =
@@ -204,7 +207,7 @@ note-no-id =
     NoteNoIdBody
   }
 
-NoteAttributes = empty
+NoteAttributes = NumberingAttrs
 
 NoteBody =
     paragraph+
@@ -674,8 +677,6 @@ FigureAttributes =
     attribute class { text }?
 
 FigureBody =
-     ## A URI or other reference intended to link to an externally hosted image (or equivalent)
-     source?,
      ## The caption of the block
      tname?, 
      ## Content of the figure
@@ -686,6 +687,8 @@ FigureBody =
      dl?,
      ## Notes whose scope is the current block
      note*
+     ## A URI or other reference intended to link to an externally hosted image (or equivalent)
+     source?,
 
 FigureNoIdBody =
      ## A URI or other reference intended to link to an externally hosted image (or equivalent)
@@ -870,6 +873,7 @@ erefAttributes =
 hyperlink =
   element link {
     HyperlinkAttributes,
+    ## The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
     PureTextElement+
 }
 
@@ -880,7 +884,6 @@ HyperlinkAttributes =
     attribute type { ReferenceFormat },
     ## Alternate text, used for accessibility
     attribute alt { text }?
-    ## The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
 
 ## Inline element, which references an identifier of a document, a block in a document, or an element in a document
 xref =
@@ -1026,11 +1029,14 @@ MediaAccessibilityAttributes =
 ## Mathematically formatted text
 stem =
   element stem {
-    ## The notation used to mathematically format the text
-    attribute type { "MathML" | "AsciiMath" | "LaTeX" },
+    StemAttributes,
     ## The content of the mathematically formatted text
     ( text | AnyElement )+
 }
+
+StemAttributes =
+    ## The notation used to mathematically format the text
+    attribute type { "MathML" | "AsciiMath" | "LaTeX" },
 
 annotation =
   element annotation {
