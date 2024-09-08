@@ -857,7 +857,7 @@ erefType =
     ## Reference cross-reference: modelled as cross-reference to the corresponding bibliographical item in a References section
     CitationType,
     ## The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
-    erefBody
+    ErefBody
 
 erefAttributes =
     ## Whether the reference is to be treated as normative or informative, particularly in the context of normative documents such as standards
@@ -904,6 +904,9 @@ XrefBody =
      ## The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
      PureTextElement+
 
+ErefBody =
+     ## The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `<xx>my link text</xx>`)
+     PureTextElement+
 
 ## Inline reference to a paragraph or paragraphs, appearing as a footnote.
 ## The target of a footnote is the location it is embedded in within the text
