@@ -881,7 +881,7 @@ HyperlinkAttributes =
     ## The location or online identifier of the external document or resource
     attribute target { xsd:anyURI },
     ## The type of Reference Element, prescribing how it is to be rendered
-    attribute type { ReferenceFormat },
+    attribute type { ReferenceFormat }?,
     ## Alternate text, used for accessibility
     attribute alt { text }?
 
