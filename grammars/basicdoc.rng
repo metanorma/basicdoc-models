@@ -1679,11 +1679,13 @@ which can be bookmarks as well as block or section references</a:documentation>
     </oneOrMore>
   </define>
   <define name="ErefBody">
-    <oneOrMore>
-      <ref name="PureTextElement">
-        <a:documentation>The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `&lt;xx&gt;my link text&lt;/xx&gt;`)</a:documentation>
-      </ref>
-    </oneOrMore>
+    <element name="display-text">
+      <oneOrMore>
+        <ref name="PureTextElement">
+          <a:documentation>The textual content of the element. The `text` is what we wish to show the link as (e.g., the "content" of `&lt;xx&gt;my link text&lt;/xx&gt;`)</a:documentation>
+        </ref>
+      </oneOrMore>
+    </element>
   </define>
   <define name="fn">
     <a:documentation>Inline reference to a paragraph or paragraphs, appearing as a footnote.
