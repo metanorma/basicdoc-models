@@ -380,7 +380,7 @@ sourececodebody = element body {
        text |
        ## Zero or more cross-references; these are intended to be embedded within the content string, and link to annotations
        callout
-    )+,
+    )+
 }
 
 ## Pre-formatted block. Wrapper for text to be rendered with fixed-width typeface, and preserving spaces including line breaks. 
