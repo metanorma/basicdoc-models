@@ -491,15 +491,14 @@ table-note-no-id = element note { paragraph-no-id }
 
 ## Sequence of cells to be displayed as a row in a table
 tr =
-  element tr { ( 
+  element tr { 
     TrAttributes,
     (
     ## Data cells in a table row
     td | 
     ## Header cells in a table row
     th 
-    )
-  )+
+    )+
 }
 
 TrAttributes = empty

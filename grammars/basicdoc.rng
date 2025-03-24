@@ -857,8 +857,8 @@ in case the table cannot be rendered accessibly (HTML 5)</a:documentation>
   <define name="tr">
     <a:documentation>Sequence of cells to be displayed as a row in a table</a:documentation>
     <element name="tr">
+      <ref name="TrAttributes"/>
       <oneOrMore>
-        <ref name="TrAttributes"/>
         <choice>
           <ref name="td">
             <a:documentation>Data cells in a table row</a:documentation>
