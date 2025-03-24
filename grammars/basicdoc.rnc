@@ -492,12 +492,17 @@ table-note-no-id = element note { paragraph-no-id }
 ## Sequence of cells to be displayed as a row in a table
 tr =
   element tr { ( 
+    TrAttributes,
+    (
     ## Data cells in a table row
     td | 
     ## Header cells in a table row
     th 
+    )
   )+
 }
+
+TrAttributes = empty
 
 ## Sequence of cells to be displayed as a row in a table: optional ID attributes recursively (for use in Relaton, metadata)
 tr-no-id =
