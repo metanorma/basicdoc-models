@@ -219,6 +219,12 @@ NoteNoIdBody =
 review =
   element review {
   RequiredId,
+  ReviewAttributes,
+  ## Reviewer comments content
+  paragraph+
+}
+
+ReviewAttributes =
   ## The party who has offered the comment
   attribute reviewer { text },
   ## The type of reviewer comment
@@ -229,10 +235,7 @@ review =
   ## If not provided, the comment applies in the vicinity of the place it has been inserted into the text
   attribute from { xsd:IDREF }?,
   ## Identifier for the end of the text to which the comment applies
-  attribute to { xsd:IDREF }?,
-  ## Reviewer comments content
-  paragraph+
-}
+  attribute to { xsd:IDREF }?
 
 NumberingAttributes =
     ## Do not number this block in rendering
