@@ -921,11 +921,17 @@ ErefBody = element display-text {
 ## The target of a footnote is the location it is embedded in within the text
 fn =
   element fn {
-    ## The number of the footnote, used to identify it visually
-    attribute reference { text },
+    FnAttributes,
+    FnBody
+}
+
+FnBody =
     ## The content of the footnote
     paragraph+
-}
+
+FnAttributes =
+    ## The number of the footnote, used to identify it visually
+    attribute reference { text }
 
 ## Inline reference to a paragraph or paragraphs, appearing as annotation of source code
 callout =
