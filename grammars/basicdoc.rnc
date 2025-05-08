@@ -132,6 +132,9 @@ paragraph =
 ## The alignment of the paragraph against the margins of the document
 Alignments = ( "left" | "right" | "center" | "justified" )
 
+## Type of cross-references to elements. In BasicDoc, these always point to id { xsd:ID } 
+IdRefType = xsd:IDREF
+
 ## Mandatory anchor of element, to be used for cross-references within the document
 RequiredId = 
     attribute id { xsd:ID }
@@ -233,9 +236,9 @@ ReviewAttributes =
   attribute date { xsd:dateTime }?,
   ## Identifier for the start of the text or point in the text to which the comment applies.
   ## If not provided, the comment applies in the vicinity of the place it has been inserted into the text
-  attribute from { xsd:IDREF }?,
+  attribute from { IdRefType }?,
   ## Identifier for the end of the text to which the comment applies
-  attribute to { xsd:IDREF }?
+  attribute to { IdRefType }?
 
 NumberingAttributes =
     ## Do not number this block in rendering
@@ -806,7 +809,7 @@ pagebreak = element pagebreak { empty }
 index = element index {
   ## A reference to an anchor element (typically a bookmark), 
   ## to indicate that the index range covers a range of locations between the current index element and the `to` anchor
-  attribute to { xsd:IDREF }?,
+  attribute to { IdRefType }?,
   ## Primary index term to be recorded at the current location
   index-primary,
   ## Secondary index term to be recorded at the current location
@@ -901,7 +904,7 @@ xref =
 
 XrefAttributes =
      ## The identifier of a section, block or inlined element being referenced
-     attribute target { xsd:IDREF },
+     attribute target { IdRefType },
      ## The type of Reference Element, prescribing how it is to be rendered
      attribute type { ReferenceFormat }?,
      ## Alternate text, used for accessibility
@@ -938,7 +941,7 @@ callout =
   element callout {
     ## The target of the callout is understood to be the location of the callout within the source code; 
     ## the extent of the target is not expressed overtly
-    attribute target { xsd:IDREF },
+    attribute target { IdRefType },
     ## The label of the callout, used to identify its target within the source code
     text
   }
