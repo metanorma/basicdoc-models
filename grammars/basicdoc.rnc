@@ -97,8 +97,8 @@ AmendType =
     attribute title { text }?,
     ## The location(s) in the original document which have undergone the change described in this block
     element location { (locality | localityStack)* }?,
-    ## Description of the change described in this block
-    element description { BasicBlock* }?,
+    ## Description(s) of the change described in this block
+    element description { BasicBlock+ }*,
     ## New content to be added to the document; applicable to add and modify
     element newcontent {
         OptionalId,
