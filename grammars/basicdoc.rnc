@@ -724,10 +724,10 @@ TextElement =
 ## but which does not contain any associated identifiers or references to identifiers.
 ## Restricted recursively to contain only other such inline elements with no identifiers or references to identifiers
 PureTextElement =
-  text | pure_em | pure_strong | sub | sup | pure_tt | pure_underline | pure_strike | pure_smallcap | br
+  text | pure_em | pure_strong | sub | sup | pure_tt | pure_underline | pure_strike | pure_smallcap | br | stem
 
 ## Contents of TextElement tags: leaves out tags that should occur only at top level of block: bookmark image hr pagebreak
-NestedTextElement = PureTextElement|stem|eref|xref|hyperlink|index|index-xref|ruby|keyword
+NestedTextElement = PureTextElement|eref|xref|hyperlink|index|index-xref|ruby|keyword
 
 source = element source { TypedUri }
 
