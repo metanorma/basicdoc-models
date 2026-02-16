@@ -99,10 +99,12 @@ AmendType =
     element location { (locality | localityStack)* }?,
     ## Description(s) of the change described in this block
     element description { BasicBlock+ }*,
-    ## New content to be added to the document; applicable to add and modify
+    ## New content to be added to the document; applicable to add and modify.
+    ## Can be blocks and/or sections
     element newcontent {
         OptionalId,
-        BasicBlock*
+        BasicBlock*,
+        section*
     }?,
     ## Classification of the change
     classification*,

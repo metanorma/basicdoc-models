@@ -1,0 +1,15 @@
+class NewContentBlock {
+  definition {
+    Change contents, for use in AmendBlock.
+  }
+  +newContentBlocks: BasicBlock[0..*] {
+    definition {
+      New blocks to be added to the document.
+    }
+  }
+  clause: HierarchicalSection[0..*] {
+    definition {
+      New clauses to be added to the document.
+    }
+  }
+}

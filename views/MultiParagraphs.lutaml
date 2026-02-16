@@ -8,6 +8,9 @@ diagram MultiParagraphs {
   include ../models/multiparagraphs/AmendBlock.lutaml
   include ../models/multiparagraphs/Classification.lutaml
   include ../models/multiparagraphs/ChangeType.lutaml
+  include ../models/multiparagraphs/NewContentBlock.lutaml
+  include ../models/sections/HierarchicalSection.lutaml
+  include ../models/blocks/BasicBlock.lutaml
   include ../models/bibdata/Contributor.lutaml
   include ../models/bibdata/LocalityStack.lutaml
   include ../models/bibdata/BibItemLocality.lutaml
@@ -66,6 +69,21 @@ diagram MultiParagraphs {
   association {
     owner AmendBlock
     member LocalityStack
+    owner_type direct
+  }
+  association {
+    owner AmendBlock
+    member NewContentBlock
+    owner_type direct
+  }
+  association {
+    owner NewContentBlock
+    member BaasicBlock
+    owner_type direct
+  }
+  association {
+    owner NewContentBlock
+    member HierarchicalSection
     owner_type direct
   }
 }
