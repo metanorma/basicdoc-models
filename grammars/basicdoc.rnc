@@ -95,6 +95,8 @@ AmendType =
     attribute path_end { text }?,
     ## Optional caption of this block
     attribute title { text }?,
+    ## For an "add" change, whether the change is added before or after the location
+    attribute position { "before" | "after" }?,
     ## The location(s) in the original document which have undergone the change described in this block
     element location { (locality | localityStack)* }?,
     ## Description(s) of the change described in this block
