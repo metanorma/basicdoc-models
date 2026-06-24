@@ -1,0 +1,17 @@
+= Vendored MathML 3.0 RelaxNG grammar
+
+`mathml3*.rnc` are the **unmodified** W3C MathML 3.0 RelaxNG Compact schema
+files, retrieved from https://www.w3.org/Math/RelaxNG/mathml3/ and used under the
+https://www.w3.org/Consortium/Legal/2002/copyright-software-20021231[W3C Software
+and Document License].
+
+`metanorma-mathml.rnc` is the metanorma wrapper: it `include`s the W3C grammar
+(`start = math`) and augments it with metanorma's owned extension attributes
+(currently `data-metanorma-numberformat` on `<mn>`). `basicdoc.rnc` references it
+via `mathml = external "mathml/metanorma-mathml.rnc"`, so the wrapper's scope
+contains the W3C grammar and avoids any define-name collision with basicdoc.
+
+MathML version is **3** (v4 is not yet officially published). The authoritative
+list of `data-metanorma-numberformat` parameters lives in plurimath
+(`Formatter::Standard::DEFAULT_OPTIONS`); add new `data-metanorma-*` attributes to
+`metanorma-mathml.rnc` as they are coined. See metanorma/basicdoc-models#35.
