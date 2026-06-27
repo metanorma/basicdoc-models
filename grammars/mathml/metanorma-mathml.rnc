@@ -5,7 +5,18 @@
 # Authoritative param list for data-metanorma-numberformat lives in plurimath
 # (Formatter::Standard::DEFAULT_OPTIONS); see metanorma/basicdoc-models#35.
 
-include "mathml3.rnc"
+include "mathml3.rnc" {
+  # Foreign annotation-xml considered harmful: the metanorma lutaml-model
+  # serialiser emits no foreign markup, so the W3C annotation-xml escape hatch
+  # (and its anyElement wildcard) is forbidden in the MathML we process. This
+  # also removes the untyped `id` attribute the wildcard permits, which clashes
+  # with xsd:ID under RELAX NG ID-type consistency (the callout-annotation
+  # error). metanorma only emits presentation MathML; pre-empting the escape
+  # hatch before semantic MathML is ever wired. Text-only <annotation> is
+  # retained. See metanorma/basicdoc-models#35
+  annotation-xml = notAllowed
+  anyElement = notAllowed
+}
 
 # metanorma number-formatting hint on <mn>; opaque comma-separated option
 # string parsed at presentation time (no-namespace data- attribute, which
