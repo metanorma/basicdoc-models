@@ -34,16 +34,11 @@ mn.attributes &= attribute data-metanorma-numberformat { text }?
 annotation-xml &= notAllowed
 anyElement &= notAllowed
 
-# KNOWN v4 LOOSENING, deliberately left in place: MathML 4's token content
-# model (mathml4-core `textorHTML`) admits embedded XHTML (`h:*`) and
-# `svg:svg` inside token elements (mi/mn/mo/mtext/ms). RELAX NG include
-# semantics cannot subtract those branches from a wrapper: `combine` can only
-# extend or forbid a define outright (forbidding `textorHTML` would forbid
-# plain text content too), and an include-override cannot reach a define in a
-# nested include (same libxml2 constraint as above). Since metanorma's
-# serialiser never emits embedded HTML/SVG in math tokens, this admits
-# content metanorma will not produce; the `anyElement` ban above at least
-# empties the svg:svg branch's children. If this proves harmful (e.g. via
-# the wildcard attributes on the h:* branch), options are a marked
-# modification to the vendored core file, or an upstream request for a
-# parameterisable hook. See metanorma/basicdoc-models#39.
+# NOTE on MathML 4's token content model: upstream `textorHTML`
+# (mathml4-core.rnc) admits embedded XHTML/SVG inside token elements
+# (mi/mn/mo/mtext/ms). That loosening is removed as a marked modification in
+# the vendored core file itself: libxml2's RELAX NG rejects the compiled svg
+# branch outright (breaking all passthrough validation), and metanorma's
+# serialiser never emits embedded HTML/SVG in math tokens. See the
+# METANORMA MODIFICATION comment in mathml4-core.rnc and
+# metanorma/basicdoc-models#39.

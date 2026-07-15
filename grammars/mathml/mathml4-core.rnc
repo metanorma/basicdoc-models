@@ -222,7 +222,16 @@ color =  xsd:string {
 TokenExpression = mi|mn|mo|mtext|mspace|ms
 
 
-textorHTML = text | math | element (h:*) {attribute * {text}*,(textorHTML)*} | element svg:svg {attribute * {text}*, anyElement*}
+# METANORMA MODIFICATION (basicdoc-models#39): upstream admits embedded
+# XHTML (h:*) and svg:svg inside token elements. libxml2's RELAX NG rejects
+# the compiled grammar outright on the svg branch ("Element svg attributes
+# have a content type error", wildcard-attribute constructs), which breaks
+# every passthrough validation in metanorma-standoc; and metanorma's
+# serialiser never emits embedded HTML/SVG in math tokens (the wrapper bans
+# foreign markup generally). Both foreign branches are removed.
+# Upstream text was:
+#   textorHTML = text | math | element (h:*) {attribute * {text}*,(textorHTML)*} | element svg:svg {attribute * {text}*, anyElement*}
+textorHTML = text | math
 			    
 token.content = (textorHTML)*
 		    
