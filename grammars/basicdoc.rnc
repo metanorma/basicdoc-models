@@ -1068,9 +1068,10 @@ latexmath = element latexmath { text }
 ## Encoding of AsciiMath
 asciimath = element asciimath { text }
 
-## Encoding of MathML: the official W3C MathML 3.0 grammar (namespace
+## Encoding of MathML: the official W3C MathML 4 grammar (namespace
 ## http://www.w3.org/1998/Math/MathML), via the metanorma wrapper in
-## grammars/mathml/. See grammars/mathml/README.adoc and basicdoc-models#35.
+## grammars/mathml/. See grammars/mathml/README.adoc, basicdoc-models#35,
+## and the MathML 3 -> 4 migration: basicdoc-models#39 / metanorma#585.
 mathml = external "mathml/metanorma-mathml.rnc"
 
 StemAttributes =
