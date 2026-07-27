@@ -817,9 +817,9 @@ index = element index {
   ## Primary index term to be recorded at the current location
   index-primary,
   ## Secondary index term to be recorded at the current location
-  index-secondary,
+  index-secondary?,
   ## Tertiary index term to be recorded at the current 
-  index-tertiary
+  index-tertiary?
 }
 
 ## A reference to an index term, cross-referenced within an index as an
@@ -831,9 +831,9 @@ index-xref = element index-xref {
   ## The primary index term to be cross-referenced
   index-primary,
   ## The secondary index term to be cross-referenced
-  index-secondary,
+  index-secondary?,
   ## The tertiary index term to be cross-referenced
-  index-tertiary,
+  index-tertiary?,
   ## The index term to be cross-referenced to
   element target { PureTextElement+ }
 }
