@@ -1,24 +1,27 @@
+# MathML 4 (Content)
+# ##################
 
-#     This is the Mathematical Markup Language (MathML) 3.0, an XML
-#     application for describing mathematical notation and capturing
-#     both its structure and content.
-#
-#     Copyright 1998-2014 W3C (MIT, ERCIM, Keio, Beihang)
+#     Copyright 1998-2026 W3C (MIT, ERCIM, Keio, Beihang)
 # 
 #     Use and distribution of this code are permitted under the terms
 #     W3C Software Notice and License
 #     http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
 
-include "mathml3-strict-content.rnc"{
-  cn.content = (text | mglyph | sep | PresentationExpression)* 
+default namespace m = "http://www.w3.org/1998/Math/MathML"
+namespace local = ""
+						
+include "mathml4-strict-content.rnc"{
+  cn.content = (text | sep | PresentationExpression)* 
   cn.attributes = CommonAtt, DefEncAtt, attribute type {text}?, base?
 
   ci.attributes = CommonAtt, DefEncAtt, ci.type?
   ci.type = attribute type {text}
-  ci.content = (text | mglyph | PresentationExpression)* 
+  ci.content = (text | PresentationExpression)* 
 
   csymbol.attributes = CommonAtt, DefEncAtt, attribute type {text}?,cd?
-  csymbol.content = (text | mglyph | PresentationExpression)* 
+  csymbol.content = (text | PresentationExpression)* 
+
+  annotation-xml.attributes |= CommonAtt, cd?, name?, encoding?
 
   bvar = element bvar {CommonAtt, ((ci | semantics-ci) & degree?)}
 
@@ -31,11 +34,39 @@ include "mathml3-strict-content.rnc"{
   bind.content = apply.content
 }
 
+NonMathMLAtt |= attribute (* - (local:*|m:*)) {xsd:string}
+
+# METANORMA MODIFICATION (basicdoc-models#39): upstream re-adds
+# `attribute alttext` to math.attributes here, but mathml4-core.rnc already
+# defines it on math; RELAX NG's duplicate-attribute restriction rejects the
+# composed grammar (jing: 'duplicate attribute "alttext"').
+# Upstream text was:
+#   math.attributes &=
+#       attribute alttext {text}?
+
+# METANORMA MODIFICATION (basicdoc-models#39): upstream re-adds the
+# `data-other` placeholder to MathMLDataAttributes here; dropped for the
+# same reason as the core placeholder (see mathml4-core.rnc modification).
+# Upstream text was:
+#   MathMLDataAttributes &=
+#     attribute data-other {text}?
+
+CommonAtt &=
+		   NonMathMLAtt*,
+                   MathMLDataAttributes,
+                   attribute class {xsd:NCName}?,
+                   attribute style {xsd:string}?,
+                   attribute href {xsd:anyURI}?,
+                   attribute intent {text}?,
+                   attribute arg {xsd:NCName}?
+
 base = attribute base {text}
 
 
 sep = element sep {empty}
 PresentationExpression |= notAllowed
+DefEncAtt = attribute encoding {xsd:string}?,
+            attribute definitionURL {xsd:anyURI}?
 
 
 DomainQ = (domainofapplication|condition|interval|(lowlimit,uplimit?))*
@@ -62,19 +93,6 @@ piecewise = element piecewise {CommonAtt, DefEncAtt,(piece* & otherwise?)}
 piece = element piece {CommonAtt, DefEncAtt, ContExp, ContExp}
 
 otherwise = element otherwise {CommonAtt, DefEncAtt, ContExp}
-
-
-DeprecatedContExp = reln | fn | declare
-ContExp |= DeprecatedContExp
-
-reln = element reln {ContExp*}
-fn = element fn {ContExp}
-declare = element declare {attribute type {xsd:string}?,
-                           attribute scope {xsd:string}?,
-                           attribute nargs {xsd:nonNegativeInteger}?,
-                           attribute occurrence {"prefix"|"infix"|"function-model"}?,
-                           DefEncAtt, 
-                           ContExp+}
 
 
 interval.class = interval
@@ -308,15 +326,15 @@ arcsech = element arcsech { CommonAtt, DefEncAtt, empty}
 arcsinh = element arcsinh { CommonAtt, DefEncAtt, empty}
 arctanh = element arctanh { CommonAtt, DefEncAtt, empty}
 
-nary-stats.class = mean | sdev | variance | median | mode
+nary-stats.class = mean | median | mode | sdev | variance
 ContExp |= nary-stats.class
 
 
 mean = element mean { CommonAtt, DefEncAtt, empty}
-sdev = element sdev { CommonAtt, DefEncAtt, empty}
-variance = element variance { CommonAtt, DefEncAtt, empty}
 median = element median { CommonAtt, DefEncAtt, empty}
 mode = element mode { CommonAtt, DefEncAtt, empty}
+sdev = element sdev { CommonAtt, DefEncAtt, empty}
+variance = element variance { CommonAtt, DefEncAtt, empty}
 
 nary-constructor.class = vector | matrix | matrixrow
 ContExp |= nary-constructor.class
