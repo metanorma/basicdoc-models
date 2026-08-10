@@ -543,18 +543,18 @@ TdAttributes =
 
 TdBody =
     (
-      ## Table cell is a block
-      (TextElement )* |
-      ## Table cell contains a block
-      paragraph-with-footnote+
+      ## Table cell is a block; footnotes admitted inline (metanorma-model-iso#154)
+      ( TextElement | fn )* |
+      ## Table cell contains a block; notes admitted alongside paragraphs (metanorma-model-iso#157)
+      ( paragraph-with-footnote | note )+
     )
 
 TdNoIdBody =
     (
-      ## Table cell is a block
-      (TextElement )* |
-      ## Table cell contains a block
-      paragraph-with-footnote-no-id+
+      ## Table cell is a block; footnotes admitted inline (metanorma-model-iso#154)
+      ( TextElement | fn )* |
+      ## Table cell contains a block; notes admitted alongside paragraphs (metanorma-model-iso#157)
+      ( paragraph-with-footnote-no-id | note-no-id )+
     )
 
 ## Textual content constituting a basic building block of a table, treated as a header: header cell
@@ -599,16 +599,18 @@ ExampleAttributes =
 ExampleBody =
     ## The caption of the example
     tname?,
-    ## Content of the example
-    ( formula | ul | ol | dl | quote | sourcecode | paragraph-with-footnote )+,
+    ## Content of the example. note is admitted interleaved as attested authoring
+    ## practice (metanorma-model-iso#157, maintainer hierarchy reservation recorded there)
+    ( formula | ul | ol | dl | quote | sourcecode | paragraph-with-footnote | note )+,
     ## Notes whose scope is the current block
     note*
 
 ExampleNoIdBody =
     ## The caption of the example
     tname?,
-    ## Content of the example
-    ( formula-no-id | ul-no-id | ol-no-id | dl-no-id | quote-no-id | sourcecode-no-id | paragraph-with-footnote-no-id )+,
+    ## Content of the example. note is admitted interleaved as attested authoring
+    ## practice (metanorma-model-iso#157)
+    ( formula-no-id | ul-no-id | ol-no-id | dl-no-id | quote-no-id | sourcecode-no-id | paragraph-with-footnote-no-id | note-no-id )+,
     ## Notes whose scope is the current block
     note-no-id*
 
