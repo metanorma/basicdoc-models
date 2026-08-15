@@ -599,20 +599,31 @@ ExampleAttributes =
 ExampleBody =
     ## The caption of the example
     tname?,
-    ## Content of the example. note is admitted interleaved as attested authoring
-    ## practice (metanorma-model-iso#157, maintainer hierarchy reservation recorded there)
-    ( formula | ul | ol | dl | quote | sourcecode | paragraph-with-footnote | note )+,
+    ## Content of the example
+    ExampleBodyContent+,
     ## Notes whose scope is the current block
     note*
+
+## Content alternatives of an example. Named as an extension hook: higher
+## layers may admit further alternatives additively (|=) without copying the
+## example model (metanorma-model-iso#160). note is admitted interleaved as
+## attested authoring practice (metanorma-model-iso#157, maintainer hierarchy
+## reservation recorded there)
+ExampleBodyContent =
+    formula | ul | ol | dl | quote | sourcecode | paragraph-with-footnote | note
 
 ExampleNoIdBody =
     ## The caption of the example
     tname?,
-    ## Content of the example. note is admitted interleaved as attested authoring
-    ## practice (metanorma-model-iso#157)
-    ( formula-no-id | ul-no-id | ol-no-id | dl-no-id | quote-no-id | sourcecode-no-id | paragraph-with-footnote-no-id | note-no-id )+,
+    ## Content of the example
+    ExampleNoIdBodyContent+,
     ## Notes whose scope is the current block
     note-no-id*
+
+## Content alternatives of the no-id example variant; extension hook as
+## ExampleBodyContent (metanorma-model-iso#160)
+ExampleNoIdBodyContent =
+    formula-no-id | ul-no-id | ol-no-id | dl-no-id | quote-no-id | sourcecode-no-id | paragraph-with-footnote-no-id | note-no-id
 
 ## A sidebar block outside of the main flow of text, conveying particular warnings or supplementary text to the reader
 admonition =
