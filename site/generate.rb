@@ -76,17 +76,21 @@ module BasicdocSite
     ERB.new(template, trim_mode: "-").result(b)
   end
 
-  def write_page(path, inner_html, title:, description:, index_page:, depth:)
+  def write_page(path, inner_html, title:, description:, index_page:, depth:, git_sha:, build_date:)
     layout_html = render("layout.html.erb",
                          { content: inner_html,
                            page_title: title,
                            page_description: description,
-                           index_page: index_page },
+                           index_page: index_page,
+                           git_sha: git_sha,
+                           build_date: build_date },
                          depth: depth)
     File.write(path, layout_html)
   end
 
   def build!
+    git_sha = `git rev-parse --short HEAD`.strip
+    build_date = Time.now.utc.strftime("%Y-%m-%d")
     plates = load_plates
     domains = plates.flat_map(&:domains).uniq.sort
     model_count = Dir[ROOT.join("models/**/*.lml")].size
@@ -104,12 +108,14 @@ module BasicdocSite
     end
 
     index_html = render("index.html.erb",
-                        { plates: plates, domains: domains, model_count: model_count },
+                        { plates: plates, domains: domains, model_count: model_count,
+                          git_sha: git_sha, build_date: build_date },
                         depth: 0)
     write_page(OUT.join("index.html"), index_html,
                title: "Basicdoc Models — atlas",
                description: "Atlas of BasicDocument / SecureDoc LutaML model diagrams.",
-               index_page: true, depth: 0)
+               index_page: true, depth: 0,
+               git_sha: git_sha, build_date: build_date)
 
     plates.each_with_index do |plate, i|
       vars = {
@@ -119,11 +125,13 @@ module BasicdocSite
         prev_plate: i.positive? ? plates[i - 1] : nil,
         next_plate: plates[i + 1]
       }
-      model_html = render("model.html.erb", vars, depth: 1)
+      model_html = render("model.html.erb",
+                          vars.merge(git_sha: git_sha, build_date: build_date), depth: 1)
       write_page(OUT.join("models/#{plate.slug}.html"), model_html,
                  title: "#{plate.title} — Basicdoc Models",
                  description: "UML diagram plate for #{plate.title} in the Basicdoc model atlas.",
-                 index_page: false, depth: 1)
+                 index_page: false, depth: 1,
+                 git_sha: git_sha, build_date: build_date)
     end
 
     File.write(OUT.join(".nojekyll"), "")

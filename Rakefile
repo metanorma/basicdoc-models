@@ -76,8 +76,70 @@ task :parity do
   puts "parity: OK (#{VIEWS.size} views, #{Dir['models/**/*.lml'].size} LML model files)"
 end
 
-desc "Render, verify PNGs, and check LML/RNC parity"
-task check: %i[render verify parity]
+BUILTIN_TYPES = %w[Integer Boolean Float Text].freeze
+
+def lml_defined_types(path)
+  File.read(path).scan(/^\s*(?:class|enum|data_type|primitive)\s+([A-Za-z_][A-Za-z0-9_]*)/).flatten
+end
+
+desc "Lint LML semantics: names, type resolution, view closure, visibility, definitions"
+task :lint do
+  errors = []
+  model_files = Dir["models/**/*.lml"]
+
+  # 1. file name must be a type defined in that file; 2. no duplicate definitions
+  defined = {}
+  model_files.each do |f|
+    types = lml_defined_types(f)
+    stem = File.basename(f, ".lml")
+    errors << "#{f}: file name is not a type defined in this file (defines: #{types.join(', ')})" unless types.include?(stem)
+    types.each do |t|
+      (defined[t] ||= []) << f
+    end
+    # 5. class/enum bodies must carry a definition
+    errors << "#{f}: class/enum without a definition block" if File.read(f) =~ /^\s*(class|enum)\s/ && !File.read(f).include?("definition {")
+  end
+  defined.each do |t, files|
+    errors << "duplicate type #{t}: #{files.join(', ')}" if files.size > 1
+  end
+
+  # 3. every attribute type must resolve to a defined type or a built-in
+  model_files.each do |f|
+    File.foreach(f).with_index do |line, i|
+      m = line.match(/^\s*([+#-]?)([a-z_][A-Za-z0-9_]*)\s*:\s*([^\[{]+?)\s*\[/)
+      next unless m
+
+      visibility, name, raw_type = m.captures
+      # 4. attributes need an explicit visibility marker
+      errors << "#{f}:#{i + 1}: attribute '#{name}' lacks a visibility marker (+/#/-)" if visibility.empty?
+      type = raw_type.sub(/<<[^>]*>>\s*/, "").strip
+      next if defined.key?(type) || BUILTIN_TYPES.include?(type)
+
+      errors << "#{f}:#{i + 1}: attribute '#{name}' references undefined type '#{type}'"
+    end
+  end
+
+  # 6. view association owners/members must resolve within the view's include closure
+  Dir["views/*.lml"].each do |v|
+    closure = {}
+    File.read(v).scan(/^\s*include\s+(\S+)/).flatten.each do |inc|
+      target = File.expand_path(inc, File.dirname(v))
+      lml_defined_types(target).each { |t| closure[t] = true } if File.exist?(target)
+    end
+    File.foreach(v).with_index do |line, i|
+      m = line.match(/^\s*(owner|member)\s+([A-Za-z_][A-Za-z0-9_]*)/)
+      next unless m
+
+      errors << "#{v}:#{i + 1}: association #{m[1]} '#{m[2]}' not in include closure" unless closure[m[2]]
+    end
+  end
+
+  abort "lint: #{errors.size} issue(s):\n  #{errors.join("\n  ")}" unless errors.empty?
+  puts "lint: OK (#{model_files.size} model files, #{defined.size} types)"
+end
+
+desc "Render, verify PNGs, lint, and check LML/RNC parity"
+task check: %i[render verify lint parity]
 
 desc "Build static model atlas into _site/ from views/*.lml metadata + images/"
 task :site do

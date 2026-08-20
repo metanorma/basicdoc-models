@@ -7,7 +7,7 @@ class ReviewBlock {
       The party who has offered the comment.
     }
   }
-  +date: DateTime[0..1] {
+  +date: Iso8601DateTime[0..1] {
     definition {
       The date when the comment was made.
     }
