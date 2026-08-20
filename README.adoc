@@ -54,7 +54,7 @@ bundle exec rake check    # render + verify + parity
 bundle exec rake clean
 ----
 
-CI runs the same build on ubuntu, macOS and Windows.
+CI runs the same build on ubuntu-latest.
 
 == Basic Document UML Models
 
