@@ -12,7 +12,7 @@ class ContributionElementMetadata {
        The party who made the contribution, as described through the `contributor` element in Relaton.
      }
   }
-  +integrityValue: integrityValue[0..*] {
+  +integrityValue: IntegrityValue[0..*] {
      definition {
         A digital signature of the contribution.
      }

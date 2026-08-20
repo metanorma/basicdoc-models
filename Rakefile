@@ -6,10 +6,13 @@ IMAGES = VIEWS.pathmap("images/%n.png")
 desc "Render diagrams from views (default)"
 task render: IMAGES
 
-rule(%r{^images/.+\.png$}) do |t|
-  source = t.name.sub(/^images\//, "views/").sub(/\.png$/, ".lml")
+rule(
+  %r{^images/.+\.png$} => [
+    proc { |tn| tn.sub(/^images\//, "views/").sub(/\.png$/, ".lml") }
+  ]
+) do |t|
   mkdir_p "images"
-  sh "lutaml-lml", "generate", source, "-o", t.name, "-t", "png"
+  sh "lutaml-lml", "generate", t.source, "-o", t.name, "-t", "png"
 end
 
 desc "Remove rendered diagrams (only those regenerable from views)"

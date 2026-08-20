@@ -79,7 +79,7 @@ diagram MultiParagraphs {
   }
   association {
     owner NewContentBlock
-    member BaasicBlock
+    member BasicBlock
     owner_type direct
   }
   association {
