@@ -1,4 +1,85 @@
 diagram BasicDocument {
   title "BasicDocument"
+
   include ../models/BasicDocument.lml
+  include ../models/change/UniqueIdentifier.lml
+  include ../models/bibdata/BibData.lml
+  include ../models/bibdata/BibliographicItem.lml
+  include ../models/bibdata/BibDataExtensionType.lml
+  include ../models/bibdata/DocumentType.lml
+  include ../models/sections/BasicSection.lml
+  include ../models/sections/HierarchicalSection.lml
+  include ../models/sections/ContentSection.lml
+  include ../models/sections/ReferencesSection.lml
+  include ../models/contribmetadata/IntegrityValue.lml
+  include ../models/blocks/BasicBlock.lml
+
+  association {
+    owner BasicDocument
+    member UniqueIdentifier
+    member_type direct
+  }
+  association {
+    owner BasicDocument
+    member BibData
+    member_type direct
+  }
+  association {
+    owner BasicDocument
+    member BasicSection
+    member_type direct
+  }
+  association {
+    owner BasicDocument
+    member ReferencesSection
+    member_type direct
+  }
+  association {
+    owner BasicDocument
+    member IntegrityValue
+    member_type direct
+  }
+
+  association {
+    owner BibData
+    member BibliographicItem
+    member_type inheritance
+  }
+  association {
+    owner BibDataExtensionType
+    member BibData
+    member_type direct
+  }
+  association {
+    owner DocumentType
+    member BibDataExtensionType
+    member_type direct
+  }
+
+  association {
+    owner BasicSection
+    member HierarchicalSection
+    owner_type inheritance
+  }
+  association {
+    owner HierarchicalSection
+    member ContentSection
+    owner_type inheritance
+  }
+  association {
+    owner BasicSection
+    member ReferencesSection
+    owner_type inheritance
+  }
+  association {
+    owner BasicSection
+    member BasicBlock
+    member_type direct
+  }
+
+  association {
+    owner ReferencesSection
+    member BibliographicItem
+    member_type direct
+  }
 }

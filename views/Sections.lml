@@ -1,9 +1,12 @@
 diagram Sections {
   title "Sections"
+
   include ../models/sections/BasicSection.lml
   include ../models/sections/HierarchicalSection.lml
   include ../models/sections/ContentSection.lml
   include ../models/sections/ReferencesSection.lml
+  include ../models/blocks/BasicBlock.lml
+  include ../models/bibdata/BibliographicItem.lml
 
   association {
     owner BasicSection
@@ -20,5 +23,19 @@ diagram Sections {
     member ReferencesSection
     owner_type inheritance
   }
-
+  association {
+    owner BasicSection
+    member BasicBlock
+    member_type direct
+  }
+  association {
+    owner HierarchicalSection
+    member HierarchicalSection
+    member_type direct
+  }
+  association {
+    owner ReferencesSection
+    member BibliographicItem
+    member_type direct
+  }
 }
