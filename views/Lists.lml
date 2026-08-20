@@ -1,13 +1,13 @@
 diagram Lists {
   title "Lists"
   include ../models/blocks/BasicBlock.lml
-  include ../models/lists/List.lml
-  include ../models/lists/ListItem.lml
-  include ../models/lists/UnorderedList.lml
-  include ../models/lists/OrderedList.lml
-  include ../models/lists/DefinitionList.lml
-  include ../models/lists/Definition.lml
-  include ../models/lists/OrderedListType.lml
+  include ../models/blocks/lists/List.lml
+  include ../models/blocks/lists/ListItem.lml
+  include ../models/blocks/lists/UnorderedList.lml
+  include ../models/blocks/lists/OrderedList.lml
+  include ../models/blocks/lists/DefinitionList.lml
+  include ../models/blocks/lists/Definition.lml
+  include ../models/blocks/lists/OrderedListType.lml
 
   association {
     owner BasicBlock

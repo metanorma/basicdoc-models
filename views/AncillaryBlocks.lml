@@ -2,12 +2,12 @@ diagram AncillaryBlocks {
   title "AncillaryBlocks"
   
   include ../models/blocks/BasicBlock.lml
-  include ../models/ancillaryblocks/FigureBlock.lml
-  include ../models/ancillaryblocks/Subfigure.lml
-  include ../models/ancillaryblocks/SourcecodeBlock.lml
-  include ../models/ancillaryblocks/FormulaBlock.lml
-  include ../models/ancillaryblocks/ExampleBlock.lml
-  include ../models/ancillaryblocks/LiteralBlock.lml
+  include ../models/blocks/ancillaryblocks/FigureBlock.lml
+  include ../models/blocks/ancillaryblocks/Subfigure.lml
+  include ../models/blocks/ancillaryblocks/SourcecodeBlock.lml
+  include ../models/blocks/ancillaryblocks/FormulaBlock.lml
+  include ../models/blocks/ancillaryblocks/ExampleBlock.lml
+  include ../models/blocks/ancillaryblocks/LiteralBlock.lml
 
   association {
     owner FigureBlock

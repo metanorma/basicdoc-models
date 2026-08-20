@@ -1,0 +1,5 @@
+class LocalityStack <<Relaton>> {
+  definition {
+    Boundary reference to Relaton's LocalityStack. Basicdoc does not define Relaton semantics; Relaton and downstream models provide the implementation.
+  }
+}

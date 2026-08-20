@@ -1,10 +1,10 @@
 diagram Paragraphs {
   title "Paragraphs"
   include ../models/blocks/BasicBlock.lml
-  include ../models/paragraphs/ParagraphBlock.lml
-  include ../models/paragraphs/ParagraphWithFootnote.lml
-  include ../models/paragraphs/TextAlignment.lml
-  include ../models/multiparagraphs/ParagraphsBlock.lml
+  include ../models/blocks/paragraphs/ParagraphBlock.lml
+  include ../models/blocks/paragraphs/ParagraphWithFootnote.lml
+  include ../models/blocks/paragraphs/TextAlignment.lml
+  include ../models/blocks/multiparagraphs/ParagraphsBlock.lml
 
   association {
     owner BasicBlock

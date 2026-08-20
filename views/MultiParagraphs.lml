@@ -1,20 +1,20 @@
 diagram MultiParagraphs {
   title "MultiParagraphs"
-  include ../models/paragraphs/ParagraphWithFootnote.lml
-  include ../models/multiparagraphs/ParagraphsBlock.lml
-  include ../models/multiparagraphs/QuoteBlock.lml
-  include ../models/multiparagraphs/ReviewBlock.lml
-  include ../models/multiparagraphs/AdmonitionBlock.lml
-  include ../models/multiparagraphs/AdmonitionType.lml
-  include ../models/multiparagraphs/AmendBlock.lml
-  include ../models/multiparagraphs/Classification.lml
-  include ../models/multiparagraphs/ChangeType.lml
-  include ../models/multiparagraphs/NewContentBlock.lml
+  include ../models/blocks/paragraphs/ParagraphWithFootnote.lml
+  include ../models/blocks/multiparagraphs/ParagraphsBlock.lml
+  include ../models/blocks/multiparagraphs/QuoteBlock.lml
+  include ../models/blocks/multiparagraphs/ReviewBlock.lml
+  include ../models/blocks/multiparagraphs/AdmonitionBlock.lml
+  include ../models/blocks/multiparagraphs/AdmonitionType.lml
+  include ../models/blocks/amend/AmendBlock.lml
+  include ../models/blocks/amend/Classification.lml
+  include ../models/blocks/amend/ChangeType.lml
+  include ../models/blocks/amend/NewContentBlock.lml
   include ../models/sections/HierarchicalSection.lml
   include ../models/blocks/BasicBlock.lml
-  include ../models/bibdata/Contributor.lml
-  include ../models/bibdata/LocalityStack.lml
-  include ../models/bibdata/BibItemLocality.lml
+  include ../models/bibdata/relaton/Contributor.lml
+  include ../models/bibdata/relaton/LocalityStack.lml
+  include ../models/bibdata/relaton/BibItemLocality.lml
 
   association {
     owner ParagraphWithFootnote

@@ -1,0 +1,5 @@
+class Contributor <<Bibliography>> {
+  definition {
+    Boundary reference to Relaton's Contributor. Basicdoc does not define contributor semantics; Relaton and downstream models provide the implementation.
+  }
+}

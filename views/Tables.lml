@@ -1,13 +1,13 @@
 diagram Tables {
   title "Tables"
   include ../models/blocks/BasicBlock.lml
-  include ../models/tables/TableBlock.lml
-  include ../models/tables/TextTableRow.lml
-  include ../models/tables/TableCell.lml
-  include ../models/tables/TextTableCell.lml
-  include ../models/tables/ParagraphTableCell.lml
-  include ../models/tables/TextAlignmnent.lml
-  include ../models/tables/VerticalAlignmnent.lml
+  include ../models/blocks/tables/TableBlock.lml
+  include ../models/blocks/tables/TextTableRow.lml
+  include ../models/blocks/tables/TableCell.lml
+  include ../models/blocks/tables/TextTableCell.lml
+  include ../models/blocks/tables/ParagraphTableCell.lml
+  include ../models/blocks/tables/CellTextAlignment.lml
+  include ../models/blocks/tables/CellVerticalAlignment.lml
 
   association {
     owner BasicBlock
@@ -37,12 +37,12 @@ diagram Tables {
   }
 
   association {
-    owner TextAlignmnent
+    owner CellTextAlignment
     member TableCell
     member_type direct
   }
   association {
-    owner VerticalAlignmnent
+    owner CellVerticalAlignment
     member TableCell
     member_type direct
   }

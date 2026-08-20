@@ -1,16 +1,16 @@
 diagram ReferenceElements {
   title "ReferenceElements"
-  include ../models/emptyelements/BasicElement.lml
-  include ../models/referenceelements/ReferenceElement.lml
-  include ../models/referenceelements/Citation.lml
-  include ../models/referenceelements/ReferenceToIdElement.lml
-  include ../models/referenceelements/IndexXrefElement.lml
-  include ../models/referenceelements/ReferenceToLinkElement.lml
-  include ../models/referenceelements/ReferenceToCitationElement.lml
-  include ../models/referenceelements/ReferenceToIdWithParagraphElement.lml
-  include ../models/referenceelements/Callout.lml
-  include ../models/referenceelements/Footnote.lml
-  include ../models/referenceelements/ReferenceFormat.lml
+  include ../models/inline/BasicElement.lml
+  include ../models/inline/reference/ReferenceElement.lml
+  include ../models/inline/reference/Citation.lml
+  include ../models/inline/reference/ReferenceToIdElement.lml
+  include ../models/inline/reference/IndexXrefElement.lml
+  include ../models/inline/reference/ReferenceToLinkElement.lml
+  include ../models/inline/reference/ReferenceToCitationElement.lml
+  include ../models/inline/reference/ReferenceToIdWithParagraphElement.lml
+  include ../models/inline/reference/Callout.lml
+  include ../models/inline/reference/Footnote.lml
+  include ../models/inline/reference/ReferenceFormat.lml
 
   association {
     owner BasicElement

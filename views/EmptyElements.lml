@@ -1,10 +1,10 @@
 diagram EmptyElements {
   title "EmptyElements"
-  include ../models/emptyelements/BasicElement.lml
-  include ../models/emptyelements/PageBreakElement.lml
-  include ../models/emptyelements/LineBreakElement.lml
-  include ../models/emptyelements/HorizontalRuleElement.lml
-  include ../models/emptyelements/IndexElement.lml
+  include ../models/inline/BasicElement.lml
+  include ../models/inline/empty/PageBreakElement.lml
+  include ../models/inline/empty/LineBreakElement.lml
+  include ../models/inline/empty/HorizontalRuleElement.lml
+  include ../models/inline/empty/IndexElement.lml
 
   association {
     owner BasicElement

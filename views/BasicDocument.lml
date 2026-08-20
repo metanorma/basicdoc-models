@@ -1,10 +1,10 @@
 diagram BasicDocument {
   title "BasicDocument"
 
-  include ../models/BasicDocument.lml
+  include ../models/document/BasicDocument.lml
   include ../models/change/UniqueIdentifier.lml
   include ../models/bibdata/BibData.lml
-  include ../models/bibdata/BibliographicItem.lml
+  include ../models/bibdata/relaton/BibliographicItem.lml
   include ../models/bibdata/BibDataExtensionType.lml
   include ../models/bibdata/DocumentType.lml
   include ../models/sections/BasicSection.lml

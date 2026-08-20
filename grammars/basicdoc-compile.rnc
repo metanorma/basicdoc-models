@@ -1,5 +1,5 @@
 grammar {
-        include "biblio.rnc" { }
+        include "../vendor/relaton-models/relaton/grammars/biblio.rnc" { }
         include "basicdoc.rnc" { }
 start = document
 }

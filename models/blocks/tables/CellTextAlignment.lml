@@ -1,4 +1,4 @@
-enum TextAlignmnent {
+enum CellTextAlignment {
   definition {
     Horizontal textual alignment of the cell against the underlying table grid.
   }
