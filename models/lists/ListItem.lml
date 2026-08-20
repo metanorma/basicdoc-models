@@ -1,8 +1,8 @@
-class Listitem {
+class ListItem {
   definition {
       Item in a list block.
   }
-  +id: string[0..1] {
+  +id: String[0..1] {
     definition {
       Identifier of item.
     }

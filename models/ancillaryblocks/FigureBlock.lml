@@ -55,7 +55,7 @@ class FigureBlock {
       An optional definitions list defining any symbols used in the figure.
     }
   }
-  +footnotes: ReferenceToldWithParagraphElement[0..*] {
+  +footnotes: ReferenceToIdWithParagraphElement[0..*] {
     definition {
       Optional footnotes specific to the figure.
     }

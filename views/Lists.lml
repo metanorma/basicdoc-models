@@ -16,7 +16,7 @@ diagram Lists {
   }
 
   association {
-    owner Listitem
+    owner ListItem
     member List
     member_type direct
   }

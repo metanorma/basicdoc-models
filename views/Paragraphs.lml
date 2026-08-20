@@ -4,6 +4,7 @@ diagram Paragraphs {
   include ../models/paragraphs/ParagraphBlock.lml
   include ../models/paragraphs/ParagraphWithFootnote.lml
   include ../models/paragraphs/TextAlignment.lml
+  include ../models/multiparagraphs/ParagraphsBlock.lml
 
   association {
     owner BasicBlock
