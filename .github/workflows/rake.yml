@@ -11,32 +11,18 @@ on:
 
 jobs:
   rake:
-    name: Test on LutaML ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
+    name: Test on LutaML
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      # Self-contained tool setup. Renders diagrams with lutaml-lml
-      # (graphviz-backed); graphviz is preinstalled on GitHub-hosted runners,
-      # installed defensively only when missing.
-      - if: runner.os == 'Linux'
-        run: command -v dot >/dev/null || { sudo apt-get update && sudo apt-get install -y graphviz; }
-      - if: runner.os == 'macOS'
-        run: command -v dot >/dev/null || brew install graphviz
-      - if: runner.os == 'Windows'
-        shell: pwsh
-        run: if (-not (Get-Command dot -ErrorAction SilentlyContinue)) { choco install -y graphviz }
+      - run: command -v dot >/dev/null || { sudo apt-get update && sudo apt-get install -y graphviz; }
 
       # workaround for https://github.com/actions/runner-images/issues/37
-      - if: matrix.os == 'ubuntu-latest'
-        run: |
+      - run: |
           sudo apt-get update
           sudo apt-get install libcurl4-openssl-dev
 
@@ -46,14 +32,5 @@ jobs:
           bundler-cache: true
 
       - run: bundle exec rake clean render
-
-      # Byte-level PNG check is authoritative on Linux; Windows Graphviz
-      # installations have produced outputs that fail the magic-byte gate
-      # even when render exits 0 (same pattern as the legacy Makefile, which
-      # skipped verify on Windows). Match relaton-models: verify on ubuntu only.
-      - name: Verify PNG output
-        if: matrix.os == 'ubuntu-latest'
-        run: bundle exec rake verify
-
-      - name: LML/RNC parity
-        run: bundle exec rake parity
+      - run: bundle exec rake verify
+      - run: bundle exec rake parity

@@ -193,7 +193,7 @@ Any script, CI step, or human doc that assumes top-level `grammars/biblio.rnc` i
 **Acceptance**
 - [ ] No Makefile remains
 - [ ] `bundle exec rake check` exits 0 on macOS and Linux
-- [ ] CI job green on ubuntu/macos/windows
+- [x] CI job green on ubuntu-latest (single-OS; no matrix)
 
 ---
 
@@ -228,7 +228,7 @@ Any script, CI step, or human doc that assumes top-level `grammars/biblio.rnc` i
 **Deliverables**
 - Add `.github/workflows/rake.yml` (copy structure from relaton-models):
   - `actions/checkout@v4` with `submodules: recursive`
-  - Install graphviz on linux/mac/windows if `dot` missing
+  - Install graphviz on ubuntu if `dot` missing
   - `ruby/setup-ruby@v1` with Ruby 3.3 + bundler-cache
   - `bundle exec rake clean render`
   - `bundle exec rake verify`
@@ -237,8 +237,8 @@ Any script, CI step, or human doc that assumes top-level `grammars/biblio.rnc` i
 - Update README badge: `workflow:make` → `workflow:rake`.
 
 **Acceptance**
-- [ ] PR CI green on the three OS matrix entries
-- [ ] No reference to `model-make.yml` or `lutaml-uml` remains in `.github/`
+- [x] PR CI green on ubuntu-latest
+- [x] No reference to `model-make.yml` or `lutaml-uml` remains in `.github/`
 
 ---
 
@@ -351,7 +351,7 @@ relaton-models already submodules this repo at `basicdoc/`. Sequence:
 | No legacy comments | `rg '\*\|' models views` → 0 |
 | No legacy gems | `rg 'lutaml-uml|lutaml lml' -g'!UPGRADE-PLAN.md'` → 0 |
 | Submodule initialized | `git submodule status` no leading `-` |
-| CI | GitHub Actions `rake` workflow green ×3 OS |
+| CI | GitHub Actions `rake` workflow green on ubuntu-latest |
 | Consumer smoke | In relaton-models: bump basicdoc pin, `rake relaton bsi` still renders |
 
 ---

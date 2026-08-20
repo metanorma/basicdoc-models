@@ -47,7 +47,7 @@ bundle exec rake clean                               # remove regenerable PNGs o
 bundle exec rake images/<Name>.png                   # render a single diagram
 ```
 
-Rendering uses `lutaml-lml` ≥ 0.1.3 (graphviz-backed). Until 0.1.3 is on RubyGems the Gemfile pins the fix commit via git. CI (`.github/workflows/rake.yml`) runs `rake clean render`, `rake verify`, and `rake parity` on ubuntu/windows/macos with `submodules: recursive`.
+Rendering uses `lutaml-lml` ≥ 0.1.3 (graphviz-backed). Until 0.1.3 is on RubyGems the Gemfile pins the fix commit via git. CI (`.github/workflows/rake.yml`) runs `rake clean render`, `rake verify`, and `rake parity` on `ubuntu-latest` with `submodules: recursive`.
 
 There is no separate unit-test suite; `rake check` is the gate.
 
