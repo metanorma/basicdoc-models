@@ -1,0 +1,5 @@
+class BibliographicItem <<Bibliography>> {
+  definition {
+    Boundary reference to Relaton's BibliographicItem. Basicdoc defines only the bibliographic basis (BibData and its ext hook BibDataExtensionType); Relaton and downstream models extend and implement the full bibliographic semantics (OCP: open for extension, closed for modification here).
+  }
+}

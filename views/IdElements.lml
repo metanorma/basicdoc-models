@@ -1,14 +1,14 @@
 diagram IdElements {
   title "IdElements"
-  include ../models/emptyelements/BasicElement.lml
-  include ../models/idelements/IdElement.lml
-  include ../models/idelements/Media.lml
-  include ../models/idelements/Image.lml
-  include ../models/idelements/Audio.lml
-  include ../models/idelements/Video.lml
-  include ../models/idelements/AltSource.lml
-  include ../models/idelements/Bookmark.lml
-  include ../models/idelements/MediaType.lml
+  include ../models/inline/BasicElement.lml
+  include ../models/inline/id/IdElement.lml
+  include ../models/inline/id/Media.lml
+  include ../models/inline/id/Image.lml
+  include ../models/inline/id/Audio.lml
+  include ../models/inline/id/Video.lml
+  include ../models/inline/id/AltSource.lml
+  include ../models/inline/id/Bookmark.lml
+  include ../models/inline/id/MediaType.lml
   include ../models/datatypes/ImageSizeType.lml
 
   association {

@@ -1,0 +1,5 @@
+class BibItemLocality <<Relaton>> {
+  definition {
+    Boundary reference to Relaton's BibItemLocality. Basicdoc does not define Relaton semantics; Relaton and downstream models provide the implementation.
+  }
+}

@@ -5,7 +5,7 @@ diagram Blocks {
   include ../models/blocks/BasicBlockNoNotes.lml
   include ../models/blocks/NoteBlock.lml
   include ../models/contribmetadata/ContributionElementMetadata.lml
-  include ../models/paragraphs/ParagraphBlock.lml
+  include ../models/blocks/paragraphs/ParagraphBlock.lml
 
   association {
     owner BasicBlock

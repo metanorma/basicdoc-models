@@ -1,4 +1,4 @@
-enum VerticalAlignmnent {
+enum CellVerticalAlignment {
 
   definition {
     Vertical alignment of the cell against the underlying table grid.

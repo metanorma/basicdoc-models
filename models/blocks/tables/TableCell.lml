@@ -12,12 +12,12 @@ class TableCell {
       Number of rows in the underlying table grid which the cell spans.
     }
   }
-  +align: TextAlignmnent[0..1] {
+  +align: CellTextAlignment[0..1] {
     definition {
       Horizontal textual alignment of the cell against the underlying table grid.
     }
   }
-  +valign: VerticalAlignmnent[0..1] {
+  +valign: CellVerticalAlignment[0..1] {
     definition {
       Vertical alignment of the cell against the underlying table grid.
     }

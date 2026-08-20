@@ -1,6 +1,6 @@
 diagram BibData {
   title "BibData"
-  include ../models/bibdata/BibliographicItem.lml
+  include ../models/bibdata/relaton/BibliographicItem.lml
   include ../models/bibdata/BibData.lml
   include ../models/bibdata/BibDataExtensionType.lml
   include ../models/bibdata/DocumentType.lml
