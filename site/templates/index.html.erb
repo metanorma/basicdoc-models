@@ -1,0 +1,77 @@
+<section class="hero wrap">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow">Model atlas</p>
+      <h1>Document structure, drawn as plates</h1>
+      <p class="hero-lead">
+        Browse the BasicDocument / SecureDoc information models — the LutaML
+        definitions that carry rich-text documents through Metanorma and related
+        tooling. Each plate is a rendered diagram view over the canonical
+        <code>models/**/*.lml</code> sources.
+      </p>
+    </div>
+    <dl class="hero-meta">
+      <div>
+        <dt>Diagram plates</dt>
+        <dd><%= plates.size %></dd>
+      </div>
+      <div>
+        <dt>LML model files</dt>
+        <dd><%= model_count %></dd>
+      </div>
+      <div>
+        <dt>Source of truth</dt>
+        <dd>LML, not RNC</dd>
+      </div>
+    </dl>
+  </div>
+  <hr class="rule">
+</section>
+
+<section class="wrap" aria-labelledby="plates-heading">
+  <div class="toolbar">
+    <label id="domain-label">Domain</label>
+    <div class="chip-row" role="group" aria-labelledby="domain-label">
+      <button type="button" class="chip" data-domain-filter="all" aria-pressed="true">All</button>
+      <% domains.each do |domain| %>
+        <button type="button" class="chip" data-domain-filter="<%= h(domain) %>" aria-pressed="false"><%= h(domain) %></button>
+      <% end %>
+    </div>
+    <input class="search" type="search" placeholder="Filter plates…" data-plate-search aria-label="Filter plates">
+  </div>
+
+  <h2 id="plates-heading" class="visually-hidden" style="position:absolute;left:-9999px">Plates</h2>
+  <ul class="plate-grid">
+    <% plates.each_with_index do |plate, i| %>
+      <li data-plate
+          data-domains="<%= h(plate.domains.join(',')) %>"
+          data-search="<%= h([plate.title, plate.slug, plate.domains.join(' '), plate.includes.join(' ')].join(' ')) %>">
+        <a class="plate-card" href="<%= asset_path("models/#{plate.slug}.html") %>">
+          <div class="plate-frame">
+            <img src="<%= asset_path("images/#{plate.image}") %>" alt="UML diagram for <%= h(plate.title) %>" loading="lazy">
+          </div>
+          <div class="plate-body">
+            <div class="plate-no">Plate <%= format('%02d', i + 1) %></div>
+            <h2><%= h(plate.title) %></h2>
+            <div class="plate-meta"><%= plate.includes.size %> includes · <%= plate.associations %> associations</div>
+            <% if plate.domains.any? %>
+              <div class="domain-tags">
+                <% plate.domains.first(4).each do |d| %>
+                  <span class="domain-tag"><%= h(d) %></span>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+  <div class="empty-state" data-empty-state>No plates match this filter.</div>
+
+  <aside class="note">
+    <strong>Architectural rule</strong>
+    The models ARE the LML files. RNC grammars in <code>grammars/</code> accompany
+    the LML — they never substitute for it. This site renders the committed
+    diagram views only.
+  </aside>
+</section>
