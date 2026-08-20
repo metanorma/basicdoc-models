@@ -4,10 +4,12 @@
       <p class="eyebrow">Model atlas</p>
       <h1>Document structure, drawn as plates</h1>
       <p class="hero-lead">
-        Browse the BasicDocument / SecureDoc information models — the LutaML
-        definitions that carry rich-text documents through Metanorma and related
-        tooling. Each plate is a rendered diagram view over the canonical
-        <code>models/**/*.lml</code> sources.
+        <strong>BasicDocument</strong> ("BasicDoc") expresses the structure of
+        generic documents in a lightweight form: a base document metamodel that
+        others map to, specialize upon, or use for interchange. Documents
+        consist of sections, sections of blocks, blocks of inline elements —
+        and the tiers never mix. These plates render that model from its
+        canonical LutaML sources.
       </p>
     </div>
     <dl class="hero-meta">
@@ -25,7 +27,19 @@
       </div>
     </dl>
   </div>
-  <hr class="rule">
+</section>
+
+<section class="wrap">
+  <div class="reading-rule">
+    <strong>How to read these plates</strong>
+    <p>
+      The diagrams are rendered from the LML definition modules under
+      <code>models/**/*.lml</code> — the models <em>are</em> the LML files.
+      The RNC grammars in <code>grammars/</code> are implementation grammars
+      that accompany the LML, never a substitute for it: change the model by
+      editing the LML, never by editing only a grammar.
+    </p>
+  </div>
 </section>
 
 <section class="wrap" aria-labelledby="plates-heading">
@@ -67,11 +81,4 @@
     <% end %>
   </ul>
   <div class="empty-state" data-empty-state>No plates match this filter.</div>
-
-  <aside class="note">
-    <strong>Architectural rule</strong>
-    The models ARE the LML files. RNC grammars in <code>grammars/</code> accompany
-    the LML — they never substitute for it. This site renders the committed
-    diagram views only.
-  </aside>
 </section>

@@ -234,11 +234,42 @@ a:focus-visible {
   font-weight: 500;
 }
 
-.rule {
-  height: 1px;
-  background: linear-gradient(90deg, var(--copper), transparent 70%);
-  border: 0;
-  margin: 1.75rem 0 1.25rem;
+/* —— reading rule: frames how every plate is to be interpreted —— */
+.reading-rule {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0 0 2rem;
+  padding: 1.15rem 1.3rem 1.25rem;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--copper);
+  box-shadow: var(--shadow);
+}
+
+.reading-rule strong {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 60%, var(--cyan-soft));
+}
+
+.reading-rule p {
+  margin: 0;
+  max-width: 46rem;
+  color: color-mix(in srgb, var(--paper) 88%, var(--cyan-soft));
+}
+
+.reading-rule code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  color: var(--cyan-soft);
+}
+
+.reading-rule em {
+  font-style: italic;
+  color: var(--paper);
 }
 
 /* —— filters —— */
