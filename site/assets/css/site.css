@@ -467,7 +467,178 @@ a:focus-visible {
   display: block;
 }
 
-/* —— model page —— */
+/* —— tier legend —— */
+.tier-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+}
+
+.tier {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--paper) 35%, transparent);
+  border-radius: 2px;
+  color: var(--paper);
+}
+
+.tier + .tier::before { content: "⊃ "; opacity: 0.6; }
+
+.tier-note {
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--paper) 60%, var(--cyan-soft));
+  margin-left: 0.4rem;
+  font-style: italic;
+}
+
+/* —— index chapters —— */
+.chapter { margin-bottom: 2.25rem; }
+
+.chapter-head {
+  display: grid;
+  gap: 0.2rem;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.chapter-head h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.chapter-head p {
+  margin: 0;
+  color: var(--mist);
+  font-size: 0.95rem;
+}
+
+.chapter-link {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  text-decoration: none;
+  margin-top: 0.2rem;
+}
+
+.chapter-link:hover { color: var(--copper); }
+
+.plate-body h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* —— model definitions —— */
+.defs { margin-bottom: 2rem; }
+
+.defs-heading {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+.type-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--cyan);
+  padding: 1rem 1.2rem 1.1rem;
+  margin-bottom: 1rem;
+  scroll-margin-top: 5rem;
+}
+
+.type-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.type-head h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.kind {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  background: var(--cyan-soft);
+  color: var(--ink-soft);
+  border-radius: 2px;
+}
+
+.type-src {
+  margin-left: auto;
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.type-src code { word-break: break-all; }
+
+.type-defn {
+  margin: 0.5rem 0 0;
+  color: var(--slate);
+}
+
+.attr-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.attr-table th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+  font-weight: 500;
+  border-bottom: 1px solid var(--line);
+  padding: 0.35rem 0.5rem 0.35rem 0;
+}
+
+.attr-table td {
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+  padding: 0.45rem 0.5rem 0.45rem 0;
+  vertical-align: top;
+}
+
+.attr-defn { color: var(--slate); }
+
+.enum-values {
+  margin: 0.6rem 0 0;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.enum-values div {
+  display: grid;
+  grid-template-columns: minmax(7rem, auto) 1fr;
+  gap: 0.6rem;
+}
+
+.enum-values dt { margin: 0; }
+
+.enum-values dd { margin: 0; color: var(--slate); }
 .model-page {
   padding: 2.25rem 0 3.5rem;
 }

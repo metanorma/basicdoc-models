@@ -8,8 +8,8 @@
         generic documents in a lightweight form: a base document metamodel that
         others map to, specialize upon, or use for interchange. Documents
         consist of sections, sections of blocks, blocks of inline elements —
-        and the tiers never mix. These plates render that model from its
-        canonical LutaML sources.
+        and the tiers never mix. Each plate below carries the diagram
+        <em>and</em> the model definitions rendered from the canonical LML.
       </p>
     </div>
     <dl class="hero-meta">
@@ -33,12 +33,19 @@
   <div class="reading-rule">
     <strong>How to read these plates</strong>
     <p>
-      The diagrams are rendered from the LML definition modules under
+      The diagrams and definitions are rendered from the LML modules under
       <code>models/**/*.lml</code> — the models <em>are</em> the LML files.
       The RNC grammars in <code>grammars/</code> are implementation grammars
       that accompany the LML, never a substitute for it: change the model by
       editing the LML, never by editing only a grammar.
     </p>
+    <div class="tier-legend" aria-label="The three content tiers">
+      <span class="tier tier-document">Document</span>
+      <span class="tier tier-sections">Sections</span>
+      <span class="tier tier-blocks">Blocks</span>
+      <span class="tier tier-inline">Inline</span>
+      <span class="tier-note">nesting within a tier, never across tiers</span>
+    </div>
   </div>
 </section>
 
@@ -47,38 +54,43 @@
     <label id="domain-label">Domain</label>
     <div class="chip-row" role="group" aria-labelledby="domain-label">
       <button type="button" class="chip" data-domain-filter="all" aria-pressed="true">All</button>
-      <% domains.each do |domain| %>
-        <button type="button" class="chip" data-domain-filter="<%= h(domain) %>" aria-pressed="false"><%= h(domain) %></button>
+      <% tier_order.each do |tier| %>
+        <button type="button" class="chip" data-domain-filter="<%= h(tier) %>" aria-pressed="false"><%= h(tier) %></button>
       <% end %>
     </div>
-    <input class="search" type="search" placeholder="Filter plates…" data-plate-search aria-label="Filter plates">
+    <input class="search" type="search" placeholder="Search plates, classes, attributes…" data-plate-search aria-label="Search plates, classes and attributes">
   </div>
 
-  <h2 id="plates-heading" class="visually-hidden" style="position:absolute;left:-9999px">Plates</h2>
-  <ul class="plate-grid">
-    <% plates.each_with_index do |plate, i| %>
-      <li data-plate
-          data-domains="<%= h(plate.domains.join(',')) %>"
-          data-search="<%= h([plate.title, plate.slug, plate.domains.join(' '), plate.includes.join(' ')].join(' ')) %>">
-        <a class="plate-card" href="<%= asset_path("models/#{plate.slug}.html") %>">
-          <div class="plate-frame">
-            <img src="<%= asset_path("images/#{plate.image}") %>" alt="UML diagram for <%= h(plate.title) %>" loading="lazy">
-          </div>
-          <div class="plate-body">
-            <div class="plate-no">Plate <%= format('%02d', i + 1) %></div>
-            <h2><%= h(plate.title) %></h2>
-            <div class="plate-meta"><%= plate.includes.size %> includes · <%= plate.associations %> associations</div>
-            <% if plate.domains.any? %>
-              <div class="domain-tags">
-                <% plate.domains.first(4).each do |d| %>
-                  <span class="domain-tag"><%= h(d) %></span>
-                <% end %>
+  <h2 id="plates-heading" style="position:absolute;left:-9999px">Plates</h2>
+  <% tier_order.each do |tier| %>
+    <% tier_plates = plates.select { |p| p.tier == tier } %>
+    <% next if tier_plates.empty? %>
+    <div class="chapter" data-tier="<%= h(tier) %>">
+      <header class="chapter-head">
+        <h2><%= h(tier) %></h2>
+        <p><%= h(tier_descriptions[tier]) %></p>
+        <a class="chapter-link" href="<%= asset_path("domains/#{tier}/index.html") %>">Browse <%= h(tier) %> domain →</a>
+      </header>
+      <ul class="plate-grid">
+        <% tier_plates.each do |plate| %>
+          <% search_blob = ([plate.title, plate.slug, plate.domains.join(' '), plate.includes.join(' ')] + (search_extra[plate.slug] || [])).join(' ') %>
+          <li data-plate
+              data-domains="<%= h(plate.tier) %>"
+              data-search="<%= h(search_blob) %>">
+            <a class="plate-card" href="<%= asset_path("models/#{plate.slug}.html") %>">
+              <div class="plate-frame">
+                <img src="<%= asset_path("images/#{plate.image}") %>" alt="UML diagram for <%= h(plate.title) %>" loading="lazy">
               </div>
-            <% end %>
-          </div>
-        </a>
-      </li>
-    <% end %>
-  </ul>
+              <div class="plate-body">
+                <div class="plate-no"><%= h(plate.tier) %></div>
+                <h3><%= h(plate.title) %></h3>
+                <div class="plate-meta"><%= plate.includes.size %> includes · <%= plate.associations %> associations</div>
+              </div>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="empty-state" data-empty-state>No plates match this filter.</div>
 </section>

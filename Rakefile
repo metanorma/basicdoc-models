@@ -106,13 +106,14 @@ task :lint do
   # 3. every attribute type must resolve to a defined type or a built-in
   model_files.each do |f|
     File.foreach(f).with_index do |line, i|
-      m = line.match(/^\s*([+#-]?)([a-z_][A-Za-z0-9_]*)\s*:\s*([^\[{]+?)\s*\[/)
+      m = line.match(/^\s*([+#-]?)([a-z_][A-Za-z0-9_]*)\s*:\s*([^\[{]+?)(?:\[[^\]]*\])?\s*\{?\s*$/)
       next unless m
 
       visibility, name, raw_type = m.captures
       # 4. attributes need an explicit visibility marker
       errors << "#{f}:#{i + 1}: attribute '#{name}' lacks a visibility marker (+/#/-)" if visibility.empty?
       type = raw_type.sub(/<<[^>]*>>\s*/, "").strip
+      next if type.start_with?('"') # fixed-value attribute, e.g. +type: "callout"
       next if defined.key?(type) || BUILTIN_TYPES.include?(type)
 
       errors << "#{f}:#{i + 1}: attribute '#{name}' references undefined type '#{type}'"

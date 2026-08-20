@@ -3,6 +3,7 @@
     <div>
       <p class="crumb">
         <a href="<%= asset_path('index.html') %>">Atlas</a>
+        · <a href="<%= asset_path("domains/#{plate.tier}/index.html") %>"><%= h(plate.tier) %></a>
         · Plate <%= format('%02d', plate_index + 1) %> of <%= plate_total %>
       </p>
       <p class="eyebrow"><%= h(plate.domains.any? ? plate.domains.join(' · ') : 'basicdoc') %></p>
@@ -16,7 +17,7 @@
     <div class="side-stats" aria-label="Plate statistics">
       <div class="stat"><b>Includes</b><span><%= plate.includes.size %></span></div>
       <div class="stat"><b>Associations</b><span><%= plate.associations %></span></div>
-      <div class="stat"><b>Domains</b><span><%= plate.domains.size.zero? ? '—' : plate.domains.size %></span></div>
+      <div class="stat"><b>Types</b><span><%= definitions.size %></span></div>
     </div>
   </header>
 
@@ -24,38 +25,52 @@
     <img src="<%= asset_path("images/#{plate.image}") %>" alt="Full UML diagram for <%= h(plate.title) %>">
   </figure>
 
-  <div class="panel-grid">
-    <section class="panel">
-      <h2>Included models</h2>
-      <ul class="include-list">
-        <% plate.includes.each do |inc| %>
-          <li><%= h(inc) %></li>
+  <section aria-label="Model definitions" class="defs">
+    <h2 class="defs-heading">Model definitions</h2>
+    <% definitions.each do |type| %>
+      <article class="type-card" id="<%= h(type.name) %>">
+        <header class="type-head">
+          <h3><%= h(type.name) %></h3>
+          <span class="kind kind-<%= h(type.kind.tr(' ', '-')) %>"><%= h(type.kind) %><% if type.stereotype %> <%= h(type.stereotype) %><% end %></span>
+          <a class="type-src" href="<%= h("#{'https://github.com/metanorma/basicdoc-models/blob/main/'}#{type.file}") %>"><code><%= h(type.file) %></code></a>
+        </header>
+        <% if type.definition %>
+          <p class="type-defn"><%= h(type.definition) %></p>
         <% end %>
-      </ul>
-    </section>
-    <section class="panel">
-      <h2>Domains on this plate</h2>
-      <% if plate.domains.empty? %>
-        <p style="margin:0;color:var(--mist)">Root-level model composition (no domain subdirectory).</p>
-      <% else %>
-        <ul class="domain-list">
-          <% plate.domains.each do |d| %>
-            <li>models/<%= h(d) %>/</li>
-          <% end %>
-        </ul>
-      <% end %>
-      <div class="note" style="margin-top:1rem">
-        <strong>Source</strong>
-        Definition modules live under <code>models/</code>. This page is a view —
-        class bodies are never authored inside <code>views/</code>.
-      </div>
-      <p style="margin:1rem 0 0;font-size:0.92rem">
-        <a href="<%= h(plate.github_view_url) %>">Open view on GitHub</a>
-        ·
-        <a href="<%= asset_path("images/#{plate.image}") %>">Open PNG</a>
-      </p>
-    </section>
-  </div>
+        <% if type.attributes.any? %>
+          <table class="attr-table">
+            <thead>
+              <tr><th>Attribute</th><th>Type</th><th>Cardinality</th><th>Definition</th></tr>
+            </thead>
+            <tbody>
+              <% type.attributes.each do |attr| %>
+                <tr>
+                  <td><code><%= h(attr.visibility) %><%= h(attr.name) %></code></td>
+                  <td>
+                    <% bare = attr.type.sub(/<<[^>]*>>\s*/, '').strip %>
+                    <% href = type_href(bare, 1) %>
+                    <% if href %><a href="<%= h(href) %>"><%= h(attr.type) %></a><% else %><code><%= h(attr.type) %></code><% end %>
+                  </td>
+                  <td><%= h(attr.multiplicity.empty? ? '1' : attr.multiplicity) %></td>
+                  <td class="attr-defn"><%= h(attr.definition || '') %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+        <% if type.values.any? %>
+          <dl class="enum-values">
+            <% type.values.each do |v| %>
+              <div>
+                <dt><code><%= h(v[:name]) %></code></dt>
+                <dd><%= h(v[:definition] || '') %></dd>
+              </div>
+            <% end %>
+          </dl>
+        <% end %>
+      </article>
+    <% end %>
+  </section>
 
   <nav class="pager" aria-label="Plate pagination">
     <% if prev_plate %>

@@ -1,0 +1,38 @@
+<article class="model-page wrap">
+  <header class="model-head">
+    <div>
+      <p class="crumb"><a href="<%= asset_path('index.html') %>">Atlas</a> · Domain</p>
+      <p class="eyebrow">Domain</p>
+      <h1><%= h(tier) %></h1>
+      <p class="model-summary"><%= h(tier_description) %></p>
+    </div>
+    <div class="side-stats" aria-label="Domain statistics">
+      <div class="stat"><b>Plates</b><span><%= tier_plates.size %></span></div>
+      <div class="stat"><b>LML files</b><span><%= file_entries.size %></span></div>
+    </div>
+  </header>
+
+  <section class="panel" style="margin-bottom:1.25rem">
+    <h2>Plates in this domain</h2>
+    <ul class="domain-list">
+      <% tier_plates.each do |p| %>
+        <li><a href="<%= asset_path("models/#{p.slug}.html") %>"><%= h(p.title) %></a> — <code><%= h(p.view_file) %></code></li>
+      <% end %>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>LML files</h2>
+    <table class="attr-table">
+      <thead><tr><th>File</th><th>Types defined</th></tr></thead>
+      <tbody>
+        <% file_entries.each do |entry| %>
+          <tr>
+            <td><a href="<%= h(entry[:github]) %>"><code><%= h(entry[:path]) %></code></a></td>
+            <td><%= entry[:types].map { |t| h(t) }.join(', ') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</article>
