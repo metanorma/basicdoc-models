@@ -2,7 +2,7 @@ class MathML {
   definition {
     Mathematical text formatted in MathML.
   }
-  +value: MathMLValue {
+  +value: String {
     definition {
       MathML content.
     }
