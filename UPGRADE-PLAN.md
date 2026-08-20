@@ -1,10 +1,11 @@
 # basicdoc-models — upgrade plan to the modern Relaton/standoc architecture
 
 **Date:** 2026-08-20  
+**Status:** Implemented on branch `chore/modern-architecture` (PR #42).  
 **Reference implementation:** `relaton/relaton-models` branch `cleanup/dry-flavours` (and the matching work in `metanorma/standoc-models` vendor-wave).  
 **Scope:** bring this repository to the same architectural bar — LML-first models, Rakefile build, lutaml-lml renderer, parity gates, clean submodule wiring, no legacy stack.
 
-This is a working plan, not a commitment of commit order. Every step is reversible until the final PR merge.
+Post-merge remaining work lives on **consumers**: advance the `basicdoc/` submodule pin and rewrite includes `*.lutaml` → `*.lml`. Local `BibliographicItem` under `models/bibdata/` stays as a thin stub to avoid a circular basicdoc↔relaton LML include graph; full Relaton cross-includes can be revisited once consumers pin this tree.
 
 ---
 
@@ -382,12 +383,12 @@ Per global safety rules and the relaton-models lessons:
 
 ---
 
-## 7. Open decisions (resolve before/during implementation)
+## 7. Open decisions (resolved)
 
-1. **Canonical relaton-models remote for the submodule:** `metanorma/relaton-models` vs `relaton/relaton-models`?
-2. **Grammar RNG generation (D2):** keep in-repo (A) or defer to standoc-models (B)?
-3. **History blocks:** delete entirely vs fold a one-liner into `definition`?
-4. **WS-F in the same PR or a follow-up?** Recommendation: follow-up, so the toolchain cutover is reviewable on its own.
+1. **Canonical relaton-models remote:** `relaton/relaton-models` (submodule URL updated; pin `0a5add9` on `cleanup/dry-flavours` tip).
+2. **Grammar RNG generation (D2):** **B** — deleted `grammars/make.sh`; standoc-models is the RNG hub.
+3. **History blocks:** deleted entirely; short `definition { }` retained where already present.
+4. **WS-F:** landed in the same PR — expanded `BasicDocument`, `Sections`, and `Blocks` views.
 
 ---
 

@@ -59,7 +59,7 @@ There is no separate unit-test suite; `rake check` is the gate.
   ```
   include ../grammars/relaton-models/relaton/models/BibliographicItem.lml
   ```
-- **Views must show the graph:** a view that only re-includes one model file with no associations is incomplete (e.g. avoid thin wrappers like a bare `BasicDocument` include). Include related models and declare associations that match attribute relationships. (Quality pass; may land in a follow-up.)
+- **Views must show the graph:** include related models and declare associations that match attribute relationships. Do not leave thin wrappers that only re-include one model file with no associations.
 - **Style:** `class Foo {` (space before brace); quoted `title` on every diagram. No legacy `*\| … \|*` history blocks — git history is the history; put a short `definition { }` on the class if needed.
 - **Parser (lutaml-lml ≥ 0.1.3):** quoted titles accept parentheses/Unicode; definition bodies track brace depth. `rake render` failure usually means a broken `include` path — resolve relative to the including file.
 - **Do not hand-roll serialization** on any model artifact here (LML/RNC only; no Ruby model `to_h`/`from_h`).
