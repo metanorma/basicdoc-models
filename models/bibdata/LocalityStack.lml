@@ -1,2 +1,5 @@
 class LocalityStack <<Relaton>> {
+  definition {
+    Stack of localities within a bibliographic item, as defined by Relaton. Boundary reference only: Basicdoc does not define Relaton semantics; Relaton and downstream models provide the implementation.
+  }
 }
