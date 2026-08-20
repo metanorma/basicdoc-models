@@ -56,6 +56,21 @@ bundle exec rake clean
 
 CI runs the same build on ubuntu-latest.
 
+== Model atlas (GitHub Pages)
+
+A static site showcasing every diagram plate lives at
+https://metanorma.github.io/basicdoc-models/[metanorma.github.io/basicdoc-models].
+It is generated from `views/*.lml` metadata plus `images/` by:
+
+[source,sh]
+----
+bundle exec rake site     # builds _site/ (gitignored)
+----
+
+The deployment workflow (`.github/workflows/pages.yml`) renders diagrams,
+runs the site generator, and publishes `_site/` on every push to `main`.
+The site is a *view* over the LML — content is derived, never hand-authored.
+
 == Basic Document UML Models
 
 === BasicDocument

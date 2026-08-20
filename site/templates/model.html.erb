@@ -1,0 +1,76 @@
+<article class="model-page wrap">
+  <header class="model-head">
+    <div>
+      <p class="crumb">
+        <a href="<%= asset_path('index.html') %>">Atlas</a>
+        · Plate <%= format('%02d', plate_index + 1) %> of <%= plate_total %>
+      </p>
+      <p class="eyebrow"><%= h(plate.domains.any? ? plate.domains.join(' · ') : 'basicdoc') %></p>
+      <h1><%= h(plate.title) %></h1>
+      <p class="model-summary">
+        Diagram view <code>views/<%= h(plate.view_file) %></code> composing
+        <%= plate.includes.size %> LML include<%= plate.includes.size == 1 ? '' : 's' %>
+        and <%= plate.associations %> association<%= plate.associations == 1 ? '' : 's' %>.
+      </p>
+    </div>
+    <div class="side-stats" aria-label="Plate statistics">
+      <div class="stat"><b>Includes</b><span><%= plate.includes.size %></span></div>
+      <div class="stat"><b>Associations</b><span><%= plate.associations %></span></div>
+      <div class="stat"><b>Domains</b><span><%= plate.domains.size.zero? ? '—' : plate.domains.size %></span></div>
+    </div>
+  </header>
+
+  <figure class="diagram-stage">
+    <img src="<%= asset_path("images/#{plate.image}") %>" alt="Full UML diagram for <%= h(plate.title) %>">
+  </figure>
+
+  <div class="panel-grid">
+    <section class="panel">
+      <h2>Included models</h2>
+      <ul class="include-list">
+        <% plate.includes.each do |inc| %>
+          <li><%= h(inc) %></li>
+        <% end %>
+      </ul>
+    </section>
+    <section class="panel">
+      <h2>Domains on this plate</h2>
+      <% if plate.domains.empty? %>
+        <p style="margin:0;color:var(--mist)">Root-level model composition (no domain subdirectory).</p>
+      <% else %>
+        <ul class="domain-list">
+          <% plate.domains.each do |d| %>
+            <li>models/<%= h(d) %>/</li>
+          <% end %>
+        </ul>
+      <% end %>
+      <div class="note" style="margin-top:1rem">
+        <strong>Source</strong>
+        Definition modules live under <code>models/</code>. This page is a view —
+        class bodies are never authored inside <code>views/</code>.
+      </div>
+      <p style="margin:1rem 0 0;font-size:0.92rem">
+        <a href="<%= h(plate.github_view_url) %>">Open view on GitHub</a>
+        ·
+        <a href="<%= asset_path("images/#{plate.image}") %>">Open PNG</a>
+      </p>
+    </section>
+  </div>
+
+  <nav class="pager" aria-label="Plate pagination">
+    <% if prev_plate %>
+      <a href="<%= asset_path("models/#{prev_plate.slug}.html") %>">
+        <span>Previous</span>
+        ← <%= h(prev_plate.title) %>
+      </a>
+    <% else %>
+      <span></span>
+    <% end %>
+    <% if next_plate %>
+      <a href="<%= asset_path("models/#{next_plate.slug}.html") %>" style="text-align:right">
+        <span>Next</span>
+        <%= h(next_plate.title) %> →
+      </a>
+    <% end %>
+  </nav>
+</article>

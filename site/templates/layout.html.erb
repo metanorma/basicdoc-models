@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= h(page_title) %></title>
+  <meta name="description" content="<%= h(page_description) %>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="<%= asset_path('assets/css/site.css') %>">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="<%= asset_path('index.html') %>">
+        <span class="brand-kicker">Metanorma · LutaML</span>
+        <span class="brand-title">Basicdoc Models</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="<%= asset_path('index.html') %>"<%= ' aria-current="page"' if index_page %>>Atlas</a>
+        <a href="https://github.com/metanorma/basicdoc-models">Repository</a>
+        <a href="https://github.com/metanorma/basicdoc-models/blob/main/README.adoc">README</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+<%= content %>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>BasicDocument / SecureDoc model atlas · diagrams from <code>views/*.lml</code></div>
+      <div>The models ARE the LML files · RNC accompanies, never replaces</div>
+    </div>
+  </footer>
+  <% if index_page %>
+  <script src="<%= asset_path('assets/js/site.js') %>" defer></script>
+  <% end %>
+</body>
+</html>

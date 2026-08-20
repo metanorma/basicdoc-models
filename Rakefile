@@ -76,4 +76,10 @@ end
 desc "Render, verify PNGs, and check LML/RNC parity"
 task check: %i[render verify parity]
 
+desc "Build static model atlas into _site/ from views/*.lml metadata + images/"
+task :site do
+  require_relative "site/generate"
+  BasicdocSite.build!
+end
+
 task default: :render
