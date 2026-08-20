@@ -1,7 +1,0 @@
-class SubscriptElement {
-  definition {
-    Subscript text. Corresponds to HTML `sub`.
-  }
-}
-
-

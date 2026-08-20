@@ -1,0 +1,4 @@
+diagram BasicDocument {
+  title "BasicDocument"
+  include ../models/BasicDocument.lml
+}

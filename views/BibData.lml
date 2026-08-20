@@ -1,0 +1,23 @@
+diagram BibData {
+  title "BibData"
+  include ../models/bibdata/BibliographicItem.lml
+  include ../models/bibdata/BibData.lml
+  include ../models/bibdata/BibDataExtensionType.lml
+  include ../models/bibdata/DocumentType.lml
+
+  association {
+    owner BibData
+    member BibliographicItem
+    member_type inheritance
+  }
+  association {
+    owner BibDataExtensionType
+    member BibData
+    member_type direct
+  }
+  association {
+    owner DocumentType
+    member BibDataExtensionType
+    member_type direct
+  }
+}

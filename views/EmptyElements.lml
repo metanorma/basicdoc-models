@@ -1,0 +1,29 @@
+diagram EmptyElements {
+  title "EmptyElements"
+  include ../models/emptyelements/BasicElement.lml
+  include ../models/emptyelements/PageBreakElement.lml
+  include ../models/emptyelements/LineBreakElement.lml
+  include ../models/emptyelements/HorizontalRuleElement.lml
+  include ../models/emptyelements/IndexElement.lml
+
+  association {
+    owner BasicElement
+    member PageBreakElement
+    owner_type inheritance
+  }
+  association {
+    owner BasicElement
+    member LineBreakElement
+    owner_type inheritance
+  }
+  association {
+    owner BasicElement
+    member HorizontalRuleElement
+    owner_type inheritance
+  }
+  association {
+    owner BasicElement
+    member IndexElement
+    owner_type inheritance
+  }
+}

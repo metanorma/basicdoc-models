@@ -1,0 +1,26 @@
+class RubyElement {
+  definition {
+    Text with Ruby annotations in East Asian languages. Corresponds to HTML `ruby`.
+  }
+  +pronunciation: RubyPronunciation[0..1] {
+    definition {
+      Ruby annotation giving pronunciation. Mutually exclusive with annotation.
+    }
+  }
+  +annotation: RubyAnnotation[0..1] {
+    definition {
+      Ruby annotation giving other (semantic) information. Mutually exclusive with pronunciation.
+    }
+  }
+  +text: String[0..1] {
+    definition {
+      Ruby annotated text which contains no further annotations. Mutually exclusive with ruby.
+    }
+  }
+  +ruby: RubyElement[0..1] {
+    definition {
+      Ruby annotated text which itself contains other Ruby annotations. Mutually exclusive with text.
+    }
+  }
+}
+

@@ -1,7 +1,0 @@
-class KeywordElement {
-  definition {
-    Keyword text. 
-  }
-}
-
-

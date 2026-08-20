@@ -1,0 +1,23 @@
+diagram DataTypes {
+  title "DataTypes"
+  include ../models/datatypes/LocalizedString.lml
+  include ../models/datatypes/Uri.lml
+  include ../models/datatypes/String.lml
+  include ../models/datatypes/FormattedString.lml
+  include ../models/datatypes/Iso8601DateTime.lml
+  include ../models/datatypes/Iso15924Code.lml
+  include ../models/datatypes/Iso639Code.lml
+  include ../models/datatypes/Iso3166Code.lml
+  include ../models/datatypes/StringFormat.lml
+
+  association {
+    owner LocalizedString
+    member FormattedString
+    owner_type inheritance
+  }
+  association {
+    owner StringFormat
+    member FormattedString
+    member_type direct
+  }
+}

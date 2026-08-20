@@ -1,0 +1,6 @@
+class SmallCapsElement {
+  definition {
+    Small caps text.
+  }
+}
+

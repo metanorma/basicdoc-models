@@ -1,0 +1,25 @@
+diagram ContribMetadata {
+  title "ContribMetadata"
+  include ../models/contribmetadata/Iso10118Oid.lml
+  include ../models/contribmetadata/Iso14888Oid.lml
+  include ../models/contribmetadata/ContributionElementMetadata.lml
+  include ../models/contribmetadata/IntegrityValue.lml
+  include ../models/contribmetadata/Hash.lml
+  include ../models/contribmetadata/Signature.lml
+
+  association {
+    owner IntegrityValue
+    member ContributionElementMetadata
+    member_type direct
+  }
+  association {
+    owner IntegrityValue
+    member Hash
+    owner_type inheritance
+  }
+  association {
+    owner IntegrityValue
+    member Signature
+    owner_type inheritance
+  }
+}

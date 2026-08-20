@@ -1,0 +1,153 @@
+diagram TextElements {
+  title "TextElements"
+  include ../models/emptyelements/BasicElement.lml
+  include ../models/textelements/TextElement.lml
+  include ../models/textelements/TextElementType.lml
+  include ../models/textelements/PureTextElement.lml
+  include ../models/textelements/PureTextElementType.lml
+  include ../models/textelements/MonospaceElement.lml
+  include ../models/textelements/KeywordElement.lml
+  include ../models/textelements/EmphasisElement.lml
+  include ../models/textelements/SubscriptElement.lml
+  include ../models/textelements/StrongElement.lml
+  include ../models/textelements/StemElement.lml
+  include ../models/textelements/SuperscriptElement.lml
+  include ../models/textelements/StrikeElement.lml
+  include ../models/textelements/SmallCapsElement.lml
+  include ../models/textelements/UnderlineElement.lml
+  include ../models/textelements/StemValue.lml
+  include ../models/textelements/RubyElement.lml
+  include ../models/textelements/RubyPronunciation.lml
+  include ../models/textelements/RubyAnnotation.lml
+  include ../models/textelements/MathML.lml
+  include ../models/textelements/AsciiML.lml
+  include ../models/textelements/LaTeX.lml
+  include ../models/textelements/StemType.lml
+  include ../models/idelements/IdElement.lml
+  include ../models/referenceelements/ReferenceElement.lml
+
+  association {
+    owner BasicElement
+    member TextElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member IdElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member ReferenceElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member PureTextElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElementType
+    member TextElement
+    member_type direct
+  }
+  association {
+    owner PureTextElementType
+    member PureTextElement
+    member_type direct
+  }
+
+  association {
+    owner TextElement
+    member KeywordElement
+    owner_type inheritance
+  }
+  association {
+    owner PureTextElement
+    member MonospaceElement
+    owner_type inheritance
+  }
+  association {
+    owner PureTextElement
+    member EmphasisElement
+    owner_type inheritance
+  }
+  association {
+    owner PureTextElement
+    member SubscriptElement
+    owner_type inheritance
+  }
+  association {
+    owner PureTextElement
+    member StrongElement
+    owner_type inheritance
+  }
+  association {
+    owner PureTextElement
+    member UnderlineElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member StemElement
+    owner_type inheritance
+  }
+
+  association {
+    owner StemType
+    member StemElement
+    member_type direct
+  }
+  association {
+    owner StemValue
+    member StemElement
+    member_type direct
+  }
+
+  association {
+    owner StemValue
+    member MathML
+    owner_type inheritance
+  }
+  association {
+    owner StemValue
+    member AsciiML
+    owner_type inheritance
+  }
+  association {
+    owner StemValue
+    member LaTeX
+    owner_type inheritance
+  }
+
+  association {
+    owner PureTextElement
+    member SuperscriptElement
+    owner_type inheritance
+  }
+  association {
+    owner PureTextElement
+    member StrikeElement
+    owner_type inheritance
+  }
+  association {
+    owner PureTextElement
+    member SmallCapsElement
+    owner_type inheritance
+  }
+  association {
+    owner TextElement
+    member RubyElement
+    owner_type inheritance
+  }
+  association {
+    owner RubyElement
+    member RubyPronunciation
+    member_type direct
+  }
+  association {
+    owner RubyElement
+    member RubyAnnotation
+    member_type direct
+  }
+}

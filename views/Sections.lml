@@ -1,0 +1,24 @@
+diagram Sections {
+  title "Sections"
+  include ../models/sections/BasicSection.lml
+  include ../models/sections/HierarchicalSection.lml
+  include ../models/sections/ContentSection.lml
+  include ../models/sections/ReferencesSection.lml
+
+  association {
+    owner BasicSection
+    member HierarchicalSection
+    owner_type inheritance
+  }
+  association {
+    owner HierarchicalSection
+    member ContentSection
+    owner_type inheritance
+  }
+  association {
+    owner BasicSection
+    member ReferencesSection
+    owner_type inheritance
+  }
+
+}

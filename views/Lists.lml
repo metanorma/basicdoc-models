@@ -1,0 +1,51 @@
+diagram Lists {
+  title "Lists"
+  include ../models/blocks/BasicBlock.lml
+  include ../models/lists/List.lml
+  include ../models/lists/ListItem.lml
+  include ../models/lists/UnorderedList.lml
+  include ../models/lists/OrderedList.lml
+  include ../models/lists/DefinitionList.lml
+  include ../models/lists/Definition.lml
+  include ../models/lists/OrderedListType.lml
+
+  association {
+    owner BasicBlock
+    member List
+    owner_type inheritance
+  }
+
+  association {
+    owner Listitem
+    member List
+    member_type direct
+  }
+  association {
+    owner List
+    member UnorderedList
+    owner_type inheritance
+  }
+  association {
+    owner List
+    member DefinitionList
+    owner_type inheritance
+  }
+
+  association {
+    owner Definition
+    member DefinitionList
+    member_type direct
+  }
+
+  association {
+    owner UnorderedList
+    member OrderedList
+    owner_type inheritance
+  }
+
+  association {
+    owner OrderedListType
+    member OrderedList
+    member_type direct
+  }
+}
