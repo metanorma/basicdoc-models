@@ -1,0 +1,90 @@
+diagram MultiParagraphs {
+  title "MultiParagraphs"
+  include ../models/paragraphs/ParagraphWithFootnote.lml
+  include ../models/multiparagraphs/ParagraphsBlock.lml
+  include ../models/multiparagraphs/QuoteBlock.lml
+  include ../models/multiparagraphs/ReviewBlock.lml
+  include ../models/multiparagraphs/AdmonitionBlock.lml
+  include ../models/multiparagraphs/AdmonitionType.lml
+  include ../models/multiparagraphs/AmendBlock.lml
+  include ../models/multiparagraphs/Classification.lml
+  include ../models/multiparagraphs/ChangeType.lml
+  include ../models/multiparagraphs/NewContentBlock.lml
+  include ../models/sections/HierarchicalSection.lml
+  include ../models/blocks/BasicBlock.lml
+  include ../models/bibdata/Contributor.lml
+  include ../models/bibdata/LocalityStack.lml
+  include ../models/bibdata/BibItemLocality.lml
+
+  association {
+    owner ParagraphWithFootnote
+    member ParagraphsBlock
+    owner_type inheritance
+  }
+  association {
+    owner ParagraphsBlock
+    member QuoteBlock
+    owner_type inheritance
+  }
+  association {
+    owner ParagraphsBlock
+    member ReviewBlock
+    owner_type inheritance
+  }
+  association {
+    owner ParagraphsBlock
+    member AdmonitionBlock
+    owner_type inheritance
+  }
+
+  association {
+    owner AdmonitionType
+    member AdmonitionBlock
+    member_type direct
+  }
+  association {
+    owner ParagraphsBlock
+    member AmendBlock
+    member_type inheritance
+  }
+  association {
+    owner AmendBlock
+    member ChangeType
+    member_type direct
+  }
+  association {
+    owner AmendBlock
+    member Classification
+    member_type direct
+  }
+  association {
+    owner AmendBlock
+    member Contributor
+    member_type direct
+  }
+  association {
+    owner AmendBlock
+    member BibItemLocality
+    owner_type direct
+  }
+  association {
+    owner AmendBlock
+    member LocalityStack
+    owner_type direct
+  }
+  association {
+    owner AmendBlock
+    member NewContentBlock
+    owner_type direct
+  }
+  association {
+    owner NewContentBlock
+    member BaasicBlock
+    owner_type direct
+  }
+  association {
+    owner NewContentBlock
+    member HierarchicalSection
+    owner_type direct
+  }
+}

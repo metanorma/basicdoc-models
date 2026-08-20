@@ -1,0 +1,89 @@
+diagram Change {
+  title "Change"
+
+  include ../models/change/Change.lml
+  include ../models/change/ChangeSet.lml
+  include ../models/change/UniqueIdentifier.lml
+  include ../models/change/NodeChange.lml
+  include ../models/change/ContentChange.lml
+  include ../models/change/ContentModify.lml
+  include ../models/change/NodeInsert.lml
+  include ../models/change/NodeDelete.lml
+  include ../models/change/NodeMove.lml
+  include ../models/change/AttributeModify.lml
+  include ../models/change/ContentChangeAction.lml
+  include ../models/change/AttributeChangeAction.lml
+  include ../models/change/ContentAction.lml
+
+  association {
+    owner Change
+    member ChangeSet
+    member_type direct
+  }
+  association {
+    owner UniqueIdentifier
+    member Change
+    member_type direct
+  }
+  association {
+    owner Change
+    member NodeChange
+    owner_type inheritance
+  }
+  association {
+    owner Change
+    member ContentChange
+    owner_type inheritance
+  }
+
+  association {
+    owner ContentChange
+    member ContentModify
+    owner_type inheritance
+  }
+
+  association {
+    owner ContentChangeAction
+    member ContentModify
+    member_type direct
+  }
+
+  association {
+    owner ContentAction
+    member ContentChangeAction
+    member_type direct
+  }
+  association {
+    owner ContentChangeAction
+    member AttributeChangeAction
+    owner_type inheritance
+  }
+
+  association {
+    owner ContentModify
+    member AttributeModify
+    owner_type inheritance
+  }
+
+  association {
+    owner AttributeChangeAction
+    member AttributeModify
+    member_type direct
+  }
+
+  association {
+    owner NodeChange
+    member NodeInsert
+    owner_type inheritance
+  }
+  association {
+    owner NodeChange
+    member NodeDelete
+    owner_type inheritance
+  }
+  association {
+    owner NodeChange
+    member NodeMove
+    owner_type inheritance
+  }
+}

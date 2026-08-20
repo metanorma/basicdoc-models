@@ -1,8 +1,0 @@
-class PageBreakElement{
-  definition {
-    Page break. Only applicable in paged layouts (e.g. PDF, Word), and not
-    flow layouts (e.g. HTML).
-  }
-}
-
-

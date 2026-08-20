@@ -1,0 +1,18 @@
+diagram Blocks {
+  title "Blocks"
+
+  include ../models/blocks/BasicBlock.lml
+  include ../models/blocks/BasicBlockNoNotes.lml
+  include ../models/blocks/NoteBlock.lml
+
+  association {
+    owner BasicBlock
+    member BasicBlockNoNotes
+    member_type inheritance
+  }
+  association {
+    owner NoteBlock
+    member BasicBlockNoNotes
+    member_type inheritance
+  }
+}

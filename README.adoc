@@ -1,6 +1,6 @@
 = BasicDocument / SecureDoc Models
 
-image:https://github.com/metanorma/basicdoc-models/workflows/make/badge.svg["Build Status", link="https://github.com/metanorma/basicdoc-models/actions?query=workflow%3Amake"]
+image:https://github.com/metanorma/basicdoc-models/workflows/rake/badge.svg["Build Status", link="https://github.com/metanorma/basicdoc-models/actions?query=workflow%3Arake"]
 
 BasicDocument ("BasicDoc") / SecureDoc is a set of core information models that
 represents a document, including metadata and rich text.
@@ -18,10 +18,43 @@ transformation operations.
 
 NOTE: BasicDocument is the document model that Selagraph operates on.
 
-The Relaton Bibliography UML models used in these models are located here:
+[IMPORTANT]
+====
+The models ARE the LML files. Every model is defined in LutaML
+(`models/**/*.lml` definition modules, `views/*.lml` diagram views); the RNC
+files in `grammars/` are implementation grammars that *accompany* the LML
+models — never a substitute for them. This cannot be violated.
+====
 
-* https://github.com/metanorma/relaton-models[Relaton BibModels]
+This repository is the sole source of Basicdoc LML. Consumers
+(https://github.com/relaton/relaton-models[relaton-models],
+https://github.com/metanorma/standoc-models[standoc-models]) submodule it —
+do not vendor Basicdoc types elsewhere.
 
+The Relaton Bibliography models used alongside these models live in:
+
+* https://github.com/relaton/relaton-models[relaton/relaton-models]
+  (base grammars under `relaton/grammars/`)
+
+RNG compilation of the accompanying RNC is handled by the Metanorma grammar
+hub (standoc-models), not by this repository.
+
+== Building
+
+Requires Ruby, Bundler, and Graphviz (`dot` on `PATH`).
+
+[source,sh]
+----
+git submodule update --init --recursive
+bundle install
+bundle exec rake render   # regenerate images/*.png from views/*.lml
+bundle exec rake verify   # assert PNG magic bytes on every committed diagram
+bundle exec rake parity   # assert LML/RNC presence and view include graph
+bundle exec rake check    # render + verify + parity
+bundle exec rake clean
+----
+
+CI runs the same build on ubuntu, macOS and Windows.
 
 == Basic Document UML Models
 

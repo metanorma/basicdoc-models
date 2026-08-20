@@ -1,0 +1,66 @@
+diagram IdElements {
+  title "IdElements"
+  include ../models/emptyelements/BasicElement.lml
+  include ../models/idelements/IdElement.lml
+  include ../models/idelements/Media.lml
+  include ../models/idelements/Image.lml
+  include ../models/idelements/Audio.lml
+  include ../models/idelements/Video.lml
+  include ../models/idelements/AltSource.lml
+  include ../models/idelements/Bookmark.lml
+  include ../models/idelements/MediaType.lml
+  include ../models/datatypes/ImageSizeType.lml
+
+  association {
+    owner BasicElement
+    member IdElement
+    owner_type inheritance
+  }
+
+  association {
+    owner IdElement
+    member Media
+    owner_type inheritance
+  }
+  association {
+    owner IdElement
+    member Bookmark
+    owner_type inheritance
+  }
+  association {
+    owner Media
+    member Image
+    owner_type inheritance
+  }
+  association {
+    owner Media
+    member Audio
+    owner_type inheritance
+  }
+  association {
+    owner Media
+    member Video
+    owner_type inheritance
+  }
+
+  association {
+    owner Image
+    member ImageSizeType
+    member_type direct
+  }
+  association {
+    owner MediaType
+    member Media
+    member_type direct
+  }
+  association {
+    owner AltSource
+    member Video
+    member_type direct
+  }
+  association {
+    owner AltSource
+    member Audio
+    member_type direct
+  }
+}

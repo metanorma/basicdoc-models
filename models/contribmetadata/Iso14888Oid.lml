@@ -1,0 +1,6 @@
+data_type Iso14888Oid {
+  definition {
+    Identifier of digital signature algorithm defined in ISO 14888.
+  }
+}
+

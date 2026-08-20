@@ -1,8 +1,0 @@
-class Footnote{
-  definition {
-    Inline reference to a paragraph or paragraphs, appearing as a footnote.
-  }
-  +type: "footnote" 
-}
-
-

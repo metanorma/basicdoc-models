@@ -1,0 +1,29 @@
+diagram Paragraphs {
+  title "Paragraphs"
+  include ../models/blocks/BasicBlock.lml
+  include ../models/paragraphs/ParagraphBlock.lml
+  include ../models/paragraphs/ParagraphWithFootnote.lml
+  include ../models/paragraphs/TextAlignment.lml
+
+  association {
+    owner BasicBlock
+    member ParagraphBlock
+    owner_type inheritance
+  }
+  association {
+    owner BasicBlock
+    member ParagraphsBlock
+    owner_type inheritance
+  }
+
+  association {
+    owner ParagraphBlock
+    member ParagraphWithFootnote
+    owner_type inheritance
+  }
+  association {
+    owner TextAlignment
+    member ParagraphBlock
+    member_type direct
+  }
+}

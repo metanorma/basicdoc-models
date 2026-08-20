@@ -1,0 +1,12 @@
+class TextElement {
+  definition {
+    Any inline element containing text and associated formatting information.
+    Includes inline elements that are identifiers or references to identifiers.
+  }
+  +content: TextElementType {
+    definition {
+      Content of the Text Element. May recursively contain other Text Elements.
+    }
+  }
+}
+

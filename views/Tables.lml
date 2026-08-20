@@ -1,0 +1,50 @@
+diagram Tables {
+  title "Tables"
+  include ../models/blocks/BasicBlock.lml
+  include ../models/tables/TableBlock.lml
+  include ../models/tables/TextTableRow.lml
+  include ../models/tables/TableCell.lml
+  include ../models/tables/TextTableCell.lml
+  include ../models/tables/ParagraphTableCell.lml
+  include ../models/tables/TextAlignmnent.lml
+  include ../models/tables/VerticalAlignmnent.lml
+
+  association {
+    owner BasicBlock
+    member TableBlock
+    owner_type inheritance
+  }
+
+  association {
+    owner TextTableRow
+    member TableBlock
+    member_type direct
+  }
+  association {
+    owner TableCell
+    member TextTableRow
+    member_type direct
+  }
+  association {
+    owner TableCell
+    member TextTableCell
+    owner_type inheritance
+  }
+  association {
+    owner TableCell
+    member ParagraphTableCell
+    owner_type inheritance
+  }
+
+  association {
+    owner TextAlignmnent
+    member TableCell
+    member_type direct
+  }
+  association {
+    owner VerticalAlignmnent
+    member TableCell
+    member_type direct
+  }
+
+}

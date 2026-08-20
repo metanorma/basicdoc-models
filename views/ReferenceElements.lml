@@ -1,0 +1,70 @@
+diagram ReferenceElements {
+  title "ReferenceElements"
+  include ../models/emptyelements/BasicElement.lml
+  include ../models/referenceelements/ReferenceElement.lml
+  include ../models/referenceelements/Citation.lml
+  include ../models/referenceelements/ReferenceToIdElement.lml
+  include ../models/referenceelements/IndexXrefElement.lml
+  include ../models/referenceelements/ReferenceToLinkElement.lml
+  include ../models/referenceelements/ReferenceToCitationElement.lml
+  include ../models/referenceelements/ReferenceToIdWithParagraphElement.lml
+  include ../models/referenceelements/Callout.lml
+  include ../models/referenceelements/Footnote.lml
+  include ../models/referenceelements/ReferenceFormat.lml
+
+  association {
+    owner BasicElement
+    member ReferenceElement
+    owner_type inheritance
+  }
+  association {
+    owner ReferenceElement
+    member IndexXrefElement
+    owner_type inheritance
+  }
+
+  association {
+    owner ReferenceElement
+    member ReferenceToIdElement
+    owner_type inheritance
+  }
+  association {
+    owner ReferenceElement
+    member ReferenceToLinkElement
+    owner_type inheritance
+  }
+  association {
+    owner ReferenceElement
+    member ReferenceToCitationElement
+    owner_type inheritance
+  }
+
+  association {
+    owner ReferenceFormat
+    member ReferenceElement
+    member_type direct
+  }
+
+  association {
+    owner Citation
+    member ReferenceToCitationElement
+    owner_type inheritance
+  }
+
+  association {
+    owner ReferenceToIdElement
+    member ReferenceToIdWithParagraphElement
+    owner_type inheritance
+  }
+  association {
+    owner ReferenceToIdElement
+    member Callout
+    owner_type inheritance
+  }
+
+  association {
+    owner ReferenceToIdWithParagraphElement
+    member Footnote
+    owner_type inheritance
+  }
+}
