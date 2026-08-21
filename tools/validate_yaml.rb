@@ -37,7 +37,7 @@ end
 def attributes_of(type)
   @attributes_of ||= {}
   @attributes_of[type] ||= begin
-    own = body_of(type).to_s.scan(/^\s*[+#-]([a-z_]\w*)\s*:\s*([^\[{]+?)(?:\[[^\]]*\])?\s*\{/)
+    own = body_of(type).to_s.scan(/^\s*[+#-]([a-z_]\w*)\s*:\s*([^\[{\n]+?)(?:\[[^\]]*\])?\s*\{/)
     inherited = parent_of[type] ? attributes_of(parent_of[type]) : []
     (own + inherited)
   end

@@ -247,7 +247,7 @@ review =
 
 ReviewAttributes =
   ## The party who has offered the comment
-  attribute reviewer { text },
+  attribute reviewer { text }?,
   ## The type of reviewer comment
   attribute type { text }?,
   ## The date when the comment was made

@@ -85,7 +85,27 @@
           </document>
         </newcontent>
         <classification><tag>reason</tag><value>editorial</value></classification>
+
       </amend>
+
+      <!-- figure wrapping an image -->
+      <figure id="fig1">
+        <name>Doctrine at a glance</name>
+        <image id="img1" src="https://example.org/atlas.png" mimetype="image/png" width="50%" height="auto"/>
+      </figure>
+
+      <!-- reviewer comment -->
+      <review id="rev1" reviewer="rt" type="editorial" date="2026-08-21T00:00:00">
+        <p id="rev1p1">Check the register keys before publication.</p>
+      </review>
+
+      <!-- anchors and cross-references -->
+      <p id="p2">See <bookmark id="bm1"/> the
+        <xref target="s1"><display-text>section itself</display-text></xref>, the
+        <link target="https://www.iso24229.org">ISO 24229 registry</link>, and
+        <index><primary>registries</primary><secondary>ISO 24229</secondary></index>
+        for details.
+      </p>
       <attribute key="class">preface</attribute>
     </section>
   </sections>

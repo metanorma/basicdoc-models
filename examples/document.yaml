@@ -34,6 +34,7 @@ document:
             - text: " and a footnote"
             - class: Footnote
               id: fn1
+              reference: "1"
               content:
                 - class: ParagraphBlock
                   id: fn1p1
@@ -162,3 +163,40 @@ document:
           classification:
             - key: reason
               value: editorial
+        - class: FigureBlock
+          id: fig1
+          name:
+            - text: Doctrine at a glance
+          image:
+            class: Image
+            id: img1
+            height: auto
+            width: 50%
+        - class: ReviewBlock
+          id: rev1
+          reviewer: rt
+          type: editorial
+          date: "2026-08-21T00:00:00"
+          contents:
+            - class: ParagraphBlock
+              id: rev1p1
+              contents: [{ text: Check the register keys before publication. }]
+        - class: ParagraphWithFootnote
+          id: p2
+          contents:
+            - text: "See "
+            - class: Bookmark
+              id: bm1
+            - text: " the "
+            - class: ReferenceToIdElement
+              target: s1
+              text: section itself
+            - text: ", the "
+            - class: ReferenceToLinkElement
+              target: "https://www.iso24229.org"
+              text: ISO 24229 registry
+            - text: ", and "
+            - class: IndexElement
+              primary: [{ text: registries }]
+              secondary: [{ text: ISO 24229 }]
+            - text: " for details."
