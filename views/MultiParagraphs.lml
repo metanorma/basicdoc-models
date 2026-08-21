@@ -7,7 +7,7 @@ diagram MultiParagraphs {
   include ../models/blocks/multiparagraphs/AdmonitionBlock.lml
   include ../models/blocks/multiparagraphs/AdmonitionType.lml
   include ../models/blocks/amend/AmendBlock.lml
-  include ../models/blocks/amend/Classification.lml
+  include ../models/datatypes/Attribute.lml
   include ../models/blocks/amend/ChangeType.lml
   include ../models/blocks/amend/NewContentBlock.lml
   include ../models/sections/HierarchicalSection.lml
@@ -54,7 +54,7 @@ diagram MultiParagraphs {
   }
   association {
     owner AmendBlock
-    member Classification
+    member Attribute
     member_type direct
   }
   association {

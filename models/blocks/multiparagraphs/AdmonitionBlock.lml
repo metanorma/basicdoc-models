@@ -15,13 +15,6 @@ class AdmonitionBlock {
       Caption of admonition.
     }
   }
-  +class: String[0..1] {
-    definition {
-      Subclass of admonition allowing different runs of admonitions to be labelled 
-      and auto-numbered differently, even if they are of the same type.
-      Typically is a subclass of an admonition type.
-    }
-  }
   +uri: Uri[0..1] {
     definition {
       Location where the content of the admonition is accessible as an external document.

@@ -3,7 +3,7 @@ class BasicDocument {
   definition {
     Class modelling a basic document.
   }
-  +identifier: UniqueIdentifier {
+  +identifier: UniqueIdentifier[0..1] {
     definition {
       A globally unique identifier for the document in an agreed identifier schema. The identifier is to be used for tracking interactions with the document without depending on formal document registries; it would be exemplified by a GUID, rather than a document registry identifier such as "`ISO 639`", which belongs to `bibdata`.
     }
@@ -26,6 +26,12 @@ class BasicDocument {
   +integrityValue: IntegrityValue[0..*] {
     definition {
       A digital signature of the contribution.
+    }
+  }
+  +attributes: Attribute[0..*] {
+    definition {
+      Entries from the generic attribute register: an open key-value
+      set that markup languages bind their own attribute types into.
     }
   }
 }

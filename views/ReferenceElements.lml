@@ -11,6 +11,7 @@ diagram ReferenceElements {
   include ../models/inline/reference/Callout.lml
   include ../models/inline/reference/Footnote.lml
   include ../models/inline/reference/ReferenceFormat.lml
+  include ../models/inline/reference/ReferenceToVariable.lml
 
   association {
     owner BasicElement
@@ -65,6 +66,13 @@ diagram ReferenceElements {
   association {
     owner ReferenceToIdWithParagraphElement
     member Footnote
+    owner_type inheritance
+  }
+
+
+  association {
+    owner ReferenceElement
+    member ReferenceToVariable
     owner_type inheritance
   }
 }

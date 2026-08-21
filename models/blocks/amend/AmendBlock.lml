@@ -42,12 +42,12 @@ class AmendBlock {
       Description of the change described in this block.
     }
   }
-  +newContent: BasicBlock[0..*] {
+  +newContent: NewContentBlock[0..1] {
     definition {
       New content to be added to the document; applicable to add and modify.
     }
   }
-  +classification: Classification[0..*] {
+  +classification: Attribute[0..*] {
     definition {
       Classification of the change.
     }

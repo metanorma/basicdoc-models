@@ -7,7 +7,7 @@ class Definition {
       Entry being defined in the definition.
     }
   }
-  +definition: ParagraphWithFootnote[0..*] {
+  +definition: BasicBlock[0..*] {
     definition {
       Definition of the item.
     }

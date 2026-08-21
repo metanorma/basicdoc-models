@@ -28,5 +28,11 @@ class BasicSection {
       (but excluding subsections, which are only present in Hierarchical Sections).
     }
   }
+  +attributes: Attribute[0..*] {
+    definition {
+      Entries from the generic attribute register: an open key-value
+      set that markup languages bind their own attribute types into.
+    }
+  }
 }
 
