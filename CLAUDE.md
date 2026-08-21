@@ -96,6 +96,15 @@ There is no separate unit-test suite; `rake check` is the gate.
 - RNG generation is **not** this repo's job — standoc-models is the grammar hub. Do not reintroduce jing-trang CI without an explicit decision.
 - Submodule pin for `vendor/relaton-models` must point at a SHA that has `relaton/grammars/biblio*.rnc`. Initialize: `git submodule update --init --recursive`.
 
+## Instance fixtures (XML/YAML implementability)
+
+`examples/document.{xml,yaml}` are twin instances of the full doctrine document (register, relaxed containers, composition, variables, amend). `rake fixtures` proves the LML is implementable in both structures:
+
+- **XML** (`tools/validate_xml.py`, rnc2rng + lxml): validated against `grammars/basicdoc-compile.rnc` (Relaton biblio included). Conventions: no namespace; register entries are leading `<attribute key=…>` elements (single text value or repeated `<value>` children); captions serialize as `<name>`.
+- **YAML** (`tools/validate_yaml.rb`): validated against the LML model with inheritance resolved from the views. Convention: `class` = construct name, attribute names as keys (inherited count), `attributes` = register entries, `id` = well-known anchor key, `{text: …}` = text leaf.
+
+CI runs `rake fixtures` after the model gates. When adding a construct, extend the fixtures — a construct without a serializable instance is unfinished.
+
 ## Consumers / coordination
 
 | Consumer | How it uses this repo |

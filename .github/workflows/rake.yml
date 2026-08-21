@@ -35,3 +35,5 @@ jobs:
       - run: bundle exec rake verify
       - run: bundle exec rake lint
       - run: bundle exec rake parity
+      - run: pip install --user rnc2rng lxml
+      - run: bundle exec rake fixtures

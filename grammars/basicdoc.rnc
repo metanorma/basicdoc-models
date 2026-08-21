@@ -9,10 +9,10 @@ element document {
   bibdata,
   ## Hierarchically arranged units of textual content within the document
   sections,
+  ## Attribute register entries (leading convention)
+  reg-attribute*,
   ## Bibliographic content
-  references*,
-  ## Attribute register entries
-  reg-attribute*
+  references*
 }
 
 ## Bibliographic description of a document, used as metadata, expressed in the Relaton model
@@ -28,6 +28,8 @@ sections =
 section =
   element section { 
     Basic-Section,
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## Sections contained within the current section. The relation is recursive,
     ## so the hierarchical arrangement of sections can be arbitrarily deep
     section*
@@ -108,7 +110,9 @@ AmendType =
     element newcontent {
         OptionalId,
         BasicBlock*,
-        section*
+        section*,
+        ## A document is a block: entire documents as child content
+        document*
     }?,
     ## Classification of the change
     classification*,
@@ -160,6 +164,8 @@ ParagraphType =
 
 ## Inline elements constituting the content of the paragraph, excluding footnotes
 ParagraphBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
    ## Inline elements constituting the content of the paragraph
    TextElement*,
    ## Notes whose scope is the current block
@@ -167,6 +173,8 @@ ParagraphBody =
 
 ## Inline elements constituting the content of the paragraph, including footnotes
 ParagraphFnBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
    (
      ## Inline elements constituting the content of the paragraph
      TextElement |
@@ -219,9 +227,13 @@ note-no-id =
 NoteAttributes = NumberingAttributes
 
 NoteBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     paragraph+
 
 NoteNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     paragraph-no-id+
 
 ## Block intended to capture reviewer comments about some text in the document
@@ -277,6 +289,8 @@ FormulaAttributes =
     attribute inequality { xsd:boolean }?
 
 FormulaBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## The content of the formula, as a mathematical expression
     stem,
     ## A definitions list defining any symbols used in the formula
@@ -285,6 +299,8 @@ FormulaBody =
     note*
 
 FormulaNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## The content of the formula, as a mathematical expression
     stem,
     ## A definitions list defining any symbols used in the formula
@@ -313,6 +329,8 @@ QuoteAttributes =
     attribute alignment { Alignments }?
 
 QuoteBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## Bibliographic citation for the quotation
     quote-source?,
     ## Author of the quotation; convenience duplicate of quote-source
@@ -323,6 +341,8 @@ QuoteBody =
     note*
 
 QuoteNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## Bibliographic citation for the quotation
     quote-source?,
     ## Author of the quotation; convenience duplicate of quote-source
@@ -360,6 +380,8 @@ SourceAttributes =
     attribute lang { text }?
 
 SourceBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## The caption of the block
     tname?,
     ## The sourcecode content
@@ -371,6 +393,8 @@ SourceBody =
     note*
 
 SourceNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## The caption of the block
     tname?,
     ## The sourcecode content
@@ -415,6 +439,8 @@ PreAttributes =
     attribute alt { text }?
 
 PreBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## The caption of the block
     tname?,
     ## The pre-formatted text presented in the block, as a single unformatted string. (Whitespace is treated as significant)
@@ -423,6 +449,8 @@ PreBody =
     note*
 
 PreNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## The caption of the block
     tname?,
     ## The pre-formatted text presented in the block, as a single unformatted string. (Whitespace is treated as significant)
@@ -458,6 +486,8 @@ TableAttributes =
 
 ## Elements of table
 TableBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## Caption for the table
     tname?,
     ## Table rows constituting the table header
@@ -473,6 +503,8 @@ TableBody =
 
 ## Elements of table: optional ID attributes recursively (for use in Relaton, metadata)
 TableNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## Caption for the table
     tname?,
     ## Table rows constituting the table header
@@ -540,6 +572,8 @@ TdAttributes =
     attribute valign { "top" | "middle" | "bottom" | "baseline" }?
 
 TdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     (
       ## Table cell is a block; footnotes admitted inline (metanorma-model-iso#154)
       ( TextElement | fn )* |
@@ -548,6 +582,8 @@ TdBody =
     )
 
 TdNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     (
       ## Table cell is a block; footnotes admitted inline (metanorma-model-iso#154)
       ( TextElement | fn )* |
@@ -595,6 +631,8 @@ ExampleAttributes =
     NumberingAttributes
 
 ExampleBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## The caption of the example
     tname?,
     ## Content of the example
@@ -613,6 +651,8 @@ ExampleBodyContent =
     BasicBlock
 
 ExampleNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## The caption of the example
     tname?,
     ## Content of the example
@@ -654,6 +694,8 @@ AdmonitionAttributes =
     attribute uri { xsd:anyURI }?
 
 AdmonitionBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## Caption of admonition
     tname?,
     ## Admonition content; relaxed block content
@@ -662,6 +704,8 @@ AdmonitionBody =
     note*
 
 AdmonitionNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## Caption of admonition
     tname?,
     ## Admonition content; relaxed block content
@@ -705,6 +749,8 @@ FigureAttributes =
     attribute class { text }?
 
 FigureBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
      ## The caption of the block
      tname?, 
      ## Content of the figure
@@ -719,6 +765,8 @@ FigureBody =
      source?
 
 FigureNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
      ## A URI or other reference intended to link to an externally hosted image (or equivalent)
      source?,
      ## The caption of the block
@@ -736,7 +784,7 @@ FigureNoIdBody =
 ## Includes inline elements that are identifiers or references to identifiers
 TextElement =
   text | em | eref | strong | stem | sub | sup | tt | underline | keyword | ruby |
-  strike | smallcap | xref | br | hyperlink | hr | pagebreak | bookmark | image | index | index-xref
+  strike | smallcap | xref | br | hyperlink | hr | pagebreak | bookmark | image | index | index-xref | variable-ref
 
 ## Inline element containing text and associated formatting information,
 ## but which does not contain any associated identifiers or references to identifiers.
@@ -767,9 +815,13 @@ reg-attribute =
     attribute key { text },
     ## Optional scheme qualifying how the value is to be interpreted
     attribute scheme { text }?,
-    ## Value(s) of the attribute
-    text
+    ## Value(s) of the attribute: inline text or repeated value elements
+    ( text | value+ )
   }
+
+## Repeated value of an attribute register entry
+value =
+  element value { text }
 
 
 ## Emphasised text. Corresponds to HTML `em`, `i`
@@ -1140,12 +1192,16 @@ ul-no-id =
 UlAttributes = empty
 
 UlBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## List items
     li+,
     ## Notes whose scope is the current block
     note*
 
 UlNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## List items
     li-no-id+,
     ## Notes whose scope is the current block
@@ -1171,10 +1227,14 @@ LiAttributes = empty
 
 ## Relaxed content model: a list item is a block container (AsciiDoc continuations, GFM loose items, RST items)
 LiBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     BasicBlock*
 
 ## Relaxed content model: a list item is a block container: optional ID attributes recursively (for use in Relaton, metadata)
 LiNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     BasicBlock*
 
 ## Ordered list, with numbering applied to the list items
@@ -1201,12 +1261,16 @@ OlAttributes =
     attribute start { text }?
 
 OlBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## List item
     li+,
     ## Notes whose scope is the current block
     note*
 
 OlNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## List item
     li-no-id+,
     ## Notes whose scope is the current block
@@ -1230,6 +1294,8 @@ dl-no-id =
 DlAttributes = empty
 
 DlBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## Entry-Definition pair used to constitute a definition list
     (
       ## Entry being defined in the definition
@@ -1241,6 +1307,8 @@ DlBody =
     note*
 
 DlNoIdBody =
+    ## Attribute register entries (leading convention)
+    reg-attribute*,
     ## Entry-Definition pair used to constitute a definition list
     (
       ## Entry being defined in the definition
