@@ -1,6 +1,8 @@
 class LocalizedString {
   definition {
-    String specifying the language and script of its text.
+    String specifying the language, script, and country of its text.
+    A language-script(-country) combination identifies a spelling system
+    as registered under ISO 24229 (written-language conversion systems).
   }
   +language: Iso639Code[0..*] {
     definition {
@@ -10,6 +12,11 @@ class LocalizedString {
   +script: Iso15924Code[0..*] {
     definition {
       The script of the string.
+    }
+  }
+  +country: Iso3166Code[0..*] {
+    definition {
+      The country/locale variant of the string.
     }
   }
   +content: String {

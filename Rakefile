@@ -8,7 +8,13 @@ task render: IMAGES
 
 rule(
   %r{^images/.+\.png$} => [
-    proc { |tn| tn.sub(/^images\//, "views/").sub(/\.png$/, ".lml") }
+    proc do |tn|
+      view = tn.sub(/^images\//, "views/").sub(/\.png$/, ".lml")
+      includes = File.read(view).scan(/^\s*include\s+(\S+)/).flatten
+        .map { |inc| File.expand_path(inc, File.dirname(view)) }
+        .select { |p| File.exist?(p) }
+      [view] + includes
+    end
   ]
 ) do |t|
   mkdir_p "images"
