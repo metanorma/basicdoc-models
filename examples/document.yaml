@@ -135,6 +135,7 @@ document:
         - class: AmendBlock
           id: am1
           change: modify
+          position: after
           newContent:
             class: NewContentBlock
             newContentBlocks:
@@ -185,6 +186,8 @@ document:
           id: p2
           contents:
             - text: "See "
+            - key: class
+              value: key-term
             - class: Bookmark
               id: bm1
             - text: " the "

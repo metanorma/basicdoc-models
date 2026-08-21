@@ -26,6 +26,11 @@ class AmendBlock {
       if bibLocality defines a container larger than the scope of the change.
     }
   }
+  +position: AmendPosition[0..1] {
+    definition {
+      For an add change, whether the change is added before or after the location.
+    }
+  }
   +pathEnd: String[0..1] {
     definition {
       The end of the span within the bibLocality where the change applies to;
@@ -37,7 +42,7 @@ class AmendBlock {
       Optional caption of this block.
     }
   }
-  +description: <<BasicDocument>> BasicBlock[0..*] {
+  +description: BasicBlock[0..*] {
     definition {
       Description of the change described in this block.
     }

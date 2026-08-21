@@ -3,17 +3,70 @@ diagram Blocks {
 
   include ../models/blocks/BasicBlock.lml
   include ../models/blocks/NoteBlock.lml
-  include ../models/contribmetadata/ContributionElementMetadata.lml
   include ../models/blocks/paragraphs/ParagraphBlock.lml
+  include ../models/blocks/multiparagraphs/ParagraphsBlock.lml
+  include ../models/blocks/lists/List.lml
+  include ../models/blocks/tables/TableBlock.lml
+  include ../models/blocks/ancillaryblocks/FigureBlock.lml
+  include ../models/blocks/ancillaryblocks/SourcecodeBlock.lml
+  include ../models/blocks/ancillaryblocks/FormulaBlock.lml
+  include ../models/blocks/ancillaryblocks/LiteralBlock.lml
+  include ../models/blocks/ancillaryblocks/ExampleBlock.lml
+  include ../models/blocks/amend/AmendBlock.lml
 
   association {
     owner BasicBlock
     member NoteBlock
-    member_type direct
+    owner_type inheritance
   }
   association {
-    owner NoteBlock
+    owner BasicBlock
     member ParagraphBlock
-    member_type direct
+    owner_type inheritance
+  }
+  association {
+    owner BasicBlock
+    member ParagraphsBlock
+    owner_type inheritance
+  }
+  association {
+    owner BasicBlock
+    member List
+    owner_type inheritance
+  }
+  association {
+    owner BasicBlock
+    member TableBlock
+    owner_type inheritance
+  }
+  association {
+    owner BasicBlock
+    member FigureBlock
+    owner_type inheritance
+  }
+  association {
+    owner BasicBlock
+    member SourcecodeBlock
+    owner_type inheritance
+  }
+  association {
+    owner BasicBlock
+    member FormulaBlock
+    owner_type inheritance
+  }
+  association {
+    owner BasicBlock
+    member LiteralBlock
+    owner_type inheritance
+  }
+  association {
+    owner BasicBlock
+    member ExampleBlock
+    owner_type inheritance
+  }
+  association {
+    owner BasicBlock
+    member AmendBlock
+    owner_type inheritance
   }
 }
