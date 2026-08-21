@@ -25,12 +25,16 @@ def body_of(type)
   File.read(defined_types[type]) if defined_types[type]
 end
 
-# parent = owner, child = member, for owner_type inheritance associations
-def parent_of
-  @parent_of ||= Dir[File.join(VIEWS_DIR, "*.lml")].each_with_object({}) do |v, acc|
-    File.read(v).scan(/association \{\s*(?:.*?)\s*owner (\w+)\s*member (\w+)\s*owner_type inheritance/m).each do |parent, child|
-        acc[child] ||= parent
-      end
+# parents of a type: owner (owner_type inheritance) or member (member_type inheritance)
+def parents_of
+  @parents_of ||= Dir[File.join(VIEWS_DIR, "*.lml")].each_with_object(Hash.new { |h, k| h[k] = [] }) do |v, acc|
+    body = File.read(v)
+    body.scan(/association \{\s*(?:.*?)\s*owner (\w+)\s*member (\w+)\s*owner_type inheritance/m).each do |parent, child|
+      acc[child] << parent unless acc[child].include?(parent)
+    end
+    body.scan(/association \{\s*(?:.*?)\s*owner (\w+)\s*member (\w+)\s*member_type inheritance/m).each do |child, parent|
+      acc[child] << parent unless acc[child].include?(parent)
+    end
   end
 end
 
@@ -38,7 +42,7 @@ def attributes_of(type)
   @attributes_of ||= {}
   @attributes_of[type] ||= begin
     own = body_of(type).to_s.scan(/^\s*[+#-]([a-z_]\w*)\s*:\s*([^\[{\n]+?)(?:\[[^\]]*\])?\s*\{/)
-    inherited = parent_of[type] ? attributes_of(parent_of[type]) : []
+    inherited = parents_of[type].flat_map { |par| attributes_of(par) }
     (own + inherited)
   end
 end

@@ -784,16 +784,16 @@ FigureNoIdBody =
 ## Includes inline elements that are identifiers or references to identifiers
 TextElement =
   text | em | eref | strong | stem | sub | sup | tt | underline | keyword | ruby |
-  strike | smallcap | xref | br | hyperlink | hr | pagebreak | bookmark | image | index | index-xref | variable-ref
+  strike | smallcap | xref | br | hyperlink | hr | pagebreak | bookmark | image | index | index-xref | variable-ref | reg-attribute
 
 ## Inline element containing text and associated formatting information,
 ## but which does not contain any associated identifiers or references to identifiers.
 ## Restricted recursively to contain only other such inline elements with no identifiers or references to identifiers
 PureTextElement =
-  text | pure_em | pure_strong | sub | sup | pure_tt | pure_underline | pure_strike | pure_smallcap | br | stem
+  text | pure_em | pure_strong | sub | sup | pure_tt | pure_underline | pure_strike | pure_smallcap | br | stem | reg-attribute
 
 ## Contents of TextElement tags: leaves out tags that should occur only at top level of block: bookmark image hr pagebreak
-NestedTextElement = PureTextElement|eref|xref|hyperlink|index|index-xref|ruby|keyword|variable-ref
+NestedTextElement = PureTextElement|eref|xref|hyperlink|index|index-xref|ruby|keyword|variable-ref|reg-attribute
 
 source = element source { TypedUri }
 

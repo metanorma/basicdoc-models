@@ -9,6 +9,7 @@ diagram MultiParagraphs {
   include ../models/blocks/amend/AmendBlock.lml
   include ../models/datatypes/Attribute.lml
   include ../models/blocks/amend/ChangeType.lml
+  include ../models/blocks/amend/AmendPosition.lml
   include ../models/blocks/amend/NewContentBlock.lml
   include ../models/sections/HierarchicalSection.lml
   include ../models/blocks/BasicBlock.lml

@@ -67,7 +67,7 @@
       </example>
 
       <!-- amend composing blocks, a section, and an entire document -->
-      <amend id="am1" change="modify">
+      <amend id="am1" change="modify" position="after">
         <newcontent id="nc1">
           <p id="am1p1">Replacement paragraph.</p>
           <section id="am1s1">
@@ -100,7 +100,7 @@
       </review>
 
       <!-- anchors and cross-references -->
-      <p id="p2">See <bookmark id="bm1"/> the
+      <p id="p2">See <attribute key="class">key-term</attribute> <bookmark id="bm1"/> the
         <xref target="s1"><display-text>section itself</display-text></xref>, the
         <link target="https://www.iso24229.org">ISO 24229 registry</link>, and
         <index><primary>registries</primary><secondary>ISO 24229</secondary></index>

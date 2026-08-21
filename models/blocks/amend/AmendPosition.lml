@@ -1,0 +1,16 @@
+enum AmendPosition {
+  definition {
+    For an add change, whether the change is added before or after the location.
+  }
+
+  before {
+    definition {
+      The change is added before the location.
+    }
+  }
+  after {
+    definition {
+      The change is added after the location.
+    }
+  }
+}
