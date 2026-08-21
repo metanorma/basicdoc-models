@@ -1,0 +1,97 @@
+<!--
+  Reference instance of the BasicDocument model, exercising the construct
+  doctrine: attribute register (document/section/block, single and repeated
+  values), relaxed content models (blocks inside list items, admonition,
+  quote, definition-list definitions, table cells, examples), multi-row
+  table header, variable references, amend composition with sections and
+  documents. Validated against grammars/basicdoc.rnc by `rake fixtures:xml`.
+-->
+<document>
+  <bibdata><title>Construct fixtures</title><docidentifier>basicdoc-fixtures-1</docidentifier></bibdata>
+
+  <sections>
+    <section id="s1">
+      <title>Constructs in action</title>
+
+      <!-- paragraph with inline variable references and footnote -->
+      <p id="p1">Rendered at <variable-ref name="revdate"/> with
+        <em>emphasis</em> and a footnote<fn reference="fn1"><p id="fn1p1">Footnote content as paragraphs</p></fn>.
+      </p>
+
+      <!-- relaxed list item: contains a paragraph AND a table -->
+      <ul id="list1">
+        <li id="li1">
+          <attribute key="class">loose-item</attribute>
+          <p id="li1p1">A loose list item opens with a paragraph,</p>
+          <table id="li1t1">
+            <thead>
+              <tr><th>Layer</th><th>Construct</th></tr>
+              <tr><th>(unit)</th><th>(notation)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>document</td><td>BasicDocument</td></tr>
+              <tr>
+                <td>cell-with-blocks</td>
+                <td>
+                  <p id="tdp1">A table cell holding</p>
+                  <ul id="tdul1"><li id="tdli1"><p id="tdli1p1">a nested list</p></li></ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+      </ul>
+
+      <!-- admonition with relaxed block content -->
+      <admonition id="adm1" type="warning">
+        <name>Migration note</name>
+        <p id="adm1p1">Containers accept any block now:</p>
+        <quote id="q1">
+          <p id="q1p1">Even a quotation inside an admonition.</p>
+        </quote>
+      </admonition>
+
+      <!-- definition list whose definition holds blocks -->
+      <dl id="dl1">
+        <dt>register</dt>
+        <dd>
+          <p id="dd1p1">An open key-value set attachable to any construct.</p>
+          <formula id="f1"><stem type="AsciiMath"><asciimath>x = y + 1</asciimath></stem></formula>
+        </dd>
+      </dl>
+
+      <!-- example: relaxed content -->
+      <example id="ex1">
+        <p id="ex1p1">Any blocks at all.</p>
+        <pre id="pre1">not just paragraphs</pre>
+      </example>
+
+      <!-- amend composing blocks, a section, and an entire document -->
+      <amend id="am1" change="modify">
+        <newcontent id="nc1">
+          <p id="am1p1">Replacement paragraph.</p>
+          <section id="am1s1">
+            <title>Replacement clause</title>
+            <p id="am1s1p1">Composed as a section.</p>
+          </section>
+          <document>
+            <bibdata><title>Construct fixtures</title><docidentifier>basicdoc-fixtures-1</docidentifier></bibdata>
+            <sections>
+              <section id="am1d1s1">
+                <title>Composed document</title>
+                <p id="am1d1p1">A document attached as a block.</p>
+              </section>
+            </sections>
+          </document>
+        </newcontent>
+        <classification><tag>reason</tag><value>editorial</value></classification>
+      </amend>
+      <attribute key="class">preface</attribute>
+    </section>
+  </sections>
+  <attribute key="source-format" scheme="markup">asciidoc</attribute>
+  <attribute key="tags">
+    <value>draft</value>
+    <value>review</value>
+  </attribute>
+</document>

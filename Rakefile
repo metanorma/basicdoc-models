@@ -141,6 +141,19 @@ task :lint do
   puts "lint: OK (#{model_files.size} model files, #{defined.size} types)"
 end
 
+desc "Validate examples/*.xml against grammars/basicdoc-compile.rnc (needs python3 + rnc2rng + lxml)"
+task :"fixtures:xml" do
+  sh "python3", "tools/validate_xml.py"
+end
+
+desc "Validate examples/*.yaml against the LML model"
+task :"fixtures:yaml" do
+  sh "ruby", "tools/validate_yaml.rb"
+end
+
+desc "Validate XML and YAML instance fixtures"
+task fixtures: [:"fixtures:xml", :"fixtures:yaml"]
+
 desc "Render, verify PNGs, lint, and check LML/RNC parity"
 task check: %i[render verify lint parity]
 

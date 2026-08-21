@@ -1,0 +1,164 @@
+# YAML representation of the BasicDocument model (same content as document.xml).
+# Convention: every construct node carries `class` (the LML class name), LML
+# attribute names as keys (inherited attributes count), `attributes` for
+# register entries ({key, value(s), scheme}), `id` as the well-known anchor
+# key, and `{text: ...}` maps as plain text leaves.
+# Validated against the LML model by `rake fixtures:yaml`.
+document:
+  class: BasicDocument
+  attributes:
+    - key: source-format
+      scheme: markup
+      value: asciidoc
+    - key: tags
+      value: [draft, review]
+  identifier:
+    class: UniqueIdentifier
+    value: 8f14e45f-ea0f-4a1c-9d2b-6b7c8d9e0f1a
+  sections:
+    - class: BasicSection
+      id: s1
+      attributes:
+        - key: class
+          value: preface
+      blocks:
+        - class: ParagraphWithFootnote
+          id: p1
+          contents:
+            - text: Rendered at
+            - class: ReferenceToVariable
+              name: revdate
+            - text: " with "
+            - class: EmphasisElement
+              content: [{ text: emphasis }]
+            - text: " and a footnote"
+            - class: Footnote
+              id: fn1
+              content:
+                - class: ParagraphBlock
+                  id: fn1p1
+                  contents: [{ text: Footnote content as paragraphs }]
+        - class: UnorderedList
+          id: list1
+          listitem:
+            - class: ListItem
+              id: li1
+              attributes:
+                - key: class
+                  value: loose-item
+              content:
+                - class: ParagraphBlock
+                  id: li1p1
+                  contents: [{ text: A loose list item opens with a paragraph }]
+                - class: TableBlock
+                  id: li1t1
+                  head:
+                    - class: TextTableRow
+                      th:
+                        - class: TextTableCell
+                          content: [{ text: Layer }]
+                        - class: TextTableCell
+                          content: [{ text: Construct }]
+                    - class: TextTableRow
+                      th:
+                        - class: TextTableCell
+                          content: [{ text: "(unit)" }]
+                        - class: TextTableCell
+                          content: [{ text: "(notation)" }]
+                  body:
+                    - class: TextTableRow
+                      td:
+                        - class: TextTableCell
+                          content: [{ text: document }]
+                        - class: TextTableCell
+                          content: [{ text: BasicDocument }]
+                    - class: TextTableRow
+                      td:
+                        - class: TextTableCell
+                          content: [{ text: cell-with-blocks }]
+                        - class: ParagraphTableCell
+                          content:
+                            - class: ParagraphBlock
+                              id: tdp1
+                              contents: [{ text: A table cell holding }]
+                            - class: UnorderedList
+                              id: tdul1
+                              listitem:
+                                - class: ListItem
+                                  id: tdli1
+                                  content:
+                                    - class: ParagraphBlock
+                                      id: tdli1p1
+                                      contents: [{ text: a nested list }]
+        - class: AdmonitionBlock
+          id: adm1
+          type: warning
+          name:
+            - text: Migration note
+          contents:
+            - class: ParagraphBlock
+              id: adm1p1
+              contents: [{ text: Containers accept any block now }]
+            - class: QuoteBlock
+              id: q1
+              contents:
+                - class: ParagraphBlock
+                  id: q1p1
+                  contents: [{ text: Even a quotation inside an admonition }]
+        - class: DefinitionList
+          id: dl1
+          listitem:
+            - class: Definition
+              item: [{ text: register }]
+              definition:
+                - class: ParagraphBlock
+                  id: dd1p1
+                  contents: [{ text: An open key-value set attachable to any construct }]
+                - class: FormulaBlock
+                  id: f1
+                  stem:
+                    class: StemElement
+                    stemType: AsciiML
+                    stemValue:
+                      class: AsciiML
+                      value: x = y + 1
+        - class: ExampleBlock
+          id: ex1
+          content:
+            - class: ParagraphBlock
+              id: ex1p1
+              contents: [{ text: Any blocks at all }]
+            - class: LiteralBlock
+              id: pre1
+              content: not just paragraphs
+        - class: AmendBlock
+          id: am1
+          change: modify
+          newContent:
+            class: NewContentBlock
+            newContentBlocks:
+              - class: ParagraphBlock
+                id: am1p1
+                contents: [{ text: Replacement paragraph }]
+            clause:
+              - class: BasicSection
+                id: am1s1
+                blocks:
+                  - class: ParagraphBlock
+                    id: am1s1p1
+                    contents: [{ text: Composed as a section }]
+            document:
+              - class: BasicDocument
+                attributes:
+                  - key: class
+                    value: composed
+                sections:
+                  - class: BasicSection
+                    id: am1d1s1
+                    blocks:
+                      - class: ParagraphBlock
+                        id: am1d1p1
+                        contents: [{ text: A document attached as a block }]
+          classification:
+            - key: reason
+              value: editorial
