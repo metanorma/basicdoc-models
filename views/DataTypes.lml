@@ -9,6 +9,7 @@ diagram DataTypes {
   include ../models/datatypes/Iso639Code.lml
   include ../models/datatypes/Iso3166Code.lml
   include ../models/datatypes/StringFormat.lml
+  include ../models/datatypes/Attribute.lml
 
   association {
     owner LocalizedString

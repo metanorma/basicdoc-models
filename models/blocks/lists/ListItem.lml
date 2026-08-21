@@ -7,7 +7,7 @@ class ListItem {
       Identifier of item.
     }
   }
-  +content: ParagraphWithFootnote[0..*] {
+  +content: BasicBlock[0..*] {
     definition {
       Content of item.
     }

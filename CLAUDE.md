@@ -46,6 +46,18 @@ The `models/` tree is isomorphic to the spec's ontology (CC/ISO 36010, "Lightwei
 
 Basicdoc defines only the **basis**: `BibData`, its extension hook `ext: BibDataExtensionType`, and the single-valued `DocumentType`. Relaton and downstream models extend and implement the full bibliographic semantics. Never flesh out Relaton types here: `models/bibdata/relaton/*.lml` are boundary stubs (`class X <<Relaton>>` with a definition marking the boundary) so diagrams can reference Relaton types without importing Relaton's model graph.
 
+## Construct doctrine (cannot be violated)
+
+Basicdoc provides **constructs**; markup languages **specialize them as types**. Never add a per-format class where a type/specialization covers it (Note/Warning/Caution are `Admonition` + `AdmonitionType`, not classes).
+
+- **Attribute register**: `Attribute {key, value*, scheme?}` is an open register attachable to any construct (document, section, block, inline element). Formats bind their own attribute types as register entries — basicdoc never enumerates them. Well-known keys: `id`, `class`, `lang`, `script`, `unnumbered`, `subsequence`, `format`. Do not add ad-hoc per-class slots for register material.
+- **Relaxed content models**: containers (list items, multi-paragraph blocks, definition-list definitions, table cells, examples) hold `BasicBlock*`, not paragraph-only. Do not re-narrow them.
+- **Composition**: a document **is** a block — `NewContentBlock` carries blocks, sections, and documents as child content; any relaxed container may hold a document.
+- **Variables**: `ReferenceToVariable` resolves against the register — the model home for `{attr}`, `|substitution|`, template variables.
+- **Raw/passthrough is non-markup**: inline raw = `FormattedString` (its `format` attribute admits markup into strings); block raw = string-carrying constructs + a `format` register key. No escape-hatch class.
+- **Serialization profiles live in the RNC, not the model**: the `-no-id` grammar variants are profiles; the LML has no variant classes.
+- **Value semantics are `data_type`s**, not flag-classes (`ImageSizeType`, `MediaType`).
+
 ## Build commands
 
 Requires Ruby, Bundler, and Graphviz (`dot` on PATH).

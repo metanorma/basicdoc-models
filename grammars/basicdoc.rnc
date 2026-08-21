@@ -10,7 +10,9 @@ element document {
   ## Hierarchically arranged units of textual content within the document
   sections,
   ## Bibliographic content
-  references*
+  references*,
+  ## Attribute register entries
+  reg-attribute*
 }
 
 ## Bibliographic description of a document, used as metadata, expressed in the Relaton model
@@ -313,24 +315,20 @@ QuoteAttributes =
 QuoteBody =
     ## Bibliographic citation for the quotation
     quote-source?,
-    ## Author of the quotation. The `author` attribute of the quotation is redundant with `source`,
-    ## since it restates information about the author that should be recoverable from the `source` citation.
-    ## It is included for convenience, in case processing the citation to extract the author is prohibitive for rendering tools
+    ## Author of the quotation; convenience duplicate of quote-source
     quote-author?,
-    ## Content of quote
-    paragraph-with-footnote+,
+    ## Content of quote; relaxed block content
+    BasicBlock+,
     ## Notes whose scope is the current block
     note*
 
 QuoteNoIdBody =
     ## Bibliographic citation for the quotation
     quote-source?,
-    ## Author of the quotation. The `author` attribute of the quotation is redundant with `source`,
-    ## since it restates information about the author that should be recoverable from the `source` citation.
-    ## It is included for convenience, in case processing the citation to extract the author is prohibitive for rendering tools
+    ## Author of the quotation; convenience duplicate of quote-source
     quote-author?,
-    ## Content of quote
-    paragraph-with-footnote-no-id+,
+    ## Content of quote; relaxed block content
+    BasicBlock+,
     ## Notes whose scope is the current block
     note-no-id*
 
@@ -489,10 +487,10 @@ TableNoIdBody =
     table-note-no-id*
 
 tname = element name { NestedTextElement+ }
-thead = element thead { tr }
-thead-no-id = element thead { tr-no-id }
-tfoot = element tfoot { tr }
-tfoot-no-id = element tfoot { tr-no-id }
+thead = element thead { tr+ }
+thead-no-id = element thead { tr-no-id+ }
+tfoot = element tfoot { tr+ }
+tfoot-no-id = element tfoot { tr-no-id+ }
 tbody = element tbody { tr+ }
 tbody-no-id = element tbody { tr-no-id+ }
 
@@ -545,16 +543,16 @@ TdBody =
     (
       ## Table cell is a block; footnotes admitted inline (metanorma-model-iso#154)
       ( TextElement | fn )* |
-      ## Table cell contains a block; notes admitted alongside paragraphs (metanorma-model-iso#157)
-      ( paragraph-with-footnote | note )+
+      ## Table cell contains blocks (metanorma-model-iso#157; AsciiDoc a| cells, Pandoc)
+      BasicBlock+
     )
 
 TdNoIdBody =
     (
       ## Table cell is a block; footnotes admitted inline (metanorma-model-iso#154)
       ( TextElement | fn )* |
-      ## Table cell contains a block; notes admitted alongside paragraphs (metanorma-model-iso#157)
-      ( paragraph-with-footnote-no-id | note-no-id )+
+      ## Table cell contains blocks (metanorma-model-iso#157; AsciiDoc a| cells, Pandoc)
+      BasicBlock+
     )
 
 ## Textual content constituting a basic building block of a table, treated as a header: header cell
@@ -609,8 +607,10 @@ ExampleBody =
 ## example model (metanorma-model-iso#160). note is admitted interleaved as
 ## attested authoring practice (metanorma-model-iso#157, maintainer hierarchy
 ## reservation recorded there)
+## Relaxed block content; an extension point that higher layers may
+## extend additively (metanorma-model-iso#160)
 ExampleBodyContent =
-    formula | ul | ol | dl | quote | sourcecode | paragraph-with-footnote | note
+    BasicBlock
 
 ExampleNoIdBody =
     ## The caption of the example
@@ -622,8 +622,9 @@ ExampleNoIdBody =
 
 ## Content alternatives of the no-id example variant; extension hook as
 ## ExampleBodyContent (metanorma-model-iso#160)
+## Relaxed block content: optional ID attributes recursively (for use in Relaton, metadata)
 ExampleNoIdBodyContent =
-    formula-no-id | ul-no-id | ol-no-id | dl-no-id | quote-no-id | sourcecode-no-id | paragraph-with-footnote-no-id | note-no-id
+    BasicBlock
 
 ## A sidebar block outside of the main flow of text, conveying particular warnings or supplementary text to the reader
 admonition =
@@ -655,16 +656,16 @@ AdmonitionAttributes =
 AdmonitionBody =
     ## Caption of admonition
     tname?,
-    ## Admonition content
-    paragraph-with-footnote*,
+    ## Admonition content; relaxed block content
+    BasicBlock*,
     ## Notes whose scope is the current block
     note*
 
 AdmonitionNoIdBody =
     ## Caption of admonition
     tname?,
-    ## Admonition content
-    paragraph-with-footnote-no-id*,
+    ## Admonition content; relaxed block content
+    BasicBlock*,
     ## Notes whose scope is the current block
     note-no-id*
 
@@ -744,9 +745,32 @@ PureTextElement =
   text | pure_em | pure_strong | sub | sup | pure_tt | pure_underline | pure_strike | pure_smallcap | br | stem
 
 ## Contents of TextElement tags: leaves out tags that should occur only at top level of block: bookmark image hr pagebreak
-NestedTextElement = PureTextElement|eref|xref|hyperlink|index|index-xref|ruby|keyword
+NestedTextElement = PureTextElement|eref|xref|hyperlink|index|index-xref|ruby|keyword|variable-ref
 
 source = element source { TypedUri }
+
+## Reference to a variable: resolves to the value registered under the given
+## key in the attribute register. Model home for {attr} / |substitution|
+## / template variables.
+variable-ref =
+  element variable-ref {
+    ## Key of the referenced variable in the attribute register
+    attribute name { text },
+    NestedTextElement*
+  }
+
+## Generic key-value attribute register entry, attachable to any construct.
+## Markup languages bind their own attribute types as register entries.
+reg-attribute =
+  element attribute {
+    ## Key of the attribute in the register
+    attribute key { text },
+    ## Optional scheme qualifying how the value is to be interpreted
+    attribute scheme { text }?,
+    ## Value(s) of the attribute
+    text
+  }
+
 
 ## Emphasised text. Corresponds to HTML `em`, `i`
 em = element em { NestedTextElement* }
@@ -1145,11 +1169,13 @@ li-no-id =
 
 LiAttributes = empty
 
+## Relaxed content model: a list item is a block container (AsciiDoc continuations, GFM loose items, RST items)
 LiBody =
-    paragraph-with-footnote+
+    BasicBlock*
 
+## Relaxed content model: a list item is a block container: optional ID attributes recursively (for use in Relaton, metadata)
 LiNoIdBody =
-    paragraph-with-footnote-no-id+
+    BasicBlock*
 
 ## Ordered list, with numbering applied to the list items
 ol =
@@ -1230,11 +1256,13 @@ dt =
   element dt { TextElement* }
 
 ## Definition in a definition list
+## Definition in a definition list; relaxed block content
 dd =
-  element dd { paragraph-with-footnote* }
+  element dd { BasicBlock* }
 
 ## Definition in a definition list: optional ID attributes recursively (for use in Relaton, metadata)
+## Definition in a definition list; relaxed block content: optional ID attributes recursively (for use in Relaton, metadata)
 dd-no-id =
-  element dd { paragraph-with-footnote-no-id* }
+  element dd { BasicBlock* }
 
 }

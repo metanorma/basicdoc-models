@@ -112,6 +112,8 @@ task :lint do
       visibility, name, raw_type = m.captures
       # 4. attributes need an explicit visibility marker
       errors << "#{f}:#{i + 1}: attribute '#{name}' lacks a visibility marker (+/#/-)" if visibility.empty?
+      # 7. attribute names are lowerCamelCase (constructs are PascalCase types)
+      errors << "#{f}:#{i + 1}: attribute name '#{name}' should start lowercase" unless name[0] == name[0].downcase
       type = raw_type.sub(/<<[^>]*>>\s*/, "").strip
       next if type.start_with?('"') # fixed-value attribute, e.g. +type: "callout"
       next if defined.key?(type) || BUILTIN_TYPES.include?(type)

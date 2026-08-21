@@ -1,0 +1,25 @@
+class Attribute {
+  definition {
+    Generic key-value attribute from an open register, attachable to any
+    construct (document, section, block, inline element, media). Markup
+    languages bind their own attribute types as register entries; basicdoc
+    does not enumerate them. Well-known keys used across the ecosystem:
+    id, class, lang, script, unnumbered, subsequence, format.
+  }
+  +key: String {
+    definition {
+      Key of the attribute in the register.
+    }
+  }
+  +value: String[0..*] {
+    definition {
+      Value(s) of the attribute.
+    }
+  }
+  +scheme: String[0..1] {
+    definition {
+      Optional scheme qualifying how the value is to be interpreted
+      (e.g. a MIME type, a vocabulary, a markup-language namespace).
+    }
+  }
+}

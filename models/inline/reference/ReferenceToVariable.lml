@@ -1,0 +1,13 @@
+class ReferenceToVariable {
+  definition {
+    Reference to a variable: resolves, at processing time, to the value
+    registered under the given key in the attribute register. This is the
+    model home for attribute references (AsciiDoc {attr}), substitutions
+    (RST |substitution|), and template variables.
+  }
+  +name: String {
+    definition {
+      Key of the referenced variable in the attribute register.
+    }
+  }
+}
