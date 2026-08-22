@@ -65,7 +65,7 @@
   <% tier_order.each do |tier| %>
     <% tier_plates = plates.select { |p| p.tier == tier } %>
     <% next if tier_plates.empty? %>
-    <div class="chapter" data-tier="<%= h(tier) %>">
+    <div class="chapter" id="chapter-<%= h(tier) %>" data-tier="<%= h(tier) %>">
       <header class="chapter-head">
         <h2><%= h(tier) %></h2>
         <p><%= h(tier_descriptions[tier]) %></p>

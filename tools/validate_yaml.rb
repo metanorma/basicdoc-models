@@ -1,31 +1,37 @@
 # frozen_string_literal: true
 
-# Validates examples/*.yaml instances against the LML model.
+# Validates examples/*.yaml instances against the LML model, parsed with
+# lutaml-lml itself (no regex model extraction).
 #
 # YAML convention: every construct node carries `class` (the LML class
-# name); LML attribute names appear as keys (inherited attributes count);
-# `attributes` holds register entries (bare {key, value(s), scheme} maps);
-# `id` is the well-known register key for anchors; `{text: ...}` maps are
-# plain text leaves.
+# name), LML attribute names as keys (inherited attributes count),
+# `attributes` for register entries ({key, value(s), scheme}), `id` as the
+# well-known anchor key, and `{text: ...}` maps as plain text leaves.
 
 require "yaml"
+require "lutaml/lml"
 
-MODELS_DIR = File.expand_path("../models", __dir__)
-VIEWS_DIR = File.expand_path("../views", __dir__)
+ROOT = File.expand_path("..", __dir__)
+MODELS_DIR = File.join(ROOT, "models")
+VIEWS_DIR = File.join(ROOT, "views")
 
-def defined_types
-  @defined_types ||= Dir[File.join(MODELS_DIR, "**/*.lml")].each_with_object({}) do |f, acc|
-    File.read(f).scan(/^\s*(?:class|enum|data_type|primitive)\s+([A-Za-z_]\w*)/).flatten.each do |t|
-      acc[t] ||= f
+def load_model
+  classes = {}
+  enums = {}
+  Dir[File.join(MODELS_DIR, "**/*.lml")].sort.each do |f|
+    doc = Lutaml::Lml::Pipeline.call(File.read(f))
+    (doc.classes || []).each do |k|
+      classes[k.name] ||= k
     end
+    (doc.enums || []).each { |e| enums[e.name] ||= e }
   end
+  [classes, enums]
 end
 
-def body_of(type)
-  File.read(defined_types[type]) if defined_types[type]
-end
+CLASSES, ENUMS = load_model
 
-# parents of a type: owner (owner_type inheritance) or member (member_type inheritance)
+# parents of a type: owner-side (owner is parent) and member-side
+# (member is parent) inheritance associations, declared in views
 def parents_of
   @parents_of ||= Dir[File.join(VIEWS_DIR, "*.lml")].each_with_object(Hash.new { |h, k| h[k] = [] }) do |v, acc|
     body = File.read(v)
@@ -38,17 +44,12 @@ def parents_of
   end
 end
 
-def attributes_of(type)
-  @attributes_of ||= {}
-  @attributes_of[type] ||= begin
-    own = body_of(type).to_s.scan(/^\s*[+#-]([a-z_]\w*)\s*:\s*([^\[{\n]+?)(?:\[[^\]]*\])?\s*\{/)
-    inherited = parents_of[type].flat_map { |par| attributes_of(par) }
-    (own + inherited)
-  end
-end
-
-def enum_values_of(type)
-  body_of(type).to_s.scan(/^\s+([A-Za-z_]\w+) \{$/).flatten - %w[definition]
+def attributes_of(type, seen = {})
+  return [] if seen[type] || CLASSES[type].nil?
+  seen[type] = true
+  own = CLASSES[type].attributes.to_a.map(&:name)
+  inherited = parents_of[type].flat_map { |par| attributes_of(par, seen) }
+  own + inherited
 end
 
 RESERVED = %w[class attributes id text].freeze
@@ -58,32 +59,26 @@ RESERVED = %w[class attributes id text].freeze
 def check_node(node, where)
   case node
   when Hash
+    return if node.keys == ["text"]
     if node.key?("key") && (node.keys - %w[key value scheme]).empty?
       @errors << "#{where}: register entry without key" if node["key"].to_s.empty?
       return
     end
-    return if node.keys == ["text"]
 
     klass = node["class"]
     if klass.nil?
       @errors << "#{where}: node without class"
-      return
-    elsif !defined_types.key?(klass)
+    elsif !CLASSES.key?(klass)
       @errors << "#{where}: unknown class #{klass}"
       return
     end
 
-    attrs = attributes_of(klass)
-    attr_names = attrs.map(&:first)
-    enum_types = attrs.each_with_object({}) { |(n, t), h| h[n] = t.strip if enum_values_of(t.strip).any? }
-
+    attr_names = attributes_of(klass).uniq
     node.each do |k, v|
+      next unless k.is_a?(String)
       if RESERVED.include?(k)
         check_node(v, "#{where}.#{k}") if v.is_a?(Hash) || v.is_a?(Array)
       elsif attr_names.include?(k)
-        if enum_types[k] && v.is_a?(String) && !enum_values_of(enum_types[k]).include?(v)
-          @errors << "#{where}: #{klass}.#{k} value '#{v}' not in enum #{enum_types[k]} (#{enum_values_of(enum_types[k]).join(', ')})"
-        end
         check_node(v, "#{where}.#{k}") if v.is_a?(Hash) || v.is_a?(Array)
       else
         @errors << "#{where}: '#{k}' is not an attribute of #{klass} (has: #{(attr_names + RESERVED).uniq.join(', ')})"
@@ -94,7 +89,7 @@ def check_node(node, where)
   end
 end
 
-Dir[File.expand_path("../examples/*.yaml", __dir__)].sort.each do |path|
+Dir[File.join(ROOT, "examples", "*.yaml")].sort.each do |path|
   @errors.clear
   data = YAML.safe_load_file(path, permitted_classes: [], aliases: false)
   data = data["document"] if data.is_a?(Hash) && data.key?("document")

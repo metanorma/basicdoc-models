@@ -30,7 +30,7 @@
     <% definitions.each do |type| %>
       <article class="type-card" id="<%= h(type.name) %>">
         <header class="type-head">
-          <h3><%= h(type.name) %></h3>
+          <h3 id="<%= h(type.name) %>"><%= h(type.name) %><a class="anchor" href="#<%= h(type.name) %>" aria-label="Link to <%= h(type.name) %>">¶</a></h3>
           <span class="kind kind-<%= h(type.kind.tr(' ', '-')) %>"><%= h(type.kind) %><% if type.stereotype %> <%= h(type.stereotype) %><% end %></span>
           <a class="type-src" href="<%= h("#{'https://github.com/metanorma/basicdoc-models/blob/main/'}#{type.file}") %>"><code><%= h(type.file) %></code></a>
         </header>
