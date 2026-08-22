@@ -160,6 +160,11 @@ end
 desc "Validate XML and YAML instance fixtures"
 task fixtures: [:"fixtures:xml", :"fixtures:yaml"]
 
+desc "Validate profile artifacts and their instances (narrowing-only rule enforced)"
+task :profiles do
+  sh "ruby", "-I", "tools", "-rbundler/setup", "tools/validate_profile.rb"
+end
+
 desc "Render, verify PNGs, lint, and check LML/RNC parity"
 task check: %i[render verify lint parity]
 

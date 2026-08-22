@@ -1,0 +1,38 @@
+# Profile: legalexchange/1.0
+# A worked example of TAILORING (choosing less than the full set).
+# Rules: a profile may only narrow the base — exclude constructs,
+# tighten cardinalities, subset enumerations, restrict register keys.
+# It may never widen, add, or rename. Extensions live ABOVE a profile,
+# as specialization modules (see the specification, clause 4).
+profile: legalexchange/1.0
+base: basicdoc
+
+# Constructs this profile does not use. Instances MUST NOT contain them.
+exclude:
+  - AmendBlock
+  - NewContentBlock
+  - RubyElement
+  - ReferenceToVariable
+  - StemElement
+  - FormulaBlock
+
+# Cardinality constraints. MUST be narrower than the base
+# (new.min >= base.min AND new.max <= base.max).
+constrain:
+  BasicSection.blocks: "1..*"
+  TableBlock.head: "0..0"
+
+# Enumeration subsets. MUST be a subset of the base values.
+enums:
+  AdmonitionType:
+    - warning
+    - caution
+
+# The register-key vocabulary this dialect permits. Register entries
+# with keys outside this list are non-conforming.
+register:
+  permit:
+    - id
+    - class
+    - lang
+    - matter

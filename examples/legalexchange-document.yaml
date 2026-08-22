@@ -1,0 +1,64 @@
+# Instance conforming to profile legalexchange/1.0 (profiles/legalexchange.yaml):
+# no amend/ruby/variables/stem/formula; every section has >= 1 block; tables
+# have no header rows; admonition types limited to warning/caution; register
+# keys limited to id/class/lang/matter. Same YAML convention as document.yaml.
+document:
+  class: BasicDocument
+  attributes:
+    - key: lang
+      value: en
+  sections:
+    - class: BasicSection
+      id: s1
+      attributes:
+        - key: class
+          value: operative-clause
+      blocks:
+        - class: ParagraphWithFootnote
+          id: p1
+          contents:
+            - text: "The parties agree as follows: "
+            - class: StrongElement
+              content: [{ text: exclusive jurisdiction }]
+            - text: " applies to all disputes."
+            - class: Footnote
+              id: fn1
+              reference: "1"
+              content:
+                - class: ParagraphBlock
+                  id: fn1p1
+                  contents: [{ text: As defined in the framework agreement. }]
+        - class: TableBlock
+          id: t1
+          body:
+            - class: TextTableRow
+              td:
+                - class: TextTableCell
+                  content: [{ text: Obligation }]
+                - class: TextTableCell
+                  content: [{ text: Deadline }]
+            - class: TextTableRow
+              td:
+                - class: TextTableCell
+                  content: [{ text: Delivery }]
+                - class: TextTableCell
+                  content: [{ text: "30 days" }]
+        - class: AdmonitionBlock
+          id: adm1
+          type: warning
+          contents:
+            - class: ParagraphBlock
+              id: adm1p1
+              contents: [{ text: Late delivery triggers the penalty clause. }]
+        - class: UnorderedList
+          id: ul1
+          listitem:
+            - class: ListItem
+              id: li1
+              attributes:
+                - key: matter
+                  value: m-103
+              content:
+                - class: ParagraphBlock
+                  id: li1p1
+                  contents: [{ text: Exhibit A forms part of this agreement. }]
