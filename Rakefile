@@ -154,7 +154,7 @@ end
 
 desc "Validate examples/*.yaml against the LML model"
 task :"fixtures:yaml" do
-  sh "ruby", "tools/validate_yaml.rb"
+  sh "ruby", "-I", "tools", "-rbundler/setup", "tools/validate_yaml.rb"
 end
 
 desc "Validate XML and YAML instance fixtures"

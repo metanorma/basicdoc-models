@@ -114,4 +114,12 @@
     <value>draft</value>
     <value>review</value>
   </attribute>
+
+  <!-- references section with a bibliographic item (target of eref) -->
+  <references id="refs">
+    <bibitem id="b1">
+      <title>Lightweight document -- Document metamodel</title>
+      <docidentifier>CC/ISO 36010</docidentifier>
+    </bibitem>
+  </references>
 </document>
