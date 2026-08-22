@@ -7,6 +7,11 @@ class BasicBlock {
       Notes whose scope is the current block.
     }
   }
+  +contribMetadata: ContributionElementMetadata[0..*] {
+    definition {
+      Attribution of the block to a specific contributor, to be used in change management of documents.
+    }
+  }
   +attributes: Attribute[0..*] {
     definition {
       Entries from the generic attribute register: an open key-value
