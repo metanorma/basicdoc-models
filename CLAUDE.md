@@ -42,6 +42,16 @@ The `models/` tree is isomorphic to the spec's ontology (CC/ISO 36010, "Lightwei
 | `grammars/mathml/` | — | vendored MathML 4 (leave as-is) |
 | `vendor/relaton-models` | — | submodule of [relaton/relaton-models](https://github.com/relaton/relaton-models) (reference LML + base biblio grammars) |
 
+## Tailoring and extension (three layers)
+
+| Layer | Mechanism | Changes the model? |
+|---|---|---|
+| Instance | attribute register, `format`-qualified raw content, `ReferenceToVariable` | never — carries dialect information losslessly |
+| Specialization module | user LML module: new classes under the construct roots, extended enums, narrowed inherited attributes | adds a layer above; base untouched (OCP) |
+| **Profile** (`profiles/*.yaml`) | declarative subset: excluded constructs, narrowed cardinalities, enum subsets, closed register-key vocabulary | never — **profiles may only narrow the base**; widening is rejected by `rake profiles` |
+
+`rake profiles` validates every profile artifact against the model (lutaml-lml parser; narrowing-only enforced) and checks a matching worked instance `examples/<profile>-document.yaml` when present. Profile instances must also pass base `fixtures:yaml` — a profile document is always a valid base document.
+
 ## bibdata is OCP
 
 Basicdoc defines only the **basis**: `BibData`, its extension hook `ext: BibDataExtensionType`, and the single-valued `DocumentType`. Relaton and downstream models extend and implement the full bibliographic semantics. Never flesh out Relaton types here: `models/bibdata/relaton/*.lml` are boundary stubs (`class X <<Relaton>>` with a definition marking the boundary) so diagrams can reference Relaton types without importing Relaton's model graph.

@@ -36,7 +36,7 @@ jobs:
 
       - run: bundle exec rake render verify lint parity site
       - run: pip install --user rnc2rng lxml
-      - run: bundle exec rake fixtures
+      - run: bundle exec rake fixtures profiles
 
       - uses: actions/configure-pages@v5
 
