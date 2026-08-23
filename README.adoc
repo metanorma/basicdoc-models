@@ -66,6 +66,13 @@ bundle exec rake clean
 
 CI runs the same build on ubuntu-latest.
 
+== Versioning
+
+The model follows a MAJOR.MINOR.PATCH policy with a deprecation cycle
+and standardization snapshots — see
+link:docs/VERSIONING.md[docs/VERSIONING.md]. Profiles pin the model
+version they target and remain valid across additive (MINOR) releases.
+
 == Model atlas (GitHub Pages)
 
 A static site showcasing every diagram plate lives at
