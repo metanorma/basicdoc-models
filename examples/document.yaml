@@ -43,6 +43,15 @@ document:
           id: list1
           listitem:
             - class: ListItem
+              id: li0
+              attributes:
+                - key: checkbox
+                  value: "true"
+              content:
+                - class: ParagraphBlock
+                  id: li0p1
+                  contents: [{ text: A task-list item. }]
+            - class: ListItem
               id: li1
               attributes:
                 - key: class
@@ -138,6 +147,7 @@ document:
           position: after
           newContent:
             class: NewContentBlock
+            id: nc1
             newContentBlocks:
               - class: ParagraphBlock
                 id: am1p1
@@ -182,6 +192,48 @@ document:
             - class: ParagraphBlock
               id: rev1p1
               contents: [{ text: Check the register keys before publication. }]
+        - class: QuoteBlock
+          id: q2
+          author: Registry proverb
+          contents:
+            - class: ParagraphBlock
+              id: q2p1
+              contents:
+                - text: "One model, many markups."
+
+        - class: SourcecodeBlock
+          id: sc1
+          lang: ruby
+          content: "size = entries.count <1>"
+          callouts:
+            - class: Callout
+              target: an1
+              text: "1"
+          calloutAnnotations:
+            - class: ParagraphBlock
+              id: an1
+              contents: [{ text: Counts the register entries. }]
+        - class: ParagraphWithFootnote
+          id: p3
+          contents:
+            - text: "Eastern text "
+            - class: RubyElement
+              pronunciation:
+                class: RubyPronunciation
+                value: toukyou
+              content: Tokyo
+            - text: " cites "
+            - class: ReferenceToCitationElement
+              citeAs:
+                - text: "[36010]"
+            - text: " accordingly." 
+        - class: ParagraphWithFootnote
+          id: pdir
+          contents:
+            - text: "Mixed text "
+            - key: dir
+              value: rtl
+            - text: " resumes."
         - class: ParagraphWithFootnote
           id: p2
           contents:
@@ -203,3 +255,15 @@ document:
               primary: [{ text: registries }]
               secondary: [{ text: ISO 24229 }]
             - text: " for details."
+  references:
+    - class: ReferencesSection
+      id: refs
+      references:
+        - class: BibliographicItem
+          id: b1
+          attributes:
+            - key: title
+              value: "Lightweight document -- Document metamodel"
+            - key: docidentifier
+              value: CC/ISO 36010
+

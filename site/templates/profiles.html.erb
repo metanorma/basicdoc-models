@@ -1,0 +1,47 @@
+<article class="model-page wrap">
+  <header class="model-head">
+    <div>
+      <p class="crumb"><a href="<%= asset_path('index.html') %>">Atlas</a> · Profiles</p>
+      <p class="eyebrow">Tailoring</p>
+      <h1>Profiles</h1>
+      <p class="model-summary">
+        A profile declares a subset of the model: excluded constructs, narrowed
+        cardinalities, enumeration subsets, and a closed register-key vocabulary.
+        Profiles may only narrow the base — widening is rejected mechanically.
+        A profile-conforming document is always a conforming base document.
+      </p>
+    </div>
+    <div class="side-stats" aria-label="Profile statistics">
+      <div class="stat"><b>Profiles</b><span><%= profiles.size %></span></div>
+    </div>
+  </header>
+
+  <% profiles.each do |pr| %>
+    <article class="type-card" id="<%= h(pr[:name].split('/').first) %>">
+      <header class="type-head">
+        <h3><%= h(pr[:name]) %></h3>
+        <span class="kind">profile</span>
+        <a class="type-src" href="<%= h("https://github.com/metanorma/basicdoc-models/blob/main/profiles/#{File.basename(pr[:file])}") %>"><code>profiles/<%= h(File.basename(pr[:file])) %></code></a>
+      </header>
+      <% unless pr[:exclude].empty? %>
+        <p class="type-defn"><strong>Excluded constructs:</strong>
+          <% pr[:exclude].each do |e| %>
+            <% href = type_href(e, 1) %>
+            <% if href %><a href="<%= h(href) %>"><code><%= h(e) %></code></a><% else %><code><%= h(e) %></code><% end %>
+          <% end %>
+        </p>
+      <% end %>
+      <% unless pr[:constrain].empty? %>
+        <p class="type-defn"><strong>Constrained:</strong>
+          <% pr[:constrain].each do |attr, mult| %><code><%= h(attr) %> [<%= h(mult) %>]</code><% end %>
+        </p>
+      <% end %>
+      <% unless pr[:enums].empty? %>
+        <p class="type-defn"><strong>Enum subsets:</strong> <% pr[:enums].each do |e| %><code><%= h(e) %></code><% end %></p>
+      <% end %>
+      <% unless pr[:permit].empty? %>
+        <p class="type-defn"><strong>Register keys permitted:</strong> <% pr[:permit].each do |k| %><code><%= h(k) %></code><% end %></p>
+      <% end %>
+    </article>
+  <% end %>
+</article>
