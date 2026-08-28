@@ -1,14 +1,3 @@
-GIT
-  remote: https://github.com/lutaml/lutaml-lml.git
-  revision: b0da23147dc96431e24d5590bbd92d0ed279b430
-  ref: b0da231
-  specs:
-    lutaml-lml (0.1.3)
-      lutaml-model (~> 0.8.0)
-      moxml (>= 0.1.24)
-      parslet (~> 2.0)
-      ruby-graphviz
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -41,7 +30,12 @@ GEM
     liquid (5.13.0)
       bigdecimal
       strscan (>= 3.1.1)
-    lutaml-model (0.8.19)
+    lutaml-lml (0.1.5)
+      lutaml-model (~> 0.8.0)
+      moxml (>= 0.1.24)
+      parslet (~> 2.0)
+      ruby-graphviz
+    lutaml-model (0.8.20)
       base64
       bigdecimal
       canon
@@ -113,7 +107,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  lutaml-lml!
+  lutaml-lml (>= 0.1.5)
   rake
 
 CHECKSUMS
@@ -135,8 +129,8 @@ CHECKSUMS
   ffi (1.17.4-x86_64-linux-musl) sha256=3fdf9888483de005f8ef8d1cf2d3b20d86626af206cbf780f6a6a12439a9c49e
   json (2.21.2) sha256=1f1d3b7cf2b3ba1a69beca0bb6db13d5438b80bff3cd54cdaaa620b9b07c1c6a
   liquid (5.13.0) sha256=09d594fd96b98e19a8fd5c32aadcc6950df429b69f48c2f774c0db0ce272bf19
-  lutaml-lml (0.1.3)
-  lutaml-model (0.8.19) sha256=470a54930b463074c4112fe0abf6708c3a3fd42c460fdb8cad527978b3ddc7ae
+  lutaml-lml (0.1.5) sha256=6399456c5c0ad03f295d619e2be336fb5c5a3796e593c2d85ea1d0034f368bf4
+  lutaml-model (0.8.20)
   memo_wise (1.13.0) sha256=30220c38c4cef410849bc73553c58664dc2c91c6379e4a1df22aea02358b716b
   mini_portile2 (2.8.9) sha256=0cd7c7f824e010c072e33f68bc02d85a00aeb6fce05bb4819c03dfd3c140c289
   moxml (0.1.26) sha256=f29c2a76377f014920fbb9bec8d66acc3f162fa8a4f6a855010c3d2ac1ceeb70
