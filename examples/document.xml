@@ -20,6 +20,10 @@
 
       <!-- relaxed list item: contains a paragraph AND a table -->
       <ul id="list1">
+        <li id="li0">
+          <attribute key="checkbox">true</attribute>
+          <p id="li0p1">A task-list item.</p>
+        </li>
         <li id="li1">
           <attribute key="class">loose-item</attribute>
           <p id="li1p1">A loose list item opens with a paragraph,</p>
@@ -98,6 +102,9 @@
       <review id="rev1" reviewer="rt" type="editorial" date="2026-08-21T00:00:00">
         <p id="rev1p1">Check the register keys before publication.</p>
       </review>
+
+      <!-- explicit direction assertion -->
+      <p id="pdir">Mixed text <attribute key="dir">rtl</attribute>&#x5E2;&#x5D1;&#x5E8;&#x5D9;&#x5EA; <attribute key="dir">ltr</attribute> resumes.</p>
 
       <!-- anchors and cross-references -->
       <p id="p2">See <attribute key="class">key-term</attribute> <bookmark id="bm1"/> the

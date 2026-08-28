@@ -336,6 +336,31 @@ module BasicdocSite
                  git_sha: git_sha, build_date: build_date)
     end
 
+    profiles = Dir[ROOT.join("profiles/*.yaml")].sort.map do |pf|
+      body = File.read(pf)
+      {
+        file: pf,
+        name: body[/^profile:\s*(\S+)/, 1] || File.basename(pf, ".yaml"),
+        exclude: body.scan(/^  - (\w+)$/).flatten,
+        constrain: body.scan(/^  (\w+\.[a-zA-Z]+): "([^"]+)"/),
+        enums: body.scan(/^  (\w+):$/).flatten,
+        permit: body.scan(/^    - (\w+)$/).flatten
+      }
+    end
+    unless profiles.empty?
+      profiles_html = render("profiles.html.erb",
+                             { profiles: profiles,
+                               git_sha: git_sha, build_date: build_date,
+                               type_index: tindex },
+                             depth: 1)
+      FileUtils.mkdir_p(OUT.join("profiles"))
+      write_page(OUT.join("profiles/index.html"), profiles_html,
+                 title: "Profiles — Basicdoc Models",
+                 description: "Declared profiles: tailoring the model by narrowing only.",
+                 index_page: false, depth: 1,
+                 git_sha: git_sha, build_date: build_date)
+    end
+
     File.write(OUT.join(".nojekyll"), "")
 
     pages = 1 + plates.size + (TIER_ORDER & plates.map(&:tier)).size
