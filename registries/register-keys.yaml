@@ -1,0 +1,59 @@
+# Attribute register — well-known keys
+#
+# This is the public registry referenced by CC 36010, clause 4. Keys with
+# established cross-format meaning. Additional keys are registered by pull
+# request to this file (the registration procedure of the registration
+# authority); profiles may close the permitted vocabulary for their dialect.
+#
+# Fields:
+#   key        — the register key
+#   value-type — expected value shape
+#   definition — cross-format meaning
+keys:
+  - key: id
+    value-type: identifier
+    definition: >-
+      Anchor of the construct, for cross-references within the document.
+  - key: class
+    value-type: string (repeatable in dialects that admit multiple roles)
+    definition: >-
+      Role or classification of the construct, used to differentiate
+      runs of constructs of the same kind.
+  - key: lang
+    value-type: ISO 639 code
+    definition: >-
+      Language of the construct's content. Complements the localized
+      string spelling-system identification (ISO 24229).
+  - key: script
+    value-type: ISO 15924 code
+    definition: >-
+      Script of the construct's content.
+  - key: unnumbered
+    value-type: boolean
+    definition: >-
+      Exclude the construct from automatic numbering of constructs of
+      its class in rendering.
+  - key: subsequence
+    value-type: token
+    definition: >-
+      Constructs of the same class bearing the same token are numbered
+      in a subsequence (e.g. 7a, 7b, 7c).
+  - key: format
+    value-type: string (format name)
+    definition: >-
+      The notation used for opaque (raw) content carried by the
+      construct, or the markup convention of a formatted string.
+  - key: dir
+    value-type: ltr | rtl | auto
+    definition: >-
+      Explicit authorial assertion of text direction where it cannot be
+      derived from content; rendering concern otherwise.
+  - key: checkbox
+    value-type: boolean
+    definition: >-
+      Task-list item state (dialect of Markdown task lists).
+  - key: matter
+    value-type: token
+    definition: >-
+      Legalexchange profile: matter identifier of a clause (worked
+      example of a dialect-bound key).

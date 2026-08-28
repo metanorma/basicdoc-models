@@ -66,6 +66,13 @@ bundle exec rake clean
 
 CI runs the same build on ubuntu-latest.
 
+== Attribute register registry
+
+The well-known register keys are maintained in
+link:registries/register-keys.yaml[registries/register-keys.yaml] — the
+public registry referenced by CC 36010, clause 4. Register a new key by
+pull request to that file.
+
 == Versioning
 
 The model follows a MAJOR.MINOR.PATCH policy with a deprecation cycle
