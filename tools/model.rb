@@ -56,7 +56,7 @@ module BasicdocModel
           kind = (/^\s*primitive\s+#{name}\b/.match?(body) ? "primitive" : "data type")
           types[name] = Type.new(
             name: name, kind: kind, stereotype: shims[:stereo][name], file: f,
-            definition: squash(body[/^\s*definition \{\n((?:[ \t].*\n)+?)  \}/m, 1]),
+            definition: shim_definition(body),
             attributes: [], values: []
           )
         end
@@ -80,6 +80,17 @@ module BasicdocModel
 
   def squash(text)
     text.to_s.gsub(/\s+/, " ").strip
+  end
+
+  # data_type/primitive definitions, line-oriented (no nested-brace regex:
+  # CodeQL flags that as catastrophic backtracking)
+  def shim_definition(body)
+    lines = body.lines
+    start = lines.index { |l| l =~ /^\s*definition \{/ }
+    return "" if start.nil?
+
+    out = lines[(start + 1)..].take_while { |l| l !~ /^\s*\}/ }
+    squash(out.join)
   end
 
   VISIBILITY_GLYPH = { "public" => "+", "private" => "-", "protected" => "#" }.freeze
