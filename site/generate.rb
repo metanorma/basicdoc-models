@@ -3,15 +3,9 @@
 require "erb"
 require "fileutils"
 require "pathname"
+require_relative "../tools/model"
 
 module BasicdocSite
-  ModelType = Struct.new(
-    :name, :kind, :stereotype, :file, :definition,
-    :attributes, :values, keyword_init: true
-  )
-  Attribute = Struct.new(
-    :visibility, :name, :type, :multiplicity, :definition, keyword_init: true
-  )
   Plate = Struct.new(
     :slug, :title, :view_file, :image, :includes, :associations, :domains,
     :github_view_url, :tier, keyword_init: true
@@ -55,93 +49,15 @@ module BasicdocSite
       .downcase
   end
 
-  # —— LML parsing (line-based; consistent 2-space indentation in this repo) ——
-
-  def parse_model_file(path)
-    rel = Pathname(path).relative_path_from(ROOT).to_s
-    types = []
-    current = nil
-    mode = nil            # :type_def | :attr_def | :value_def
-    buffer = []
-    anchor_indent = nil
-    pending_attr = nil
-    pending_value = nil
-
-    File.foreach(path).with_index do |line, _i|
-      stripped = line.strip
-      indent = line[/^\s*/].length
-
-      if mode
-        closing = (stripped == "}" && indent == anchor_indent)
-        if closing
-          text = buffer.join(" ").gsub(/\s+/, " ").strip
-          case mode
-          when :type_def  then current.definition = text
-          when :attr_def  then pending_attr.definition = text
-          when :value_def then pending_value[:definition] = text
-          end
-          mode = nil
-          buffer = []
-          next
-        end
-        buffer << stripped unless stripped.empty?
-        next
-      end
-
-      if (m = stripped.match(/\A(class|enum|data_type|primitive)\s+([A-Za-z_][A-Za-z0-9_]*)(\s*(<<[^>]+>>))?\s*\{/))
-        current = ModelType.new(
-          name: m[2], kind: m[1].tr("_", " "), stereotype: m[3]&.strip,
-          file: rel, definition: nil, attributes: [], values: []
-        )
-        types << current
-        pending_attr = nil
-        pending_value = nil
-        next
-      end
-      next unless current
-
-      if (m = stripped.match(/\A([+#-])([a-z_][A-Za-z0-9_]*)\s*:\s*("[^"]*")\s*\z/))
-        current.attributes << Attribute.new(
-          visibility: m[1], name: m[2], type: m[3], multiplicity: "fixed", definition: nil
-        )
-        next
-      end
-
-      if (m = stripped.match(/\A([+#-])([a-z_][A-Za-z0-9_]*)\s*:\s*(.+?)(?:\s*\[([^\]]*)\])?\s*\{/))
-        pending_attr = Attribute.new(
-          visibility: m[1], name: m[2], type: m[3].strip,
-          multiplicity: m[4] || "1", definition: nil
-        )
-        pending_value = nil
-        current.attributes << pending_attr
-        next
-      end
-
-      if current.kind == "enum" && (m = stripped.match(/\A([a-z_][A-Za-z0-9_]*)\s*\{\z/))
-        pending_value = { name: m[1], definition: nil }
-        pending_attr = nil
-        current.values << pending_value
-        next
-      end
-
-      if stripped == "definition {"
-        mode = if pending_value then :value_def
-               elsif pending_attr then :attr_def
-               else :type_def
-               end
-        anchor_indent = indent
-        next
-      end
-    end
-    types
-  end
-
+  # Model types come from the canonical loader (tools/model.rb):
+  # lutaml-lml parser plus documented shims — the same model every
+  # gate sees. Site Type#file is repo-relative.
   def load_models
-    cache = {}
-    Dir[ROOT.join("models/**/*.lml")].sort.each do |path|
-      cache[Pathname(path).expand_path.to_s] = parse_model_file(path)
+    BasicdocModel.load.each_with_object({}) do |(_name, type), acc|
+      type.file = type.file.sub(%r{\A#{Regexp.escape(ROOT.to_s)}/}, "")
+      abs = File.expand_path(type.file, ROOT).to_s
+      (acc[abs] ||= []) << type
     end
-    cache
   end
 
   def resolve_include(base_file, target)

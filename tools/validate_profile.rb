@@ -13,27 +13,15 @@
 # Model extraction uses lutaml-lml (Pipeline.call), not regexes.
 
 require "yaml"
-require "lutaml/lml"
+require_relative "model"
 
-ROOT = File.expand_path("..", __dir__)
-
-def load_model
-  classes = {}
-  enums = {}
-  Dir[File.join(ROOT, "models", "**/*.lml")].sort.each do |f|
-    doc = Lutaml::Lml::Pipeline.call(File.read(f))
-    (doc.classes || []).each { |k| classes[k.name] ||= k }
-    (doc.enums || []).each { |e| enums[e.name] ||= e }
-  end
-  [classes, enums]
-end
-
-CLASSES, ENUMS = load_model
+CLASSES = BasicdocModel.load
+ENUMS = CLASSES.select { |_n, t| t.kind == "enum" }
+ROOT = BasicdocModel::ROOT
 
 def enum_values(name)
   e = ENUMS[name]
-  return nil unless e
-  (e.values.to_a.empty? ? e.attributes.to_a.map(&:name) : e.values.to_a).map(&:to_s) - ["definition"]
+  e && e.values
 end
 
 def parse_mult(str)
@@ -47,13 +35,11 @@ def parse_mult(str)
 end
 
 def base_cardinality(type, attr)
-  k = CLASSES[type]
-  a = k&.attributes&.find { |x| x.name == attr }
-  return nil unless a
-  c = a.cardinality
-  return nil unless c
-  max = c.max == "*" ? Float::INFINITY : c.max.to_i
-  [c.min.to_i, max]
+  a = CLASSES[type]&.attributes&.find { |x| x.name == attr }
+  return nil unless a && a.multiplicity != "fixed"
+
+  mn, mx = a.multiplicity.split("..")
+  [mn.to_i, mx == "*" ? Float::INFINITY : mx.to_i]
 end
 
 @errors = []
@@ -91,8 +77,9 @@ def validate_profile(path)
       @errors << "#{name}: enum #{enum_name} does not exist"
       next
     end
+    base_names = base_values.map { |h| h[:name] }
     (allowed || []).each do |v|
-      @errors << "#{name}: enum #{enum_name} value #{v} is not in the base" unless base_values.include?(v.to_s)
+      @errors << "#{name}: enum #{enum_name} value #{v} is not in the base" unless base_names.include?(v.to_s)
     end
   end
 

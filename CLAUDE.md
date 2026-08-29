@@ -30,7 +30,7 @@ The `models/` tree is isomorphic to the spec's ontology (CC/ISO 36010, "Lightwei
 | `models/bibdata/relaton/` | boundary | `<<Relaton>>`/`<<Bibliography>>` stubs — see OCP policy |
 | `models/contribmetadata/` | document | contribution + integrity types |
 | `models/sections/` | sections | `BasicSection`, `HierarchicalSection`, `ContentSection`, `ReferencesSection` |
-| `models/blocks/` | blocks | block roots (`BasicBlock`, `BasicBlockNoNotes`, `NoteBlock`) |
+| `models/blocks/` | blocks | block roots (`BasicBlock`, `NoteBlock`) |
 | `models/blocks/{paragraphs,multiparagraphs,amend,lists,tables,ancillaryblocks}/` | blocks | block families; `amend/` = in-document change markup |
 | `models/inline/` | inline | `BasicElement` at the tier root |
 | `models/inline/{text,id,reference,empty}/` | inline | inline element families |
@@ -80,14 +80,16 @@ bundle exec rake verify                              # pure-Ruby PNG magic-byte 
 bundle exec rake lint                                # semantic lint: names, type resolution, view closure, visibility
 bundle exec rake parity                              # LML/RNC presence + view/model separation + include graph
 bundle exec rake check                               # render + verify + lint + parity
+bundle exec rake fixtures                             # XML/YAML reference instances
+bundle exec rake profiles                             # profile artifacts (narrowing-only)
 bundle exec rake clean                               # remove regenerable PNGs only
 bundle exec rake images/<Name>.png                   # render a single diagram
 bundle exec rake site                                # build the model atlas into _site/ (gitignored)
 ```
 
-Rendering uses `lutaml-lml` ≥ 0.1.3 (graphviz-backed); until 0.1.3 is on RubyGems the Gemfile pins the fix commit via git. CI (`.github/workflows/rake.yml`, ubuntu-latest) runs clean/render/verify/lint/parity with `submodules: recursive`.
+Rendering uses `lutaml-lml` ≥ 0.1.5 from RubyGems (graphviz-backed). CI (`.github/workflows/rake.yml`, ubuntu-latest) runs render/verify/lint/parity/fixtures/profiles with `submodules: recursive`; `pages.yml` adds `rake site` and deploys the atlas.
 
-There is no separate unit-test suite; `rake check` is the gate.
+There is no separate unit-test suite; `rake check` + `rake fixtures` + `rake profiles` are the gates.
 
 ## Model / view conventions
 
