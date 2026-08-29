@@ -61,6 +61,9 @@ bundle exec rake verify   # assert PNG magic bytes on every committed diagram
 bundle exec rake lint     # semantic lint (names, types, view closure, visibility)
 bundle exec rake parity   # assert LML/RNC presence and view include graph
 bundle exec rake check    # render + verify + lint + parity
+bundle exec rake fixtures # validate the XML/YAML reference instances
+bundle exec rake profiles # validate profiles (narrowing-only enforced)
+bundle exec rake site     # build _site/ (the model atlas)
 bundle exec rake clean
 ----
 
