@@ -10,7 +10,9 @@
 #   - class stereotypes come back empty
 #   - fixed-value attributes (e.g. +type: "footnote") lose their quotes,
 #     making literal values indistinguishable from type names
-# When the parser closes these gaps, delete the shim.
+# Upstream tracking: lutaml/lutaml-lml#8
+# (https://github.com/lutaml/lutaml-lml/issues/8). When the parser
+# closes these gaps, delete the shim.
 
 require "lutaml/lml"
 
