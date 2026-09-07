@@ -1,0 +1,17 @@
+class CellCoordinate {
+  definition {
+Locates a cell in the grid of a table by the grid row and grid column
+of its origin slot, accounting for cells that span multiple slots.
+Indexes are zero-based.
+  }
+  +row: Integer {
+    definition {
+Zero-based index of the grid row of the cell's origin slot.
+    }
+  }
+  +column: Integer {
+    definition {
+Zero-based index of the grid column of the cell's origin slot.
+    }
+  }
+}

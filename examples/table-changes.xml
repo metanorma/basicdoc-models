@@ -1,0 +1,100 @@
+<!--
+  Twin reference instance of the change model: a ChangeSet applied to the
+  line-item table (li1t1) of document.xml, exercising every change
+  operation — node insert/delete/move (with explicit position), content
+  and attribute modification, row insert/delete/move, column
+  insert/delete/move, cell update, cell merge and cell split — including
+  a computed cell (a formula block inside a table cell).
+  Twin of: table-changes.yaml
+-->
+<changeset document="basicdoc-fixtures-1">
+
+  <!-- add a line-item row -->
+  <change target="li1t1" id="chg-01">
+    <row-insert area="body" position="1">
+      <tr><td>inline</td><td>BasicElement</td></tr>
+    </row-insert>
+  </change>
+
+  <!-- append a column; every row gains an empty cell -->
+  <change target="li1t1" id="chg-02" parent="chg-01">
+    <column-insert position="2"/>
+  </change>
+
+  <!-- header cell for the new column -->
+  <change target="li1t1" id="chg-03" parent="chg-02">
+    <cell-update row="0" column="2">
+      <th>Tier</th>
+    </cell-update>
+  </change>
+
+  <!-- computed cell: a formula block inside a table cell -->
+  <change target="li1t1" id="chg-04" parent="chg-03">
+    <cell-update row="2" column="2">
+      <td>
+        <formula id="li1t1f1"><stem type="AsciiMath"><asciimath>count(body rows)</asciimath></stem></formula>
+      </td>
+    </cell-update>
+  </change>
+
+  <!-- merge the units header across both columns -->
+  <change target="li1t1" id="chg-05" parent="chg-04">
+    <cell-merge>
+      <from row="1" column="0"/>
+      <to row="1" column="1"/>
+    </cell-merge>
+  </change>
+
+  <!-- split it back -->
+  <change target="li1t1" id="chg-06" parent="chg-05">
+    <cell-split row="1" column="0"/>
+  </change>
+
+  <!-- promote a body row to the footer -->
+  <change target="li1t1" id="chg-07" parent="chg-06">
+    <row-move old-area="body" old-position="2" new-area="foot" new-position="0"/>
+  </change>
+
+  <!-- move the Tier column before the Construct column -->
+  <change target="li1t1" id="chg-08" parent="chg-07">
+    <column-move old-position="2" new-position="1"/>
+  </change>
+
+  <!-- drop a body row -->
+  <change target="li1t1" id="chg-09" parent="chg-08">
+    <row-delete area="body" position="0"/>
+  </change>
+
+  <!-- node insert at an explicit position -->
+  <change target="li1" id="chg-10" parent="chg-09">
+    <node-insert>
+      <position parent="li1" index="2"/>
+      <bookmark id="chg-bm1"/>
+    </node-insert>
+  </change>
+
+  <!-- node delete with integrity check -->
+  <change target="tdp1" id="chg-11" parent="chg-10">
+    <node-delete hash="sha-256:2fd4e1c67a2d28fced849ee1bb76e7391b93eb12"/>
+  </change>
+
+  <!-- node move -->
+  <change target="tdli1p1" id="chg-12" parent="chg-11">
+    <node-move old-parent="tdli1" new-parent="li1"/>
+  </change>
+
+  <!-- text edit by cursor range -->
+  <change target="li1p1" id="chg-13" parent="chg-12">
+    <content-modify>
+      <action type="insert" from="39" to="39" length="10"> (revised)</action>
+    </content-modify>
+  </change>
+
+  <!-- register entry update by cursor range -->
+  <change target="li1t1" id="chg-14" parent="chg-13">
+    <attribute-modify>
+      <action key="class" type="insert" from="0" to="0" length="6">priced</action>
+    </attribute-modify>
+  </change>
+
+</changeset>

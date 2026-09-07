@@ -1,0 +1,18 @@
+class ColumnInsert {
+  definition {
+Specification of the insertion of a column into a table. Occupied grid
+slots at or after the insertion column shift right by one in every row;
+each row that has a slot at the insertion column gains a cell there.
+  }
+  +position: Integer {
+    definition {
+Zero-based index of the grid column to insert the column at.
+    }
+  }
+  +cell: TableCell[0..1] {
+    definition {
+A template cell used as the initial content of the cells created in the
+new column. When omitted, empty text cells are created.
+    }
+  }
+}

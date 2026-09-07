@@ -1,0 +1,13 @@
+class ColumnDelete {
+  definition {
+Specification of the deletion of a column from a table. Cells that
+originate in the deleted grid column are removed; cells that span it
+have their column span decremented by one. Occupied slots after the
+deleted column shift left by one in every row.
+  }
+  +position: Integer {
+    definition {
+Zero-based index of the grid column to be deleted.
+    }
+  }
+}

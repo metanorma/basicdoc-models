@@ -1,0 +1,24 @@
+class RowInsert {
+  definition {
+Specification of the insertion of a row into a table. Rows at or after
+the insertion position shift down by one position within the same row
+container.
+  }
+  +area: TableArea {
+    definition {
+The row container that the row is inserted into.
+    }
+  }
+  +position: Integer {
+    definition {
+Zero-based ordinal within the row container. Rows at or after this
+position shift down by one.
+    }
+  }
+  +row: TextTableRow[0..1] {
+    definition {
+The row to be inserted. When omitted, an empty row sized to the grid of
+the table is inserted.
+    }
+  }
+}

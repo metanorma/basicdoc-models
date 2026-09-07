@@ -1,0 +1,143 @@
+# Twin reference instance of the change model: a ChangeSet applied to the
+# line-item table (li1t1) of document.yaml, exercising every change
+# operation — node insert/delete/move (with explicit position), content
+# and attribute modification, row insert/delete/move, column
+# insert/delete/move, cell update, cell merge and cell split — including
+# a computed cell (a formula block inside a table cell).
+# Twin of: table-changes.xml
+class: ChangeSet
+documentIdentifier:
+  class: UniqueIdentifier
+  value: basicdoc-fixtures-1
+changes:
+  # add a line-item row
+  - class: RowInsert
+    target: { class: ReferenceToIdElement, target: li1t1 }
+    identifier: { class: UniqueIdentifier, value: chg-01 }
+    area: body
+    position: 1
+    row:
+      class: TextTableRow
+      td:
+        - class: TextTableCell
+          content: [{ text: inline }]
+        - class: TextTableCell
+          content: [{ text: BasicElement }]
+  # append a column; every row gains an empty cell
+  - class: ColumnInsert
+    target: { class: ReferenceToIdElement, target: li1t1 }
+    identifier: { class: UniqueIdentifier, value: chg-02 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-01 }
+    position: 2
+  # header cell for the new column
+  - class: CellUpdate
+    target: { class: ReferenceToIdElement, target: li1t1 }
+    identifier: { class: UniqueIdentifier, value: chg-03 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-02 }
+    row: 0
+    column: 2
+    cell:
+      class: TextTableCell
+      content: [{ text: Tier }]
+  # computed cell: a formula block inside a table cell
+  - class: CellUpdate
+    target: { class: ReferenceToIdElement, target: li1t1 }
+    identifier: { class: UniqueIdentifier, value: chg-04 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-03 }
+    row: 2
+    column: 2
+    cell:
+      class: ParagraphTableCell
+      content:
+        - class: FormulaBlock
+          id: li1t1f1
+          stem:
+            class: StemElement
+            stemType: AsciiML
+            stemValue:
+              class: AsciiML
+              value: count(body rows)
+  # merge the units header across both columns
+  - class: CellMerge
+    target: { class: ReferenceToIdElement, target: li1t1 }
+    identifier: { class: UniqueIdentifier, value: chg-05 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-04 }
+    from: { class: CellCoordinate, row: 1, column: 0 }
+    to: { class: CellCoordinate, row: 1, column: 1 }
+  # split it back
+  - class: CellSplit
+    target: { class: ReferenceToIdElement, target: li1t1 }
+    identifier: { class: UniqueIdentifier, value: chg-06 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-05 }
+    at: { class: CellCoordinate, row: 1, column: 0 }
+  # promote a body row to the footer
+  - class: RowMove
+    target: { class: ReferenceToIdElement, target: li1t1 }
+    identifier: { class: UniqueIdentifier, value: chg-07 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-06 }
+    areaOld: body
+    positionOld: 2
+    areaNew: foot
+    positionNew: 0
+  # move the Tier column before the Construct column
+  - class: ColumnMove
+    target: { class: ReferenceToIdElement, target: li1t1 }
+    identifier: { class: UniqueIdentifier, value: chg-08 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-07 }
+    positionOld: 2
+    positionNew: 1
+  # drop a body row
+  - class: RowDelete
+    target: { class: ReferenceToIdElement, target: li1t1 }
+    identifier: { class: UniqueIdentifier, value: chg-09 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-08 }
+    area: body
+    position: 0
+  # node insert at an explicit position
+  - class: NodeInsert
+    target: { class: ReferenceToIdElement, target: li1 }
+    identifier: { class: UniqueIdentifier, value: chg-10 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-09 }
+    position:
+      class: NodePosition
+      parent: { class: ReferenceToIdElement, target: li1 }
+      index: 2
+    content: { class: Bookmark, id: chg-bm1 }
+  # node delete with integrity check
+  - class: NodeDelete
+    target: { class: ReferenceToIdElement, target: tdp1 }
+    identifier: { class: UniqueIdentifier, value: chg-11 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-10 }
+    hashValue: sha-256:2fd4e1c67a2d28fced849ee1bb76e7391b93eb12
+  # node move
+  - class: NodeMove
+    target: { class: ReferenceToIdElement, target: tdli1p1 }
+    identifier: { class: UniqueIdentifier, value: chg-12 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-11 }
+    positionOld: { class: ReferenceToIdElement, target: tdli1 }
+    positionNew: { class: ReferenceToIdElement, target: li1 }
+  # text edit by cursor range
+  - class: ContentModify
+    target: { class: ReferenceToIdElement, target: li1p1 }
+    identifier: { class: UniqueIdentifier, value: chg-13 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-12 }
+    actions:
+      - class: ContentChangeAction
+        action: insert
+        from: 39
+        to: 39
+        text: " (revised)"
+        length: 10
+  # register entry update by cursor range
+  - class: AttributeModify
+    target: { class: ReferenceToIdElement, target: li1t1 }
+    identifier: { class: UniqueIdentifier, value: chg-14 }
+    parentIdentifier: { class: UniqueIdentifier, value: chg-13 }
+    actions:
+      - class: AttributeChangeAction
+        attributeId: class
+        action: insert
+        from: 0
+        to: 0
+        text: priced
+        length: 6

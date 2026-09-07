@@ -1,0 +1,17 @@
+class RowDelete {
+  definition {
+Specification of the deletion of a row from a table. Rows after the
+deleted position shift up by one position within the same row
+container.
+  }
+  +area: TableArea {
+    definition {
+The row container that the row is deleted from.
+    }
+  }
+  +position: Integer {
+    definition {
+Zero-based ordinal of the row within the row container.
+    }
+  }
+}
