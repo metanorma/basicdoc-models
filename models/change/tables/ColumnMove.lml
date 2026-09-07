@@ -1,0 +1,18 @@
+class ColumnMove {
+  definition {
+Specification of moving a column of a table to another grid position.
+Cells move with their column; the affected cells of other columns shift
+accordingly.
+  }
+  +positionOld: Integer {
+    definition {
+Zero-based index of the grid column to be moved. Useful for verifying
+that the location has not changed.
+    }
+  }
+  +positionNew: Integer {
+    definition {
+Zero-based grid column index the column is moved to.
+    }
+  }
+}

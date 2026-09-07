@@ -1,0 +1,18 @@
+class NodePosition {
+  definition {
+Locates a position in a _BasicDocument_ as a container node and an
+ordinal among its child sequence, so that node insertions are
+deterministic. Ordinals are zero-based.
+  }
+  +parent: ReferenceToIdElement {
+    definition {
+The node whose child sequence the position refers to.
+    }
+  }
+  +index: Integer[0..1] {
+    definition {
+Zero-based ordinal among the children of the parent node. When omitted,
+the position refers to the end of the child sequence.
+    }
+  }
+}

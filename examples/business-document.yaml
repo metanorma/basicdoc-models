@@ -1,0 +1,135 @@
+# Worked instance for Annex E (application to business document
+# interchange): a purchase order expressed as a base BasicDocument.
+# Trade identifiers ride the attribute register with ISO 6523 scheme
+# keys; line items and totals are tables, with computed cells carried
+# as formula blocks. A revision round against this document is shown
+# by the twin ChangeSet examples/table-changes.{xml,yaml}.
+# Validated against the LML model by `rake fixtures:yaml`.
+document:
+  class: BasicDocument
+  attributes:
+    - key: class
+      value: [purchase-order]
+    - key: supplier-id
+      scheme: iso-6523
+      value: "0060:9876543210"
+    - key: buyer-id
+      scheme: iso-6523
+      value: "0060:4182738170"
+    - key: currency
+      value: EUR
+  identifier:
+    class: UniqueIdentifier
+    value: basicdoc-business-fixtures-1
+  bibdata:
+    class: BibData
+    ext:
+      class: BibDataExtensionType
+      doctype: [document]
+  sections:
+    - class: ContentSection
+      id: po-header
+      title: [{ text: Purchase order }]
+      blocks:
+        - class: ParagraphBlock
+          id: po-p1
+          contents:
+            - text: "Purchase order "
+            - class: ReferenceToVariable
+              name: po-number
+            - text: " issued on "
+            - class: ReferenceToVariable
+              name: issue-date
+            - text: " for delivery per "
+            - class: ReferenceToVariable
+              name: incoterm
+    - class: ContentSection
+      id: po-terms
+      title: [{ text: Terms }]
+      blocks:
+        - class: ParagraphBlock
+          id: po-p2
+          contents:
+            - text: "The supplier shall deliver in accordance with the "
+            - class: EmphasisElement
+              content: [{ text: agreed schedule }]
+            - text: ", subject to the tolerances below."
+        - class: AdmonitionBlock
+          id: po-note
+          type: note
+          contents:
+            - class: ParagraphBlock
+              id: po-notep1
+              contents:
+                - text: Quantities may vary within 5% of the ordered amounts.
+    - class: ContentSection
+      id: po-lines
+      title: [{ text: Line items }]
+      blocks:
+        - class: TableBlock
+          id: po-lines-t1
+          name: [{ text: Ordered items }]
+          head:
+            - class: TextTableRow
+              th:
+                - class: TextTableCell
+                  content: [{ text: Item }]
+                - class: TextTableCell
+                  content: [{ text: Quantity }]
+                - class: TextTableCell
+                  content: [{ text: Unit price }]
+                - class: TextTableCell
+                  content: [{ text: Total }]
+          body:
+            - class: TextTableRow
+              td:
+                - class: TextTableCell
+                  content: [{ text: Widget W1 }]
+                - class: TextTableCell
+                  content: [{ text: "12" }]
+                - class: TextTableCell
+                  content: [{ text: "9.50" }]
+                - class: ParagraphTableCell
+                  content:
+                    - class: FormulaBlock
+                      id: po-lines-t1-f1
+                      stem:
+                        class: StemElement
+                        stemType: AsciiML
+                        stemValue:
+                          class: AsciiML
+                          value: B2 * C2
+            - class: TextTableRow
+              td:
+                - class: TextTableCell
+                  content: [{ text: Gear G7 }]
+                - class: TextTableCell
+                  content: [{ text: "3" }]
+                - class: TextTableCell
+                  content: [{ text: "41.00" }]
+                - class: ParagraphTableCell
+                  content:
+                    - class: FormulaBlock
+                      id: po-lines-t1-f2
+                      stem:
+                        class: StemElement
+                        stemType: AsciiML
+                        stemValue:
+                          class: AsciiML
+                          value: B3 * C3
+          foot:
+            - class: TextTableRow
+              td:
+                - class: TextTableCell
+                  colspan: 3
+                  content: [{ text: Total }]
+                - class: ParagraphTableCell
+                  content:
+                    - class: FormulaBlock
+                      id: po-lines-t1-f3
+                      stem:
+                        class: StemElement
+                        stemType: AsciiML
+                        stemValue:
+                          class: AsciiML
+                          value: SUM(D2, D3)

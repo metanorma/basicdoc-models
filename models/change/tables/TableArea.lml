@@ -1,0 +1,23 @@
+enum TableArea {
+  definition {
+The row container of a _TableBlock_ that a row-level change applies to.
+  }
+
+  head {
+    definition {
+The table header rows.
+    }
+  }
+
+  body {
+    definition {
+The table body rows.
+    }
+  }
+
+  foot {
+    definition {
+The table footer rows.
+    }
+  }
+}

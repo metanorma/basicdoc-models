@@ -1,0 +1,10 @@
+class TableChange {
+  definition {
+Possible actions that modify the structure or the content of a table:
+insertion, deletion and reordering of rows and columns, and changes to
+individual cells, including merging and splitting.
+The `target` attribute inherited from the _Change_ model indicates the
+_TableBlock_ that the action applies to. Row and column ordinals index
+the grid of the table, accounting for cells that span multiple slots.
+  }
+}

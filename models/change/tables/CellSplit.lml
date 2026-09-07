@@ -1,0 +1,24 @@
+class CellSplit {
+  definition {
+Specification of splitting a cell of a table that spans multiple grid
+slots. The cell's span is reduced to the given extents; the freed slots
+are filled with empty text cells, and the original cell keeps its
+content in its origin slot.
+  }
+  +at: CellCoordinate {
+    definition {
+The cell to be split, by the grid coordinates of its origin slot.
+    }
+  }
+  +rows: Integer[0..1] {
+    definition {
+The resulting row span of the cell. When omitted, the span becomes one.
+    }
+  }
+  +columns: Integer[0..1] {
+    definition {
+The resulting column span of the cell. When omitted, the span becomes
+one.
+    }
+  }
+}

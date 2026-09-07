@@ -14,6 +14,19 @@ diagram Change {
   include ../models/change/ContentChangeAction.lml
   include ../models/change/AttributeChangeAction.lml
   include ../models/change/ContentAction.lml
+  include ../models/change/NodePosition.lml
+  include ../models/change/tables/TableChange.lml
+  include ../models/change/tables/TableArea.lml
+  include ../models/change/tables/CellCoordinate.lml
+  include ../models/change/tables/RowInsert.lml
+  include ../models/change/tables/RowDelete.lml
+  include ../models/change/tables/RowMove.lml
+  include ../models/change/tables/ColumnInsert.lml
+  include ../models/change/tables/ColumnDelete.lml
+  include ../models/change/tables/ColumnMove.lml
+  include ../models/change/tables/CellUpdate.lml
+  include ../models/change/tables/CellMerge.lml
+  include ../models/change/tables/CellSplit.lml
 
   association {
     owner Change
@@ -84,6 +97,61 @@ diagram Change {
   association {
     owner NodeChange
     member NodeMove
+    owner_type inheritance
+  }
+  association {
+    owner NodePosition
+    member NodeInsert
+    member_type direct
+  }
+  association {
+    owner Change
+    member TableChange
+    owner_type inheritance
+  }
+  association {
+    owner TableChange
+    member RowInsert
+    owner_type inheritance
+  }
+  association {
+    owner TableChange
+    member RowDelete
+    owner_type inheritance
+  }
+  association {
+    owner TableChange
+    member RowMove
+    owner_type inheritance
+  }
+  association {
+    owner TableChange
+    member ColumnInsert
+    owner_type inheritance
+  }
+  association {
+    owner TableChange
+    member ColumnDelete
+    owner_type inheritance
+  }
+  association {
+    owner TableChange
+    member ColumnMove
+    owner_type inheritance
+  }
+  association {
+    owner TableChange
+    member CellUpdate
+    owner_type inheritance
+  }
+  association {
+    owner TableChange
+    member CellMerge
+    owner_type inheritance
+  }
+  association {
+    owner TableChange
+    member CellSplit
     owner_type inheritance
   }
 }

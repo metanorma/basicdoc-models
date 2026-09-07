@@ -1,0 +1,20 @@
+class CellMerge {
+  definition {
+Specification of merging two adjacent cells of a table: the cell at
+`from` absorbs the grid slots of the cell at `to`. The cells shall be
+adjacent on the same grid row (a horizontal merge, increasing the
+column span) or in the same grid column (a vertical merge, increasing
+the row span). The content of both cells is concatenated, in document
+order, into the merged cell.
+  }
+  +from: CellCoordinate {
+    definition {
+The cell that absorbs the slots of the other cell.
+    }
+  }
+  +to: CellCoordinate {
+    definition {
+The cell whose slots are absorbed; it ceases to exist.
+    }
+  }
+}

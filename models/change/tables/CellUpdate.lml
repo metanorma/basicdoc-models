@@ -1,0 +1,23 @@
+class CellUpdate {
+  definition {
+Specification of the replacement of a single cell of a table,
+identified by the grid coordinates of its origin slot. The replacement
+cell replaces the existing cell wholly: its specialization, content
+and properties.
+  }
+  +row: Integer {
+    definition {
+Zero-based index of the grid row of the cell's origin slot.
+    }
+  }
+  +column: Integer {
+    definition {
+Zero-based index of the grid column of the cell's origin slot.
+    }
+  }
+  +cell: TableCell {
+    definition {
+The cell that replaces the existing cell.
+    }
+  }
+}

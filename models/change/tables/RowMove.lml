@@ -1,0 +1,28 @@
+class RowMove {
+  definition {
+Specification of moving a row of a table to another position, possibly
+into another row container. Other rows shift accordingly in both the
+old and the new container.
+  }
+  +areaOld: TableArea {
+    definition {
+The row container that the row is moved from.
+    }
+  }
+  +positionOld: Integer {
+    definition {
+Zero-based ordinal of the row within its old container. Useful for
+verifying that the location has not changed.
+    }
+  }
+  +areaNew: TableArea {
+    definition {
+The row container that the row is moved to.
+    }
+  }
+  +positionNew: Integer {
+    definition {
+Zero-based ordinal of the row within its new container.
+    }
+  }
+}

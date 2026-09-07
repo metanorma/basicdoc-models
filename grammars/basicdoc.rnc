@@ -1333,4 +1333,198 @@ dd =
 dd-no-id =
   element dd { BasicBlock* }
 
+## Change models: operational changes applied incrementally to a document.
+
+## A collection of changes, specifying the document they should be applied to
+changeset =
+  element changeset {
+    ## The unique identifier that identifies the document where this ChangeSet should be applied to
+    attribute document { text },
+    change*
+  }
+
+## Specification of an update action to be performed incrementally on an element of a document.
+## The target is an element of the document identified by the changeset, addressed by its
+## register identifier (a plain string, not an in-document reference)
+change =
+  element change {
+    ChangeAttributes,
+    ( node-insert | node-delete | node-move | content-modify | attribute-modify |
+      row-insert | row-delete | row-move | column-insert | column-delete |
+      column-move | cell-update | cell-merge | cell-split )
+  }
+
+ChangeAttributes =
+    ## The identifier of the element that this action should be applied to
+    attribute target { text },
+    ## A unique identifier of this change
+    attribute id { text },
+    ## The unique identifier of a Change that this change is supposed to follow after;
+    ## a change with no parent is the root of a change sequence
+    attribute parent { text }?
+
+## Specification of the insertion of a data node, at an explicit position
+node-insert =
+  element node-insert {
+    ## The position where the content is to be inserted
+    element position {
+      ## The identifier of the node whose child sequence the position refers to
+      attribute parent { text },
+      ## Zero-based ordinal among the children of the parent node; omitted = end of the child sequence
+      attribute index { xsd:integer }?
+    }?,
+    TextElement
+  }
+
+## Specification of the deletion of a data node
+node-delete =
+  element node-delete {
+    ## Hash value of the node to be deleted, for verification purposes
+    attribute hash { text }?
+  }
+
+## Specification of moving a node to another location within the same document
+node-move =
+  element node-move {
+    ## Identifier of the node's current parent, to verify that the location has not changed
+    attribute old-parent { text },
+    ## Identifier of the new parent or sibling of the node
+    attribute new-parent { text }
+  }
+
+## Container for multiple content change actions
+content-modify =
+  element content-modify {
+    element action {
+      ## Text is to be inserted or deleted from the content
+      attribute type { "insert" | "delete" },
+      ## Beginning cursor position of a textual change
+      attribute from { xsd:integer },
+      ## Ending cursor position of a textual change
+      attribute to { xsd:integer },
+      ## Characters removed (delete), or the length of the inserted text (insert)
+      attribute length { xsd:integer }?,
+      ## In the case of an insert, the string to be inserted
+      text?
+    }+
+  }
+
+## Container for multiple attribute change actions
+attribute-modify =
+  element attribute-modify {
+    element action {
+      ## Register key of the attribute where the attribute change applies
+      attribute key { text },
+      ## Text is to be inserted or deleted from the attribute content
+      attribute type { "insert" | "delete" },
+      ## Beginning cursor position of a textual change
+      attribute from { xsd:integer },
+      ## Ending cursor position of a textual change
+      attribute to { xsd:integer },
+      ## Characters removed (delete), or the length of the inserted text (insert)
+      attribute length { xsd:integer }?,
+      ## In the case of an insert, the string to be inserted
+      text?
+    }+
+  }
+
+## The row container of a table that a row-level change applies to
+TableAreaType = "head" | "body" | "foot"
+
+## Specification of the insertion of a row into a table
+row-insert =
+  element row-insert {
+    ## The row container that the row is inserted into
+    attribute area { TableAreaType },
+    ## Zero-based ordinal within the row container; rows at or after this position shift down by one
+    attribute position { xsd:integer },
+    ## The row to be inserted; omitted = an empty row sized to the grid of the table
+    tr?
+  }
+
+## Specification of the deletion of a row from a table
+row-delete =
+  element row-delete {
+    ## The row container that the row is deleted from
+    attribute area { TableAreaType },
+    ## Zero-based ordinal of the row within the row container
+    attribute position { xsd:integer }
+  }
+
+## Specification of moving a row to another position, possibly another row container
+row-move =
+  element row-move {
+    ## The row container that the row is moved from
+    attribute old-area { TableAreaType },
+    ## Zero-based ordinal of the row within its old container
+    attribute old-position { xsd:integer },
+    ## The row container that the row is moved to
+    attribute new-area { TableAreaType },
+    ## Zero-based ordinal of the row within its new container
+    attribute new-position { xsd:integer }
+  }
+
+## Specification of the insertion of a column into a table
+column-insert =
+  element column-insert {
+    ## Zero-based index of the grid column to insert the column at
+    attribute position { xsd:integer },
+    ## A template cell used as the initial content of the created cells; omitted = empty text cells
+    ( td | th )?
+  }
+
+## Specification of the deletion of a column from a table
+column-delete =
+  element column-delete {
+    ## Zero-based index of the grid column to be deleted
+    attribute position { xsd:integer }
+  }
+
+## Specification of moving a column to another grid position
+column-move =
+  element column-move {
+    ## Zero-based index of the grid column to be moved
+    attribute old-position { xsd:integer },
+    ## Zero-based grid column index the column is moved to
+    attribute new-position { xsd:integer }
+  }
+
+## Specification of the replacement of a single cell
+cell-update =
+  element cell-update {
+    ## Zero-based index of the grid row of the cell's origin slot
+    attribute row { xsd:integer },
+    ## Zero-based index of the grid column of the cell's origin slot
+    attribute column { xsd:integer },
+    ## The cell that replaces the existing cell
+    ( td | th )
+  }
+
+## Grid coordinates of a cell's origin slot
+CellCoordinateAttributes =
+    attribute row { xsd:integer },
+    attribute column { xsd:integer }
+
+## Specification of merging two adjacent cells
+cell-merge =
+  element cell-merge {
+    ## The cell that absorbs the slots of the other cell
+    element from { CellCoordinateAttributes },
+    ## The cell whose slots are absorbed; it ceases to exist
+    element to { CellCoordinateAttributes }
+  }
+
+## Specification of splitting a cell that spans multiple grid slots
+cell-split =
+  element cell-split {
+    ## Zero-based index of the grid row of the cell's origin slot
+    attribute row { xsd:integer },
+    ## Zero-based index of the grid column of the cell's origin slot
+    attribute column { xsd:integer },
+    ## The resulting row span of the cell; omitted = one
+    attribute rows { xsd:integer }?,
+    ## The resulting column span of the cell; omitted = one
+    attribute columns { xsd:integer }?
+  }
+
 }
